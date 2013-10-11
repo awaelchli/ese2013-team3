@@ -6,6 +6,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="title_activity_end_game">EndGameActivity</string>
-    <string name="start_game_button">Start</string>
+    <string name="start_game_button">Start Game</string>
+    <string name="preferences_button">Preferences</string>
+    <string name="saved_games_button">Saved Games</string>
+    <string name="statistics_button">Statistics</string>
+    <string name="friends_button">Friends</string>
 
 </resources>
