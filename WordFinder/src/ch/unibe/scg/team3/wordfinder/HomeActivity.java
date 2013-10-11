@@ -10,8 +10,12 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+<<<<<<< HEAD
         System.out.print("hallo");
         System.out.println("hello");
+=======
+>>>>>>> c7dad01f1bd00caf3cd364e19c797a50146e3b8c
+        
     }
 
 
