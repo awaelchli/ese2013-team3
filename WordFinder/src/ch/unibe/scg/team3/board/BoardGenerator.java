@@ -1,4 +1,4 @@
-package ch.unibe.scg.team3.wordfinder;
+package ch.unibe.scg.team3.board;
 
 import java.util.Random;
 
