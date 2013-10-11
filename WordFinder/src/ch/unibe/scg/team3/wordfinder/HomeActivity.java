@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class HomeActivity extends Activity {
 
@@ -13,7 +14,7 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);        
     }
-    protected void startGame(){
+    public void startGame(View view){
     	Intent intent = new Intent(this, GameActivity.class);
     	startActivity(intent);
     }
