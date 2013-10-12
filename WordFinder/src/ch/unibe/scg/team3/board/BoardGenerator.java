@@ -2,7 +2,14 @@ package ch.unibe.scg.team3.board;
 
 import java.util.Random;
 
+/**
+ * 
+ * @author viviane
+ *
+ */
 public class BoardGenerator {
+	
+	
 	
 	public char[][] getBoard(int size){
 		
