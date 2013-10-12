@@ -1,5 +1,10 @@
 package ch.unibe.scg.team3.board;
 
+/**
+ * 
+ * @author adrian
+ *
+ */
 public class Board {
 
 	private IToken[][] tokens;
@@ -25,13 +30,18 @@ public class Board {
 		return size > 0;
 	}
 	
+	private boolean inRange(int row, int col){
+		return 0 <= row && 0 <= col && row < size && col < size;
+	}
+	
 	public void setToken(IToken tok, int row, int col){
-		//TODO: implement setToken
+		assert tok != null;
+		assert inRange(row, col);
+		tokens[row][col] = tok;
 	}
 	
 	public IToken getToken(int row, int col){
-		assert row >= 0 && row < size;
-		assert col >= 0 && col < size;
+		assert inRange(row, col);
 		
 		return tokens[row][col];
 	}
@@ -48,7 +58,4 @@ public class Board {
 		
 		return sb.toString();
 	}
-	
-	
-	
 }

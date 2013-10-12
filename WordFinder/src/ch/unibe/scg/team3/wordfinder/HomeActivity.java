@@ -14,11 +14,11 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);        
     }
+    
     public void startGame(View view){
     	Intent intent = new Intent(this, GameActivity.class);
     	startActivity(intent);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

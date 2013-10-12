@@ -1,5 +1,10 @@
 package ch.unibe.scg.team3.board;
 
+/**
+ * 
+ * @author adrian
+ *
+ */
 public class NullToken implements IToken {
 	
 	private static final NullToken INSTANCE = new NullToken();
