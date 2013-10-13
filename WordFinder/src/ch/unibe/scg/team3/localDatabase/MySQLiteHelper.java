@@ -6,6 +6,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * 
+ * @author nils
+ * 
+ */
+
 public class MySQLiteHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME ="localDatabase.db";
 	private static final int DATABASE_VERSION=1;
