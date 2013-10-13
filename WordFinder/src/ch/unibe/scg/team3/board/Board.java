@@ -1,5 +1,8 @@
 package ch.unibe.scg.team3.board;
 
+import token.IToken;
+import token.NullToken;
+
 /**
  * 
  * @author adrian

@@ -2,6 +2,8 @@ package ch.unibe.scg.team3.board;
 
 import java.util.Random;
 
+import token.Token;
+
 /**
  * 
  * @author adrian

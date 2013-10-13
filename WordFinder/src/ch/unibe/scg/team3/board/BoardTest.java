@@ -5,8 +5,15 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import token.Token;
+
 import ch.unibe.jexample.JExample;
 
+/**
+ * 
+ * @author adrian
+ * 
+ */
 @RunWith(JExample.class)
 public class BoardTest {
 
