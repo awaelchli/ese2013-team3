@@ -11,5 +11,6 @@
     <string name="saved_games_button">Saved Games</string>
     <string name="statistics_button">Statistics</string>
     <string name="friends_button">Friends</string>
+    <string name="title_activity_preferences">PreferencesActivity</string>
 
 </resources>
