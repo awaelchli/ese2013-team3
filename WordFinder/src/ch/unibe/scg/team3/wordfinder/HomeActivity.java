@@ -1,6 +1,7 @@
 package ch.unibe.scg.team3.wordfinder;
 
 
+import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +14,13 @@ import android.view.View;
  * 
  */
 public class HomeActivity extends Activity {
-
+	MySQLiteHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);        
+        setContentView(R.layout.activity_home);   
+        db = new MySQLiteHelper(this);
+        
     }
     
     public void startGame(View view){

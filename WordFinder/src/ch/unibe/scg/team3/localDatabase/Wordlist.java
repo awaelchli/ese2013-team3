@@ -1,5 +1,6 @@
 package ch.unibe.scg.team3.localDatabase;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * @author nils
  * 
  */
-public class Wordlist {
+public class Wordlist implements Serializable{
 	private String name;
 	private ArrayList<String> content;
 
@@ -54,6 +55,13 @@ public class Wordlist {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	public void setWordlistFromString(String wordlist){
+		content = new ArrayList<String>();
+		String[] tmp = wordlist.split(";");
+		for(int i = 0;i<tmp.length;i++){
+			content.add(tmp[i]);
+		}
 	}
 
 	
