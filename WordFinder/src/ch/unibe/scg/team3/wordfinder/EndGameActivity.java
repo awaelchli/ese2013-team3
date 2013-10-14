@@ -1,8 +1,10 @@
 package ch.unibe.scg.team3.wordfinder;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 /**
 @author lukas
 */
@@ -21,5 +23,14 @@ public class EndGameActivity extends Activity {
 		getMenuInflater().inflate(R.menu.end_game, menu);
 		return true;
 	}
+	
+	public void startGame(View view){
+    	Intent intent = new Intent(this, GameActivity.class);
+    	startActivity(intent);
+    }
+    public void home(View view){
+    	Intent intent = new Intent(this, HomeActivity.class);
+    	startActivity(intent);
+    }
 
 }
