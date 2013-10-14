@@ -31,7 +31,8 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/preferences_button" />
+            android:text="@string/preferences_button" 
+            android:onClick="startPreferences"/>
 
         <Button
             android:id="@+id/saved_games_button"

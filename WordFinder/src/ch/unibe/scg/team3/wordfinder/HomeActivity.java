@@ -24,6 +24,10 @@ public class HomeActivity extends Activity {
     	Intent intent = new Intent(this, GameActivity.class);
     	startActivity(intent);
     }
+    public void startPreferences(View view){
+    	Intent intent = new Intent(this, PreferencesActivity.class);
+    	startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
