@@ -9,6 +9,7 @@
 # eclipse and setting files
 */eclipse
 */bin
+*/gen
 *.launch
 .settings/
 .metadata
