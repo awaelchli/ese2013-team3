@@ -9,13 +9,4 @@
     tools:context=".PreferencesActivity" >
 
 
-        <ListView
-            android:id="@+id/listView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            tools:listitem="@android:layout/simple_list_item_2" >
-        </ListView>
-
 </RelativeLayout>
