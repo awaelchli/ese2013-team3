@@ -30,6 +30,10 @@
             android:name="ch.unibe.scg.team3.wordfinder.EndGameActivity"
             android:label="@string/title_activity_end_game" >
         </activity>
+        <activity
+            android:name="ch.unibe.scg.team3.wordfinder.PreferencesActivity"
+            android:label="@string/title_activity_preferences" >
+        </activity>
     </application>
 
 </manifest>

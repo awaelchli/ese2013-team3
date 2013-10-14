@@ -24,9 +24,10 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f050006;
+        public static final int action_settings=0x7f050007;
         public static final int friends_button=0x7f050005;
         public static final int linearLayout1=0x7f050001;
+        public static final int listView1=0x7f050006;
         public static final int preferences_button=0x7f050002;
         public static final int saved_games_button=0x7f050003;
         public static final int start_game_button=0x7f050000;
@@ -36,11 +37,13 @@ public final class R {
         public static final int activity_end_game=0x7f030000;
         public static final int activity_game=0x7f030001;
         public static final int activity_home=0x7f030002;
+        public static final int activity_preferences=0x7f030003;
     }
     public static final class menu {
         public static final int end_game=0x7f080000;
         public static final int game=0x7f080001;
         public static final int home=0x7f080002;
+        public static final int preferences=0x7f080003;
     }
     public static final class string {
         public static final int action_settings=0x7f060001;
@@ -53,6 +56,7 @@ public final class R {
         public static final int statistics_button=0x7f060008;
         public static final int title_activity_end_game=0x7f060004;
         public static final int title_activity_game=0x7f060003;
+        public static final int title_activity_preferences=0x7f06000a;
     }
     public static final class style {
         /** 
