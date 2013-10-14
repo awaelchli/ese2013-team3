@@ -1,8 +1,11 @@
 package ch.unibe.scg.team3.wordfinder;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
+/**
+@author lukas
+*/
 
 public class EndGameActivity extends Activity {
 
