@@ -12,7 +12,7 @@ public class Wordlist implements Serializable{
 	private String name;
 	private ArrayList<String> content;
 
-	Wordlist(String name, ArrayList<String> content) {
+	public Wordlist(String name, ArrayList<String> content) {
 		this.name = name;
 		this.content = content;
 		sort();

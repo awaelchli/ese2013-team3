@@ -54,6 +54,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_WORDLIST_TABLE);
 
 	}
+	public void reset(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("DROP TABLE IF EXISTS " + WORDLISTS);
+		
+		onCreate(db);
+		db.close();
+	}
+	
 
 	public void addWordlist(Wordlist wordlist) {
 
