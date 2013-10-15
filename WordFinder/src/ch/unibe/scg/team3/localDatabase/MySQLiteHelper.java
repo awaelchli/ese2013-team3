@@ -5,7 +5,6 @@ import java.util.List;
 
 import ch.unibe.scg.team3.wordlist.*;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -20,16 +19,16 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
-	
-//	private static final MySQLiteHelper instance = new MySQLiteHelper();
+
+	// private static final MySQLiteHelper instance = new MySQLiteHelper();
 
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
-	
-//	public static MySQLiteHelper getInstance(){
-//		return instance;
-//	}
+
+	// public static MySQLiteHelper getInstance(){
+	// return instance;
+	// }
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
@@ -38,16 +37,21 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				+ W_COLUMN_ID + " INTEGER PRIMARY KEY," + W_COLUMN_NAME
 				+ " TEXT," + W_COLUMN_CONTENT + " INTEGER" + ")";
 		db.execSQL(CREATE_WORDLIST_TABLE);
+		initDB();
 
 	}
-	public void reset(){
+
+	private void initDB() {
+
+	}
+
+	public void reset() {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.execSQL("DROP TABLE IF EXISTS " + WORDLISTS);
-		
+
 		onCreate(db);
 		db.close();
 	}
-	
 
 	public void addWordlist(Wordlist wordlist) {
 
@@ -75,7 +79,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				String words = cursor.getString(2);
 				WordlistBuilder builder = new WordlistBuilder(name);
 				builder.addWords(words);
-				
+
 				Wordlist wordlist = builder.getWordlist();
 				wordlists.add(wordlist);
 			} while (cursor.moveToNext());
@@ -90,7 +94,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	private static final String DATABASE_NAME = "localDatabase.db";
 	private static final int DATABASE_VERSION = 1;
 
