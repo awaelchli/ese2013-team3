@@ -8,6 +8,11 @@ import org.junit.runner.RunWith;
 import ch.unibe.jexample.Given;
 import ch.unibe.jexample.JExample;
 
+/**
+ * 
+ * @author adrian
+ *
+ */
 @RunWith(JExample.class)
 public class WordlistTest {
 
