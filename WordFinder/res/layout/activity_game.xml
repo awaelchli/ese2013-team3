@@ -69,17 +69,17 @@
     </TableLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/tableLayout1" >
 
         <Button
             android:id="@+id/quit_button"
-            android:layout_width="284dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/quit_button"
-            android:onClick="quit" />
+            android:onClick="quit"/>
 
     </LinearLayout>
 

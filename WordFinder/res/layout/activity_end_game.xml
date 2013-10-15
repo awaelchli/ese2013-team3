@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.33"
                 android:text="@string/ok_button" 
-                android:onClick="home"/>
+                android:onClick="goHome"/>
 
             <Button
                 android:id="@+id/play_again_button"

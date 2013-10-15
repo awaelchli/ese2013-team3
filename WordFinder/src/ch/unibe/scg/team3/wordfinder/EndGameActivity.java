@@ -27,10 +27,12 @@ public class EndGameActivity extends Activity {
 	public void startGame(View view){
     	Intent intent = new Intent(this, GameActivity.class);
     	startActivity(intent);
+    	finish();
     }
-    public void home(View view){
+    public void goHome(View view){
     	Intent intent = new Intent(this, HomeActivity.class);
     	startActivity(intent);
+    	finish();
     }
 
 }

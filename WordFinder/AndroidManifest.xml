@@ -25,10 +25,19 @@
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.GameActivity"
             android:label="@string/title_activity_game" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+	            android:name="android.support.PARENT_ACTIVITY"
+	            android:value="ch.unibe.scg.team3.wordfinder.HomeActivity" />
+       
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.EndGameActivity"
             android:label="@string/title_activity_end_game" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+	            android:name="android.support.PARENT_ACTIVITY"
+	            android:value="ch.unibe.scg.team3.wordfinder.HomeActivity" />
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.PreferencesActivity"

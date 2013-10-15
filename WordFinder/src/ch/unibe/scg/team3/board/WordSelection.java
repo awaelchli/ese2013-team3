@@ -15,7 +15,7 @@ public class WordSelection {
 	private List<IToken> selection;
 	
 	public WordSelection(){
-		selection = new ArrayList<IToken>();
+		this.selection = new ArrayList<IToken>();
 	}
 	
 	public void addToken(IToken tok){
@@ -31,7 +31,7 @@ public class WordSelection {
 		
 		int sum = 0;
 		
-		for(IToken tok : selection){
+		for(IToken tok : this.selection){
 			sum += tok.getValue();
 		}
 		
@@ -43,7 +43,7 @@ public class WordSelection {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		for(IToken tok : selection){
+		for(IToken tok : this.selection){
 			sb.append(tok.toString());
 		}
 		

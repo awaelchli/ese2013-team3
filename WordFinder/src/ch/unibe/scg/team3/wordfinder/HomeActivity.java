@@ -1,8 +1,8 @@
 package ch.unibe.scg.team3.wordfinder;
 
 
+import wordlist.Wordlist;
 import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
-import ch.unibe.scg.team3.localDatabase.Wordlist;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +25,6 @@ public class HomeActivity extends Activity {
     }
     
     public void startGame(View view){
-    	
     	Intent intent = new Intent(this, GameActivity.class);
     	startActivity(intent);
     }

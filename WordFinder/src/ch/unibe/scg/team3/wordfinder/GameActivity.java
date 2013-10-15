@@ -16,6 +16,7 @@ public class GameActivity extends Activity {
 	public void quit(View view){
 		Intent intent = new Intent(this, EndGameActivity.class);
     	startActivity(intent);
+    	finish();
 	}
 
 	@Override
