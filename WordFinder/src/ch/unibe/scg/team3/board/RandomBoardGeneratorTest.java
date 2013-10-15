@@ -32,7 +32,7 @@ public class RandomBoardGeneratorTest {
 	
 	@Test 
 	public void testBoardNoNullToken(){
-		RandomBoardGenerator r = new RandomBoardGenerator(60);
+		RandomBoardGenerator r = new RandomBoardGenerator(100);
 		r.generate();
 		
 		Board board = r.getBoard();
