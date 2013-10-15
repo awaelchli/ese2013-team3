@@ -17,6 +17,7 @@
     	    android:layout_weight="1"
     	    android:clickable="false"
     	    android:gravity="center"
+    	    android:background="@drawable/buttonlayout"
     	    android:text="A" />
 
     	<ch.unibe.scg.team3.wordfinder.SquareField
@@ -24,6 +25,7 @@
     	    android:layout_weight="1"
     	    android:clickable="false"
     	    android:gravity="center"
+    	    android:background="@drawable/buttonlayout"
     	    android:text="B" />
 
     	<ch.unibe.scg.team3.wordfinder.SquareField
@@ -31,24 +33,28 @@
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="C" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button4"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="D" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button5"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="E" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button6"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="F" />
     </ch.unibe.scg.team3.wordfinder.SquareRow>
     <ch.unibe.scg.team3.wordfinder.SquareRow
@@ -59,36 +65,42 @@
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="G" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button8"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="H" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button9"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="I" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button10"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="J" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button11"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="K" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button12"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="L" />
     </ch.unibe.scg.team3.wordfinder.SquareRow>
     <ch.unibe.scg.team3.wordfinder.SquareRow
@@ -99,36 +111,42 @@
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="M" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button14"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="N" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button15"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="O" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button16"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="P" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button17"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="Q" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button18"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="R" />
     </ch.unibe.scg.team3.wordfinder.SquareRow>
     <ch.unibe.scg.team3.wordfinder.SquareRow
@@ -139,36 +157,42 @@
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="S" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button20"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="T" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button21"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="U" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button22"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="V" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button23"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="W" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button24"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="X" />
     </ch.unibe.scg.team3.wordfinder.SquareRow>
     <ch.unibe.scg.team3.wordfinder.SquareRow
@@ -179,36 +203,42 @@
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="Y" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button26"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="Z" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button27"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="A" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button28"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="B" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button29"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="C" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button30"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="D" />
     </ch.unibe.scg.team3.wordfinder.SquareRow>
     <ch.unibe.scg.team3.wordfinder.SquareRow
@@ -219,36 +249,42 @@
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="E" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button32"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="F" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button33"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="G" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button34"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="H" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button35"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="I" />
     	<ch.unibe.scg.team3.wordfinder.SquareField
     		android:id="@+id/button36"
     		android:layout_weight="1"
     		android:clickable="false"
     		android:gravity="center"
+    		android:background="@drawable/buttonlayout"
     		android:text="J" />
     </ch.unibe.scg.team3.wordfinder.SquareRow>
 </TableLayout>

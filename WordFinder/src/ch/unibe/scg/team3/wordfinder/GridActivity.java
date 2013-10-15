@@ -55,7 +55,7 @@ import android.widget.TableLayout;
     	case MotionEvent.ACTION_UP:
     		System.out.println(this.walked);
     		for (int i=0;i<this.walked.size();i++) {
-    			this.walked.get(i).setBackgroundColor(Color.WHITE);
+    			this.walked.get(i).setBackground(getResources().getDrawable(R.drawable.buttonlayout));
     		}
     		break;
     	default:
@@ -88,7 +88,7 @@ import android.widget.TableLayout;
                     	}
                 		if (!isInList) {
                 			this.walked.add(fview);
-                			fview.setBackgroundColor(Color.GRAY);
+                			fview.setBackground(getResources().getDrawable(R.drawable.buttonlayout_walked));
                 		}
                 		break;
                     }
