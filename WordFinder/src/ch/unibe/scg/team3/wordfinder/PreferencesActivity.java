@@ -1,5 +1,6 @@
 package ch.unibe.scg.team3.wordfinder;
 
+import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,11 +10,12 @@ import android.view.Menu;
  * 
  */
 public class PreferencesActivity extends Activity {
-
+	MySQLiteHelper db;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_preferences);
+		db = new MySQLiteHelper(this);
 	}
 
 	@Override

@@ -21,26 +21,17 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);   
         db = new MySQLiteHelper(this);
-        resetdb();
         
     }
     
     public void startGame(View view){
     	
-         Wordlist test = new Wordlist("test", null);
-         test.setWordlistFromString("on,up,down");
-         db.addWordlist(test);
-         
     	Intent intent = new Intent(this, GameActivity.class);
-    	intent.putExtra("wordlist", db.getAllWordlists().get(0));
     	startActivity(intent);
     }
     public void startPreferences(View view){
     	Intent intent = new Intent(this, PreferencesActivity.class);
     	startActivity(intent);
-    }
-    public void resetdb(){
-    	db.reset();
     }
 
     @Override
