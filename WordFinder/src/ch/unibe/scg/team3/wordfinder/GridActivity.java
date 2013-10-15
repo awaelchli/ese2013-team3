@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import ch.unibe.scg.team3.game.GameManager;
+
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;

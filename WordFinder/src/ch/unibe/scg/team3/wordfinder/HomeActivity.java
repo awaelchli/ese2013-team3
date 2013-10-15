@@ -21,7 +21,6 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);   
         db = new MySQLiteHelper(this);
-        
     }
     
     public void startGame(View view){
