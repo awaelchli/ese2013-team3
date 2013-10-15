@@ -3,7 +3,6 @@ package ch.unibe.scg.team3.wordfinder;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Button;
-import android.widget.TextView;
 
 public class SquareField extends Button {
 
