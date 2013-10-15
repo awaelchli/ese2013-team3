@@ -28,7 +28,7 @@ public class HomeActivity extends Activity {
     public void startGame(View view){
     	
          Wordlist test = new Wordlist("test", null);
-         test.setWordlistFromString("bla,bla,bla");
+         test.setWordlistFromString("on,up,down");
          db.addWordlist(test);
          
     	Intent intent = new Intent(this, GameActivity.class);

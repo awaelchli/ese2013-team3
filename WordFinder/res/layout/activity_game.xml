@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="fill_vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -18,35 +19,34 @@
             android:id="@+id/tableRow1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
-            
-            <Button 
+
+            <Button
                 android:id="@+id/TokenButton00"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="00"/>
-            
-            <Button 
+                android:text="00" />
+
+            <Button
                 android:id="@+id/TokenButton01"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="01"/>
-            
-            <Button 
+                android:text="01" />
+
+            <Button
                 android:id="@+id/TokenButton02"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="02"/>
-            
-            <Button 
+                android:text="02" />
+
+            <Button
                 android:id="@+id/TokenButton03"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="03"/>
-            
+                android:text="03" />
         </TableRow>
 
         <TableRow
@@ -67,5 +67,20 @@
             android:layout_height="wrap_content" >
         </TableRow>
     </TableLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/tableLayout1" >
+
+        <Button
+            android:id="@+id/quit_button"
+            android:layout_width="284dp"
+            android:layout_height="wrap_content"
+            android:text="@string/quit_button"
+            android:onClick="quit" />
+
+    </LinearLayout>
 
 </RelativeLayout>
