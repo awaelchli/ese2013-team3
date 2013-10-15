@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class SquareField extends TextView {
+public class SquareField extends Button {
 
 	public SquareField(Context context, AttributeSet attrs) {
 		super(context, attrs);
