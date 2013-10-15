@@ -61,7 +61,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	}
 
 	public List<Wordlist> getAllWordlists() {
-		ArrayList<Wordlist> wordLists = new ArrayList<Wordlist>();
+		ArrayList<Wordlist> wordlists = new ArrayList<Wordlist>();
 		// Select All Query
 		String selectQuery = "SELECT * FROM " + WORDLISTS;
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -72,18 +72,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			do {
 				String name = cursor.getString(1);
 				String words = cursor.getString(2);
-//				wordlist.setName(cursor.getString(1));
 				WordListBuilder builder = new WordListBuilder(name);
 				builder.addWords(words);
 				
 				Wordlist wordlist = builder.getWordlist();
-//				wordlist.setWordlistFromString(cursor.getString(2));
-//				wordLists.add(wordlist);
+				wordlists.add(wordlist);
 			} while (cursor.moveToNext());
 		}
 
 		// return contact list
-		return wordLists;
+		return wordlists;
 	}
 
 	@Override

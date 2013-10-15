@@ -27,7 +27,9 @@ public class Wordlist {
 	}
 
 	public void addWord(String word) {
-		content.add(word);
+		if(!content.contains(word)){
+			content.add(word);
+		}
 	}
 
 	public void removeWord(String word) {
@@ -39,12 +41,8 @@ public class Wordlist {
 	}
 	@Override
 	public String toString() {
+		//TODO: formatierte ausgabe
 		return this.name;
-//		String wordlist = this.name;
-//		for (int i = 0; i < content.size(); i++) {
-//			wordlist = wordlist + ", " + content.get(i);
-//		}
-//		return wordlist;
 	}
 
 	public String getName() {
@@ -58,10 +56,6 @@ public class Wordlist {
 			sb.append(word);
 			sb.append(WORD_SEPARATOR);
 		}
-		
-//		for (int i = 1; i < content.size(); i++) {
-//			wordlist = wordlist + ", " + content.get(i);
-//		}
 		return sb.toString();
 	}
 
