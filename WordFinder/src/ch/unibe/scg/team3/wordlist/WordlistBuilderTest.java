@@ -51,13 +51,11 @@ public class WordlistBuilderTest {
 	
 	@Test
 	public void testBuildEnglishWordlist() throws FileNotFoundException{
-		Scanner read = new Scanner(new File("res/raw/English.txt"));
+		File file = new File("res/raw/English.txt");
 		
 		WordlistBuilder builder = new WordlistBuilder("English");
 		
-		while(read.hasNext()){
-			builder.addWords(read.next());
-		}
+		builder.addWords(file);
 	}
 	
 }
