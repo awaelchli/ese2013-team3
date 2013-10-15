@@ -51,7 +51,7 @@ public class WordlistBuilderTest {
 	
 	@Test
 	public void testBuildEnglishWordlist() throws FileNotFoundException{
-		File file = new File("res/raw/English.txt");
+		File file = new File("res/raw/english.txt");
 		
 		WordlistBuilder builder = new WordlistBuilder("English");
 		
