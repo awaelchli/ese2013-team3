@@ -25,7 +25,8 @@ public class HomeActivity extends Activity {
     }
     
     public void startGame(View view){
-    	Intent intent = new Intent(this, GameActivity.class);
+    	//Intent intent = new Intent(this, GameActivity.class);
+    	Intent intent = new Intent(this, GridActivity.class);
     	startActivity(intent);
     }
     

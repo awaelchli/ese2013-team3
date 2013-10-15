@@ -16,5 +16,6 @@
     <string name="play_again_button">Play Again</string>
     <string name="share_button">Share</string>
     <string name="quit_button">Quit</string>
+    <string name="title_activity_grid">GridActivity</string>
 
 </resources>
