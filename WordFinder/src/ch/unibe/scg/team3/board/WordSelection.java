@@ -3,7 +3,8 @@ package ch.unibe.scg.team3.board;
 import java.util.ArrayList;
 import java.util.List;
 
-import token.IToken;
+import ch.unibe.scg.team3.token.IToken;
+
 
 /**
  * 

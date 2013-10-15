@@ -1,7 +1,7 @@
 package ch.unibe.scg.team3.board;
 
-import token.IToken;
-import token.NullToken;
+import ch.unibe.scg.team3.token.IToken;
+import ch.unibe.scg.team3.token.NullToken;
 
 /**
  * 

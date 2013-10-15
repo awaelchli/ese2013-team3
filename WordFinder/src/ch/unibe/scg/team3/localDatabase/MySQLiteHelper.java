@@ -3,7 +3,8 @@ package ch.unibe.scg.team3.localDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import wordlist.*;
+import ch.unibe.scg.team3.wordlist.*;
+
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -72,7 +73,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			do {
 				String name = cursor.getString(1);
 				String words = cursor.getString(2);
-				WordListBuilder builder = new WordListBuilder(name);
+				WordlistBuilder builder = new WordlistBuilder(name);
 				builder.addWords(words);
 				
 				Wordlist wordlist = builder.getWordlist();

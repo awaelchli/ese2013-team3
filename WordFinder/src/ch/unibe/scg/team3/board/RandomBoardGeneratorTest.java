@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import token.IToken;
-import token.NullToken;
 import ch.unibe.jexample.JExample;
+import ch.unibe.scg.team3.token.IToken;
+import ch.unibe.scg.team3.token.NullToken;
 
 /**
  * 

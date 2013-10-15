@@ -1,8 +1,8 @@
 package ch.unibe.scg.team3.wordfinder;
 
 
-import wordlist.Wordlist;
 import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
+import ch.unibe.scg.team3.wordlist.Wordlist;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

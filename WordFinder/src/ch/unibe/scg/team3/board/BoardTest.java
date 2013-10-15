@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import token.Token;
 import ch.unibe.jexample.JExample;
+import ch.unibe.scg.team3.token.Token;
 
 /**
  * 
