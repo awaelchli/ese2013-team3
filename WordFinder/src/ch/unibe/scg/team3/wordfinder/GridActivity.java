@@ -89,7 +89,6 @@ import android.widget.TableLayout;
                 		if (!isInList) {
                 			this.walked.add(fview);
                 			fview.setBackgroundColor(Color.GRAY);
-                			fview.set
                 		}
                 		break;
                     }
