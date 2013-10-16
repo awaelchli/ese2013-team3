@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import ch.unibe.scg.team3.game.GameManager;
-
-import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.TableLayout;
+import ch.unibe.scg.team3.game.GameManager;
 
 /**
 @author nfaerber
@@ -92,7 +91,7 @@ import android.widget.TableLayout;
     	case MotionEvent.ACTION_UP:
     		System.out.println(this.walked);
     		for (int i=0;i<this.walked.size();i++) {
-    			this.walked.get(i).setBackground(getResources().getDrawable(R.drawable.buttonlayout));
+    			this.walked.get(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout));
     			int[] test = this.walked_coordinates.get(i);
     			System.out.println("coordinates:");
     			System.out.println(test[0]);
@@ -130,7 +129,7 @@ import android.widget.TableLayout;
                 		if (!isInList) {
                 			this.walked.add(fview);
                 			this.walked_coordinates.add(this.hmap.get((String)(fview.getTag())));
-                			fview.setBackground(getResources().getDrawable(R.drawable.buttonlayout_walked));
+                			fview.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout_walked));
                 		}
                 		break;
                     }

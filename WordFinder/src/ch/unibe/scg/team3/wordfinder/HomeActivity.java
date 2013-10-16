@@ -1,13 +1,12 @@
 package ch.unibe.scg.team3.wordfinder;
 
 
-import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
-import ch.unibe.scg.team3.wordlist.Wordlist;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
 
 /**
  * 
@@ -21,6 +20,8 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);   
         db = new MySQLiteHelper(this);
+        db.getReadableDatabase();
+        db.close();
     }
     
     public void startGame(View view){

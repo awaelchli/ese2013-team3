@@ -4,13 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.unibe.scg.team3.wordlist.*;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import ch.unibe.scg.team3.wordlist.Wordlist;
+import ch.unibe.scg.team3.wordlist.WordlistBuilder;
 
 /**
  * 
@@ -56,8 +56,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		addWordlist(german);
 	}
 
-	public void reset() {
-		SQLiteDatabase db = this.getWritableDatabase();
+	public void reset(SQLiteDatabase db) {
+		//File file = new
+		//db.deleteDatabase(db.getPath());
 		db.execSQL("DROP TABLE IF EXISTS " + WORDLISTS);
 
 		onCreate(db);

@@ -1,9 +1,9 @@
 package ch.unibe.scg.team3.wordfinder;
 
-import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
 /**
  * 
  * @author nils
