@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 /**
-@author lukas
+ * @author lukas
 */
 
 public class EndGameActivity extends Activity {
@@ -25,7 +25,7 @@ public class EndGameActivity extends Activity {
 	}
 	
 	public void startGame(View view){
-    	Intent intent = new Intent(this, GameActivity.class);
+    	Intent intent = new Intent(this, GridActivity.class);
     	startActivity(intent);
     	finish();
     }

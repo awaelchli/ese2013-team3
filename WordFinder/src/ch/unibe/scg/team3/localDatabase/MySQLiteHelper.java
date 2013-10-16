@@ -43,17 +43,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	}
 
 	private void initDB() {
-		File file1 = new File("res/raw/english.txt");
-		WordlistBuilder builder1 = new WordlistBuilder("English");
-		builder1.addWords(file1);
-		Wordlist english = builder1.getWordlist();
-		addWordlist(english);
-		
-		File file2 = new File("res/raw/german.txt");
-		WordlistBuilder builder2 = new WordlistBuilder("German");
-		builder2.addWords(file2);
-		Wordlist german = builder2.getWordlist();
-		addWordlist(german);
+//		File file1 = new File("res/raw/english.txt");
+//		WordlistBuilder builder1 = new WordlistBuilder("English");
+//		builder1.addWords(file1);
+//		Wordlist english = builder1.getWordlist();
+//		addWordlist(english);
+//		
+//		File file2 = new File("res/raw/german.txt");
+//		WordlistBuilder builder2 = new WordlistBuilder("German");
+//		builder2.addWords(file2);
+//		Wordlist german = builder2.getWordlist();
+//		addWordlist(german);
 	}
 
 	public void reset(SQLiteDatabase db) {

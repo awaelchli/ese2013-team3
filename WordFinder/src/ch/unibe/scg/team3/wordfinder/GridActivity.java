@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Menu;
@@ -139,5 +140,11 @@ import ch.unibe.scg.team3.game.GameManager;
         }
         return true;
     }
+    
+    public void quit(View view){
+		Intent intent = new Intent(this, EndGameActivity.class);
+    	startActivity(intent);
+    	finish();
+	}
 }
 
