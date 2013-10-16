@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import ch.unibe.scg.team3.game.GameManager;
 
@@ -20,25 +20,91 @@ import ch.unibe.scg.team3.game.GameManager;
 @author nfaerber
 */
 
-@SuppressLint("NewApi") public class GridActivity extends Activity implements OnTouchListener {
+@SuppressLint("NewApi") public class GridActivity extends Activity {
 
 	List<View> walked;
 	/** The following list walked_coordinates is interesting for the manager!!
+	 	Use GridActivity.getCoordinates() to retrieve the coordinates.
 		It contains the coordinates of the walked fields.
 		Each element in the list is an Integer array with two elements: {row,column}
 		The top left field has coordinates {0,0}, the bottom right field has
 		coordinates {5,5}! 
 		The list elements order is the order in that the corresponding
-		fields were walked **/
+		fields were walked.
+	**/
 	List<int[]> walked_coordinates;
+	/**
+	  	Adapt this value in the onCreate() method if your fingers are too fat!
+	 */
+	int finger_padding;
 	HashMap<String, int[]> hmap;
 	GameManager manager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid);
-        findViewById(R.id.tableBoard).setOnTouchListener(this);
+        ViewGroup board = (ViewGroup)findViewById(R.id.tableBoard);
+        board.setOnTouchListener(new View.OnTouchListener() {
+        	@Override
+            public boolean onTouch(View v, MotionEvent event) {  
+            	
+            	boolean isInList = false;
+            	
+            	switch (event.getAction()) {
+            	case MotionEvent.ACTION_DOWN:
+            		walked = new ArrayList<View>();
+            		walked_coordinates = new ArrayList<int[]>();
+            	case MotionEvent.ACTION_MOVE:
+            		break;
+            	case MotionEvent.ACTION_UP:
+            		for (int i=0;i<walked.size();i++) {
+            			walked.get(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout));
+            		}
+            		return true;
+            	default:
+            		return false;
+            	}
+            	
+                TableLayout layout = (TableLayout)v;
+                for(int i =0; i< layout.getChildCount(); i++)
+                {
+                    View rview = layout.getChildAt(i);
+                    Rect rrect = new Rect(rview.getLeft(), rview.getTop(), rview.getRight(), rview.getBottom());
+                    if(rrect.contains((int)event.getX(), (int)event.getY()))
+                    {
+                        SquareRow srow = (SquareRow)rview;
+                        for(int j =0; j< srow.getChildCount(); j++)
+                        {
+                            View fview = srow.getChildAt(j);
+                            Rect frect;
+                            if (i==0) {
+                            	frect = new Rect(fview.getLeft()+finger_padding, fview.getTop()+finger_padding, fview.getRight()-finger_padding, fview.getBottom()-finger_padding);
+                            } else {
+                            	frect = new Rect(fview.getLeft()+finger_padding, fview.getTop()+finger_padding, fview.getRight()-finger_padding, fview.getBottom()+rview.getBottom()-finger_padding);
+                            }
+                            if(frect.contains((int)event.getX(), (int)event.getY()))
+                            {
+                            	for (int k=0; k<walked.size();k++) {
+                            		if (walked.get(k).equals(fview)) {
+                            			isInList = true;
+                            		}
+                            	}
+                        		if (!isInList) {
+                        			walked.add(fview);
+                        			walked_coordinates.add(hmap.get((String)(fview.getTag())));
+                        			fview.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout_walked));
+                        		}
+                        		break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                return true;
+            }
+		});
         createHashMap();
+        this.finger_padding = 20;
     }
     
     public void createHashMap() {
@@ -78,67 +144,8 @@ import ch.unibe.scg.team3.game.GameManager;
     	return re;
     }
     
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {  
-    	
-    	boolean isInList = false;
-    	
-    	switch (event.getAction()) {
-    	case MotionEvent.ACTION_DOWN:
-    		this.walked = new ArrayList<View>();
-    		this.walked_coordinates = new ArrayList<int[]>();
-    	case MotionEvent.ACTION_MOVE:
-    		break;
-    	case MotionEvent.ACTION_UP:
-    		System.out.println(this.walked);
-    		for (int i=0;i<this.walked.size();i++) {
-    			this.walked.get(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout));
-    			int[] test = this.walked_coordinates.get(i);
-    			System.out.println("coordinates:");
-    			System.out.println(test[0]);
-    			System.out.println(test[1]);
-    		}
-    		return true;
-    	default:
-    		return false;
-    	}
-    	
-        TableLayout layout = (TableLayout)v;
-        for(int i =0; i< layout.getChildCount(); i++)
-        {
-            View rview = layout.getChildAt(i);
-            Rect rrect = new Rect(rview.getLeft(), rview.getTop(), rview.getRight(), rview.getBottom());
-            if(rrect.contains((int)event.getX(), (int)event.getY()))
-            {
-                SquareRow srow = (SquareRow)rview;
-                for(int j =0; j< srow.getChildCount(); j++)
-                {
-                    View fview = srow.getChildAt(j);
-                    Rect frect;
-                    if (i==0) {
-                    	frect = new Rect(fview.getLeft()+10, fview.getTop()+10, fview.getRight()-10, fview.getBottom()-10);
-                    } else {
-                    	frect = new Rect(fview.getLeft()+10, fview.getTop()+rview.getTop()+10, fview.getRight()-10, fview.getBottom()+rview.getBottom()-10);
-                    }
-                    if(frect.contains((int)event.getX(), (int)event.getY()))
-                    {
-                    	for (int k=0; k<this.walked.size();k++) {
-                    		if (this.walked.get(k).equals(fview)) {
-                    			isInList = true;
-                    		}
-                    	}
-                		if (!isInList) {
-                			this.walked.add(fview);
-                			this.walked_coordinates.add(this.hmap.get((String)(fview.getTag())));
-                			fview.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout_walked));
-                		}
-                		break;
-                    }
-                }
-                break;
-            }
-        }
-        return true;
+    public List getCoordinates() {
+    	return this.walked_coordinates;
     }
     
     public void quit(View view){
