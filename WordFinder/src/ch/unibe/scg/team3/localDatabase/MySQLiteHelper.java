@@ -34,12 +34,20 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// Create Wordlists Table
-		String CREATE_WORDLIST_TABLE = "CREATE TABLE " + WORDLISTS + "("
-				+ W_COLUMN_ID + " INTEGER PRIMARY KEY," + W_COLUMN_NAME
-				+ " TEXT," + W_COLUMN_CONTENT + " INTEGER" + ")";
-		db.execSQL(CREATE_WORDLIST_TABLE);
-		initDB();
-
+		String alphabet = "abcdefghijklmnopqrstuvwxyz";
+		for(int i = 0;i<25;i++){
+			String shorttable = "CREATE TABLE " + alphabet.charAt(i) + 
+									"short(_id INTEGER PRIMARY KEY, Dictionary NUMERIC, " +
+									"Content TEXT";
+			db.execSQL(shorttable);
+			String longtable = "CREATE TABLE " + alphabet.charAt(i) + 
+									"long(_id INTEGER PRIMARY KEY, Dictionary NUMERIC, " +
+									"Content TEXT";
+			db.execSQL(longtable);
+			String dictable ="CREATE TABLE Dictionary (_id INTEGER PRIMARY KEY, Name TEXT)";
+			db.execSQL(dictable);
+			initDB();
+		}
 	}
 
 	private void initDB() {
@@ -57,10 +65,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	}
 
 	public void reset(SQLiteDatabase db) {
-		//File file = new
+		close();
+		File file = new File(db.getPath());
 		//db.deleteDatabase(db.getPath());
-		db.execSQL("DROP TABLE IF EXISTS " + WORDLISTS);
-
+		SQLiteDatabase.deleteDatabase(file);
 		onCreate(db);
 		db.close();
 	}
@@ -110,7 +118,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "localDatabase.db";
 	private static final int DATABASE_VERSION = 1;
 
-	// Wordlist Table
+	// Wordlist Tables
 	private static final String WORDLISTS = "Wordlists";
 	private static final String W_COLUMN_ID = "_id";
 	private static final String W_COLUMN_NAME = "name";

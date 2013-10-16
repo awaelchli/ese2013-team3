@@ -17,5 +17,6 @@
     <string name="share_button">Share</string>
     <string name="quit_button">Quit</string>
     <string name="title_activity_grid">GridActivity</string>
+    <string name="Reset_DB">Reset Database</string>
 
 </resources>

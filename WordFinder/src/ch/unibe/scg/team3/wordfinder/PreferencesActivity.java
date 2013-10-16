@@ -24,5 +24,8 @@ public class PreferencesActivity extends Activity {
 		getMenuInflater().inflate(R.menu.preferences, menu);
 		return true;
 	}
+	private void resetBD(){
+		db.reset(db.getWritableDatabase());
+	}
 
 }
