@@ -3,6 +3,7 @@ package ch.unibe.scg.team3.wordfinder;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
 /**
  * 
@@ -16,6 +17,8 @@ public class PreferencesActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_preferences);
 		db = new MySQLiteHelper(this);
+		db.getWritableDatabase();
+		db.close();
 	}
 
 	@Override
@@ -24,8 +27,9 @@ public class PreferencesActivity extends Activity {
 		getMenuInflater().inflate(R.menu.preferences, menu);
 		return true;
 	}
-	private void resetBD(){
+	public void resetDB(View view){
 		db.reset(db.getWritableDatabase());
+		finish();
 	}
 
 }
