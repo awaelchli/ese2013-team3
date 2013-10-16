@@ -23,11 +23,9 @@ public class BoardGenerator {
 				board[i][j]=(char)(r.nextInt(26) + 'a');
 				
 			}
-			
 		}
 		
 		return board;
-		
 	}
 	
 }
