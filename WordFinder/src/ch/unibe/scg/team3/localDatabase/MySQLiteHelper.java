@@ -34,14 +34,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// Create Wordlists Table
-		String alphabet = "abcdefghijklmnopqrstuvwxyz";
 		for(int i = 0;i<25;i++){
-			String shorttable = "CREATE TABLE " + alphabet.charAt(i) + 
+			String shorttable = "CREATE TABLE " + ALPHABET.charAt(i) + 
 									"short(_id INTEGER PRIMARY KEY, Dictionary NUMERIC, " +
 									"Content TEXT";
 			db.execSQL(shorttable);
-			String longtable = "CREATE TABLE " + alphabet.charAt(i) + 
-									"long(_id INTEGER PRIMARY KEY, Dictionary NUMERIC, " +
+			String longtable = "CREATE TABLE " + ALPHABET.charAt(i) + 
+									"long(_id INTEGER PRIMARY KEY, FOREIGN KEY(Dictionary) REFERENCES Dictionary(_id), " +
 									"Content TEXT";
 			db.execSQL(longtable);
 			String dictable ="CREATE TABLE Dictionary (_id INTEGER PRIMARY KEY, Name TEXT)";
@@ -74,11 +73,21 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 		ContentValues values = new ContentValues();
 		values.put("Name", wordlist.getName());
-		
 		SQLiteDatabase db = this.getWritableDatabase();
-
 		db.insert("Dictionary", null, values);
 		db.close();
+		
+		String content = wordlist.getContent();
+		String[] words = content.split(";");
+		for (int i = 0;i<words.length;i++){
+			if(words[i].length()<5){
+				
+			}
+			else{
+				
+			}
+				
+		}
 	}
 
 	
@@ -92,6 +101,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "localDatabase.db";
 	private static final int DATABASE_VERSION = 1;
+	private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
 	
 
