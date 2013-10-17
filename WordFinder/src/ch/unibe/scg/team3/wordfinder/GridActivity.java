@@ -17,7 +17,7 @@ import android.widget.TableLayout;
 import ch.unibe.scg.team3.game.GameManager;
 
 /**
-@author nfaerber
+@author faerber
 */
 
 @SuppressLint("NewApi") public class GridActivity extends Activity {
