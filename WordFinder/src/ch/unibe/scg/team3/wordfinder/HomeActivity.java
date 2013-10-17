@@ -19,9 +19,9 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);   
-        db = new MySQLiteHelper(this);
-        db.getReadableDatabase();
-        db.close();
+//        db = new MySQLiteHelper(this);
+//        db.getReadableDatabase();
+//        db.close();
     }
     
     public void startGame(View view){
