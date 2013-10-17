@@ -1,6 +1,7 @@
 package ch.unibe.scg.team3.game;
 
 import java.io.File;
+import java.util.List;
 
 import ch.unibe.scg.team3.board.Board;
 import ch.unibe.scg.team3.board.WordSelection;
@@ -26,7 +27,7 @@ public class GameManager {
 		return builder.getWordlist();
 	}
 	
-	public void submitWord(Point[] path) throws SelectionException {
+	public void submitWord(List<Point> path) throws SelectionException {
 		
 		if(!PathChecker.check(path)){
 			throw new PathNotConnectedException();
