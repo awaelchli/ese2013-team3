@@ -11,6 +11,8 @@ import ch.unibe.scg.team3.token.Token;
  * 
  * creates a board with the words 'apple', 'gold', and 'and' in it.
  * 
+ * 
+ * 
  */
 
 public class DummyBoardGenerator extends AbstractBoardGenerator {
