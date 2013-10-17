@@ -7,7 +7,6 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 import ch.unibe.scg.team3.game.GameManager;
+import ch.unibe.scg.team3.game.Point;
+import ch.unibe.scg.team3.game.SelectionException;
 
 /**
 @author faerber
@@ -58,8 +59,13 @@ import ch.unibe.scg.team3.game.GameManager;
             		case MotionEvent.ACTION_MOVE:
             			break;
             		case MotionEvent.ACTION_UP:
-            			for (int i=0;i<walked.size();i++) {
-            				walked.get(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout));
+            			
+            			try {
+            				manager.submitWord(walked_coordinates);
+            			} catch(SelectionException s) {
+                			for (int i=0;i<walked.size();i++) {
+                				walked.get(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout_valid));
+                			}	
             			}
             			return true;
             		default:
@@ -93,7 +99,7 @@ import ch.unibe.scg.team3.game.GameManager;
                         		if (!isInList) {
                         			walked.add(fview);
                         			walked_coordinates.add(hmap.get((String)(fview.getTag())));
-                        			fview.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout_walked));
+                        			fview.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout_walk));
                         		}
                         		break;
                             }
@@ -104,6 +110,7 @@ import ch.unibe.scg.team3.game.GameManager;
                 return true;
             }
 		});
+        manager = new GameManager(6);
         createHashMap();
         this.finger_padding = 20;
     }
