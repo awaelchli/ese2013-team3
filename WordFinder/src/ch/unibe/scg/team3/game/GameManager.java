@@ -2,9 +2,11 @@ package ch.unibe.scg.team3.game;
 
 import java.io.File;
 
-import ch.unibe.scg.team3.board.*;
+import ch.unibe.scg.team3.board.Board;
+import ch.unibe.scg.team3.board.WordSelection;
 import ch.unibe.scg.team3.token.IToken;
-import ch.unibe.scg.team3.wordlist.*;
+import ch.unibe.scg.team3.wordlist.Wordlist;
+import ch.unibe.scg.team3.wordlist.WordlistBuilder;
 
 public class GameManager {
 	
