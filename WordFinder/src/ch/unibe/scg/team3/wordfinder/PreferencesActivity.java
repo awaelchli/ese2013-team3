@@ -17,8 +17,8 @@ public class PreferencesActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_preferences);
 		db = new MySQLiteHelper(this);
-		db.getWritableDatabase();
-		db.close();
+//		db.getWritableDatabase();
+//		db.close();
 	}
 
 	@Override

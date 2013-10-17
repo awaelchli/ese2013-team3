@@ -31,19 +31,19 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// Create Wordlists Table
+		String dictable = "CREATE TABLE Dictionary (_id INTEGER PRIMARY KEY, Name TEXT)";
+		db.execSQL(dictable);
 		for (int i = 0; i < 25; i++) {
 			String shorttable = "CREATE TABLE " + ALPHABET.charAt(i)
-					+ "short(_id INTEGER PRIMARY KEY, Dictionary NUMERIC, "
-					+ "Content TEXT";
+					+ "short(_id INTEGER PRIMARY KEY ASC, Dictionary, "
+					+ "Content TEXT, FOREIGN KEY(Dictionary) REFERENCES Dictionary(_id))" ;
 			db.execSQL(shorttable);
 			String longtable = "CREATE TABLE "
 					+ ALPHABET.charAt(i)
-					+ "long(_id INTEGER PRIMARY KEY, FOREIGN KEY(Dictionary) REFERENCES Dictionary(_id), "
-					+ "Content TEXT";
+					+ "long(_id INTEGER PRIMARY KEY ASC,Dictionary,"
+					+ "Content TEXT, FOREIGN KEY(_id) REFERENCES Dictionary(_id))";
 			db.execSQL(longtable);
-			String dictable = "CREATE TABLE Dictionary (_id INTEGER PRIMARY KEY, Name TEXT)";
-			db.execSQL(dictable);
-			initDB();
+			//initDB();
 		}
 	}
 
@@ -62,9 +62,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	}
 
 	public void reset(SQLiteDatabase db) {
-		close();
-		File file = new File(db.getPath());
-		file.deleteOnExit();
+//		close();
+//		File file = new File(db.getPath());
+//		file.delete();
+		initDB();
 	}
 
 	public void addWordlist(Wordlist wordlist) {
@@ -73,31 +74,31 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		values.put("Name", wordlist.getName());
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.insert("Dictionary", null, values);
-		db.close();
+		
 
 		String content = wordlist.getContent();
 		String[] words = content.split(";");
 		for (int i = 0; i < words.length; i++) {
-			if (words[i].length() < 5) {
-				for (int j = 9; j < ALPHABET.length(); j++) {
-					if (words[i].substring(0, 0).equalsIgnoreCase(
-							ALPHABET.substring(j, j))) {
-						db.execSQL("INSERT INTO " + j + "short VALUES(NULL,"
+			if (words[i].length() < 5 && words[i].length() >0 ) {
+				for (int j = 1; j < ALPHABET.length(); j++) {
+					if (words[i].substring(0,1).equalsIgnoreCase(
+							ALPHABET.substring(j-1, j))) {
+						db.execSQL("INSERT INTO " + ALPHABET.substring(j-1, j) + "short VALUES(NULL, "
 								+ wordlist.getName() + ", " + words[i]);
 					}
 
 				}
-			} else {
-				for (int j = 9; j < ALPHABET.length(); j++) {
-					if (words[i].substring(0, 0).equalsIgnoreCase(
-							ALPHABET.substring(j, j))) {
-						db.execSQL("INSERT INTO " + j + "long VALUES(NULL,"
+			} else if(words[i].length() >0) {
+				for (int j = 1; j < ALPHABET.length(); j++) {
+					if (words[i].substring(0, 1).equalsIgnoreCase(
+							ALPHABET.substring(j-1, j))) {
+						db.execSQL("INSERT INTO " + ALPHABET.substring(j-1, j) + "long VALUES(NULL, "
 								+ wordlist.getName() + ", " + words[i]);
 					}
 
 				}
 			}
-		}
+		}db.close();
 	}
 
 	@Override
