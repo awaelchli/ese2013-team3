@@ -27,9 +27,13 @@ public class Wordlist {
 	}
 
 	public void addWord(String word) {
-		if(!content.contains(word)){
+//		if(!content.contains(word)){
 			content.add(word);
-		}
+//		}
+	}
+	
+	public boolean contains(String word){
+		return content.contains(word);
 	}
 
 	public void removeWord(String word) {
