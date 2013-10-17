@@ -26,17 +26,18 @@ public class WordlistBuilder {
 		}
 	}
 	
+	//not working
 	public void addWords(File file){
-		Scanner scan = null;
-		try {
-			scan = new Scanner(file);
-		} catch (FileNotFoundException e) {
-			//TODO: implement
-		}
-		
-		while(null != scan && scan.hasNextLine()){
-			wordlist.addWord(scan.nextLine());
-		}
+//		Scanner scan = null;
+//		try {
+//			scan = new Scanner(file);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		while(null != scan && scan.hasNextLine()){
+//			wordlist.addWord(scan.nextLine());
+//		}
 	}
 
 	public Wordlist getWordlist() {

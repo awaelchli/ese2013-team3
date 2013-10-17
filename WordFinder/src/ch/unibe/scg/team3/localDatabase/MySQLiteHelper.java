@@ -1,6 +1,7 @@
 package ch.unibe.scg.team3.localDatabase;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import android.content.ContentValues;
 import android.content.Context;

@@ -4,11 +4,9 @@ import java.util.Random;
 
 import ch.unibe.scg.team3.token.Token;
 
-
 /**
- * 
- * @author adrian
  * @author viviane
+ * @author adrian
  * 
  */
 public class RandomBoardGenerator extends AbstractBoardGenerator {
