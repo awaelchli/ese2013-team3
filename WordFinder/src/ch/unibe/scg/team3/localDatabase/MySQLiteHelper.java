@@ -65,6 +65,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 //		close();
 //		File file = new File(db.getPath());
 //		file.delete();
+		for(int i = 0;i<ALPHABET.length();i++){
+			db.execSQL("DROP TABLE IF EXISTS "+ ALPHABET.substring(i,i+1 ) +"short");
+			db.execSQL("DROP TABLE IF EXISTS "+ ALPHABET.substring(i, i+1) +"long");
+			
+		}
+		db.execSQL("DROP TABLE IF EXISTS Dictionary");
+		onCreate(db);
 		initDB();
 	}
 
