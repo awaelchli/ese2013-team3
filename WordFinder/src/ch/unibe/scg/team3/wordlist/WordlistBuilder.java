@@ -4,12 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import ch.unibe.scg.team3.wordfinder.R;
+
+import android.app.Activity;
+
 /**
  * 
  * @author adrian
  *
  */
-public class WordlistBuilder {
+public class WordlistBuilder extends Activity{
 	
 	private final Wordlist wordlist;
 
@@ -27,17 +31,18 @@ public class WordlistBuilder {
 	}
 	
 	//not working
-	public void addWords(File file){
-//		Scanner scan = null;
-//		try {
-//			scan = new Scanner(file);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		while(null != scan && scan.hasNextLine()){
-//			wordlist.addWord(scan.nextLine());
-//		}
+	public void initialize(){
+		File file= new File(getResources().getResourceEntryName(R.raw.english));
+		Scanner scan = null;
+		try {
+			scan = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		while(null != scan && scan.hasNextLine()){
+			wordlist.addWord(scan.nextLine());
+		}
 	}
 
 	public Wordlist getWordlist() {

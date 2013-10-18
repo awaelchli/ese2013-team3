@@ -34,7 +34,7 @@ public class GameManager {
 	private Wordlist loadDefaultWordlist() {
 		//not working
 		WordlistBuilder builder = new WordlistBuilder("English");
-		builder.addWords(new File("assets/english.txt"));
+		//builder.addWords(new File("assets/english.txt"));
 		return builder.getWordlist();
 	}
 

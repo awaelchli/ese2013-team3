@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 
 import ch.unibe.jexample.Given;
 import ch.unibe.jexample.JExample;
+import ch.unibe.scg.team3.wordfinder.R;
 
 /**
  * 
@@ -50,11 +51,11 @@ public class WordlistBuilderTest {
 	
 	@Test
 	public void testBuildEnglishWordlist() throws FileNotFoundException{
-		File file = new File("res/raw/english.txt");
+		File file = new File("");
 		
 		WordlistBuilder builder = new WordlistBuilder("English");
 		
-		builder.addWords(file);
+		//builder.addWords(file);
 		Wordlist wordlist = builder.getWordlist();
 		
 		//assertEquals(wordlist.getSize(), 118619);
