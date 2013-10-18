@@ -95,6 +95,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				for (int j = 1; j < ALPHABET.length(); j++) {
 					if (words[i].substring(0,1).equalsIgnoreCase(
 							ALPHABET.substring(j-1, j))) {
+						System.out.println(words[i]);
 						db.execSQL("INSERT INTO " + ALPHABET.substring(j-1, j) + "short VALUES(NULL, '"
 								+ wordlist.getName() + "', '" + words[i] +"')");
 					}
@@ -104,6 +105,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				for (int j = 1; j < ALPHABET.length(); j++) {
 					if (words[i].substring(0, 1).equalsIgnoreCase(
 							ALPHABET.substring(j-1, j))) {
+						System.out.println(words[i]);
 						db.execSQL("INSERT INTO " + ALPHABET.substring(j-1, j) + "long VALUES(NULL, '"
 								+ wordlist.getName() + "', '" + words[i]+ "')");
 					}
