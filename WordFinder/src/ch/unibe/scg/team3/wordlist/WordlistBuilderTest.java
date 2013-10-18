@@ -55,6 +55,9 @@ public class WordlistBuilderTest {
 		WordlistBuilder builder = new WordlistBuilder("English");
 		
 		builder.addWords(file);
+		Wordlist wordlist = builder.getWordlist();
+		
+		//assertEquals(wordlist.getSize(), 118619);
 	}
 	
 }
