@@ -1,6 +1,9 @@
 package ch.unibe.scg.team3.localDatabase;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -35,22 +38,23 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		for (int i = 0; i < 25; i++) {
 			String shorttable = "CREATE TABLE " + ALPHABET.charAt(i)
 					+ "short(_id INTEGER PRIMARY KEY ASC, Dictionary, "
-					+ "Content TEXT, FOREIGN KEY(Dictionary) REFERENCES Dictionary(_id))" ;
+					+ "Content TEXT, FOREIGN KEY(Dictionary) REFERENCES Dictionary(Name))" ;
 			db.execSQL(shorttable);
 			String longtable = "CREATE TABLE "
 					+ ALPHABET.charAt(i)
 					+ "long(_id INTEGER PRIMARY KEY ASC,Dictionary,"
-					+ "Content TEXT, FOREIGN KEY(_id) REFERENCES Dictionary(_id))";
+					+ "Content TEXT, FOREIGN KEY(_id) REFERENCES Dictionary(Name))";
 			db.execSQL(longtable);
 			//initDB();
 		}
 	}
 
-	private void initDB() {
+	private void initDB(Activity activity) {
 		 File file1 = new File("");
 		 WordlistBuilder builder1 = new WordlistBuilder("English");
 		// builder1.addWords(file1);
-		 builder1.initialize();
+		 
+		 builder1.initialize(activity);
 		 Wordlist english = builder1.getWordlist();
 		 addWordlist(english);
 		
@@ -61,7 +65,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 //		 addWordlist(german);
 	}
 
-	public void reset(SQLiteDatabase db) {
+	public void reset(SQLiteDatabase db, Activity activity) {
 //		close();
 //		File file = new File(db.getPath());
 //		file.delete();
@@ -72,15 +76,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		}
 		db.execSQL("DROP TABLE IF EXISTS Dictionary");
 		onCreate(db);
-		initDB();
+		initDB(activity);
 	}
 
 	public void addWordlist(Wordlist wordlist) {
 
-		ContentValues values = new ContentValues();
-		values.put("Name", wordlist.getName());
+//		ContentValues values = new ContentValues();
+//		values.put("Name", wordlist.getName());
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.insert("Dictionary", null, values);
+//		db.insert("Dictionary", null, values);
+		db.execSQL("INSERT INTO Dictionary VALUES(NULL,'"+ wordlist.getName()+"')");
 		
 
 		String content = wordlist.getContent();
@@ -90,8 +95,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				for (int j = 1; j < ALPHABET.length(); j++) {
 					if (words[i].substring(0,1).equalsIgnoreCase(
 							ALPHABET.substring(j-1, j))) {
-						db.execSQL("INSERT INTO " + ALPHABET.substring(j-1, j) + "short VALUES(NULL, "
-								+ wordlist.getName() + ", " + words[i]);
+						db.execSQL("INSERT INTO " + ALPHABET.substring(j-1, j) + "short VALUES(NULL, '"
+								+ wordlist.getName() + "', '" + words[i] +"')");
 					}
 
 				}
@@ -99,8 +104,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				for (int j = 1; j < ALPHABET.length(); j++) {
 					if (words[i].substring(0, 1).equalsIgnoreCase(
 							ALPHABET.substring(j-1, j))) {
-						db.execSQL("INSERT INTO " + ALPHABET.substring(j-1, j) + "long VALUES(NULL, "
-								+ wordlist.getName() + ", " + words[i]);
+						db.execSQL("INSERT INTO " + ALPHABET.substring(j-1, j) + "long VALUES(NULL, '"
+								+ wordlist.getName() + "', '" + words[i]+ "')");
 					}
 
 				}

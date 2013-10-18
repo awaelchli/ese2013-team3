@@ -1,8 +1,13 @@
 package ch.unibe.scg.team3.wordlist;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Scanner;
+import android.content.Context;
 
 import ch.unibe.scg.team3.wordfinder.R;
 
@@ -31,18 +36,25 @@ public class WordlistBuilder extends Activity{
 	}
 	
 	//not working
-	public void initialize(){
-		File file= new File(getResources().getResourceEntryName(R.raw.english));
-		Scanner scan = null;
-		try {
-			scan = new Scanner(file);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		while(null != scan && scan.hasNextLine()){
-			wordlist.addWord(scan.nextLine());
-		}
+	public void initialize(Activity activity){
+		InputStream inputStream = activity.getResources().openRawResource(R.raw.english);
+
+		    InputStreamReader inputreader = new InputStreamReader(inputStream);
+		    BufferedReader buffreader = new BufferedReader(inputreader);
+		    String line;
+		    StringBuilder text = new StringBuilder();
+
+		    try {
+		        while (( line = buffreader.readLine()) != null) {
+		            text.append(line);
+		            text.append(';');
+		        }
+		    } catch (IOException e) {
+		        
+		    }
+		    wordlist.addWord(text.toString());
+		    
+
 	}
 
 	public Wordlist getWordlist() {

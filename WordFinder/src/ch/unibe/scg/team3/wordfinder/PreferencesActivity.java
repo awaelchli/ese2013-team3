@@ -28,7 +28,7 @@ public class PreferencesActivity extends Activity {
 		return true;
 	}
 	public void resetDB(View view){
-		db.reset(db.getWritableDatabase());
+		db.reset(db.getWritableDatabase(), this);
 		finish();
 	}
 
