@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -68,17 +70,24 @@ public class GridActivity extends Activity {
             				if(s.isPathNotConnected() || s.isWordNotFound()){
                     			for (int i=0;i<walked.size();i++) {
                     				walked.get(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout_invalid));
-                    			}	
+                    			}
+
+                    			Thread mythread = new Thread(runnable);
+                    			mythread.start();
             				}
             				else if(s.isWordAlreadyFound()) {
             					for (int i=0;i<walked.size();i++) {
             						walked.get(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout_already));
 	                			}	
+                      	      	Thread mythread = new Thread(runnable);
+                      	      	mythread.start();
 	            			}
             				else {
             					for (int i=0;i<walked.size();i++) {
             						walked.get(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout_valid));
-	                			}	
+	                			}
+                      	      	Thread mythread = new Thread(runnable);
+                      	      	mythread.start();
             				}
 	            		}
             			return true;
@@ -128,6 +137,26 @@ public class GridActivity extends Activity {
         createHashMap();
         this.finger_padding = 20;
     }
+	
+	Runnable runnable = new Runnable() {
+        public void run() {     	
+        		synchronized (this) {
+        		  try {
+        			 wait(500);
+        		  } catch (Exception e) {}
+        		}
+        		handler.sendEmptyMessage(0);
+        }
+	};
+
+	Handler handler  = new Handler() {
+		  @Override
+		  public void handleMessage(Message msg) {
+			  for (int i=0;i<walked.size();i++) {
+				walked.get(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout));
+			  }
+		  }
+	};
 
 	public void createHashMap() {
 		// Maps view's id to view's location on board
