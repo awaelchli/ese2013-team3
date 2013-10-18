@@ -35,6 +35,17 @@ public class WordlistBuilder extends Activity{
 		}
 	}
 	
+	public void addWords(BufferedReader reader){
+		String line;
+		try {
+			while((line = reader.readLine()) != null) {
+				wordlist.addWord(line);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	//not working
 	public void initialize(Activity activity){
 		InputStream inputStream = activity.getResources().openRawResource(R.raw.english);

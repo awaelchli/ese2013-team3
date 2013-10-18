@@ -133,7 +133,7 @@ public class GridActivity extends Activity {
                 return true;
             }
 		});
-        manager = new GameManager(6);
+        manager = new GameManager(6,this);
         createHashMap();
         this.finger_padding = 20;
     }
