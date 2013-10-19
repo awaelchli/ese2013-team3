@@ -21,11 +21,7 @@ public class DataManager {
 	}
 
 	public void addWordlist(Wordlist wordlist) {
-
-		// ContentValues values = new ContentValues();
-		// values.put("Name", wordlist.getName());
 		SQLiteDatabase db = helper.getWritableDatabase();
-		// db.insert("Dictionary", null, values);
 		db.execSQL("INSERT INTO Dictionary VALUES(NULL,'" + wordlist.getName()
 				+ "')");
 
@@ -55,11 +51,6 @@ public class DataManager {
 		 builder1.initialize(context);
 		 Wordlist english = builder1.getWordlist();
 		 addWordlist(english);
-		
-//		 WordlistBuilder builder2 = new WordlistBuilder("German");
-//		 builder2.addWords();
-//		 Wordlist german = builder2.getWordlist();
-//		 addWordlist(german);
 	}
 	public void reset(Context context) {
 		SQLiteDatabase db =helper.getWritableDatabase();
