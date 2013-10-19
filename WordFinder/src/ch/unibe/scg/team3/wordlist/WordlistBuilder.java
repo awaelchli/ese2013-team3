@@ -18,7 +18,7 @@ import android.app.Activity;
  * @author adrian
  *
  */
-public class WordlistBuilder extends Activity{
+public class WordlistBuilder{
 	
 	private final Wordlist wordlist;
 
@@ -47,8 +47,8 @@ public class WordlistBuilder extends Activity{
 	}
 	
 	//not working
-	public void initialize(Activity activity){
-		InputStream inputStream = activity.getResources().openRawResource(R.raw.english);
+	public void initialize(Context context){
+		InputStream inputStream = context.getResources().openRawResource(R.raw.englishreduced);
 
 		    InputStreamReader inputreader = new InputStreamReader(inputStream);
 		    BufferedReader buffreader = new BufferedReader(inputreader);

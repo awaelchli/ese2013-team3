@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import ch.unibe.scg.team3.localDatabase.DataManager;
 import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
 /**
  * 
@@ -11,12 +12,12 @@ import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
  * 
  */
 public class PreferencesActivity extends Activity {
-	MySQLiteHelper db;
+	DataManager db;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_preferences);
-		db = new MySQLiteHelper(this);
+		db = new DataManager(this);
 //		db.getWritableDatabase();
 //		db.close();
 	}
@@ -28,7 +29,7 @@ public class PreferencesActivity extends Activity {
 		return true;
 	}
 	public void resetDB(View view){
-		db.reset(db.getWritableDatabase(), this);
+		db.reset(this);
 		finish();
 	}
 
