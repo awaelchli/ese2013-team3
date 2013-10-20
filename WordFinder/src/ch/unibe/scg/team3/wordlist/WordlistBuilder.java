@@ -18,7 +18,7 @@ import android.app.Activity;
  * @author adrian
  *
  */
-public class WordlistBuilder{
+public class WordlistBuilder {
 	
 	private final Wordlist wordlist;
 
@@ -34,7 +34,11 @@ public class WordlistBuilder{
 			wordlist.addWord(scan.next());
 		}
 	}
-	
+	/**
+	 * Reads from an InputStream line-by-line and adds the words to a wordlist.
+	 * 
+	 * @param reader An instance of the BuffereReader class reading from /res/raw/textfile
+	 */
 	public void addWords(BufferedReader reader){
 		String line;
 		try {

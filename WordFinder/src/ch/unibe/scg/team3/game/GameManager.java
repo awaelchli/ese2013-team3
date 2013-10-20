@@ -77,11 +77,11 @@ public class GameManager {
 			throw new WordNotFoundException();
 		}
 
-		if (!this.found.contains(word)) {
+		if (this.found.contains(word)) {
 			throw new WordAlreadyFoundException();
+		} else {
+			this.found.addWord(word);
 		}
-
-		this.found.addWord(word);
 	}
 
 	private WordSelection makeSelection(List<Point> path) {

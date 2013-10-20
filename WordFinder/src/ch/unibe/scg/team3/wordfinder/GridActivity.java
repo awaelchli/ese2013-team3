@@ -1,21 +1,16 @@
 package ch.unibe.scg.team3.wordfinder;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
 import ch.unibe.scg.team3.game.GameManager;
 import ch.unibe.scg.team3.game.Point;
 import ch.unibe.scg.team3.game.SelectionException;
@@ -27,7 +22,7 @@ import ch.unibe.scg.team3.game.SelectionException;
 
 @SuppressLint("NewApi")
 public class GridActivity extends Activity {
-
+	
 	List<View> walked;
 	/**
 	 * The following list walked_coordinates is interesting for the manager!!
@@ -44,101 +39,64 @@ public class GridActivity extends Activity {
 	 */
 	int finger_padding;
 	HashMap<String, Point> hmap;
+	GridActivity ga;
+	
 	GameManager manager;
-
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid);
         ViewGroup board = (ViewGroup)findViewById(R.id.tableBoard);
-        board.setOnTouchListener(new View.OnTouchListener() {
-        	@Override
-            public boolean onTouch(View v, MotionEvent event) {  
-            	
-            	boolean isInList = false;
-            	
-            	switch (event.getAction()) {
-            		case MotionEvent.ACTION_DOWN:
-            			walked = new ArrayList<View>();
-            			walked_coordinates = new ArrayList<Point>();
-            		case MotionEvent.ACTION_MOVE:
-            			break;
-            		case MotionEvent.ACTION_UP:
-            			try {
-            				manager.submitWord(walked_coordinates);
-            			} catch(SelectionException s) {
-            				if(s.isPathNotConnected() || s.isWordNotFound()){
-                    			for (int i=0;i<walked.size();i++) {
-                    				walked.get(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout_invalid));
-                    			}
-
-                    			Thread mythread = new Thread(runnable);
-                    			mythread.start();
-            				}
-            				else if(s.isWordAlreadyFound()) {
-            					for (int i=0;i<walked.size();i++) {
-            						walked.get(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout_already));
-	                			}	
-                      	      	Thread mythread = new Thread(runnable);
-                      	      	mythread.start();
-	            			}
-            				else {
-            					for (int i=0;i<walked.size();i++) {
-            						walked.get(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout_valid));
-	                			}
-                      	      	Thread mythread = new Thread(runnable);
-                      	      	mythread.start();
-            				}
-	            		}
-            			return true;
-            		default:
-            			return false;
-            	}
-            	
-                TableLayout layout = (TableLayout)v;
-                for(int i =0; i< layout.getChildCount(); i++)
-                {
-                    View rview = layout.getChildAt(i);
-                    Rect rrect = new Rect(rview.getLeft(), rview.getTop(), rview.getRight(), rview.getBottom());
-                    if(rrect.contains((int)event.getX(), (int)event.getY()))
-                    {
-                        SquareRow srow = (SquareRow)rview;
-                        for(int j =0; j< srow.getChildCount(); j++)
-                        {
-                            View fview = srow.getChildAt(j);
-                            Rect frect;
-                            if (i==0) {
-                            	frect = new Rect(fview.getLeft()+finger_padding, fview.getTop()+finger_padding, fview.getRight()-finger_padding, fview.getBottom()-finger_padding);
-                            } else {
-                            	frect = new Rect(fview.getLeft()+finger_padding, fview.getTop()+finger_padding, fview.getRight()-finger_padding, fview.getBottom()+rview.getBottom()-finger_padding);
-                            }
-                            if(frect.contains((int)event.getX(), (int)event.getY()))
-                            {
-                            	for (int k=0; k<walked.size();k++) {
-                            		if (walked.get(k).equals(fview)) {
-                            			isInList = true;
-                            		}
-                            	}
-                        		if (!isInList) {
-                        			walked.add(fview);
-                        			walked_coordinates.add(hmap.get((String)(fview.getTag())));
-                        			fview.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout_walk));
-                        		}
-                        		break;
-                            }
-                        }
-                        break;
-                    }
-                }
-                return true;
-            }
-		});
         manager = new GameManager(6,this);
+		hmap = new HashMap<String, Point>();
         createHashMap();
         this.finger_padding = 20;
+        board.setOnTouchListener(new BoardOnTouchListener(this, this.finger_padding, this.hmap));
     }
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.grid, menu);
+		return true;
+	}
 	
-	Runnable runnable = new Runnable() {
+	@SuppressWarnings("deprecation")
+	public void submitPath(List<Point> walked_coordinates, List<View> walked) {
+		this.walked = walked;
+		this.walked_coordinates = walked_coordinates;
+		try {
+			manager.submitWord(walked_coordinates);
+			for (int i = 0; i < walked.size(); i++) {
+				walked.get(i).setBackgroundDrawable(
+						getResources().getDrawable(
+								R.drawable.buttonlayout_valid));
+			}
+			Thread mythread = new Thread(runnable);
+			mythread.start();
+		} catch (SelectionException s) {
+			if (s.isPathNotConnected() || s.isWordNotFound()) {
+				for (int i = 0; i < walked.size(); i++) {
+					walked.get(i).setBackgroundDrawable(
+							getResources().getDrawable(
+									R.drawable.buttonlayout_invalid));
+				}
+				Thread mythread = new Thread(runnable);
+				mythread.start();
+			} else if (s.isWordAlreadyFound()) {
+				for (int i = 0; i < walked.size(); i++) {
+					walked.get(i).setBackgroundDrawable(
+							getResources().getDrawable(
+									R.drawable.buttonlayout_already));
+				}
+				Thread mythread = new Thread(runnable);
+				mythread.start();
+			}
+		}
+	}
+	
+	@SuppressLint("HandlerLeak") Runnable runnable = new Runnable() {
         public void run() {     	
         		synchronized (this) {
         		  try {
@@ -150,14 +108,15 @@ public class GridActivity extends Activity {
 	};
 
 	Handler handler  = new Handler() {
-		  @Override
+		  @SuppressWarnings("deprecation")
+		@Override
 		  public void handleMessage(Message msg) {
 			  for (int i=0;i<walked.size();i++) {
 				walked.get(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonlayout));
 			  }
 		  }
 	};
-
+	
 	public void createHashMap() {
 		// Maps view's id to view's location on board
 		// int[] = {row,column} whereas {0,0} is the top left corner and {5,5}
@@ -200,24 +159,7 @@ public class GridActivity extends Activity {
 		hmap.put("button35", new Point(4, 5));
 		hmap.put("button36", new Point(5, 5));
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.grid, menu);
-		return true;
-	}
-
-	public Rect calculateBoundary(int id) {
-		Rect re = new Rect();
-		findViewById(id).getGlobalVisibleRect(re);
-		return re;
-	}
-
-	public List getCoordinates() {
-		return this.walked_coordinates;
-	}
-
+	
 	public void quit(View view) {
 		Intent intent = new Intent(this, EndGameActivity.class);
 		startActivity(intent);
