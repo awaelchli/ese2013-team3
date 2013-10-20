@@ -16,11 +16,12 @@ import android.widget.TableLayout;
  */
 
 public class BoardOnTouchListener implements OnTouchListener {
-	List<View> walked_views;
-	List<Point> walked_coordinates;
-	GridActivity ga;
-	int finger_padding;
-	HashMap<String, Point> hmap;
+	
+	private List<View> walked_views;
+	private List<Point> walked_coordinates;
+	private GridActivity ga;
+	private int finger_padding;
+	private HashMap<String, Point> hmap;
 
 	public BoardOnTouchListener(GridActivity ga, int padding,
 			HashMap<String, Point> map) {
@@ -37,8 +38,8 @@ public class BoardOnTouchListener implements OnTouchListener {
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			walked_views = new ArrayList<View>();
-			walked_coordinates = new ArrayList<Point>();
+			this.walked_views = new ArrayList<View>();
+			this.walked_coordinates = new ArrayList<Point>();
 		case MotionEvent.ACTION_MOVE:
 			break;
 		case MotionEvent.ACTION_UP:
@@ -59,26 +60,26 @@ public class BoardOnTouchListener implements OnTouchListener {
 					View fview = srow.getChildAt(j);
 					Rect frect;
 					if (i == 0) {
-						frect = new Rect(fview.getLeft() + finger_padding,
-								fview.getTop() + finger_padding,
-								fview.getRight() - finger_padding,
-								fview.getBottom() - finger_padding);
+						frect = new Rect(fview.getLeft() + this.finger_padding,
+								fview.getTop() + this.finger_padding,
+								fview.getRight() - this.finger_padding,
+								fview.getBottom() - this.finger_padding);
 					} else {
-						frect = new Rect(fview.getLeft() + finger_padding,
-								fview.getTop() + finger_padding,
-								fview.getRight() - finger_padding,
+						frect = new Rect(fview.getLeft() + this.finger_padding,
+								fview.getTop() + this.finger_padding,
+								fview.getRight() - this.finger_padding,
 								fview.getBottom() + rview.getBottom()
-										- finger_padding);
+										- this.finger_padding);
 					}
 					if (frect.contains((int) event.getX(), (int) event.getY())) {
-						for (int k = 0; k < walked_views.size(); k++) {
-							if (walked_views.get(k).equals(fview)) {
+						for (int k = 0; k < this.walked_views.size(); k++) {
+							if (this.walked_views.get(k).equals(fview)) {
 								isInList = true;
 							}
 						}
 						if (!isInList) {
-							walked_views.add(fview);
-							walked_coordinates.add(this.hmap
+							this.walked_views.add(fview);
+							this.walked_coordinates.add(this.hmap
 									.get((String) (fview.getTag())));
 							fview.setBackgroundDrawable(this.ga.getResources()
 									.getDrawable(R.drawable.buttonlayout_walk));
