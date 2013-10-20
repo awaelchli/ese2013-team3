@@ -10,6 +10,10 @@ public class SquareRow extends TableRow{
 	    super(context, attrs);
 	}
 
+	public SquareRow(Context context) {
+		super(context);
+	}
+
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 	    super.onMeasure(widthMeasureSpec, heightMeasureSpec);

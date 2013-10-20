@@ -34,10 +34,6 @@ public class GridActivity extends Activity {
 	 * walked.
 	 **/
 	List<Point> walked_coordinates;
-	/**
-	 * Adapt this value in the onCreate() method if your fingers are too fat!
-	 */
-	int finger_padding;
 	HashMap<String, Point> hmap;
 	GridActivity ga;
 	
@@ -51,8 +47,7 @@ public class GridActivity extends Activity {
         manager = new GameManager(6,this);
 		hmap = new HashMap<String, Point>();
         createHashMap();
-        this.finger_padding = 20;
-        board.setOnTouchListener(new BoardOnTouchListener(this, this.finger_padding, this.hmap));
+        board.setOnTouchListener(new BoardOnTouchListener(this, this.hmap));
     }
 
 	@Override

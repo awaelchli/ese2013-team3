@@ -16,20 +16,20 @@ import android.widget.TableLayout;
  */
 
 public class BoardOnTouchListener implements OnTouchListener {
-	List<View> walked_views;
-	List<Point> walked_coordinates;
-	GridActivity ga;
-	int finger_padding;
-	HashMap<String, Point> hmap;
 
-	public BoardOnTouchListener(GridActivity ga, int padding,
-			HashMap<String, Point> map) {
+	private static final int FINGER_PADDING = 20;
+
+	private List<View> walked_views;
+	private List<Point> walked_coordinates;
+	
+	private final GridActivity ga;
+	private final HashMap<String, Point> hmap;
+
+	public BoardOnTouchListener(GridActivity ga, HashMap<String, Point> map) {
 		this.ga = ga;
-		this.finger_padding = padding;
 		this.hmap = map;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 
@@ -48,6 +48,11 @@ public class BoardOnTouchListener implements OnTouchListener {
 			return false;
 		}
 
+		return checkViews(v, event, isInList);
+	}
+
+	private boolean checkViews(View v, MotionEvent event, boolean isInList) {
+		
 		TableLayout layout = (TableLayout) v;
 		for (int i = 0; i < layout.getChildCount(); i++) {
 			View rview = layout.getChildAt(i);
@@ -59,16 +64,16 @@ public class BoardOnTouchListener implements OnTouchListener {
 					View fview = srow.getChildAt(j);
 					Rect frect;
 					if (i == 0) {
-						frect = new Rect(fview.getLeft() + finger_padding,
-								fview.getTop() + finger_padding,
-								fview.getRight() - finger_padding,
-								fview.getBottom() - finger_padding);
+						frect = new Rect(fview.getLeft() + FINGER_PADDING,
+								fview.getTop() + FINGER_PADDING,
+								fview.getRight() - FINGER_PADDING,
+								fview.getBottom() - FINGER_PADDING);
 					} else {
-						frect = new Rect(fview.getLeft() + finger_padding,
-								fview.getTop() + finger_padding,
-								fview.getRight() - finger_padding,
+						frect = new Rect(fview.getLeft() + FINGER_PADDING,
+								fview.getTop() + FINGER_PADDING,
+								fview.getRight() - FINGER_PADDING,
 								fview.getBottom() + rview.getBottom()
-										- finger_padding);
+										- FINGER_PADDING);
 					}
 					if (frect.contains((int) event.getX(), (int) event.getY())) {
 						for (int k = 0; k < walked_views.size(); k++) {
