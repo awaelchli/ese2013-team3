@@ -1,7 +1,6 @@
 package ch.unibe.scg.team3.wordfinder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import ch.unibe.scg.team3.game.Point;
 import android.graphics.Rect;
@@ -21,13 +20,12 @@ public class BoardOnTouchListener implements OnTouchListener {
 	private List<Point> walked_coordinates;
 	private GridActivity ga;
 	private int finger_padding;
-	private HashMap<String, Point> hmap;
+	private BoardMapper map;
 
-	public BoardOnTouchListener(GridActivity ga, int padding,
-			HashMap<String, Point> map) {
+	public BoardOnTouchListener(GridActivity ga, int padding) {
 		this.ga = ga;
 		this.finger_padding = padding;
-		this.hmap = map;
+		map = new BoardMapper(6);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -79,8 +77,7 @@ public class BoardOnTouchListener implements OnTouchListener {
 						}
 						if (!isInList) {
 							this.walked_views.add(fview);
-							this.walked_coordinates.add(this.hmap
-									.get((String) (fview.getTag())));
+							this.walked_coordinates.add(this.map.getPoint((String)(fview.getTag())));
 							fview.setBackgroundDrawable(this.ga.getResources()
 									.getDrawable(R.drawable.buttonlayout_walk));
 						}

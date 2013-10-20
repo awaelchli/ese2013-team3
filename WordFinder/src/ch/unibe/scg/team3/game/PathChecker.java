@@ -24,7 +24,6 @@ import java.util.List;
 public class PathChecker {
 
 	public static boolean check(List<Point> coordinates) {
-
 		for (int i = 1; i < coordinates.size(); i++) {
 			if (!isValidSuccessor(coordinates.get(i - 1), coordinates.get(i))) {
 				return false;
@@ -39,7 +38,6 @@ public class PathChecker {
 		int pre_col = predecessor.getX();
 		int suc_row = successor.getY();
 		int suc_col = successor.getX();
-
 		if ((Math.abs(pre_row - suc_row) > 1)
 				|| Math.abs(pre_col - suc_col) > 1) {
 			return false;
