@@ -34,6 +34,8 @@ public class DataManager {
 
 		String content = wordlist.getContent();
 		String[] words = content.split("" + Wordlist.WORD_SEPARATOR);
+		db.beginTransaction();
+		try{
 		for (int i = 0; i < words.length; i++) {
 			if (words[i].length() < 5 && words[i].length() > 0) {
 				// System.out.println(words[i]);
@@ -42,7 +44,7 @@ public class DataManager {
 						+ "short VALUES(NULL, '" + wordlist.getName() + "', '"
 						+ words[i] + "')");
 
-			} else if (words[i].length() > 0) {
+			} else if (words[i].length() > 5) {
 				// System.out.println(words[i]);
 				db.execSQL("INSERT INTO "
 						+ words[i].substring(0, 1).toLowerCase()
@@ -50,6 +52,31 @@ public class DataManager {
 						+ words[i] + "')");
 
 			}
+		}
+		db.setTransactionSuccessful();
+		}
+		finally{
+			db.endTransaction();
+		}
+		db.close();
+	}
+	public void setWordToWordlist(String word, String wordlist){
+		SQLiteDatabase db = helper.getWritableDatabase();
+		
+		if (word.length() < 5 && word.length() > 0) {
+			// System.out.println(words[i]);
+			db.execSQL("INSERT INTO "
+					+ word.substring(0, 1).toLowerCase()
+					+ "short VALUES(NULL, '" + wordlist+ "', '"
+					+ word + "')");
+
+		} else if (word.length() > 5) {
+			// System.out.println(words[i]);
+			db.execSQL("INSERT INTO "
+					+ word.substring(0, 1).toLowerCase()
+					+ "long VALUES(NULL, '" + wordlist + "', '"
+					+ word + "')");
+
 		}
 		db.close();
 	}
@@ -76,8 +103,14 @@ public class DataManager {
 		return w.getWordlist();
 	}
 	public void removeWordlist(String name){
-		SQLiteDatabase db = helper.getReadableDatabase();
-		db.execSQL("DELETE Dictionary WHERE Name = '" +name+"'");
+		SQLiteDatabase db = helper.getWritableDatabase();
+		db.execSQL("DELETE IF EXISTS FROM Dictionary WHERE Name = '" +name+"'");
+		db.close();
+	}
+	public void removeWordFromWordlist(String word, String wordlist){
+		SQLiteDatabase db = helper.getWritableDatabase();
+		db.execSQL("DELETE IF EXISTS FROM"+ word.substring(0,1).toLowerCase() + "WHERE Name = '" 
+		+wordlist+"' AND content = '" + word +"'");
 		db.close();
 	}
 
