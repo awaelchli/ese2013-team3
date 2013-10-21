@@ -62,6 +62,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		}
 	}
 
+	//will place the words in the board, searching randomly for possibilities
 	private boolean placeWord(String word) {
 		
 		return true;
