@@ -56,6 +56,11 @@ public class Wordlist {
 		return this.content.size();
 	}
 
+	public String getWord(int position){
+		return content.get(position);
+	}
+	
+	
 	public String getContent() {
 		sort();
 		StringBuilder sb = new StringBuilder();
