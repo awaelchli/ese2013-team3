@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 /**
  * 
  * @author nils
@@ -47,32 +48,41 @@ public class DataManager {
 		}
 		db.close();
 	}
+
 	public Wordlist getwordlist(String name){
-		String wordlist ="";
+		StringBuilder wordlist = new StringBuilder();
 		for(int i = 0 ;i < ALPHABET.length() ; i++){
 			SQLiteDatabase db = helper.getReadableDatabase();
 			Cursor c = db.rawQuery("SELECT content FROM " + ALPHABET.charAt(i) 
 					+"WHERE Dictionary = ?",new String[] {name});
 			if (c != null)
 		        c.moveToFirst();
-			wordlist = wordlist + c.getString(c.getColumnIndex("content"));
+			while(!c.isAfterLast()){
+				wordlist.append(c.getString(c.getColumnIndex("content")));
+				wordlist.append(";");
+				c.moveToNext();
+				}
 		}
 		WordlistBuilder w = new WordlistBuilder(name);
-		w.addWords(wordlist);
+		w.addWords(wordlist.toString());
 		return w.getWordlist();
 	}
+
 	private void initDB(Context context) {
-		 WordlistBuilder builder1 = new WordlistBuilder("English");
-		 builder1.initialize(context);
-		 Wordlist english = builder1.getWordlist();
-		 addWordlist(english);
+		WordlistBuilder builder1 = new WordlistBuilder("English");
+		builder1.initialize(context);
+		Wordlist english = builder1.getWordlist();
+		addWordlist(english);
 	}
+
 	public void reset(Context context) {
-		SQLiteDatabase db =helper.getWritableDatabase();
-		for(int i = 0;i<ALPHABET.length();i++){
-			db.execSQL("DROP TABLE IF EXISTS "+ ALPHABET.substring(i,i+1 ) +"short");
-			db.execSQL("DROP TABLE IF EXISTS "+ ALPHABET.substring(i, i+1) +"long");
-			
+		SQLiteDatabase db = helper.getWritableDatabase();
+		for (int i = 0; i < ALPHABET.length(); i++) {
+			db.execSQL("DROP TABLE IF EXISTS " + ALPHABET.substring(i, i + 1)
+					+ "short");
+			db.execSQL("DROP TABLE IF EXISTS " + ALPHABET.substring(i, i + 1)
+					+ "long");
+
 		}
 		db.execSQL("DROP TABLE IF EXISTS Dictionary");
 		helper.onCreate(db);
