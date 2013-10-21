@@ -1,6 +1,7 @@
 package ch.unibe.scg.team3.wordfinder;
 
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import ch.unibe.scg.team3.board.Board;
 import ch.unibe.scg.team3.game.GameManager;
 import ch.unibe.scg.team3.game.Point;
 import ch.unibe.scg.team3.game.SelectionException;
@@ -28,6 +30,7 @@ public class GridActivity extends Activity {
 	 */
 	private int finger_padding;
 	private GameManager manager;
+	private BoardMapper mapper;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class GridActivity extends Activity {
         setContentView(R.layout.activity_grid);
         ViewGroup board = (ViewGroup)findViewById(R.id.tableBoard);
         this.manager = new GameManager(6,this);
+        this.mapper = new BoardMapper(6);
         this.finger_padding = 20;
         board.setOnTouchListener(new BoardOnTouchListener(this, this.finger_padding));
     }
@@ -46,6 +50,18 @@ public class GridActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.grid, menu);
 		return true;
+	}
+	
+	private void setLetters() {
+		Board board = manager.getBoard();
+		for (int i = 0;i < board.getSize(); i++) {
+			for (int j = 0; j < board.getSize(); j++) {
+				String button = "button".concat(Integer.toString((i)*6+j+1));
+				int id = getResources().getIdentifier(button, "id", this.getPackageName());
+				SquareField field = (SquareField)findViewById(id);
+				field.setText(board.getToken(i, j).getLetter());
+			}
+		}
 	}
 	
 	public void submitPath(List<Point> walked_coordinates, List<View> walked) {
