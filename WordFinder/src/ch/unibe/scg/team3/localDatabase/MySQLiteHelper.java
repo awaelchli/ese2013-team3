@@ -21,27 +21,29 @@ import ch.unibe.scg.team3.wordlist.WordlistBuilder;
  * @author nils
  * @author adrian
  * 
- * 	
- * 
  */
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
+	
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
+	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String dictable = "CREATE TABLE Dictionary (_id INTEGER PRIMARY KEY, Name TEXT)";
+		String dictable = "CREATE TABLE Dictionary (_id INTEGER , Name TEXT PRIMARY KEY)";
 		db.execSQL(dictable);
 		for (int i = 0; i < ALPHABET.length(); i++) {
 			String shorttable = "CREATE TABLE " + ALPHABET.charAt(i)
 					+ "short(_id INTEGER PRIMARY KEY ASC, Dictionary, "
-					+ "Content TEXT, FOREIGN KEY(Dictionary) REFERENCES Dictionary(Name))" ;
+					+ "Content TEXT, FOREIGN KEY(Dictionary) REFERENCES Dictionary(Name) " +
+					"ON DELETE CASCADE ON UPDATE CASCADE)" ;
 			db.execSQL(shorttable);
 			String longtable = "CREATE TABLE "
 					+ ALPHABET.charAt(i)
 					+ "long(_id INTEGER PRIMARY KEY ASC,Dictionary,"
-					+ "Content TEXT, FOREIGN KEY(_id) REFERENCES Dictionary(Name))";
+					+ "Content TEXT, FOREIGN KEY(Dictionary) REFERENCES Dictionary(Name) " +
+					"ON DELETE CASCADE ON UPDATE CASCADE)";
 			db.execSQL(longtable);
 		}
 	}
@@ -50,9 +52,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public void onOpen(SQLiteDatabase db) {
+	    super.onOpen(db);
+	    if (!db.isReadOnly()) {
+	        // Enable foreign key constraints
+	        db.execSQL("PRAGMA foreign_keys=ON;");
+	    }
+	}
 
 	private static final String DATABASE_NAME = "localDatabase.db";
 	private static final int DATABASE_VERSION = 1;
-	private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+	public static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
 }
