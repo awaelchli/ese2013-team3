@@ -31,7 +31,6 @@ public class GridActivity extends Activity {
 	 */
 	private int finger_padding;
 	private GameManager manager;
-	private BoardMapper mapper;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +39,8 @@ public class GridActivity extends Activity {
         setContentView(R.layout.activity_grid);
         ViewGroup board = (ViewGroup)findViewById(R.id.tableBoard);
         this.manager = new GameManager(6,this);
-        this.mapper = new BoardMapper(6);
         this.finger_padding = 20;
         board.setOnTouchListener(new BoardOnTouchListener(this, this.finger_padding));
-        setLetters();
-        System.out.println(getResources().getIdentifier("button1", "id", this.getPackageName()));
-        System.out.println(R.id.button1);
     }
 
 	@Override
