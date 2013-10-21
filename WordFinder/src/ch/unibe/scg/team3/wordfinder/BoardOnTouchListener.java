@@ -16,20 +16,20 @@ import android.widget.TableLayout;
  */
 
 public class BoardOnTouchListener implements OnTouchListener {
-
-	private static final int FINGER_PADDING = 20;
-
+	
 	private List<View> walked_views;
 	private List<Point> walked_coordinates;
-	
-	private final GridActivity ga;
-	private final HashMap<String, Point> hmap;
+	private GridActivity ga;
+	private int finger_padding;
+	private BoardMapper map;
 
-	public BoardOnTouchListener(GridActivity ga, HashMap<String, Point> map) {
+	public BoardOnTouchListener(GridActivity ga, int padding) {
 		this.ga = ga;
-		this.hmap = map;
+		this.finger_padding = padding;
+		map = new BoardMapper(6);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 
@@ -48,11 +48,6 @@ public class BoardOnTouchListener implements OnTouchListener {
 			return false;
 		}
 
-		return checkViews(v, event, isInList);
-	}
-
-	private boolean checkViews(View v, MotionEvent event, boolean isInList) {
-		
 		TableLayout layout = (TableLayout) v;
 		for (int i = 0; i < layout.getChildCount(); i++) {
 			View rview = layout.getChildAt(i);
@@ -64,27 +59,26 @@ public class BoardOnTouchListener implements OnTouchListener {
 					View fview = srow.getChildAt(j);
 					Rect frect;
 					if (i == 0) {
-						frect = new Rect(fview.getLeft() + FINGER_PADDING,
-								fview.getTop() + FINGER_PADDING,
-								fview.getRight() - FINGER_PADDING,
-								fview.getBottom() - FINGER_PADDING);
+						frect = new Rect(fview.getLeft() + this.finger_padding,
+								fview.getTop() + this.finger_padding,
+								fview.getRight() - this.finger_padding,
+								fview.getBottom() - this.finger_padding);
 					} else {
-						frect = new Rect(fview.getLeft() + FINGER_PADDING,
-								fview.getTop() + FINGER_PADDING,
-								fview.getRight() - FINGER_PADDING,
+						frect = new Rect(fview.getLeft() + this.finger_padding,
+								fview.getTop() + this.finger_padding,
+								fview.getRight() - this.finger_padding,
 								fview.getBottom() + rview.getBottom()
-										- FINGER_PADDING);
+										- this.finger_padding);
 					}
 					if (frect.contains((int) event.getX(), (int) event.getY())) {
-						for (int k = 0; k < walked_views.size(); k++) {
-							if (walked_views.get(k).equals(fview)) {
+						for (int k = 0; k < this.walked_views.size(); k++) {
+							if (this.walked_views.get(k).equals(fview)) {
 								isInList = true;
 							}
 						}
 						if (!isInList) {
-							walked_views.add(fview);
-							walked_coordinates.add(this.hmap
-									.get((String) (fview.getTag())));
+							this.walked_views.add(fview);
+							this.walked_coordinates.add(this.map.getPoint((String)(fview.getTag())));
 							fview.setBackgroundDrawable(this.ga.getResources()
 									.getDrawable(R.drawable.buttonlayout_walk));
 						}

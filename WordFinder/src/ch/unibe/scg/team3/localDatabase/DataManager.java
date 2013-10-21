@@ -4,7 +4,9 @@ import ch.unibe.scg.team3.wordlist.Wordlist;
 import ch.unibe.scg.team3.wordlist.WordlistBuilder;
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 /**
  * 
  * @author nils
@@ -46,18 +48,43 @@ public class DataManager {
 		}
 		db.close();
 	}
-	private void initDB(Context context) {
-		 WordlistBuilder builder1 = new WordlistBuilder("English");
-		 builder1.initialize(context);
-		 Wordlist english = builder1.getWordlist();
-		 addWordlist(english);
-	}
-	public void reset(Context context) {
-		SQLiteDatabase db =helper.getWritableDatabase();
-		for(int i = 0;i<ALPHABET.length();i++){
-			db.execSQL("DROP TABLE IF EXISTS "+ ALPHABET.substring(i,i+1 ) +"short");
-			db.execSQL("DROP TABLE IF EXISTS "+ ALPHABET.substring(i, i+1) +"long");
+
+	public Wordlist getwordlist(String name){
+		StringBuilder wordlist = new StringBuilder();
+		SQLiteDatabase db = helper.getReadableDatabase();
+		for(int i = 0 ;i < ALPHABET.length() ; i++){
 			
+			Cursor c = db.rawQuery("SELECT content FROM " + ALPHABET.charAt(i) 
+					+"WHERE Dictionary = ?",new String[] {name});
+			if (c != null)
+		        c.moveToFirst();
+			while(!c.isAfterLast()){
+				wordlist.append(c.getString(c.getColumnIndex("content")));
+				wordlist.append(";");
+				c.moveToNext();
+				}
+		}
+		db.close();
+		WordlistBuilder w = new WordlistBuilder(name);
+		w.addWords(wordlist.toString());
+		return w.getWordlist();
+	}
+
+	private void initDB(Context context) {
+		WordlistBuilder builder1 = new WordlistBuilder("English");
+		builder1.initialize(context);
+		Wordlist english = builder1.getWordlist();
+		addWordlist(english);
+	}
+
+	public void reset(Context context) {
+		SQLiteDatabase db = helper.getWritableDatabase();
+		for (int i = 0; i < ALPHABET.length(); i++) {
+			db.execSQL("DROP TABLE IF EXISTS " + ALPHABET.substring(i, i + 1)
+					+ "short");
+			db.execSQL("DROP TABLE IF EXISTS " + ALPHABET.substring(i, i + 1)
+					+ "long");
+
 		}
 		db.execSQL("DROP TABLE IF EXISTS Dictionary");
 		helper.onCreate(db);
