@@ -33,13 +33,17 @@ public class GameManager {
 		rnd.generate();
 		board = rnd.getBoard();
 	
-		//TODO: remove this after testing was successful
-		board.setToken(new Token('c', 1), 0, 0);
-		board.setToken(new Token('a', 1), 0, 1);
-		board.setToken(new Token('r', 1), 0, 2);
+//		//TODO: remove this after testing was successful
+//		board.setToken(new Token('c', 1), 0, 0);
+//		board.setToken(new Token('a', 1), 0, 1);
+//		board.setToken(new Token('r', 1), 0, 2);
 
 		wordlist = loadDefaultWordlist();
 		found = new Wordlist("Found words");
+	}
+	
+	public Board getBoard() {
+		return this.board;
 	}
 	
 	public void setContext(Context context) {
@@ -50,7 +54,7 @@ public class GameManager {
 		//not working
 		WordlistBuilder builder = new WordlistBuilder("English");
 		//builder.addWords(new File("assets/english.txt"));
-		InputStream ins = this.context.getResources().openRawResource(R.raw.english);
+		InputStream ins = this.context.getResources().openRawResource(R.raw.englishreduced);
 		InputStreamReader insr = new InputStreamReader(ins);
 		BufferedReader reader = new BufferedReader(insr);
 		builder.addWords(reader);

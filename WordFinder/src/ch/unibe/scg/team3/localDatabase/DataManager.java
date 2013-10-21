@@ -8,14 +8,19 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
+ * 	This class provides the connection between the SQLite database and the classes
+ * 	which need the data. This class provides the methods for adding a wordlist to
+ * 	the database or getting an wordlist object by name from the database. Additional
+ * 	the methods for reset and initialisation of the db are in this class.
  * 
  * @author nils
  * 
  */
 public class DataManager {
-	Context context;
-	MySQLiteHelper helper;
-	private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+	
+	private Context context;
+	private MySQLiteHelper helper;
+	//private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
 	public DataManager(Context context) {
 		this.context = context;
@@ -28,7 +33,7 @@ public class DataManager {
 				+ "')");
 
 		String content = wordlist.getContent();
-		String[] words = content.split(";");
+		String[] words = content.split("" + Wordlist.WORD_SEPARATOR);
 		for (int i = 0; i < words.length; i++) {
 			if (words[i].length() < 5 && words[i].length() > 0) {
 				// System.out.println(words[i]);
@@ -52,22 +57,28 @@ public class DataManager {
 	public Wordlist getwordlist(String name){
 		StringBuilder wordlist = new StringBuilder();
 		SQLiteDatabase db = helper.getReadableDatabase();
-		for(int i = 0 ;i < ALPHABET.length() ; i++){
+		for(int i = 0 ;i < MySQLiteHelper.ALPHABET.length() ; i++){
 			
-			Cursor c = db.rawQuery("SELECT content FROM " + ALPHABET.charAt(i) 
-					+"WHERE Dictionary = ?",new String[] {name});
+			Cursor c = db.rawQuery("SELECT content FROM " + MySQLiteHelper.ALPHABET.charAt(i) 
+					+ "WHERE Dictionary = ?", new String[] {name});
 			if (c != null)
 		        c.moveToFirst();
 			while(!c.isAfterLast()){
 				wordlist.append(c.getString(c.getColumnIndex("content")));
-				wordlist.append(";");
+				wordlist.append("" + Wordlist.WORD_SEPARATOR);
 				c.moveToNext();
 				}
+			c.close();
 		}
 		db.close();
 		WordlistBuilder w = new WordlistBuilder(name);
 		w.addWords(wordlist.toString());
 		return w.getWordlist();
+	}
+	public void removeWordlist(String name){
+		SQLiteDatabase db = helper.getReadableDatabase();
+		db.execSQL("DELETE Dictionary WHERE Name = '" +name+"'");
+		db.close();
 	}
 
 	private void initDB(Context context) {
@@ -79,15 +90,16 @@ public class DataManager {
 
 	public void reset(Context context) {
 		SQLiteDatabase db = helper.getWritableDatabase();
-		for (int i = 0; i < ALPHABET.length(); i++) {
-			db.execSQL("DROP TABLE IF EXISTS " + ALPHABET.substring(i, i + 1)
+		for (int i = 0; i < MySQLiteHelper.ALPHABET.length(); i++) {
+			db.execSQL("DROP TABLE IF EXISTS " + MySQLiteHelper.ALPHABET.substring(i, i + 1)
 					+ "short");
-			db.execSQL("DROP TABLE IF EXISTS " + ALPHABET.substring(i, i + 1)
+			db.execSQL("DROP TABLE IF EXISTS " + MySQLiteHelper.ALPHABET.substring(i, i + 1)
 					+ "long");
 
 		}
 		db.execSQL("DROP TABLE IF EXISTS Dictionary");
 		helper.onCreate(db);
 		initDB(context);
+		db.close();
 	}
 }
