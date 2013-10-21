@@ -13,8 +13,15 @@ import ch.unibe.scg.team3.wordlist.WordlistBuilder;
 
 /**
  * 
+ * This class is responsible for creating the database. It holds the name of the db
+ * 	provides methods for creating and updating of databases. Its the main access
+ * 	to perform SQLite statments on the db.
+ * 
+ * 
  * @author nils
  * @author adrian
+ * 
+ * 	
  * 
  */
 

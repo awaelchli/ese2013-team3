@@ -8,8 +8,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
+ * 	This class provides the connection between the SQLite database and the classes
+ * 	which need the data. This class provides the methods for adding a wordlist to
+ * 	the database or getting an wordlist object by name from the database. Additional
+ * 	the methods for reset and initialisation of the db are in this class.
  * 
  * @author nils
+ * 
+ * 
  * 
  */
 public class DataManager {
@@ -63,6 +69,7 @@ public class DataManager {
 				wordlist.append(";");
 				c.moveToNext();
 				}
+			c.close();
 		}
 		db.close();
 		WordlistBuilder w = new WordlistBuilder(name);
