@@ -41,6 +41,7 @@ public class GridActivity extends Activity {
         this.manager = new GameManager(6,this);
         this.finger_padding = 20;
         board.setOnTouchListener(new BoardOnTouchListener(this, this.finger_padding));
+        this.setLetters();
     }
 
 	@Override
@@ -58,7 +59,8 @@ public class GridActivity extends Activity {
 				String button = "button".concat(Integer.toString((i)*6+j+1));
 				int id = getResources().getIdentifier(button, "id", this.getPackageName());
 				SquareField field = (SquareField)findViewById(id);
-				field.setText(board.getToken(i, j).getLetter());
+				
+				field.setText("" + board.getToken(j, i).getLetter());
 			}
 		}
 	}
