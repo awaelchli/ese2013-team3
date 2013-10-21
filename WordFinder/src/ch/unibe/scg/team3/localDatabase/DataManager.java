@@ -51,8 +51,9 @@ public class DataManager {
 
 	public Wordlist getwordlist(String name){
 		StringBuilder wordlist = new StringBuilder();
+		SQLiteDatabase db = helper.getReadableDatabase();
 		for(int i = 0 ;i < ALPHABET.length() ; i++){
-			SQLiteDatabase db = helper.getReadableDatabase();
+			
 			Cursor c = db.rawQuery("SELECT content FROM " + ALPHABET.charAt(i) 
 					+"WHERE Dictionary = ?",new String[] {name});
 			if (c != null)
@@ -63,6 +64,7 @@ public class DataManager {
 				c.moveToNext();
 				}
 		}
+		db.close();
 		WordlistBuilder w = new WordlistBuilder(name);
 		w.addWords(wordlist.toString());
 		return w.getWordlist();
