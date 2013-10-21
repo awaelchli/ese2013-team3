@@ -44,6 +44,8 @@ public class GridActivity extends Activity {
         this.finger_padding = 20;
         board.setOnTouchListener(new BoardOnTouchListener(this, this.finger_padding));
         setLetters();
+        System.out.println(getResources().getIdentifier("button1", "id", this.getPackageName()));
+        System.out.println(R.id.button1);
     }
 
 	@Override
