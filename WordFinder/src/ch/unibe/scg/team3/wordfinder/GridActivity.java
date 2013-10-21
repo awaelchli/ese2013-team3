@@ -19,6 +19,7 @@ import ch.unibe.scg.team3.game.SelectionException;
 /**
  * @author faerber
  * @author adrian
+ * @author nils
  */
 
 @SuppressLint("NewApi")
@@ -42,6 +43,7 @@ public class GridActivity extends Activity {
         this.mapper = new BoardMapper(6);
         this.finger_padding = 20;
         board.setOnTouchListener(new BoardOnTouchListener(this, this.finger_padding));
+        setLetters();
     }
 
 	@Override
