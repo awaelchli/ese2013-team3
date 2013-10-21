@@ -52,7 +52,7 @@ public class DataManager {
 		for(int i = 0 ;i < ALPHABET.length() ; i++){
 			SQLiteDatabase db = helper.getReadableDatabase();
 			Cursor c = db.rawQuery("SELECT content FROM " + ALPHABET.charAt(i) 
-					+"WHERE Dictionary = ?",new String[] {name},null);
+					+"WHERE Dictionary = ?",new String[] {name});
 			if (c != null)
 		        c.moveToFirst();
 			wordlist = wordlist + c.getString(c.getColumnIndex("content"));
