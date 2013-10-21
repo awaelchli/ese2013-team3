@@ -2,6 +2,7 @@ package ch.unibe.scg.team3.wordfinder;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.TableLayout;
 
 public class BoardUI extends TableLayout {
@@ -31,7 +32,7 @@ public class BoardUI extends TableLayout {
 		
 		for (int i = 0; i < buttons.length; i++) {
 			for (int j = 0; j < buttons[0].length; j++) {
-				buttons[i][j] = new BoardButton(context);
+				buttons[i][j] = (BoardButton) View.inflate(context, R.layout.board_button, null) ;
 				// btn.setOnTouchListener(new BoardOnTouchListener())
 			}
 		}
