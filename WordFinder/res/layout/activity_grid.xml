@@ -374,6 +374,18 @@
                 android:text="J" />
         </ch.unibe.scg.team3.wordfinder.SquareRow>
     </TableLayout>
+    
+    <ch.unibe.scg.team3.wordfinder.BoardUI 
+       	android:id="@+id/tableboardUI"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+    >
+        
+    </ch.unibe.scg.team3.wordfinder.BoardUI>
 
     <Button
      	android:id="@+id/quit_button"

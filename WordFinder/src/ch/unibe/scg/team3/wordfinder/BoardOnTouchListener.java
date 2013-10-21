@@ -37,8 +37,8 @@ public class BoardOnTouchListener implements OnTouchListener {
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			walked_views = new ArrayList<View>();
-			walked_coordinates = new ArrayList<Point>();
+			this.walked_views = new ArrayList<View>();
+			this.walked_coordinates = new ArrayList<Point>();
 		case MotionEvent.ACTION_MOVE:
 			break;
 		case MotionEvent.ACTION_UP:
