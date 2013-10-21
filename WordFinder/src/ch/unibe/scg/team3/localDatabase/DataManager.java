@@ -4,6 +4,7 @@ import ch.unibe.scg.team3.wordlist.Wordlist;
 import ch.unibe.scg.team3.wordlist.WordlistBuilder;
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 /**
  * 
@@ -45,6 +46,20 @@ public class DataManager {
 			}
 		}
 		db.close();
+	}
+	public Wordlist getwordlist(String name){
+		String wordlist ="";
+		for(int i = 0 ;i < ALPHABET.length() ; i++){
+			SQLiteDatabase db = helper.getReadableDatabase();
+			Cursor c = db.rawQuery("SELECT content FROM " + ALPHABET.charAt(i) 
+					+"WHERE Dictionary = ?",new String[] {name},null);
+			if (c != null)
+		        c.moveToFirst();
+			wordlist = wordlist + c.getString(c.getColumnIndex("content"));
+		}
+		WordlistBuilder w = new WordlistBuilder(name);
+		w.addWords(wordlist);
+		return w.getWordlist();
 	}
 	private void initDB(Context context) {
 		 WordlistBuilder builder1 = new WordlistBuilder("English");
