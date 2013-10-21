@@ -25,7 +25,7 @@ public class EndGameActivity extends Activity {
 	}
 	
 	public void startGame(View view){
-    	Intent intent = new Intent(this, GridActivity.class);
+    	Intent intent = new Intent(this, GameActivity.class);
     	startActivity(intent);
     	finish();
     }

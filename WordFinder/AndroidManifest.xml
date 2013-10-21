@@ -44,15 +44,7 @@
             android:name="ch.unibe.scg.team3.wordfinder.PreferencesActivity"
             android:label="@string/title_activity_preferences" >
         </activity>
-        <activity
-            android:name="ch.unibe.scg.team3.wordfinder.GridActivity"
-            android:label="@string/title_activity_grid" >
-            
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="ch.unibe.scg.team3.wordfinder.HomeActivity" />
-        </activity>
+       
     </application>
 
 </manifest>

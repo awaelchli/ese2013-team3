@@ -1,0 +1,4 @@
+<ch.unibe.scg.team3.boardui.BoardRow 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="6" />
+    

@@ -1,86 +1,31 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="fill_vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".GameActivity" >
-
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
-
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-
-            <Button
-                android:id="@+id/TokenButton00"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="00" />
-
-            <Button
-                android:id="@+id/TokenButton01"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="01" />
-
-            <Button
-                android:id="@+id/TokenButton02"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="02" />
-
-            <Button
-                android:id="@+id/TokenButton03"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="03" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </TableRow>
-    </TableLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/tableLayout1" >
-
-        <Button
-            android:id="@+id/quit_button"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      	android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        
+   	<TextView
+            android:id="@+id/timer_field"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/quit_button"
-            android:onClick="quit"/>
+            android:gravity="center"
+            android:text="@string/timer_time"
+            android:textSize="40sp" />
+   	
+    
+    <ch.unibe.scg.team3.boardui.BoardUI 
+       	android:id="@+id/tableboardUI"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
 
-    </LinearLayout>
-
-</RelativeLayout>
+    <Button
+     	android:id="@+id/quit_button"
+       	android:layout_width="fill_parent"
+       	android:layout_height="wrap_content"
+      	android:onClick="quit"
+      	android:text="@string/quit_button" />
+    
+</LinearLayout>

@@ -1,5 +1,11 @@
 package ch.unibe.scg.team3.board;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
+import ch.unibe.scg.team3.boardui.IBoardObserver;
+import ch.unibe.scg.team3.boardui.IObservable;
 import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.token.NullToken;
 
@@ -8,13 +14,18 @@ import ch.unibe.scg.team3.token.NullToken;
  * @author adrian
  * 
  */
-public class Board {
+public class Board implements IObservable{
 
+	public static final int DEFAULT_SIZE = 6;
+	
 	private IToken[][] tokens;
 	private final int size;
+		
+	private final List<IBoardObserver> observers;
 
 	public Board(int size) {
 		this.size = size;
+		this.observers = new ArrayList<IBoardObserver>();
 		assert invariant();
 		init();
 	}
@@ -64,5 +75,19 @@ public class Board {
 		}
 
 		return sb.toString();
+	}
+
+	@Override
+	public void notifyObserver() {
+		for(IBoardObserver o : observers){
+			o.update(this);
+		}
+	}
+
+	@Override
+	public void addObserver(IBoardObserver o) {
+		if(!observers.contains(o)){
+			observers.add(o);
+		}
 	}
 }
