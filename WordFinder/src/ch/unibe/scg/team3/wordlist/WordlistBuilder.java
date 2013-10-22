@@ -52,7 +52,7 @@ public class WordlistBuilder {
 	
 	//not working
 	public void initialize(Context context){
-		InputStream inputStream = context.getResources().openRawResource(R.raw.englishreduced);
+		InputStream inputStream = context.getResources().openRawResource(R.raw.english);
 
 		    InputStreamReader inputreader = new InputStreamReader(inputStream);
 		    BufferedReader buffreader = new BufferedReader(inputreader);
