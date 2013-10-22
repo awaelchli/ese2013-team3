@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.GameActivity"
-            android:label="@string/title_activity_game" >
+            android:label="@string/title_activity_game" 
+            android:screenOrientation="portrait">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data

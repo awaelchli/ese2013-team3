@@ -39,7 +39,7 @@ public class RandomBoardGeneratorTest {
 		Board board = r.getBoard();
 		IToken nul = NullToken.getInstance();
 
-		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toLowerCase();
 
 		for (int i = 0; i < board.getSize(); i++) {
 			for (int j = 0; j < board.getSize(); j++) {

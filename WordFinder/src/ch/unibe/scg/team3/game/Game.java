@@ -23,14 +23,14 @@ import ch.unibe.scg.team3.wordlist.WordlistBuilder;
  * @author faerber
  */
 
-public class GameManager {
+public class Game {
 
 	private final Board board;
 	private final Wordlist wordlist;
 	private final Wordlist found;
 	private Context context;
 
-	public GameManager(int boardSize, Context context) {
+	public Game(int boardSize, Context context) {
 		this.context = context;
 		RandomBoardGenerator rnd = new RandomBoardGenerator(boardSize);
 		rnd.generate();

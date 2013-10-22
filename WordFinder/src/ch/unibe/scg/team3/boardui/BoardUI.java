@@ -4,7 +4,6 @@ import ch.unibe.scg.team3.board.Board;
 import ch.unibe.scg.team3.game.Point;
 import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.wordfinder.R;
-import ch.unibe.scg.team3.wordfinder.R.layout;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;

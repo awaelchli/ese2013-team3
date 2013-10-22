@@ -10,6 +10,7 @@ import ch.unibe.scg.team3.wordfinder.R.drawable;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
+import android.graphics.drawable.AnimationDrawable;
 import android.view.*;
 import android.view.View.OnTouchListener;
 /**
@@ -25,15 +26,15 @@ public class BoardOnTouchListener implements OnTouchListener {
 	private List<Point> walked_coordinates;
 	private final Context context;
 	// private BoardMapper map;
-	private final GameManager manager;
+	private final Game manager;
 
-	// public BoardOnTouchListener(GameActivity ga, GameManager manager) {
+	// public BoardOnTouchListener(GameActivity ga, Game manager) {
 	// this.context = ga;
 	// //this.FINGER_PADDING = padding;
 	// map = new BoardMapper(6);
 	// }
 
-	public BoardOnTouchListener(Context context, GameManager manager) {
+	public BoardOnTouchListener(Context context, Game manager) {
 		this.context = context;
 		this.manager = manager;
 		
@@ -114,22 +115,25 @@ public class BoardOnTouchListener implements OnTouchListener {
 		
 		try {
 			manager.submitWord(this.walked_coordinates);
-			setPathBackground(R.drawable.buttonlayout_valid);
+			makePathAnimation(R.drawable.valid_button_animation);
 		} catch (SelectionException e) {
 			
 			if (e.isPathNotConnected() || e.isWordNotFound()) {
-				setPathBackground(R.drawable.buttonlayout_invalid);
+				makePathAnimation(R.drawable.not_valid_button_animation);
 				
 			} else if (e.isWordAlreadyFound()) {
-				setPathBackground(R.drawable.buttonlayout_already);
+				makePathAnimation(R.drawable.already_button_animation);
 			} 
 		}
 	}
 
-	private void setPathBackground(int layout) {
+	private void makePathAnimation(int layout) {
 
 		for (BoardButton b : walked_buttons) {
 			b.setBackgroundDrawable(context.getResources().getDrawable(layout));
+
+			AnimationDrawable anim = (AnimationDrawable) b.getBackground();
+			anim.start();
 		}
 	}
 

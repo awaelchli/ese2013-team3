@@ -50,7 +50,7 @@ public class WordlistBuilder {
 		}
 	}
 	
-	//not working
+	//Überarbeiten! -> Adrian fragen wie
 	public void initialize(Context context){
 		InputStream inputStream = context.getResources().openRawResource(R.raw.englishreduced);
 

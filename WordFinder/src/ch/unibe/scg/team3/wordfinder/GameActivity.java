@@ -9,7 +9,7 @@ import android.view.View;
 import ch.unibe.scg.team3.board.Board;
 import ch.unibe.scg.team3.boardui.BoardOnTouchListener;
 import ch.unibe.scg.team3.boardui.BoardUI;
-import ch.unibe.scg.team3.game.GameManager;
+import ch.unibe.scg.team3.game.Game;
 
 /**
  * @author faerber
@@ -21,7 +21,7 @@ import ch.unibe.scg.team3.game.GameManager;
 public class GameActivity extends Activity {
 
 	//private List<View> walked;
-	private GameManager manager;
+	private Game manager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class GameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 
-		manager = new GameManager(Board.DEFAULT_SIZE, this);
+		manager = new Game(Board.DEFAULT_SIZE, this);
 
 		BoardUI boardUI = (BoardUI) findViewById(R.id.tableboardUI);
 		
