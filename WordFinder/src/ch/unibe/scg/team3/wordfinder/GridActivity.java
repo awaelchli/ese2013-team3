@@ -59,8 +59,7 @@ public class GridActivity extends Activity {
 				String button = "button".concat(Integer.toString((i)*6+j+1));
 				int id = getResources().getIdentifier(button, "id", this.getPackageName());
 				SquareField field = (SquareField)findViewById(id);
-				
-				field.setText("" + board.getToken(j, i).getLetter());
+				field.setText(("" + board.getToken(j, i).getLetter()).toUpperCase());
 			}
 		}
 	}

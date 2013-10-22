@@ -21,12 +21,12 @@
             android:textSize="40sp" />
            	
    		<ch.unibe.scg.team3.wordfinder.CustomField
-            android:id="@+id/timer_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/timer_time"
-            android:textSize="40sp" />
+   		    android:id="@+id/timer_field"
+   		    android:layout_width="wrap_content"
+   		    android:layout_height="wrap_content"
+   		    android:layout_weight="1"
+   		    android:text="@string/timer_time"
+   		    android:textSize="40sp" />
    		
    	</LinearLayout>
    	

@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.content.Context;
 import ch.unibe.scg.team3.board.Board;
+import ch.unibe.scg.team3.board.CustomBoardGenerator;
 import ch.unibe.scg.team3.board.RandomBoardGenerator;
 import ch.unibe.scg.team3.board.WordSelection;
 import ch.unibe.scg.team3.token.IToken;
@@ -29,14 +30,10 @@ public class GameManager {
 
 	public GameManager(int boardSize,Context context) {
 		this.context = context;
-		RandomBoardGenerator rnd = new RandomBoardGenerator(boardSize);
+//		RandomBoardGenerator rnd = new RandomBoardGenerator(boardSize);
+		CustomBoardGenerator rnd = new CustomBoardGenerator(boardSize);
 		rnd.generate();
 		board = rnd.getBoard();
-	
-//		//TODO: remove this after testing was successful
-//		board.setToken(new Token('c', 1), 0, 0);
-//		board.setToken(new Token('a', 1), 0, 1);
-//		board.setToken(new Token('r', 1), 0, 2);
 
 		wordlist = loadDefaultWordlist();
 		found = new Wordlist("Found words");
