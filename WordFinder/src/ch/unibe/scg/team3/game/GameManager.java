@@ -66,7 +66,7 @@ public class GameManager {
 		assert path != null;
 		assert path.size() > 0;
 		
-		System.out.println(wordlist.getSize());
+//		System.out.println(wordlist.getSize());
 
 		if (!PathChecker.check(path)) {
 			throw new PathNotConnectedException();

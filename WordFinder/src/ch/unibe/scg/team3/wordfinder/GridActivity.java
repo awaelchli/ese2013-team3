@@ -71,6 +71,10 @@ public class GridActivity extends Activity {
 		try {
 			manager.submitWord(walked_coordinates);
 			this.setBackgroundColor(R.drawable.buttonlayout_valid);
+			CustomField s = (CustomField)findViewById(R.id.score_field);
+			int score = Integer.valueOf("" + s.getText());
+			int score_new = score + walked_coordinates.size();
+			s.setText(String.valueOf(score_new));
 		} catch (SelectionException s) {
 			if (s.isPathNotConnected() || s.isWordNotFound()) {
 				this.setBackgroundColor(R.drawable.buttonlayout_invalid);
