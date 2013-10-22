@@ -2,6 +2,7 @@ package ch.unibe.scg.team3.wordfinder;
 
 import java.util.List;
 
+import android.R;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;

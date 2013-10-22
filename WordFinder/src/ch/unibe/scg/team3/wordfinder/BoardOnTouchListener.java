@@ -2,12 +2,14 @@ package ch.unibe.scg.team3.wordfinder;
 
 import java.util.ArrayList;
 import java.util.List;
-import ch.unibe.scg.team3.game.Point;
+
+import android.R;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.TableLayout;
+import ch.unibe.scg.team3.game.Point;
 
 /**
  * @author adrian

@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 
 import ch.unibe.jexample.Given;
 import ch.unibe.jexample.JExample;
-import ch.unibe.scg.team3.wordfinder.R;
 
 /**
  * 

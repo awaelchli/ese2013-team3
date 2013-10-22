@@ -1,15 +1,8 @@
 package ch.unibe.scg.team3.localDatabase;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import ch.unibe.scg.team3.wordlist.Wordlist;
-import ch.unibe.scg.team3.wordlist.WordlistBuilder;
 
 /**
  * 

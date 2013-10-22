@@ -5,14 +5,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import android.R;
 import android.content.Context;
 import ch.unibe.scg.team3.board.Board;
 import ch.unibe.scg.team3.board.CustomBoardGenerator;
-import ch.unibe.scg.team3.board.RandomBoardGenerator;
 import ch.unibe.scg.team3.board.WordSelection;
 import ch.unibe.scg.team3.token.IToken;
-import ch.unibe.scg.team3.token.Token;
-import ch.unibe.scg.team3.wordfinder.R;
 import ch.unibe.scg.team3.wordlist.Wordlist;
 import ch.unibe.scg.team3.wordlist.WordlistBuilder;
 
