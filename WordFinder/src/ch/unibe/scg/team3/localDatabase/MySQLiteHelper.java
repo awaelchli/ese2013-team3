@@ -33,6 +33,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String dictable = "CREATE TABLE Dictionary (_id INTEGER , Name TEXT PRIMARY KEY)";
 		db.execSQL(dictable);
+		db.beginTransaction();
+		try{
 		for (int i = 0; i < ALPHABET.length(); i++) {
 			String shorttable = "CREATE TABLE " + ALPHABET.charAt(i)
 					+ "short(_id INTEGER PRIMARY KEY ASC, Dictionary, "
@@ -45,6 +47,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 					+ "Content TEXT, FOREIGN KEY(Dictionary) REFERENCES Dictionary(Name) " +
 					"ON DELETE CASCADE ON UPDATE CASCADE)";
 			db.execSQL(longtable);
+		}
+		db.setTransactionSuccessful();
+		}
+		finally{
+			db.endTransaction();
 		}
 	}
 	@Override

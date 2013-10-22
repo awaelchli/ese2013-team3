@@ -8,39 +8,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".PreferencesActivity" >
 
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:scrollbars="horizontal" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <ListView
-                android:id="@+id/listView1"
-                android:layout_width="match_parent"
-                android:layout_height="420dp"
-                android:drawSelectorOnTop="false"
-                tools:listitem="@android:layout/simple_list_item_2" >
-
-            </ListView>
-
-        </LinearLayout>
-    </ScrollView>
-
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/scrollView1"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="87dp"
         android:onClick="resetDB"
         android:text="Button" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+
+    </LinearLayout>
 
 </RelativeLayout>
