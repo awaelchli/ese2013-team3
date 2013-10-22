@@ -3,6 +3,7 @@ package ch.unibe.scg.team3.wordfinder;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,6 +39,8 @@ public class GridActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid);
         ViewGroup board = (ViewGroup)findViewById(R.id.tableBoard);
+        ActionBar actionBar = getActionBar();
+        actionBar.hide();
         this.manager = new GameManager(6,this);
         this.finger_padding = 20;
         board.setOnTouchListener(new BoardOnTouchListener(this, this.finger_padding));
