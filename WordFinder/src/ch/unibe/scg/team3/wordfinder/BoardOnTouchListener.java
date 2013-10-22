@@ -2,8 +2,6 @@ package ch.unibe.scg.team3.wordfinder;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import android.R;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;

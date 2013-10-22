@@ -2,7 +2,6 @@ package ch.unibe.scg.team3.wordfinder;
 
 import java.util.List;
 
-import android.R;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -13,6 +12,7 @@ import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import ch.unibe.scg.team3.board.Board;
 import ch.unibe.scg.team3.game.GameManager;
 import ch.unibe.scg.team3.game.Point;
@@ -40,8 +40,6 @@ public class GridActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid);
         ViewGroup board = (ViewGroup)findViewById(R.id.tableBoard);
-        ActionBar actionBar = getActionBar();
-        actionBar.hide();
         this.manager = new GameManager(6,this);
         this.finger_padding = 20;
         board.setOnTouchListener(new BoardOnTouchListener(this, this.finger_padding));
@@ -78,6 +76,8 @@ public class GridActivity extends Activity {
 			int score = Integer.valueOf("" + s.getText());
 			int score_new = score + walked_coordinates.size();
 			s.setText(String.valueOf(score_new));
+			TextView foundwords= (TextView)findViewById(R.id.foundWordsField);
+			foundwords.setText(manager.getFoundWords().replace(";","\n"));
 		} catch (SelectionException s) {
 			if (s.isPathNotConnected() || s.isWordNotFound()) {
 				this.setBackgroundColor(R.drawable.buttonlayout_invalid);

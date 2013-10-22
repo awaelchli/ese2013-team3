@@ -398,20 +398,27 @@
                     android:text="J" />
             </ch.unibe.scg.team3.wordfinder.SquareRow>
         </TableLayout>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Found Words:" />
     	
-    </LinearLayout>
 	<ScrollView
-            android:id="@+id/scrollView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+	    android:id="@+id/scrollView1"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:fillViewport="true" >
+
 		    <TextView
-		        android:id="@+id/textView1"
+		        android:id="@+id/foundWordsField"
 		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_weight="1"
-		        android:text="TextView" />
+		        android:layout_height="fill_parent"
+		        android:layout_weight="1" />
+
 	    </ScrollView>
-    
+    </LinearLayout>
 
     <Button
         android:id="@+id/quit_button"
@@ -426,7 +433,9 @@
         android:layout_height="98dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/quit_button"
         android:orientation="vertical" >
+
     </LinearLayout>
 
 </RelativeLayout>

@@ -6,7 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-import android.R;
+import ch.unibe.scg.team3.wordfinder.R;
+
 import android.content.Context;
 
 /**

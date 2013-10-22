@@ -1,6 +1,5 @@
 package ch.unibe.scg.team3.wordfinder;
 
-import android.R;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
