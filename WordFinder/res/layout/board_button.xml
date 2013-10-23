@@ -1,0 +1,7 @@
+
+<ch.unibe.scg.team3.boardui.BoardButton 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/buttonlayout"
+    android:clickable="false"
+    android:layout_weight="1"
+    android:gravity="center" />

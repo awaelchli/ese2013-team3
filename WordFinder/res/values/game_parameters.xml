@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_animation_time">500</string>
+    <string name="found_words">Found words:</string>
+    <color name="color_walk">#000</color>
+    <color name="color_valid">#000</color>
+    <color name="color_not_valid">#000</color>
+    <color name="color_already_found">#000</color>
+    
+</resources>
