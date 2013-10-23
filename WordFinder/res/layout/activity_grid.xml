@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
-        
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +31,6 @@
                 android:layout_weight="1"
                 android:text="@string/timer_time"
                 android:textSize="40sp" />
-
         </LinearLayout>
 
         <TableLayout
@@ -404,38 +402,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Found Words:" />
-    	
-	<ScrollView
-	    android:id="@+id/scrollView1"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:fillViewport="true" >
 
-		    <TextView
-		        android:id="@+id/foundWordsField"
-		        android:layout_width="match_parent"
-		        android:layout_height="fill_parent"
-		        android:layout_weight="1" />
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:fillViewport="true" >
 
-	    </ScrollView>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/foundWordsField"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
+        </ScrollView>
 
-    <Button
-        android:id="@+id/quit_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:onClick="quit"
-        android:text="@string/quit_button" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="98dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/quit_button"
-        android:orientation="vertical" >
-
+        <Button
+            android:id="@+id/quit_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="quit"
+            android:text="@string/quit_button" />
     </LinearLayout>
 
 </RelativeLayout>
