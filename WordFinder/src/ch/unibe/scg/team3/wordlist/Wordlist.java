@@ -3,7 +3,7 @@ package ch.unibe.scg.team3.wordlist;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import ch.unibe.scg.team3.game.IWordlistObserver;
+import ch.unibe.scg.team3.gameui.IWordlistObserver;
 
 /**
  * 

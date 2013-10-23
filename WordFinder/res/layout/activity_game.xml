@@ -12,7 +12,7 @@
             android:textSize="40sp" />
    	
     
-    <ch.unibe.scg.team3.boardui.BoardUI 
+    <ch.unibe.scg.team3.gameui.BoardUI 
        	android:id="@+id/tableboardUI"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_weight="1"
             android:fillViewport="true" >
 
-            <ch.unibe.scg.team3.game.FoundWordsView
+            <ch.unibe.scg.team3.gameui.FoundWordsView
                 android:id="@+id/foundWordsField"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent" />

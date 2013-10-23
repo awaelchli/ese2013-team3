@@ -1,5 +1,5 @@
 
-<ch.unibe.scg.team3.boardui.BoardButton 
+<ch.unibe.scg.team3.gameui.BoardButton 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/buttonlayout"
     android:clickable="false"

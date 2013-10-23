@@ -2,6 +2,8 @@ package ch.unibe.scg.team3.game;
 
 import java.util.List;
 
+import ch.unibe.scg.team3.board.Point;
+
 //TODO: work on class description here:
 
 /**

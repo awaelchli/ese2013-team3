@@ -1,6 +1,6 @@
 package ch.unibe.scg.team3.wordlist;
 
-import ch.unibe.scg.team3.game.IWordlistObserver;
+import ch.unibe.scg.team3.gameui.IWordlistObserver;
 
 public interface IObservable {
 

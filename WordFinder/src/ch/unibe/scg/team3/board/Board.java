@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import ch.unibe.scg.team3.boardui.IBoardObserver;
-import ch.unibe.scg.team3.boardui.IObservable;
+import ch.unibe.scg.team3.gameui.IBoardObserver;
+import ch.unibe.scg.team3.gameui.IObservable;
 import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.token.NullToken;
 

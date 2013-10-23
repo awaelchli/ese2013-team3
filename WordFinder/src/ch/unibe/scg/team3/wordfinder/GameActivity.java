@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import ch.unibe.scg.team3.board.Board;
-import ch.unibe.scg.team3.boardui.BoardOnTouchListener;
-import ch.unibe.scg.team3.boardui.BoardUI;
-import ch.unibe.scg.team3.game.FoundWordsView;
 import ch.unibe.scg.team3.game.Game;
+import ch.unibe.scg.team3.gameui.BoardOnTouchListener;
+import ch.unibe.scg.team3.gameui.BoardUI;
+import ch.unibe.scg.team3.gameui.FoundWordsView;
 
 /**
  * @author faerber
