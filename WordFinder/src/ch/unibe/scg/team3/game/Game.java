@@ -25,6 +25,7 @@ public class Game {
 	private final Board board;
 	private final Wordlist wordlist;
 	private final Wordlist found;
+	//TODO: better dont use context for game 
 	private Context context;
 
 	public Game(int boardSize, Context context) {
@@ -40,10 +41,10 @@ public class Game {
 	public Board getBoard() {
 		return this.board;
 	}
-
-	public void setContext(Context context) {
-		this.context = context;
-	}
+//
+//	public void setContext(Context context) {
+//		this.context = context;
+//	}
 	
 	public void addFoundListObserver(IWordlistObserver o){
 		found.addObserver(o);

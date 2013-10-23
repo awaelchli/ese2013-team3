@@ -7,6 +7,7 @@ import ch.unibe.scg.team3.wordfinder.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -48,10 +49,19 @@ public class BoardUI extends TableLayout implements IBoardObserver {
 				buttons[j][i] = btn;
 				row.addView(btn);
 			}
-
+			
 			this.addView(row);
 		}
 	}
+	
+	
+//	@Override
+//	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//		
+//		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//		final int height = getMeasuredHeight();
+//		setMeasuredDimension(height, height);
+//	}
 
 	@Override
 	public void update(Board board) {

@@ -18,8 +18,9 @@ public class BoardRow extends TableRow {
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		final int pWidth = MeasureSpec.getSize(widthMeasureSpec);
-		setMeasuredDimension(pWidth, pWidth / 6);
+		
+//		final int pWidth = MeasureSpec.getSize(widthMeasureSpec);
+//		setMeasuredDimension(height, height);
 	}
 
 }
