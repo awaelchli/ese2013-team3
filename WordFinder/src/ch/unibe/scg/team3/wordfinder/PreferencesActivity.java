@@ -1,5 +1,6 @@
 package ch.unibe.scg.team3.wordfinder;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +11,7 @@ import ch.unibe.scg.team3.localDatabase.DataManager;
  * @author nils
  * 
  */
-public class PreferencesActivity extends ListActivity {
+public class PreferencesActivity extends Activity {
 	DataManager db;
 	String options[] = {};
 	@Override
