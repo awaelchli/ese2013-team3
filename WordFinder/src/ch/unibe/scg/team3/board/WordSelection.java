@@ -49,7 +49,5 @@ public class WordSelection {
 		}
 		
 		return sb.toString();
-	}
-	
-	
+	}	
 }
