@@ -13,7 +13,7 @@ public class MyCustomBaseAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public Object getItem(int position) { 
 		// TODO Auto-generated method stub
 		return null;
 	}
