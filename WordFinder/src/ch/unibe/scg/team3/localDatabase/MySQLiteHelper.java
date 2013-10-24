@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import ch.unibe.scg.team3.wordfinder.R;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -23,9 +25,10 @@ import android.os.Environment;
  */
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
-	
+	private Context context;
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context=context;
 	}
 	
 	@Override
@@ -77,8 +80,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	    // Close the SQLiteOpenHelper so it will commit the created empty
 	    // database to internal storage.
 	    close();
-	    File newDb = new File(DB_FILEPATH);
-	    File oldDb = new File(Environment.getExternalStorageDirectory(),"DATABASE_NAME");
+	    File newDb = new File(context.getPackageResourcePath() +"localdatabase.db");
+	    File oldDb = new File(DB_FILEPATH);
 	    if (newDb.exists()) {
 	        FileUtils.copyFile(new FileInputStream(newDb), new FileOutputStream(oldDb));
 	        // Access the copied database so SQLiteHelper will cache it and mark
