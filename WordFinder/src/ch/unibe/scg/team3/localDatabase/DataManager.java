@@ -1,5 +1,7 @@
 package ch.unibe.scg.team3.localDatabase;
 
+import java.io.IOException;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -152,5 +154,10 @@ public class DataManager {
 		helper.onCreate(db);
 		initDB(context);
 		db.close();
+		try {
+			helper.importDatabase();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
