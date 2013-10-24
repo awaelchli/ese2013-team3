@@ -10,6 +10,7 @@ import ch.unibe.scg.team3.board.Board;
 import ch.unibe.scg.team3.board.Point;
 import ch.unibe.scg.team3.board.RandomBoardGenerator;
 import ch.unibe.scg.team3.board.WordSelection;
+import ch.unibe.scg.team3.gameui.BoardButton;
 import ch.unibe.scg.team3.gameui.IWordlistObserver;
 import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.token.Token;
@@ -27,6 +28,7 @@ public class Game {
 	private final Board board;
 	private final Wordlist wordlist;
 	private final Wordlist found;
+	private int score;
 	//TODO: better dont use context for game 
 	private Context context;
 
@@ -38,6 +40,7 @@ public class Game {
 
 		wordlist = loadDefaultWordlist();
 		found = new Wordlist("Found words");
+		score = 0;
 	}
 
 	public Board getBoard() {
@@ -64,38 +67,45 @@ public class Game {
 		return builder.getWordlist();
 	}
 
-	public void submitWord(List<Point> path) throws SelectionException {
+	public void submitPath(Path path) {
 
 		assert path != null;
-		assert path.size() > 0;
 
-		System.out.println(wordlist.getSize());
+//		System.out.println(wordlist.getSize());
 
-		if (!PathChecker.check(path)) {
-			throw new PathNotConnectedException();
-		}
+//		if (!PathChecker.check(path)) {
+//			throw new PathNotConnectedException();
+//		}
 
 		WordSelection selection = makeSelection(path);
 
 		String word = selection.toString();
 
 		if (!wordlist.contains(word)) {
-			throw new WordNotFoundException();
-		}
-
-		if (found.contains(word)) {
-			throw new WordAlreadyFoundException();
+			path.setColor(R.drawable.not_valid_button_animation);
+			
+		} else if (found.contains(word)) {
+			path.setColor(R.drawable.already_button_animation);
+			
 		} else {
 			found.addWord(word);
+			path.setColor(R.drawable.valid_button_animation);
+			updateScore(selection);
 		}
 	}
 
-	private WordSelection makeSelection(List<Point> path) {
+	private void updateScore(WordSelection selection) {
+		score += selection.getScore();
+	}
+
+	private WordSelection makeSelection(Path path) {
 
 		assert path != null;
 
 		WordSelection selection = new WordSelection();
-		for (Point p : path) {
+		
+		for (BoardButton b : path) {
+			Point p = b.getCoordinates();
 			IToken tok = board.getToken(p.getX(), p.getY());
 			selection.addToken(tok);
 		}

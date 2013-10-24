@@ -1,43 +1,65 @@
 package ch.unibe.scg.team3.game;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
-import ch.unibe.scg.team3.board.Point;
-import ch.unibe.scg.team3.wordfinder.R;
+import ch.unibe.scg.team3.gameui.BoardButton;
 
-public class Path {
+/**
+ * 
+ * @author adrian
+ *
+ */
+public class Path implements Iterable<BoardButton>{
 
-	private LinkedList<Point> path;
-	private int state;
+	private LinkedList<BoardButton> path;
+	private int color;
 
 	public Path() {
-		path = new LinkedList<Point>();
+		path = new LinkedList<BoardButton>();
 	}
 
-	public boolean add(Point p) {
-
-		if (path.contains(p))
+	public boolean add(BoardButton b) {
+		
+		if (path.contains(b))
 			return false;
 
-		if (!isAdjacent(p, path.getLast()))
+		if (0 < path.size() && !isAdjacent(b, path.getLast()))
 			return false;
 
-		path.add(p);
+		path.add(b);
 		return true;
 	}
 	
 	public void clear(){
 		path.clear();
 	}
+	
+	public int size(){
+		return path.size();
+	}
 
-	private static boolean isAdjacent(Point p1, Point p2) {
+	@Override
+	public Iterator<BoardButton> iterator() {
+		return path.iterator();
+	}
 
-		int p1_x = p1.getX();
-		int p1_y = p1.getY();
-		int p2_x = p2.getX();
-		int p2_y = p2.getY();
+	public void setColor(int color) {
+		this.color = color;
+	}
+
+	public int getColor() {
+		return color;
+	}
+	
+	private static boolean isAdjacent(BoardButton b1, BoardButton b2) {
+
+		int b1_x = b1.getCoordinates().getX();
+		int b1_y = b1.getCoordinates().getY();
+		int b2_x = b2.getCoordinates().getX();
+		int b2_y = b2.getCoordinates().getY();
 		
-		if ((Math.abs(p1_x - p2_x) > 1) || Math.abs(p1_y - p2_y) > 1) {
+		if ((Math.abs(b1_x - b2_x) > 1) || Math.abs(b1_y - b2_y) > 1) {
 			return false;
 		}
 		return true;
