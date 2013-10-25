@@ -31,4 +31,7 @@ public abstract class AbstractToken implements IToken{
 		
 		return letters && values;
 	}
+	
+	@Override
+	public abstract IToken clone();
 }

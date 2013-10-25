@@ -10,4 +10,6 @@ public interface IToken {
 	public int getValue();
 
 	public char getLetter();
+
+	public IToken clone();
 }

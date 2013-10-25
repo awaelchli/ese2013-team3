@@ -25,4 +25,9 @@ public class Token extends AbstractToken {
 	public char getLetter() {
 		return this.letter;
 	}
+
+	@Override
+	public IToken clone() {
+		return new Token(letter, value);
+	}
 }

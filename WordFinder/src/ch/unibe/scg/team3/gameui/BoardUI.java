@@ -1,20 +1,18 @@
 package ch.unibe.scg.team3.gameui;
 
-import ch.unibe.scg.team3.board.Board;
-import ch.unibe.scg.team3.board.Point;
+import ch.unibe.scg.team3.board.*;
 import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.wordfinder.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.MeasureSpec;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
 public class BoardUI extends TableLayout implements IBoardObserver {
 
 	private BoardButton[][] buttons;
-	private BoardRow[] rows;
+	private TableRow[] rows;
 	private final int size;
 
 	public BoardUI(Context context) {
@@ -32,10 +30,10 @@ public class BoardUI extends TableLayout implements IBoardObserver {
 	private void init(Context context) {
 
 		this.buttons = new BoardButton[size][size];
-		this.rows = new BoardRow[size];
+		this.rows = new TableRow[size];
 
 		for (int i = 0; i < size; i++) {
-			BoardRow row = (BoardRow) View.inflate(context, R.layout.board_row,
+			TableRow row = (TableRow) View.inflate(context, R.layout.board_row,
 					null);
 			
 			rows[i] = row;

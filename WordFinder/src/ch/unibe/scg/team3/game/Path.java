@@ -6,10 +6,13 @@ import java.util.LinkedList;
 import ch.unibe.scg.team3.gameui.BoardButton;
 
 /**
+ * The Path contains a list of buttons which were selected.
+ * The responsibility of the path is to know if he is valid or not.
  * 
  * @author adrian
- *
  */
+
+//TODO: make it Path<T> 
 public class Path implements Iterable<BoardButton>{
 
 	private LinkedList<BoardButton> path;
@@ -19,15 +22,19 @@ public class Path implements Iterable<BoardButton>{
 		path = new LinkedList<BoardButton>();
 	}
 
-	public boolean add(BoardButton b) {
+	/**
+	 * @param button The button to be added, not null
+	 * @return True, if the button is not already in the path and adjacent to the last added button, false otherwise
+	 */
+	public boolean add(BoardButton button) {
 		
-		if (path.contains(b))
+		if (path.contains(button))
 			return false;
 
-		if (0 < path.size() && !isAdjacent(b, path.getLast()))
+		if (0 < path.size() && !isAdjacent(button, path.getLast()))
 			return false;
 
-		path.add(b);
+		path.add(button);
 		return true;
 	}
 	
@@ -35,7 +42,10 @@ public class Path implements Iterable<BoardButton>{
 		path.clear();
 	}
 	
-	public int size(){
+	/**
+	 * @return The length of the path is greater or equal to zero.
+	 */
+	public int length(){
 		return path.size();
 	}
 

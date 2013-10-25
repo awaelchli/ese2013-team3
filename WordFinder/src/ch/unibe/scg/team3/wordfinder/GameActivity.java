@@ -31,19 +31,21 @@ public class GameActivity extends Activity {
 		setContentView(R.layout.activity_game);
 
 		DataManager data = new DataManager(this);
-		game = new Game(Board.DEFAULT_SIZE, data);
+		game = new Game(data);
 
 		BoardUI boardUI = (BoardUI) findViewById(R.id.tableboardUI);
 		
 		boardUI.setOnTouchListener(new BoardOnTouchListener(this, game));
 		
-		Board board = game.getBoard();
-		board.addObserver(boardUI);
-		board.notifyObserver();
+//		Board board = game.getBoard();
+//		board.addObserver(boardUI);
+		
+		game.assignBoardObserver(boardUI);
+//		board.notifyObserver();
 		
 		FoundWordsView found = (FoundWordsView) findViewById(R.id.foundWordsField);
 		//System.out.println(found == null);
-		game.addFoundListObserver(found);
+		game.assignFoundListObserver(found);
 	}
 
 	@Override

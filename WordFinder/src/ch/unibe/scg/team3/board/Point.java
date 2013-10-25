@@ -1,9 +1,7 @@
 package ch.unibe.scg.team3.board;
 
 /**
- * 
  * @author adrian
- * 
  */
 public class Point {
 

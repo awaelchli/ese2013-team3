@@ -27,4 +27,9 @@ public class NullToken extends AbstractToken {
 	public char getLetter() {
 		return ' ';
 	}
+
+	@Override
+	public IToken clone() {
+		return new NullToken();
+	}
 }

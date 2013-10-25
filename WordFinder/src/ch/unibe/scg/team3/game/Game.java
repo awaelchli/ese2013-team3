@@ -1,25 +1,15 @@
 package ch.unibe.scg.team3.game;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
-
-import android.content.Context;
-import ch.unibe.scg.team3.board.Board;
-import ch.unibe.scg.team3.board.Point;
-import ch.unibe.scg.team3.board.RandomBoardGenerator;
-import ch.unibe.scg.team3.board.WordSelection;
-import ch.unibe.scg.team3.gameui.BoardButton;
-import ch.unibe.scg.team3.gameui.IWordlistObserver;
+import ch.unibe.scg.team3.board.*;
+import ch.unibe.scg.team3.gameui.*;
 import ch.unibe.scg.team3.localDatabase.DataManager;
-import ch.unibe.scg.team3.token.IToken;
-import ch.unibe.scg.team3.token.Token;
+import ch.unibe.scg.team3.token.*;
 import ch.unibe.scg.team3.wordfinder.R;
 import ch.unibe.scg.team3.wordlist.Wordlist;
-import ch.unibe.scg.team3.wordlist.WordlistBuilder;
 
 /**
+ * The Game class is responsible for the proper execution of the game. 
+ * 
  * @author adrian
  * @author faerber
  */
@@ -31,11 +21,16 @@ public class Game {
 	private final DataManager data;
 	private int score;
 
+	/**
+	 * @param boardSize The size of the board must be greater than zero
+	 * @param data A DataManager to access the database, not null
+	 */
 	public Game(int boardSize, DataManager data) {
 		this.data = data;
 		RandomBoardGenerator rnd = new RandomBoardGenerator(boardSize);
 		rnd.generate();
 		board = rnd.getBoard();
+		
 		//TODO: remove after testing
 //		Testing long word: angiotensin
 		board.setToken(new Token('a', 1), 0, 0);
@@ -53,16 +48,37 @@ public class Game {
 
 		found = new Wordlist("Found words");
 		score = 0;
-	}
-
-	public Board getBoard() {
-		return this.board;
+		
+		invariant();
 	}
 	
-	public void addFoundListObserver(IWordlistObserver o){
+	private boolean invariant(){
+		return board != null && found != null && data != null && score >= 0;
+	}
+	
+	public Game(DataManager data){
+		this(Board.DEFAULT_SIZE, data);
+	}
+	
+	/**
+	 * @param o This observer will be added to the wordlist of found words, not null.
+	 */
+	public void assignFoundListObserver(IWordlistObserver o){
 		found.addObserver(o);
 	}
+	
+	/**
+	 * 
+	 * @param o This observer will be added to the board of this game, not null
+	 */
+	public void assignBoardObserver(IBoardObserver o){
+		board.addObserver(o);
+		board.notifyObserver();
+	}
 
+	/**
+	 * @param path A path 
+	 */
 	public void submitPath(Path path) {
 
 		assert path != null;

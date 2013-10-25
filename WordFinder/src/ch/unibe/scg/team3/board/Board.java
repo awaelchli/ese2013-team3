@@ -10,9 +10,10 @@ import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.token.NullToken;
 
 /**
+ * This class has the responsibility to model a matrix filled with token.
+ * The size of the board can be any number greater than zero.
  * 
  * @author adrian
- * 
  */
 public class Board implements IObservable{
 
@@ -23,6 +24,13 @@ public class Board implements IObservable{
 		
 	private final List<IBoardObserver> observers;
 
+	public Board(){
+		this(DEFAULT_SIZE);
+	}
+	
+	/**
+	 * @param size The size of the board must be greater than zero
+	 */
 	public Board(int size) {
 		this.size = size;
 		this.observers = new ArrayList<IBoardObserver>();
@@ -48,20 +56,34 @@ public class Board implements IObservable{
 		return 0 <= row && 0 <= col && row < size && col < size;
 	}
 
+	/**
+	 * @param tok The token to place
+	 * @param row A non-negative integer within the range of the board
+	 * @param col A non-negative integer within the range of the board
+	 */
 	public void setToken(IToken tok, int row, int col) {
 		assert tok != null;
 		assert inRange(row, col);
 		tokens[row][col] = tok;
 	}
 
+	/**
+	 * 
+	 * @param row A non-negative integer within the range of the board
+	 * @param col A non-negative integer within the range of the board
+	 * @return A copy of the token at the given coordinate
+	 */
 	public IToken getToken(int row, int col) {
 		assert inRange(row, col);
 
-		return tokens[row][col];
+		return tokens[row][col].clone();
 	}
 
+	/**
+	 * @return An integer greater than zero
+	 */
 	public int getSize() {
-		return this.size;
+		return size;
 	}
 
 	@Override

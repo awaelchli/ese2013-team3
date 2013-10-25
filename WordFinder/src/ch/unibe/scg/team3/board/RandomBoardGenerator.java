@@ -5,9 +5,10 @@ import java.util.Random;
 import ch.unibe.scg.team3.token.Token;
 
 /**
+ * This board generator creates a board containing tokens with random letters and values 1
+ * 
  * @author viviane
  * @author adrian
- * 
  */
 public class RandomBoardGenerator extends AbstractBoardGenerator {
 
