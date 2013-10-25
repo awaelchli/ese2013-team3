@@ -49,7 +49,7 @@ public class BoardOnTouchListener implements OnTouchListener {
 		for (int i = 0; i < board.getChildCount(); i++) {
 			
 			BoardRow row = (BoardRow) board.getChildAt(i);
-			Rect rowRect = makeRectangle(row);
+			Rect rowRect = makeRectangle(row, 0, 0, 0, 0);
 			
 			if (rowRect.contains((int) event.getX(), (int) event.getY())) {
 				
@@ -57,21 +57,15 @@ public class BoardOnTouchListener implements OnTouchListener {
 					
 					BoardButton button = (BoardButton) row.getChildAt(j);
 					
-					Rect frect;
+					int pad = FINGER_PADDING;
+					Rect rect;
 					if (i == 0) {
-						frect = new Rect(button.getLeft() + FINGER_PADDING,
-								button.getTop() + FINGER_PADDING,
-								button.getRight() - FINGER_PADDING,
-								button.getBottom() - FINGER_PADDING);
+						rect = makeRectangle(button, pad, pad, -pad, -pad);
 					} else {
-						frect = new Rect(button.getLeft() + FINGER_PADDING,
-								button.getTop() + FINGER_PADDING,
-								button.getRight() - FINGER_PADDING,
-								button.getBottom() + row.getBottom()
-										- FINGER_PADDING);
+						rect = makeRectangle(button, pad, pad, -pad , -pad + row.getBottom());
 					}
 					
-					if (frect.contains((int) event.getX(), (int) event.getY())) {
+					if (rect.contains((int) event.getX(), (int) event.getY())) {
 						
 						if(path.add(button)){
 							
@@ -87,9 +81,10 @@ public class BoardOnTouchListener implements OnTouchListener {
 		return true;
 	}
 
-	private Rect makeRectangle(View view) {
-		Rect viewRect = new Rect(view.getLeft(), view.getTop(),
-				view.getRight(), view.getBottom());
+	private Rect makeRectangle(View view, int pad_left, int pad_top, int pad_right, int pad_bottom) {
+		
+		Rect viewRect = new Rect(view.getLeft() + pad_left, view.getTop() + pad_top,
+				view.getRight() + pad_right, view.getBottom() + pad_bottom);
 		return viewRect;
 	}
 

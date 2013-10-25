@@ -1,10 +1,14 @@
 package ch.unibe.scg.team3.localDatabase;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import ch.unibe.scg.team3.wordfinder.R;
 import ch.unibe.scg.team3.wordlist.Wordlist;
 import ch.unibe.scg.team3.wordlist.WordlistBuilder;
 
@@ -135,9 +139,14 @@ public class DataManager {
 	}
 
 	private void initDB(Context context) {
-		WordlistBuilder builder1 = new WordlistBuilder("English");
-		builder1.initialize(context);
-		Wordlist english = builder1.getWordlist();
+		WordlistBuilder builer = new WordlistBuilder("English");
+		
+		InputStream inputStream = context.getResources().openRawResource(R.raw.english);
+		InputStreamReader inputreader = new InputStreamReader(inputStream);
+	    BufferedReader buffreader = new BufferedReader(inputreader);
+	    
+		builer.addWords(buffreader);
+		Wordlist english = builer.getWordlist();
 		addWordlist(english);
 	}
 

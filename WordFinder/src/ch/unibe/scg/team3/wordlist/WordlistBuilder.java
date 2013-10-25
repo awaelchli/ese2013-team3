@@ -46,28 +46,6 @@ public class WordlistBuilder {
 			e.printStackTrace();
 		}
 	}
-	
-	//Überarbeiten! -> Adrian fragen wie
-	public void initialize(Context context){
-		InputStream inputStream = context.getResources().openRawResource(R.raw.english);
-
-		    InputStreamReader inputreader = new InputStreamReader(inputStream);
-		    BufferedReader buffreader = new BufferedReader(inputreader);
-		    String line;
-		    StringBuilder text = new StringBuilder();
-
-		    try {
-		        while (( line = buffreader.readLine()) != null) {
-		            text.append(line);
-		            text.append(';');
-		        }
-		    } catch (IOException e) {
-		        
-		    }
-		    wordlist.addWord(text.toString());
-		    
-
-	}
 
 	public Wordlist getWordlist() {
 		return this.wordlist;
