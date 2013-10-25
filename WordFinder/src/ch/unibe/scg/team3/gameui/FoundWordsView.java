@@ -21,7 +21,7 @@ public class FoundWordsView extends TextView implements IWordlistObserver {
 
 	@Override
 	public void update(Wordlist wordlist) {
-		setText(wordlist.getFormattedList("\n"));
+		setText(wordlist.getFormattedList("\n").toUpperCase());
 	}
 
 }

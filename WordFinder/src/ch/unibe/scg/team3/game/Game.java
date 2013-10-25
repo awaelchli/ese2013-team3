@@ -12,6 +12,7 @@ import ch.unibe.scg.team3.board.RandomBoardGenerator;
 import ch.unibe.scg.team3.board.WordSelection;
 import ch.unibe.scg.team3.gameui.BoardButton;
 import ch.unibe.scg.team3.gameui.IWordlistObserver;
+import ch.unibe.scg.team3.localDatabase.DataManager;
 import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.token.Token;
 import ch.unibe.scg.team3.wordfinder.R;
@@ -26,19 +27,30 @@ import ch.unibe.scg.team3.wordlist.WordlistBuilder;
 public class Game {
 
 	private final Board board;
-	private final Wordlist wordlist;
 	private final Wordlist found;
+	private final DataManager data;
 	private int score;
-	//TODO: better dont use context for game 
-	private Context context;
 
-	public Game(int boardSize, Context context) {
-		this.context = context;
+	public Game(int boardSize, DataManager data) {
+		this.data = data;
 		RandomBoardGenerator rnd = new RandomBoardGenerator(boardSize);
 		rnd.generate();
 		board = rnd.getBoard();
+		//TODO: remove after testing
+//		Testing long word: angiotensin
+		board.setToken(new Token('a', 1), 0, 0);
+		board.setToken(new Token('n', 1), 0, 1);
+		board.setToken(new Token('g', 1), 0, 2);
+		board.setToken(new Token('i', 1), 0, 3);
+		board.setToken(new Token('o', 1), 0, 4);
+		board.setToken(new Token('t', 1), 0, 5);
+		board.setToken(new Token('e', 1), 1, 5);
+		board.setToken(new Token('n', 1), 2, 5);
+		board.setToken(new Token('s', 1), 3, 5);
+		board.setToken(new Token('i', 1), 4, 5);
+		board.setToken(new Token('n', 1), 5, 5);
+		
 
-		wordlist = loadDefaultWordlist();
 		found = new Wordlist("Found words");
 		score = 0;
 	}
@@ -46,42 +58,21 @@ public class Game {
 	public Board getBoard() {
 		return this.board;
 	}
-//
-//	public void setContext(Context context) {
-//		this.context = context;
-//	}
 	
 	public void addFoundListObserver(IWordlistObserver o){
 		found.addObserver(o);
-	}
-
-	private Wordlist loadDefaultWordlist() {
-		// not working
-		WordlistBuilder builder = new WordlistBuilder("English");
-		// builder.addWords(new File("assets/english.txt"));
-		InputStream ins = this.context.getResources().openRawResource(
-				R.raw.englishreduced);
-		InputStreamReader insr = new InputStreamReader(ins);
-		BufferedReader reader = new BufferedReader(insr);
-		builder.addWords(reader);
-		return builder.getWordlist();
 	}
 
 	public void submitPath(Path path) {
 
 		assert path != null;
 
-//		System.out.println(wordlist.getSize());
-
-//		if (!PathChecker.check(path)) {
-//			throw new PathNotConnectedException();
-//		}
-
 		WordSelection selection = makeSelection(path);
 
 		String word = selection.toString();
 
-		if (!wordlist.contains(word)) {
+		if(!data.isWordInWordlist(word, "English")){
+			
 			path.setColor(R.drawable.not_valid_button_animation);
 			
 		} else if (found.contains(word)) {

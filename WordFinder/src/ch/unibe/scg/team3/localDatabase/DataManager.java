@@ -123,12 +123,21 @@ public class DataManager {
 	}
 
 	public boolean isWordInWordlist(String word, String wordlist) {
+		
+		if(word.length() == 0) return false;
+		String table = word.substring(0, 1).toLowerCase();
+		if(word.length() < 5){
+			table += "short";
+		}else{
+			table += "long";
+		}
+		
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT content FROM "
-				+ word.substring(0, 1).toLowerCase()
-				+ "WHERE Dictionary = ? AND content = ?", new String[] { word,
-				wordlist });
-		if (c != null) {
+				+ table
+				+ " WHERE Dictionary = ? AND content = ?", new String[] {
+				wordlist,  word.toLowerCase() });
+		if (c.getCount() != 0) {
 			c.close();
 			db.close();
 			return true;

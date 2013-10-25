@@ -11,6 +11,7 @@ import ch.unibe.scg.team3.game.Game;
 import ch.unibe.scg.team3.gameui.BoardOnTouchListener;
 import ch.unibe.scg.team3.gameui.BoardUI;
 import ch.unibe.scg.team3.gameui.FoundWordsView;
+import ch.unibe.scg.team3.localDatabase.DataManager;
 
 /**
  * @author faerber
@@ -21,7 +22,6 @@ import ch.unibe.scg.team3.gameui.FoundWordsView;
 @SuppressLint("NewApi")
 public class GameActivity extends Activity {
 
-	//private List<View> walked;
 	private Game game;
 
 	@Override
@@ -30,7 +30,8 @@ public class GameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 
-		game = new Game(Board.DEFAULT_SIZE, this);
+		DataManager data = new DataManager(this);
+		game = new Game(Board.DEFAULT_SIZE, data);
 
 		BoardUI boardUI = (BoardUI) findViewById(R.id.tableboardUI);
 		
