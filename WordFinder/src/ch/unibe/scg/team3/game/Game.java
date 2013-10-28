@@ -3,6 +3,7 @@ package ch.unibe.scg.team3.game;
 import ch.unibe.scg.team3.board.*;
 import ch.unibe.scg.team3.gameui.*;
 import ch.unibe.scg.team3.localDatabase.DataManager;
+import ch.unibe.scg.team3.localDatabase.WordlistManager;
 import ch.unibe.scg.team3.token.*;
 import ch.unibe.scg.team3.wordfinder.R;
 import ch.unibe.scg.team3.wordlist.Wordlist;
@@ -18,14 +19,14 @@ public class Game {
 
 	private final Board board;
 	private final Wordlist found;
-	private final DataManager data;
+	private final WordlistManager data;
 	private int score;
 
 	/**
 	 * @param boardSize The size of the board must be greater than zero
 	 * @param data A DataManager to access the database, not null
 	 */
-	public Game(int boardSize, DataManager data) {
+	public Game(int boardSize, WordlistManager data) {
 		this.data = data;
 		RandomBoardGenerator rnd = new RandomBoardGenerator(boardSize);
 		rnd.generate();
@@ -56,7 +57,7 @@ public class Game {
 		return board != null && found != null && data != null && score >= 0;
 	}
 	
-	public Game(DataManager data){
+	public Game(WordlistManager data){
 		this(Board.DEFAULT_SIZE, data);
 	}
 	
@@ -87,7 +88,7 @@ public class Game {
 
 		String word = selection.toString();
 
-		if(!data.isWordInWordlist(word, "English")){
+		if(!data.isWordInWordlist(word, "Deutsch")){
 			
 			path.setColor(R.drawable.not_valid_button_animation);
 			

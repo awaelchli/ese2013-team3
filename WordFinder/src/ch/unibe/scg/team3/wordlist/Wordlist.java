@@ -79,8 +79,9 @@ public class Wordlist implements IObservable {
 		return content.get(position);
 	}
 
-	public String getContent() {
-		return getFormattedList("" + WORD_SEPARATOR);
+	public ArrayList<String> getContent() {
+		//return getFormattedList("" + WORD_SEPARATOR);
+		return content;
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import ch.unibe.scg.team3.gameui.BoardOnTouchListener;
 import ch.unibe.scg.team3.gameui.BoardUI;
 import ch.unibe.scg.team3.gameui.FoundWordsView;
 import ch.unibe.scg.team3.localDatabase.DataManager;
+import ch.unibe.scg.team3.localDatabase.WordlistManager;
 
 /**
  * @author faerber
@@ -30,7 +31,7 @@ public class GameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 
-		DataManager data = new DataManager(this);
+		WordlistManager data = new WordlistManager(this);
 		game = new Game(data);
 
 		BoardUI boardUI = (BoardUI) findViewById(R.id.tableboardUI);

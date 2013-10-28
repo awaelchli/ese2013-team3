@@ -1964,7 +1964,7 @@ anders
 andersdenkende
 andeutungen
 andorra
-andr
+andrï¿½
 andraengen
 andrang
 andranges
@@ -3486,7 +3486,7 @@ atomwissenschaftler
 atomzeitalter
 atomzeitalters
 atomzerstruemmerung
-attach
+attachï¿½
 attache
 attacke
 attacken
@@ -9640,7 +9640,7 @@ bypass
 byte
 byzantiner
 bzw
-czanne
+cï¿½zanne
 c-dur
 ca
 cad
@@ -9735,7 +9735,7 @@ cents
 cervantes
 cervelatwurst
 ceylon
-chteau
+chï¿½teau
 cha-cha-cha
 cha-cha-cha
 chaiselongue
@@ -10111,7 +10111,7 @@ concertino
 concord
 concorde
 concurrent-cp/m-86
-confrencier
+confï¿½rencier
 conferencier
 container
 contergan
@@ -11280,7 +11280,6 @@ diskussionszeit
 diskuswerfer
 diskzugriffe
 disney
-disney's
 disparitaeten
 dispens
 dispensen
@@ -15272,7 +15271,7 @@ ft
 fabel
 fabeln
 fabelpferd
-faberg
+fabergï¿½
 fabian
 fabrik
 fabrikanlagen
@@ -28675,7 +28674,7 @@ kanonier
 kanonieren
 kanoniers
 kansas
-kant's
+kant
 kantate
 kante
 kantine
@@ -29597,7 +29596,7 @@ kenia
 kennbuchstabe
 kennbuchstaben
 kennedy
-kennedy's
+kennedy
 kennedys
 kenner
 kennerblick
@@ -33106,7 +33105,7 @@ kuwait
 kybernetiker
 kybernetikers
 kyoto
-lvi-strauss
+lï¿½vi-strauss
 lan
 ldp
 lh
@@ -35983,7 +35982,6 @@ mauser
 mausoleum
 max
 maxim
-maxim's
 maximal
 maximale
 maximaler
@@ -39988,8 +39986,6 @@ ortszeiten
 ortszuschlag
 ortung
 ortungsgeraete
-orwell's
-orwell'sche
 oscar
 osiris
 oskar
@@ -44576,7 +44572,7 @@ rezessionskurs
 rezessionsmodell
 rezessionsrisiko
 rezessionswolken
-rh“netal
+rhï¿½netal
 rhabarber
 rhapsodie
 rheinbund
@@ -97703,7 +97699,6 @@ gehorsamstes
 gehortet
 gehst
 geht
-geht's
 gehuellt
 gehuellten
 gehuetet
@@ -103059,7 +103054,6 @@ haarstraeubendstes
 hab
 habe
 haben
-haben's
 habend
 habendem
 habenden
@@ -103611,7 +103605,6 @@ hastigem
 hastigen
 hastiges
 hat
-hat's
 hatten
 hattest
 hattet
@@ -113627,7 +113620,6 @@ machender
 machendes
 machst
 macht
-macht's
 machte
 machten
 machtet
@@ -117801,7 +117793,7 @@ ovulationshemmenden
 oxidiert
 oympische
 ozeanographischer
-pœange
+pï¿½ange
 paar
 paaren
 paarmal
@@ -122480,7 +122472,6 @@ saftlosem
 saftlosen
 saftloses
 sag
-sag's
 sagen
 sagend
 sagende
@@ -127227,7 +127218,6 @@ solidstem
 solidsten
 solidstes
 soll
-soll's
 sollen
 solls
 sollst
@@ -132684,7 +132674,7 @@ tuscht
 tuschten
 tuschtest
 tuschtet
-tut's
+tut
 tute
 tuten
 tutende
@@ -153240,7 +153230,6 @@ wippt
 wippten
 wipptest
 wipptet
-wir's
 wirbellos
 wirbellose
 wirbelloser
@@ -169979,7 +169968,6 @@ kussel
 kuti
 kutsch
 lca
-lca's
 lcas
 lcd
 leds
@@ -171846,8 +171834,7 @@ offline
 offsetspannung
 offsetwert
 offsetwerts
-ohm'sch
-ohm'scher
+ohm
 ohmsche
 ohmschen
 ohne
@@ -171933,7 +171920,7 @@ ouput
 outputfile
 overheadfolien
 ozeane
-pc's
+pc
 pcb
 pcbs
 pcs
@@ -180680,7 +180667,6 @@ configurierten
 conm4
 cremefarbenen
 crimpbar
-d'alembert
 da
 daempfenden
 dabei
@@ -185219,7 +185205,6 @@ mrc
 mrcnum
 ms
 msec
-msec's
 muede
 muehsam
 muendlich
