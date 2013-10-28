@@ -37,7 +37,7 @@ public class BoardOnTouchListener implements OnTouchListener {
 		case MotionEvent.ACTION_DOWN:
 			path.clear();
 		case MotionEvent.ACTION_UP:
-			submitPath();
+			if(!path.isEmpty()) submitPath();
 			return true;
 		case MotionEvent.ACTION_MOVE:
 			break;

@@ -2,9 +2,7 @@ package ch.unibe.scg.team3.token;
 
 
 /**
- * 
  * @author adrian
- * 
  */
 public class Token extends AbstractToken {
 

@@ -1,6 +1,8 @@
 package ch.unibe.scg.team3.gameui;
 
 import ch.unibe.scg.team3.board.*;
+import ch.unibe.scg.team3.game.Game;
+import ch.unibe.scg.team3.game.IGameObserver;
 import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.wordfinder.R;
 import android.content.Context;
@@ -9,7 +11,7 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-public class BoardUI extends TableLayout implements IBoardObserver {
+public class BoardUI extends TableLayout implements IGameObserver {
 
 	private BoardButton[][] buttons;
 	private TableRow[] rows;
@@ -29,13 +31,13 @@ public class BoardUI extends TableLayout implements IBoardObserver {
 
 	private void init(Context context) {
 
-		this.buttons = new BoardButton[size][size];
-		this.rows = new TableRow[size];
+		buttons = new BoardButton[size][size];
+		rows = new TableRow[size];
 
 		for (int i = 0; i < size; i++) {
 			TableRow row = (TableRow) View.inflate(context, R.layout.board_row,
 					null);
-			
+
 			rows[i] = row;
 
 			for (int j = 0; j < size; j++) {
@@ -45,13 +47,14 @@ public class BoardUI extends TableLayout implements IBoardObserver {
 				buttons[j][i] = btn;
 				row.addView(btn);
 			}
-			
+
 			this.addView(row);
 		}
 	}
 
 	@Override
-	public void update(Board board) {
+	public void update(Game game) {
+		Board board = game.getBoard();
 
 		assert board.getSize() == size;
 

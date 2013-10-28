@@ -75,4 +75,8 @@ public class Path implements Iterable<BoardButton>{
 		return true;
 	}
 
+	public boolean isEmpty() {
+		return path.isEmpty();
+	}
+
 }

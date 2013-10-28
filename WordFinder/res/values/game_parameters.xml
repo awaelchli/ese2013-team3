@@ -6,5 +6,7 @@
     <color name="color_valid">#000</color>
     <color name="color_not_valid">#000</color>
     <color name="color_already_found">#000</color>
+    <dimen name="board_button_textsize">20sp</dimen>
+    <dimen name="header_textsize">30sp</dimen>
     
 </resources>
