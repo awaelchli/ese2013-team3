@@ -21,6 +21,7 @@ public class Game {
 	private final Wordlist found;
 	private final WordlistManager data;
 	private int score;
+	private static boolean isOver = false;
 
 	/**
 	 * @param boardSize The size of the board must be greater than zero
@@ -120,4 +121,8 @@ public class Game {
 
 		return selection;
 	}
+	public static void setIsOver(){
+		isOver = true;
+	}
+	
 }

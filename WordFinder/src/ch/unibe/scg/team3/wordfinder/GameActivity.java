@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 import ch.unibe.scg.team3.board.Board;
 import ch.unibe.scg.team3.game.Game;
 import ch.unibe.scg.team3.gameui.BoardOnTouchListener;
@@ -47,6 +48,12 @@ public class GameActivity extends Activity {
 		FoundWordsView found = (FoundWordsView) findViewById(R.id.foundWordsField);
 		//System.out.println(found == null);
 		game.assignFoundListObserver(found);
+		
+		TextView timerDisplayer = (TextView) findViewById(R.id.timer_field);
+        //@param Minuten, Interval in seconds, TextFeld to display timer
+        Timer timer = new Timer(5, 1, timerDisplayer);
+        timer.start();
+        
 	}
 
 	@Override

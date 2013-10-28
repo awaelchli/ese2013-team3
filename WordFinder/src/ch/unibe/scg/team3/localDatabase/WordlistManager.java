@@ -40,20 +40,7 @@ public class WordlistManager extends DataManager {
 	    db.beginTransaction();
 	    try {
 			while((word = buffreader.readLine()) != null) {
-				//setWordToWordlist(line, Name);
-				if (word.length() < 5 && word.length() > 0) {
-					// System.out.println(words[i]);
-					db.execSQL("INSERT INTO " + word.substring(0, 1).toLowerCase()
-							+ "short VALUES(NULL, '" + wordlistId + "', '" + word
-							+ "')");
-
-				} else if (word.length() > 5) {
-					// System.out.println(words[i]);
-					db.execSQL("INSERT INTO " + word.substring(0, 1).toLowerCase()
-							+ "long VALUES(NULL, '" + wordlistId + "', '" + word
-							+ "')");
-
-				}
+				addWordToOpenDb(word, wordlistId, db);
 			}
 			db.setTransactionSuccessful();
 		}
@@ -68,6 +55,11 @@ public class WordlistManager extends DataManager {
 	public void setWordToWordlist(String word, String wordlistname) {
 		int wordlistId = getWordlistId(wordlistname);
 		SQLiteDatabase db = helper.getWritableDatabase();
+		addWordToOpenDb(word, wordlistId, db);
+		db.close();
+	}
+
+	private void addWordToOpenDb(String word, int wordlistId, SQLiteDatabase db) {
 		if (word.length() < 5 && word.length() > 0) {
 			// System.out.println(words[i]);
 			db.execSQL("INSERT INTO " + word.substring(0, 1).toLowerCase()
@@ -81,7 +73,6 @@ public class WordlistManager extends DataManager {
 					+ "')");
 
 		}
-		db.close();
 	}
 
 	public void removeWordlist(String name) {

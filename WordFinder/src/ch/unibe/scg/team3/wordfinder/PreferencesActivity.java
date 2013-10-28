@@ -3,6 +3,7 @@ package ch.unibe.scg.team3.wordfinder;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.View;
 import ch.unibe.scg.team3.localDatabase.DataManager;
@@ -11,17 +12,19 @@ import ch.unibe.scg.team3.localDatabase.DataManager;
  * @author nils
  * 
  */
-public class PreferencesActivity extends Activity {
+public class PreferencesActivity extends PreferenceActivity {
 	DataManager db;
 	String options[] = {};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_preferences);
+		addPreferencesFromResource(R.xml.preferences);
+		//setContentView(R.layout.activity_preferences);
 		db = new DataManager(this);
 //		db.getWritableDatabase();
 //		db.close();
 	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

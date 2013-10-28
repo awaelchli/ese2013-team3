@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory 
+        android:title="Wordlists"
+        android:key="wordlists">
+        <CheckBoxPreference />
+        
+            
+    </PreferenceCategory>
+
+    <PreferenceCategory 
+        android:title="Wordlist Reset"
+        android:key="wordlistreset">
+        <Preference 
+            android:title="Reset"
+            android:key="reset" >
+            <intent
+                    android:targetPackage="ch.unibe.scg.team3.wordfinder"
+                    android:targetClass="ch.unibe.scg.team3.wordfinder.PreferencesActivity"
+                    android:action="ch.unibe.scg.team3.wordfinder.resetDB" />
+            </Preference>
+
+
+    </PreferenceCategory>
+    
+</PreferenceScreen>

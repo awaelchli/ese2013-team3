@@ -21,13 +21,6 @@
             android:onClick="resetDB"
             android:text="Button" />
 
-        <ProgressBar
-            android:id="@+id/progressBar1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.63"
-            android:indeterminate="true" />
-
     </LinearLayout>
 
 </RelativeLayout>
