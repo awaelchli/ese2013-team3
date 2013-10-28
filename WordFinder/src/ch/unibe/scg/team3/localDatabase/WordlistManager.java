@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import ch.unibe.scg.team3.wordfinder.R;
 import ch.unibe.scg.team3.wordlist.Wordlist;
@@ -145,6 +146,42 @@ public class WordlistManager extends DataManager {
 		return 0;
 		
 	}
-	
+	public CharSequence[] getWordlists(){
+		CharSequence[] lists;
+		ArrayList<String> tmp = new ArrayList<String>();
+		SQLiteDatabase db = helper.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT _id , Name FROM Dictionary", null);
+		if (c.getCount() != 0) {
+			c.moveToFirst();
+			while(!c.isAfterLast()){
+			tmp.add(c.getString(1));
+			c.moveToNext();}
+			
+			c.close();
+			db.close();
+			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
+		}
+		db.close();
+		return null;
+		
+	}
+	public CharSequence[] getWordlistids(){
+		CharSequence[] lists;
+		ArrayList<String> tmp = new ArrayList<String>();
+		SQLiteDatabase db = helper.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT _id , Name FROM Dictionary", null);
+		if (c.getCount() != 0) {
+			c.moveToFirst();
+			while(!c.isAfterLast()){
+			tmp.add(Integer.toString(c.getInt(0)));
+			c.moveToNext();}
+			c.close();
+			db.close();
+			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
+		}
+		db.close();
+		return null;
+		
+	}
 
 }

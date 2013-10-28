@@ -5,7 +5,9 @@
     <PreferenceCategory 
         android:title="Wordlists"
         android:key="wordlists">
-        <CheckBoxPreference />
+        <ListPreference 
+            android:title="Choose Wordlist"
+            android:key="choose_wordlist"/>
         
             
     </PreferenceCategory>
@@ -16,10 +18,7 @@
         <Preference 
             android:title="Reset"
             android:key="reset" >
-            <intent
-                    android:targetPackage="ch.unibe.scg.team3.wordfinder"
-                    android:targetClass="ch.unibe.scg.team3.wordfinder.PreferencesActivity"
-                    android:action="ch.unibe.scg.team3.wordfinder.resetDB" />
+            
             </Preference>
 
 
