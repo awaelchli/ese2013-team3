@@ -25,10 +25,12 @@ import ch.unibe.scg.team3.localDatabase.WordlistManager;
 public class GameActivity extends Activity {
 
 	private Game game;
-
+	private Timer timer;
+	private long remainingTime;
+	private TextView timerDisplayer; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 
@@ -49,10 +51,12 @@ public class GameActivity extends Activity {
 		//System.out.println(found == null);
 		game.assignFoundListObserver(found);
 		
-		TextView timerDisplayer = (TextView) findViewById(R.id.timer_field);
+		
         //@param Minuten, Interval in seconds, TextFeld to display timer
-        Timer timer = new Timer(5, 1, timerDisplayer);
+		timerDisplayer = (TextView) findViewById(R.id.timer_field);
+		timer = new Timer(5*60000, 1000, timerDisplayer);
         timer.start();
+        
         
 	}
 
@@ -63,6 +67,7 @@ public class GameActivity extends Activity {
 		getMenuInflater().inflate(R.menu.grid, menu);
 		return true;
 	}
+	
 
 	// private void setLetters() {
 	// Board board = game.getBoard();
@@ -77,6 +82,22 @@ public class GameActivity extends Activity {
 	// }
 	// }
 	// }
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		remainingTime = timer.getRemainingTime();
+		timer.cancel();
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		timer = new Timer(remainingTime, 1000, timerDisplayer);
+        timer.start();
+	}
 
 	public void quit(View view) {
 

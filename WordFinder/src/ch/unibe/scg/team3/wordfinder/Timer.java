@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 public class Timer extends CountDownTimer{
     private TextView timerDisplayer = null;
+    private long remainingTime;
     
 	public Timer(long millisInFuture, long countDownInterval, TextView timerTextField) {
 		super(millisInFuture, countDownInterval);
@@ -21,7 +22,14 @@ public class Timer extends CountDownTimer{
 	    String minText = String.format("%02d", minutes);	
 	    String secText = String.format("%02d", seconds);
 	    timerDisplayer.setText( minText + ":" + secText );	
+	    remainingTime = millisUntilFinished;
 	}
+	
+	public long getRemainingTime(){
+		return remainingTime;
+		
+	}
+	
 	
 	@Override
 	public void onFinish() {
