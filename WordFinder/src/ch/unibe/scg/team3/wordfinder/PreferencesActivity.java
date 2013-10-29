@@ -1,5 +1,7 @@
 package ch.unibe.scg.team3.wordfinder;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.app.ListActivity;
 import android.database.Cursor;
@@ -29,13 +31,21 @@ public class PreferencesActivity extends PreferenceActivity {
 		//setContentView(R.layout.activity_preferences);
 		wm = new WordlistManager(this);
 		
-		final Preference pref = (Preference) findPreference("reset"); 
+		final Preference pref = (Preference) findPreference("reset");
+		final Preference copyDB = (Preference) findPreference("copyDB"); 
 		final ListPreference listPreference = (ListPreference) findPreference("choose_wordlist");
 		setListPreferenceData(listPreference);
 		pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 		    public boolean onPreferenceClick(Preference preference) {
 		       resetDB();
+		        return true; 
+		    }
+		});
+		copyDB.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+		    public boolean onPreferenceClick(Preference preference) {
+		       copyDB();
 		        return true; 
 		    }
 		});
@@ -70,6 +80,14 @@ public class PreferencesActivity extends PreferenceActivity {
 	}
 	public void resetDB(){
 		wm.reset(this);
+		finish();
+	}
+	public void copyDB(){
+		try {
+			wm.copyDB();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		finish();
 	}
 

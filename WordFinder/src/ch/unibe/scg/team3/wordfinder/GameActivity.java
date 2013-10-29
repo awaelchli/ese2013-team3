@@ -3,7 +3,9 @@ package ch.unibe.scg.team3.wordfinder;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -35,9 +37,11 @@ public class GameActivity extends Activity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
-
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		String wordlistname = preferences.getString("choose_wordlist", null);
 		WordlistManager data = new WordlistManager(this);
-		game = new Game(data);
+		
+		game = new Game(data,wordlistname);
 
 		BoardUI boardUI = (BoardUI) findViewById(R.id.tableboardUI);
 		FoundWordsView found = (FoundWordsView) findViewById(R.id.foundWordsField);
@@ -56,7 +60,6 @@ public class GameActivity extends Activity {
 		timerDisplayer = (TextView) findViewById(R.id.timer_field);
 		timer = new Timer(5*60000, 1000, timerDisplayer);
         timer.start();
-        
         
 	}
 

@@ -17,12 +17,13 @@ public class Timer extends CountDownTimer{
 
 	@Override
 	public void onTick(long millisUntilFinished) {
+		remainingTime = millisUntilFinished;
 		int seconds = (int) (millisUntilFinished / 1000) % 60 ;
 		int minutes = (int) ((millisUntilFinished / (1000*60)) % 60);	
 	    String minText = String.format("%02d", minutes);	
 	    String secText = String.format("%02d", seconds);
 	    timerDisplayer.setText( minText + ":" + secText );	
-	    remainingTime = millisUntilFinished;
+	    
 	}
 	
 	public long getRemainingTime(){

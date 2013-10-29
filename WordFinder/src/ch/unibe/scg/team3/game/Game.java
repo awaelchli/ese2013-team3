@@ -2,6 +2,9 @@ package ch.unibe.scg.team3.game;
 
 import java.util.ArrayList;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import ch.unibe.scg.team3.board.*;
 import ch.unibe.scg.team3.gameui.*;
 import ch.unibe.scg.team3.localDatabase.WordlistManager;
@@ -28,6 +31,7 @@ public class Game implements IObservable {
 	private int score;
 	
 	private static boolean isOver = false;
+	private String wordlistname;
 
 	/**
 	 * @param boardSize
@@ -51,16 +55,19 @@ public class Game implements IObservable {
 	public Game(WordlistManager data) {
 		this(Board.DEFAULT_SIZE, data);
 	}
+	public Game(WordlistManager data, String wordlistid){
+		this(Board.DEFAULT_SIZE, data);
+		this.wordlistname = data.getWordlists()[Integer.parseInt(wordlistid) -1].toString();
+	}
 
 	public void submitPath(Path path) {
-
 		assert path != null;
-
+		
 		WordSelection selection = makeSelection(path);
 
 		String word = selection.toString();
 
-		if (!data.isWordInWordlist(word, "English")) {
+		if (!data.isWordInWordlist(word, wordlistname)) {
 
 			path.setColor(R.drawable.not_valid_button_animation);
 

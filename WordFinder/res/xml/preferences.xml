@@ -8,17 +8,34 @@
         <ListPreference 
             android:title="Choose Wordlist"
             android:key="choose_wordlist"/>
-        
-            
+        <Preference 
+            android:title="Edit Wordlists"
+            android:key="edit_wordlists" >
+            </Preference>
     </PreferenceCategory>
-
+	 
+	<PreferenceCategory 
+        android:title="User Data"
+        android:key="userdata">
+		<EditTextPreference 
+		    android:title="Username"
+		    android:key="username"/>
+		<EditTextPreference 
+		    android:title="Email"
+		    android:key="email"/>
+        
+    </PreferenceCategory>
+    
     <PreferenceCategory 
-        android:title="Wordlist Reset"
-        android:key="wordlistreset">
+        android:title="Database"
+        android:key="database">
+         <Preference 
+            android:title="Copy From Raw"
+            android:key="copyDB" >
+            </Preference>
         <Preference 
             android:title="Reset"
             android:key="reset" >
-            
             </Preference>
 
 
