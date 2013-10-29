@@ -58,6 +58,12 @@ public class Game implements IObservable {
 		this(Board.DEFAULT_SIZE, data, wordlistName);
 	}
 
+	/**
+	 * The method reads the path and selects the tokens on the board. It creates
+	 * the word according to the path and validates this word. 
+	 * 
+	 * @param path The path to be checked, not null.
+	 */
 	public void submitPath(Path path) {
 		assert path != null;
 		
@@ -84,6 +90,12 @@ public class Game implements IObservable {
 		score += selection.getScore();
 	}
 
+	/**
+	 * Creates a selection based on the paths coordinate points.
+	 * 
+	 * @param path A path which is not null
+	 * @return The word selection with, with token from the board according to the path.
+	 */
 	private WordSelection makeSelection(Path path) {
 
 		assert path != null;
@@ -127,5 +139,9 @@ public class Game implements IObservable {
 
 	public ArrayList<String> getFoundWords() {
 		return found.getContent();
+	}
+
+	public boolean isOver() {
+		return found.getSize() == MAX_WORDS_TO_FIND;
 	}
 }

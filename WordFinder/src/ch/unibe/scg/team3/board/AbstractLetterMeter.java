@@ -2,11 +2,11 @@ package ch.unibe.scg.team3.board;
 
 import java.util.HashMap;
 
-public abstract class LetterMeter {
+public abstract class AbstractLetterMeter {
 	
 	HashMap<Character, Integer> table;
 	
-	protected LetterMeter(){
+	protected AbstractLetterMeter(){
 		table = new HashMap<Character, Integer>(); 
 		init();
 	}

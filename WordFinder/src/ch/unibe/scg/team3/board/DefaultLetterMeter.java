@@ -1,6 +1,6 @@
 package ch.unibe.scg.team3.board;
 
-public class DefaultLetterMeter extends LetterMeter {
+public class DefaultLetterMeter extends AbstractLetterMeter {
 
 	@Override
 	protected void init() {

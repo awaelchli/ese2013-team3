@@ -8,7 +8,7 @@ package ch.unibe.scg.team3.board;
 public abstract class AbstractBoardGenerator {
 
 	protected final Board board;
-	protected final LetterMeter meter;
+	protected final AbstractLetterMeter meter;
 
 	public AbstractBoardGenerator(int size) {
 		this.board = new Board(size);
