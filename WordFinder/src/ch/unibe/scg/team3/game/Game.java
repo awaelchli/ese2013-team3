@@ -2,15 +2,11 @@ package ch.unibe.scg.team3.game;
 
 import java.util.ArrayList;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
 import ch.unibe.scg.team3.board.*;
 import ch.unibe.scg.team3.gameui.*;
 import ch.unibe.scg.team3.localDatabase.WordlistManager;
 import ch.unibe.scg.team3.token.*;
 import ch.unibe.scg.team3.wordfinder.R;
-import ch.unibe.scg.team3.wordlist.Wordlist;
 
 /**
  * The Game class is responsible for the proper execution of the game. 
@@ -24,15 +20,16 @@ public class Game implements IObservable {
 
 	public static final int MAX_WORDS_TO_FIND = 10;
 	
-	private final Board board;
-	private final Wordlist found;
-	private final WordlistManager data;
+	private Board board;
+	private int score;
+	private String wordlist;
 	
 	private final ArrayList<IGameObserver> observers;
+	private final ArrayList<WordSelection> found;
 	
-	private int score;
+	private final WordlistManager data;
 	
-	private String wordlistName;
+	
 
 	/**
 	 * @param boardSize
@@ -44,18 +41,23 @@ public class Game implements IObservable {
 		this.data = data;
 		observers = new ArrayList<IGameObserver>();
 
-		RandomBoardGenerator rnd = new RandomBoardGenerator(boardSize);
-		rnd.generate();
-		board = rnd.getBoard();
+		generateBoard(boardSize);
 
-		found = new Wordlist("Found words");
-		this.wordlistName = wordlistName;
+		found = new ArrayList<WordSelection>();
+		
+		wordlist = wordlistName;
 		score = 0;
 
 	}
-
+	
 	public Game(WordlistManager data, String wordlistName) {
 		this(Board.DEFAULT_SIZE, data, wordlistName);
+	}
+
+	private void generateBoard(int boardSize) {
+		RandomBoardGenerator rnd = new RandomBoardGenerator(boardSize);
+		rnd.generate();
+		board = rnd.getBoard();
 	}
 
 	/**
@@ -71,15 +73,16 @@ public class Game implements IObservable {
 
 		String word = selection.toString();
 
-		if (!data.isWordInWordlist(word, wordlistName)) {
+		if (!data.isWordInWordlist(word, wordlist)) {
 
 			path.setColor(R.drawable.not_valid_button_animation);
 
-		} else if (found.contains(word)) {
+		} else if (found.contains(selection)) {
 			path.setColor(R.drawable.already_button_animation);
 
 		} else {
-			found.addWord(word);
+			//found.addWord(word);
+			found.add(selection);
 			path.setColor(R.drawable.valid_button_animation);
 			updateScore(selection);
 		}
@@ -132,16 +135,19 @@ public class Game implements IObservable {
 		return board.clone();
 	}
 
+	/**
+	 * @return The score of the current game, a positive integer
+	 */
 	public int getScore() {
 		assert score >= 0;
 		return score;
 	}
 
-	public ArrayList<String> getFoundWords() {
-		return found.getContent();
+	public ArrayList<WordSelection> getFoundWords() {
+		return found;
 	}
 
 	public boolean isOver() {
-		return found.getSize() == MAX_WORDS_TO_FIND;
+		return found.size() == MAX_WORDS_TO_FIND;
 	}
 }

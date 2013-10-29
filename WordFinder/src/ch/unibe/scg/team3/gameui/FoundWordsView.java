@@ -2,6 +2,7 @@ package ch.unibe.scg.team3.gameui;
 
 import java.util.ArrayList;
 
+import ch.unibe.scg.team3.board.WordSelection;
 import ch.unibe.scg.team3.game.Game;
 import ch.unibe.scg.team3.game.IGameObserver;
 import android.content.Context;
@@ -24,12 +25,15 @@ public class FoundWordsView extends TextView implements IGameObserver {
 
 	@Override
 	public void update(Game game) {
-		ArrayList<String> list = game.getFoundWords();
+		ArrayList<WordSelection> list = game.getFoundWords();
 		
 		StringBuilder builder = new StringBuilder();
 		
-		for(String word : list){
+		for(WordSelection word : list){
 			builder.append(word);
+			builder.append(" (");
+			builder.append(word.getScore());
+			builder.append(")");
 			builder.append("\n");
 		}
 		
