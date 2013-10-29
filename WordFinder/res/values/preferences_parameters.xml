@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="wordlist_entries">
+        <item>English</item>
+        <item>Deutsch</item>
+    </string-array>
+    <string-array name="wordlist_entryValues">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

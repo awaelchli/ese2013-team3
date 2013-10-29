@@ -7,7 +7,10 @@
         android:key="wordlists">
         <ListPreference 
             android:title="Choose Wordlist"
-            android:key="choose_wordlist"/>
+            android:key="choose_wordlist"
+            android:entries="@array/wordlist_entries"
+            android:entryValues="@array/wordlist_entryValues"
+            android:defaultValue="1"/>
         <Preference 
             android:title="Edit Wordlists"
             android:key="edit_wordlists" >

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 /**
  * @author lukas
 */
@@ -15,11 +16,20 @@ public class EndGameActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_end_game);
+		
+		Intent intent = getIntent();
+		
+		int score = intent.getIntExtra("score", 0);
+		int found = intent.getIntExtra("words_found", 0);
+		
+		String text = "Your Score: " + score + "\n\n" + "Found Words: " + found;
+		
+		TextView stats = (TextView) findViewById(R.id.display_Stats);
+		stats.setText(text);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.end_game, menu);
 		return true;
 	}

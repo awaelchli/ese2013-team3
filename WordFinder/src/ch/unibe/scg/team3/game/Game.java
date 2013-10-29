@@ -22,6 +22,8 @@ import ch.unibe.scg.team3.wordlist.Wordlist;
 
 public class Game implements IObservable {
 
+	public static final int MAX_WORDS_TO_FIND = 10;
+	
 	private final Board board;
 	private final Wordlist found;
 	private final WordlistManager data;
@@ -30,8 +32,7 @@ public class Game implements IObservable {
 	
 	private int score;
 	
-	private static boolean isOver = false;
-	private String wordlistname;
+	private String wordlistName;
 
 	/**
 	 * @param boardSize
@@ -39,7 +40,7 @@ public class Game implements IObservable {
 	 * @param data
 	 *            A DataManager to access the database, not null
 	 */
-	public Game(int boardSize, WordlistManager data) {
+	public Game(int boardSize, WordlistManager data, String wordlistName) {
 		this.data = data;
 		observers = new ArrayList<IGameObserver>();
 
@@ -48,22 +49,13 @@ public class Game implements IObservable {
 		board = rnd.getBoard();
 
 		found = new Wordlist("Found words");
+		this.wordlistName = wordlistName;
 		score = 0;
 
 	}
 
-	public Game(WordlistManager data) {
-		this(Board.DEFAULT_SIZE, data);
-	}
-	public Game(WordlistManager data, String wordlistid){
-		this(Board.DEFAULT_SIZE, data);
-		
-		try {
-			this.wordlistname = data.getWordlists()[Integer
-					.parseInt(wordlistid) - 1].toString();
-		} catch (NumberFormatException e) {
-			e.getStackTrace();
-		}
+	public Game(WordlistManager data, String wordlistName) {
+		this(Board.DEFAULT_SIZE, data, wordlistName);
 	}
 
 	public void submitPath(Path path) {
@@ -73,7 +65,7 @@ public class Game implements IObservable {
 
 		String word = selection.toString();
 
-		if (!data.isWordInWordlist(word, wordlistname)) {
+		if (!data.isWordInWordlist(word, wordlistName)) {
 
 			path.setColor(R.drawable.not_valid_button_animation);
 
@@ -105,10 +97,6 @@ public class Game implements IObservable {
 		}
 
 		return selection;
-	}
-
-	public static void setIsOver() {
-		isOver = true;
 	}
 
 	@Override

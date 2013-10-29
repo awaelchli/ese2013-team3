@@ -25,7 +25,8 @@ public class RandomBoardGenerator extends AbstractBoardGenerator {
 			for (int j = 0; j < this.board.getSize(); j++) {
 
 				char letter = (char) (r.nextInt(26) + 'a');
-				Token tok = new Token(letter, 1);
+				int value = valueOf(letter);
+				Token tok = new Token(letter, value);
 				this.board.setToken(tok, i, j);
 			}
 

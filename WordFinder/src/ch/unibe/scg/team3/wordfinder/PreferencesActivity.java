@@ -23,25 +23,29 @@ import ch.unibe.scg.team3.localDatabase.WordlistManager;
  */
 public class PreferencesActivity extends PreferenceActivity {
 	WordlistManager wm;
-	String options[] = {};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		addPreferencesFromResource(R.xml.preferences);
 		//setContentView(R.layout.activity_preferences);
 		wm = new WordlistManager(this);
 		
-		final Preference pref = (Preference) findPreference("reset");
+		final Preference resetPref = (Preference) findPreference("reset");
 		final Preference copyDB = (Preference) findPreference("copyDB"); 
-		final ListPreference listPreference = (ListPreference) findPreference("choose_wordlist");
-		setListPreferenceData(listPreference);
-		pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		final ListPreference wordlistPref = (ListPreference) findPreference("choose_wordlist");
+		
+		setListPreferenceData(wordlistPref);
+		
+		resetPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 		    public boolean onPreferenceClick(Preference preference) {
 		       resetDB();
 		        return true; 
 		    }
 		});
+		
 		copyDB.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 		    public boolean onPreferenceClick(Preference preference) {
@@ -50,10 +54,10 @@ public class PreferencesActivity extends PreferenceActivity {
 		    }
 		});
 		
-		listPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		wordlistPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 		    public boolean onPreferenceClick(Preference preference) {
-		    	setListPreferenceData(listPreference);
+		    	setListPreferenceData(wordlistPref);
 		        return true; 
 		    }
 		});
@@ -67,7 +71,6 @@ public class PreferencesActivity extends PreferenceActivity {
         entries = wm.getWordlists();
         entryValues = wm.getWordlistids();
         lp.setEntries(entries);
-        lp.setDefaultValue("1");
         lp.setEntryValues(entryValues);
 }
 	

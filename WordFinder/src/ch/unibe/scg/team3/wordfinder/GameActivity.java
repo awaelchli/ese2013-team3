@@ -15,6 +15,8 @@ import ch.unibe.scg.team3.gameui.BoardOnTouchListener;
 import ch.unibe.scg.team3.gameui.BoardUI;
 import ch.unibe.scg.team3.gameui.FoundWordsView;
 import ch.unibe.scg.team3.gameui.ScoreView;
+import ch.unibe.scg.team3.gameui.Timer;
+import ch.unibe.scg.team3.gameui.WordCounterView;
 import ch.unibe.scg.team3.localDatabase.DataManager;
 import ch.unibe.scg.team3.localDatabase.WordlistManager;
 
@@ -29,23 +31,34 @@ public class GameActivity extends Activity {
 
 	private Game game;
 	private Timer timer;
-	private long remainingTime;
-	private TextView timerDisplayer; 
+	private long remainingTime = 5*60000;
+	private TextView countDownView; 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
+		
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String wordlistname = preferences.getString("choose_wordlist", null);
+		String selectedWordlist = preferences.getString("choose_wordlist", null);
+		
 		WordlistManager data = new WordlistManager(this);
 		
-		game = new Game(data,wordlistname);
+		String wordlistname = "";
+		try {
+			wordlistname = data.getWordlists()[Integer.parseInt(selectedWordlist) - 1].toString();
+		} catch (NumberFormatException e) {
+			e.getStackTrace();
+		}
+		
+		game = new Game(data, wordlistname);
 
 		BoardUI boardUI = (BoardUI) findViewById(R.id.tableboardUI);
 		FoundWordsView found = (FoundWordsView) findViewById(R.id.foundWordsField);
 		ScoreView scoreView = (ScoreView) findViewById(R.id.score_view);
+		WordCounterView wordCounter = (WordCounterView) findViewById(R.id.foundCounter);
+		countDownView = (TextView) findViewById(R.id.timer_field);
 		
 		boardUI.setOnTouchListener(new BoardOnTouchListener(this, game));
 
@@ -53,13 +66,9 @@ public class GameActivity extends Activity {
 		game.addObserver(boardUI);
 		game.addObserver(found);
 		game.addObserver(scoreView);
+		game.addObserver(wordCounter);
 		
 		game.notifyObservers();
-		
-        //@param Minuten, Interval in seconds, TextFeld to display timer
-		timerDisplayer = (TextView) findViewById(R.id.timer_field);
-		timer = new Timer(5*60000, 1000, timerDisplayer);
-        timer.start();
         
 	}
 
@@ -76,7 +85,7 @@ public class GameActivity extends Activity {
 		super.onPause();
 		remainingTime = timer.getRemainingTime();
 		if (timer != null){
-		timer.cancel();
+			timer.cancel();
 		}
 		
 	}
@@ -84,14 +93,27 @@ public class GameActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		timer = new Timer(remainingTime, 1000, timerDisplayer);
+		timer = new Timer(remainingTime, 1000, countDownView){
+			@Override
+			public void onFinish() {
+				finishGame();
+			}
+		};
         timer.start();
 	}
 
 	public void quit(View view) {
-
+		finishGame();
+	}
+	
+	public void finishGame() {
 		Intent intent = new Intent(this, EndGameActivity.class);
+		
+		intent.putExtra("score", game.getScore());
+		intent.putExtra("words_found", game.getFoundWords().size());
+		
 		startActivity(intent);
 		finish();
 	}
+	
 }
