@@ -57,7 +57,13 @@ public class Game implements IObservable {
 	}
 	public Game(WordlistManager data, String wordlistid){
 		this(Board.DEFAULT_SIZE, data);
-		this.wordlistname = data.getWordlists()[Integer.parseInt(wordlistid) -1].toString();
+		
+		try {
+			this.wordlistname = data.getWordlists()[Integer
+					.parseInt(wordlistid) - 1].toString();
+		} catch (NumberFormatException e) {
+			e.getStackTrace();
+		}
 	}
 
 	public void submitPath(Path path) {

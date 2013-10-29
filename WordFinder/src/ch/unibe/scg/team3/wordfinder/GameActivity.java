@@ -75,7 +75,10 @@ public class GameActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		remainingTime = timer.getRemainingTime();
+		if (timer != null){
 		timer.cancel();
+		}
+		
 	}
 
 	@Override

@@ -37,4 +37,6 @@ public class Timer extends CountDownTimer{
 		timerDisplayer.setText("Your time is over!!!");
 		Game.setIsOver();
 	}
+
+	
 }

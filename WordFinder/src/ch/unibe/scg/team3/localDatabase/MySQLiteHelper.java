@@ -80,7 +80,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	    // Close the SQLiteOpenHelper so it will commit the created empty
 	    // database to internal storage.
 	    close();
-	    File newDb = new File(context.getPackageResourcePath() +"localdatabase.db");
+	    File newDb = new File("raw/localdatabase.db");
+	    
 	    File oldDb = new File(DB_FILEPATH);
 	    if (newDb.exists()) {
 	        FileUtils.copyFile(new FileInputStream(newDb), new FileOutputStream(oldDb));
