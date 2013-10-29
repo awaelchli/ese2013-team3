@@ -3,7 +3,6 @@ package ch.unibe.scg.team3.board;
 /**
  * 
  * @author adrian
- *
  */
 public abstract class AbstractBoardGenerator {
 

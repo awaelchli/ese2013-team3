@@ -5,7 +5,8 @@ import java.util.Random;
 import ch.unibe.scg.team3.token.Token;
 
 /**
- * This board generator creates a board containing tokens with random letters and values 1
+ * This board generator creates a board containing tokens with random letters and values based on 
+ * DefaultLetterMeter
  * 
  * @author viviane
  * @author adrian

@@ -23,7 +23,7 @@ public class WordlistTest {
 		Wordlist list = new Wordlist("test");
 
 		assertEquals(list.getSize(), 0);
-		assertEquals(list.getContent(), "");
+		assertEquals(list.getContent().size(), 0);
 		assertEquals(list.getName(), "test");
 
 		return list;

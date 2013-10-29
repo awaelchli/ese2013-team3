@@ -52,7 +52,7 @@ public class CustomBoardGenerator extends AbstractBoardGenerator {
 			for (int j = 0; j < this.board.getSize(); j++) {
 
 				char letter = (char) customBoard[i*6+j];
-				Token tok = new Token(letter, 1);
+				Token tok = new Token(letter, valueOf(letter));
 				this.board.setToken(tok, j, i);
 			}
 

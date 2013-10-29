@@ -7,6 +7,7 @@ import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.wordfinder.R;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -41,14 +42,16 @@ public class BoardUI extends TableLayout implements IGameObserver {
 			rows[i] = row;
 
 			for (int j = 0; j < size; j++) {
-				BoardButton btn = (BoardButton) View.inflate(context,
-						R.layout.board_button, null);
+				BoardButton btn = (BoardButton) View.inflate(context, R.layout.board_button, null);
+				
+				
 				btn.setCoordinates(new Point(j, i));
 				buttons[j][i] = btn;
 				row.addView(btn);
 			}
 
 			this.addView(row);
+			
 		}
 	}
 
@@ -64,7 +67,9 @@ public class BoardUI extends TableLayout implements IGameObserver {
 				BoardButton button = buttons[i][j];
 				IToken tok = board.getToken(i, j);
 				String letter = "" + tok.getLetter();
-				button.setText(letter.toUpperCase());
+				int value = tok.getValue();
+				button.setLetter(letter.toUpperCase());
+				button.setValue(value);
 			}
 		}
 	}

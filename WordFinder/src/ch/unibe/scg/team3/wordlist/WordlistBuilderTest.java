@@ -47,17 +47,4 @@ public class WordlistBuilderTest {
 		assertEquals(list.getSize(), 3);
 		assertEquals(list.getContent(), words + SEP);
 	}
-	
-	@Test
-	public void testBuildEnglishWordlist() throws FileNotFoundException{
-		File file = new File("");
-		
-		WordlistBuilder builder = new WordlistBuilder("English");
-		
-		//builder.addWords(file);
-		Wordlist wordlist = builder.getWordlist();
-		
-		//assertEquals(wordlist.getSize(), 118619);
-	}
-	
 }

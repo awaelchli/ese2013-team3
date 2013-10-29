@@ -2,11 +2,19 @@
 <resources>
     <string name="button_animation_time">500</string>
     <string name="found_words">Found words:</string>
-    <color name="color_walk">#000</color>
-    <color name="color_valid">#000</color>
-    <color name="color_not_valid">#000</color>
-    <color name="color_already_found">#000</color>
-    <dimen name="board_button_textsize">20sp</dimen>
+    
+    <color name="color_walk">#66CCFF</color>
+    <color name="color_valid">#00CC00</color>
+    <color name="color_not_valid">#FF0000</color>
+    <color name="color_already_found">#FF6600</color>
+   	<color name="color_default">#0066FF</color>
+    
+    <dimen name="board_letter_size">25sp</dimen>
+    <dimen name="board_score_size">15sp</dimen>
     <dimen name="header_textsize">30sp</dimen>
+    <dimen name="board_button_padding">20dp</dimen>
+    <dimen name="board_button_corner_radius">5dp</dimen>
+    <dimen name="board_button_border_radius">5dp</dimen>
+    <color name="color_border">#000</color>
     
 </resources>
