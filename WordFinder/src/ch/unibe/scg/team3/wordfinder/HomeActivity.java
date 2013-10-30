@@ -1,11 +1,14 @@
 package ch.unibe.scg.team3.wordfinder;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
+import ch.unibe.scg.team3.localDatabase.WordlistManager;
 
 /**
  * 
@@ -13,14 +16,17 @@ import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
  * 
  */
 public class HomeActivity extends Activity {
-	MySQLiteHelper db;
+	WordlistManager wordlistmanager;;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);   
-//        db = new MySQLiteHelper(this);
-//        db.getReadableDatabase();
-//        db.close();
+        wordlistmanager = new WordlistManager(this);
+        try {
+			wordlistmanager.copyDB();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
     public void startGame(View view){
