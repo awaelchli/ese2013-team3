@@ -1,5 +1,6 @@
 package ch.unibe.scg.team3.wordfinder;
 
+import java.io.File;
 import java.io.IOException;
 
 import android.app.Activity;
@@ -22,11 +23,15 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);   
         wordlistmanager = new WordlistManager(this);
-        try {
-			wordlistmanager.copyDB();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        wordlistmanager.getWordlistids();
+        //TODO prüfen ob schon vorhanden
+        if(!(new File("/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db").exists())){
+	        try {
+				wordlistmanager.copyDB();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        }
     }
     
     public void startGame(View view){

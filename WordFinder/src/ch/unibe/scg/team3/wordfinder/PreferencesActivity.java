@@ -32,27 +32,27 @@ public class PreferencesActivity extends PreferenceActivity {
 		//setContentView(R.layout.activity_preferences);
 		wm = new WordlistManager(this);
 		
-		final Preference resetPref = (Preference) findPreference("reset");
-		final Preference copyDB = (Preference) findPreference("copyDB"); 
+		//final Preference resetPref = (Preference) findPreference("reset");
+		//final Preference copyDB = (Preference) findPreference("copyDB"); 
 		final ListPreference wordlistPref = (ListPreference) findPreference("choose_wordlist");
 		
 		setListPreferenceData(wordlistPref);
 		
-		resetPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-		    public boolean onPreferenceClick(Preference preference) {
-		       resetDB();
-		        return true; 
-		    }
-		});
+//		resetPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+//
+//		    public boolean onPreferenceClick(Preference preference) {
+//		       resetDB();
+//		        return true; 
+//		    }
+//		});
 		
-		copyDB.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-		    public boolean onPreferenceClick(Preference preference) {
-		       copyDB();
-		        return true; 
-		    }
-		});
+//		copyDB.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+//
+//		    public boolean onPreferenceClick(Preference preference) {
+//		       copyDB();
+//		        return true; 
+//		    }
+//		});
 		
 		wordlistPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 

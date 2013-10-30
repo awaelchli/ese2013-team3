@@ -29,7 +29,7 @@
         
     </PreferenceCategory>
     
-    <PreferenceCategory 
+    <!--  <PreferenceCategory 
         android:title="Database"
         android:key="database">
          <Preference 
@@ -43,5 +43,5 @@
 
 
     </PreferenceCategory>
-    
+    -->
 </PreferenceScreen>

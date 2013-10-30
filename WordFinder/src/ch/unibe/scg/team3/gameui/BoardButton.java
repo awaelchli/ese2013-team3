@@ -1,14 +1,11 @@
 package ch.unibe.scg.team3.gameui;
 
-import ch.unibe.scg.team3.board.Point;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.Gravity;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import ch.unibe.scg.team3.board.Point;
 
 public class BoardButton extends RelativeLayout {
 	

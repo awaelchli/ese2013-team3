@@ -27,6 +27,7 @@ public class GameActivity extends Activity implements IGameObserver {
 	private Timer timer;
 	private long remainingTime = 5 * 60000;
 	private TextView countDownView;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +97,8 @@ public class GameActivity extends Activity implements IGameObserver {
 			}
 		};
 		timer.start();
+		
+
 	}
 
 	public void quit(View view) {
