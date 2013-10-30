@@ -93,5 +93,6 @@ public class PreferencesActivity extends PreferenceActivity {
 		}
 		finish();
 	}
+	
 
 }
