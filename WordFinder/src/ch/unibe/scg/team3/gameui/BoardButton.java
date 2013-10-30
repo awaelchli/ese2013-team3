@@ -29,14 +29,13 @@ public class BoardButton extends RelativeLayout {
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		
 		final int width = getMeasuredWidth();
 		
 		int parentWidth= MeasureSpec.getSize(widthMeasureSpec);
-		   //int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
 		setMeasuredDimension(parentWidth, parentWidth);
+		
 		setLayoutParams(new TableRow.LayoutParams(width,width));
-//
-//		setMeasuredDimension(width, width);
 	}
 
 	public Point getCoordinates() {

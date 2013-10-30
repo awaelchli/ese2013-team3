@@ -14,15 +14,15 @@
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentRight="true"
 		android:gravity="center"
-        android:text="A"
         android:textSize="@dimen/board_letter_size" />
 
     <TextView
         android:id="@+id/button_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1"
-        android:padding="5dp"
+        android:padding="7dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:textSize="@dimen/board_score_size" /> 
