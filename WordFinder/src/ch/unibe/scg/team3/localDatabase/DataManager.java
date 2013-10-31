@@ -30,7 +30,7 @@ public class DataManager {
 
 	public DataManager(Context context) {
 		this.context = context;
-		this.helper = new MySQLiteHelper(context);
+		this.helper = MySQLiteHelper.getInstance(context);
 	}
 
 	private void initDB(Context context) {
@@ -60,10 +60,6 @@ public class DataManager {
 		helper.onCreate(db);
 		initDB(context);
 		db.close();
-//		try {
-//			helper.importDatabase();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+
 	}
 }

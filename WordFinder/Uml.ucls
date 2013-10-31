@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="ch.unibe.scg.team3.board.SimpleDBBoardGenerator" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/board/SimpleDBBoardGenerator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1413" y="140"/>    
+    <position height="-1" width="-1" x="1431" y="200"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -93,7 +93,7 @@
   </class>  
   <class id="11" language="java" name="ch.unibe.scg.team3.board.AbstractLetterMeter" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/board/AbstractLetterMeter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="134" width="221" x="518" y="328"/>    
+    <position height="-1" width="-1" x="726" y="94"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -120,7 +120,7 @@
   </class>  
   <interface id="14" language="java" name="ch.unibe.scg.team3.game.IGameObserver" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/game/IGameObserver.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-146" y="740"/>    
+    <position height="-1" width="-1" x="-155" y="871"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -210,7 +210,7 @@
   </class>  
   <class id="24" language="java" name="ch.unibe.scg.team3.localDatabase.MySQLiteHelper" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/MySQLiteHelper.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-83" y="940"/>    
+    <position height="-1" width="-1" x="-117" y="1124"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -274,7 +274,7 @@
   </class>  
   <class id="31" language="java" name="ch.unibe.scg.team3.localDatabase.DataManager" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/DataManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="134" width="170" x="606" y="378"/>    
+    <position height="-1" width="-1" x="887" y="437"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -337,7 +337,7 @@
   </class>  
   <class id="38" language="java" name="ch.unibe.scg.team3.wordfinder.HomeActivity" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/wordfinder/HomeActivity.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="152" width="237" x="570" y="358"/>    
+    <position height="-1" width="-1" x="998" y="368"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -382,7 +382,7 @@
   </class>  
   <class id="43" language="java" name="ch.unibe.scg.team3.wordlist.WordlistBuilderTest" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/wordlist/WordlistBuilderTest.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="134" width="219" x="551" y="432"/>    
+    <position height="-1" width="-1" x="1227" y="136"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -391,7 +391,7 @@
   </class>  
   <class id="44" language="java" name="ch.unibe.scg.team3.wordlist.WordlistTest" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/wordlist/WordlistTest.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="152" width="204" x="810" y="432"/>    
+    <position height="-1" width="-1" x="963" y="321"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -408,243 +408,243 @@
     </display>  
   </class>  
   <association id="46">    
-    <end type="SOURCE" refId="41" navigable="false">      
-      <attribute id="47" name="wordlist"/>      
-      <multiplicity id="48" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="47" name="path"/>      
+      <multiplicity id="48" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="42" navigable="true"/>    
+    <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <generalization id="49">    
-    <end type="SOURCE" refId="25"/>    
+    <end type="SOURCE" refId="29"/>    
     <end type="TARGET" refId="31"/>  
   </generalization>  
-  <association id="50">    
-    <end type="SOURCE" refId="38" navigable="false">      
-      <attribute id="51" name="wordlistmanager"/>      
-      <multiplicity id="52" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="29" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="53">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="54" name="meter"/>      
-      <multiplicity id="55" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="56">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <generalization id="57">    
-    <end type="SOURCE" refId="32"/>    
-    <end type="TARGET" refId="34"/>  
-  </generalization>  
-  <generalization id="58">    
-    <end type="SOURCE" refId="28"/>    
-    <end type="TARGET" refId="31"/>  
-  </generalization>  
-  <generalization id="59">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
-  <association id="60">    
-    <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="61" name="buttons"/>      
-      <multiplicity id="62" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="63">    
+  <realization id="50">    
     <end type="SOURCE" refId="23"/>    
     <end type="TARGET" refId="14"/>  
   </realization>  
-  <association id="64">    
+  <association id="51">    
     <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="65" name="timer"/>      
-      <multiplicity id="66" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="67">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="14"/>  
-  </realization>  
-  <realization id="68">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="14"/>  
-  </realization>  
-  <association id="69">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="70" name="tokens"/>      
-      <multiplicity id="71" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="36" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="72">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="15"/>  
-  </realization>  
-  <association id="73">    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="74" name="INSTANCE"/>      
-      <multiplicity id="75" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="76">    
-    <end type="SOURCE" refId="39"/>    
-    <end type="TARGET" refId="14"/>  
-  </realization>  
-  <association id="77">    
-    <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="78" name="path"/>      
-      <multiplicity id="79" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="80">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="81" name="observers"/>      
-      <multiplicity id="82" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="83">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="31"/>  
-  </generalization>  
-  <association id="84">    
-    <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="85" name="game"/>      
-      <multiplicity id="86" minimum="0" maximum="1"/>    
+      <attribute id="52" name="game"/>      
+      <multiplicity id="53" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="87">    
+  <association id="54">    
     <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="88" name="path"/>      
-      <multiplicity id="89" minimum="0" maximum="1"/>    
+      <attribute id="55" name="path"/>      
+      <multiplicity id="56" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="90">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="91" name="data"/>      
-      <multiplicity id="92" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="29" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="93">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
-  <generalization id="94">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
-  <generalization id="95">    
-    <end type="SOURCE" refId="29"/>    
-    <end type="TARGET" refId="31"/>  
-  </generalization>  
-  <association id="96">    
+  <association id="57">    
     <end type="SOURCE" refId="40" navigable="false">      
-      <attribute id="97" name="wm"/>      
-      <multiplicity id="98" minimum="0" maximum="1"/>    
+      <attribute id="58" name="wm"/>      
+      <multiplicity id="59" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="29" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="99">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="100" name="found"/>      
-      <multiplicity id="101" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="102">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="103" name="selection"/>      
-      <multiplicity id="104" minimum="0" maximum="2147483647"/>    
+  <association id="60">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="61" name="tokens"/>      
+      <multiplicity id="62" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="36" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="105">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="106" name="list"/>      
-      <multiplicity id="107" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="42" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="108">    
-    <end type="SOURCE" refId="33"/>    
-    <end type="TARGET" refId="34"/>  
+  <generalization id="63">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="31"/>  
   </generalization>  
-  <association id="109">    
-    <end type="SOURCE" refId="31" navigable="false">      
-      <attribute id="110" name="helper"/>      
-      <multiplicity id="111" minimum="0" maximum="1"/>    
+  <generalization id="64">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="65">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="66" name="observers"/>      
+      <multiplicity id="67" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
+    <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="112">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="113" name="board"/>      
-      <multiplicity id="114" minimum="0" maximum="1"/>    
+  <association id="68">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="69" name="buttons"/>      
+      <multiplicity id="70" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="115">    
+  <generalization id="71">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="31"/>  
+  </generalization>  
+  <association id="72">    
     <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="116" name="game"/>      
-      <multiplicity id="117" minimum="0" maximum="1"/>    
+      <attribute id="73" name="game"/>      
+      <multiplicity id="74" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="118">    
-    <end type="SOURCE" refId="34"/>    
-    <end type="TARGET" refId="36"/>  
-  </realization>  
-  <generalization id="119">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="8"/>  
+  <association id="75">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="76" name="wordlistmanager"/>      
+      <multiplicity id="77" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="78">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="34"/>  
   </generalization>  
-  <realization id="120">    
+  <generalization id="79">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <association id="80">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="81" name="helper"/>      
+      <multiplicity id="82" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="83">    
     <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="14"/>  
   </realization>  
-  <association id="121">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="122" name="board"/>      
-      <multiplicity id="123" minimum="0" maximum="1"/>    
+  <association id="84">    
+    <end type="SOURCE" refId="39" navigable="false">      
+      <attribute id="85" name="timer"/>      
+      <multiplicity id="86" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="87">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="88" name="INSTANCE"/>      
+      <multiplicity id="89" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="90">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="31"/>  
+  </generalization>  
+  <realization id="91">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="36"/>  
+  </realization>  
+  <realization id="92">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <generalization id="93">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="34"/>  
+  </generalization>  
+  <association id="94">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="95" name="board"/>      
+      <multiplicity id="96" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="124">    
+  <realization id="97">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <association id="98">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="99" name="data"/>      
+      <multiplicity id="100" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="101">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="102" name="meter"/>      
+      <multiplicity id="103" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="104">    
+    <end type="SOURCE" refId="41" navigable="false">      
+      <attribute id="105" name="wordlist"/>      
+      <multiplicity id="106" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="42" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="107">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="108" name="found"/>      
+      <multiplicity id="109" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="110">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <association id="111">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="112" name="list"/>      
+      <multiplicity id="113" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="42" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="114">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <association id="115">    
     <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="125" name="coordinates"/>      
-      <multiplicity id="126" minimum="0" maximum="1"/>    
+      <attribute id="116" name="coordinates"/>      
+      <multiplicity id="117" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="118">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="119">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="120">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="121" name="board"/>      
+      <multiplicity id="122" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="123">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="124">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="125" name="selection"/>      
+      <multiplicity id="126" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

@@ -29,12 +29,13 @@ public class PreferencesActivity extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 		
 		addPreferencesFromResource(R.xml.preferences);
+		final ListPreference wordlistPref = (ListPreference) findPreference("choose_wordlist");
 		//setContentView(R.layout.activity_preferences);
 		wm = new WordlistManager(this);
 		
 		//final Preference resetPref = (Preference) findPreference("reset");
 		//final Preference copyDB = (Preference) findPreference("copyDB"); 
-		final ListPreference wordlistPref = (ListPreference) findPreference("choose_wordlist");
+		
 		
 		setListPreferenceData(wordlistPref);
 		

@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
 import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
@@ -24,20 +25,20 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);   
        
-        wordlistmanager = new WordlistManager(this);
-        //TODO prüfen ob schon vorhanden
-        File database = new File("/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
-        if(!database.exists()){
-	        try {
-	        	//wordlistmanager.getDb();
-				wordlistmanager.copyDB();
-				wordlistmanager = new WordlistManager(this);
-				//wordlistmanager.getDb();
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-        }
+//        wordlistmanager = new WordlistManager(this);
+//        //TODO prüfen ob schon vorhanden
+//        File database = new File("/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
+//        if(!database.exists()){
+//	        try {
+//	        	//wordlistmanager.getDb();
+//				wordlistmanager.copyDB();
+//				wordlistmanager = new WordlistManager(this);
+//				//wordlistmanager.getDb();
+//				
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//        }
         
     }
     
@@ -56,6 +57,25 @@ public class HomeActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+       
+        wordlistmanager = new WordlistManager(this);
+        File database = new File("/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
+        if(!database.exists()){
+	        try {
+	        	//wordlistmanager.getDb();
+				wordlistmanager.copyDB();
+				wordlistmanager = new WordlistManager(this);
+				//wordlistmanager.getDb();
+				PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        }
+        
     }
     
 }
