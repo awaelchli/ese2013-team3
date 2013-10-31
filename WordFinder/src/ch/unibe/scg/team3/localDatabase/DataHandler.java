@@ -1,17 +1,7 @@
 package ch.unibe.scg.team3.localDatabase;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import ch.unibe.scg.team3.wordfinder.R;
-import ch.unibe.scg.team3.wordlist.Wordlist;
-import ch.unibe.scg.team3.wordlist.WordlistBuilder;
 
 /**
  * This class provides the connection between the SQLite database and the
@@ -23,18 +13,19 @@ import ch.unibe.scg.team3.wordlist.WordlistBuilder;
  * @author nils
  * 
  */
-public class DataManager {
+public class DataHandler {
 
 	protected Context context;
 	protected MySQLiteHelper helper;
 
-	public DataManager(Context context) {
+	public DataHandler(Context context) {
 		this.context = context;
 		this.helper = MySQLiteHelper.getInstance(context);
 	}
 
+	//TODO: remove in final version
 	private void initDB(Context context) {
-		WordlistManager wordlist = new WordlistManager(context);
+		WordlistHandler wordlist = new WordlistHandler(context);
 		try {
 			wordlist.addWordlistByFileInRaw("English", "english");
 		} catch (WordlistAlreadyInDataBaseException e) {
@@ -47,6 +38,8 @@ public class DataManager {
 		}
 		
 	}
+	
+	//TODO: remove in final version
 	public void reset(Context context) {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		for (int i = 0; i < MySQLiteHelper.ALPHABET.length(); i++) {

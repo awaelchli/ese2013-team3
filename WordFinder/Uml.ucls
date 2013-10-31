@@ -217,7 +217,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="ch.unibe.scg.team3.localDatabase.FriendsManager" project="WordFinder" 
+  <class id="25" language="java" name="ch.unibe.scg.team3.localDatabase.FriendsHandler" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/FriendsManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="16" y="514"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -226,7 +226,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="ch.unibe.scg.team3.localDatabase.StatisticsManager" project="WordFinder" 
+  <class id="26" language="java" name="ch.unibe.scg.team3.localDatabase.StatisticsHandler" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/StatisticsManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="212" y="552"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -244,7 +244,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="ch.unibe.scg.team3.localDatabase.SavedGamesManager" project="WordFinder" 
+  <class id="28" language="java" name="ch.unibe.scg.team3.localDatabase.SavedGamesHandler" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/SavedGamesManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="80" width="199" x="694" y="552"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -253,7 +253,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="ch.unibe.scg.team3.localDatabase.WordlistManager" project="WordFinder" 
+  <class id="29" language="java" name="ch.unibe.scg.team3.localDatabase.WordlistHandler" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/WordlistManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1450" y="1050"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -272,7 +272,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="31" language="java" name="ch.unibe.scg.team3.localDatabase.DataManager" project="WordFinder" 
+  <class id="31" language="java" name="ch.unibe.scg.team3.localDatabase.DataHandler" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/DataManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="887" y="437"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 

@@ -2,9 +2,9 @@ package ch.unibe.scg.team3.localDatabase;
 
 import android.content.Context;
 
-public class FriendsManager extends DataManager {
+public class FriendsHandler extends DataHandler {
 
-	public FriendsManager(Context context) {
+	public FriendsHandler(Context context) {
 		super(context);
 		
 	}

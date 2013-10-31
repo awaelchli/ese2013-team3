@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import ch.unibe.scg.team3.board.*;
 import ch.unibe.scg.team3.gameui.*;
-import ch.unibe.scg.team3.localDatabase.WordlistManager;
+import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import ch.unibe.scg.team3.token.*;
 import ch.unibe.scg.team3.wordfinder.R;
 
@@ -27,7 +27,7 @@ public class Game implements IObservable {
 	private final ArrayList<IGameObserver> observers;
 	private final ArrayList<WordSelection> found;
 	
-	private final WordlistManager data;
+	private final WordlistHandler data;
 	
 	
 
@@ -35,9 +35,9 @@ public class Game implements IObservable {
 	 * @param boardSize
 	 *            The size of the board must be greater than zero
 	 * @param data
-	 *            A DataManager to access the database, not null
+	 *            A DataHandler to access the database, not null
 	 */
-	public Game(int boardSize, WordlistManager data, String wordlistName) {
+	public Game(int boardSize, WordlistHandler data, String wordlistName) {
 		this.data = data;
 		observers = new ArrayList<IGameObserver>();
 
@@ -50,7 +50,7 @@ public class Game implements IObservable {
 
 	}
 	
-	public Game(WordlistManager data, String wordlistName) {
+	public Game(WordlistHandler data, String wordlistName) {
 		this(Board.DEFAULT_SIZE, data, wordlistName);
 	}
 

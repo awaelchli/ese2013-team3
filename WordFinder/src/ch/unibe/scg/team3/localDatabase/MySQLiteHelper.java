@@ -1,25 +1,20 @@
 package ch.unibe.scg.team3.localDatabase;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import ch.unibe.scg.team3.wordfinder.R;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
+import ch.unibe.scg.team3.wordfinder.R;
 
 /**
  * 
- * This class is responsible for creating the database. It holds the name of the db
- * 	provides methods for creating and updating of databases. Its the main access
- * 	to perform SQLite statments on the db.
- * 
+ * This class is responsible for creating, opening and importing the database. It holds the name of the
+ * database, provides methods for creating and updating of databases. Its the main
+ * access to perform SQLite statements on the database. 
  * 
  * @author nils
  * @author adrian
@@ -27,77 +22,92 @@ import android.os.Environment;
  */
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
-	private Context context;
-	private MySQLiteHelper(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		this.context=context;
-	}
-	
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-//		String dictable = "CREATE TABLE Dictionary (_id INTEGER PRIMARY KEY ASC, Name TEXT)";
-//		db.execSQL(dictable);
-//		db.beginTransaction();
-//		try{
-//		for (int i = 0; i < ALPHABET.length(); i++) {
-//			String shorttable = "CREATE TABLE " + ALPHABET.charAt(i)
-//					+ "short(_id INTEGER PRIMARY KEY ASC, Dictionary, "
-//					+ "Content TEXT, FOREIGN KEY(Dictionary) REFERENCES Dictionary(_id) " +
-//					"ON DELETE CASCADE ON UPDATE CASCADE)" ;
-//			db.execSQL(shorttable);
-//			String longtable = "CREATE TABLE "
-//					+ ALPHABET.charAt(i)
-//					+ "long(_id INTEGER PRIMARY KEY ASC,Dictionary,"
-//					+ "Content TEXT, FOREIGN KEY(Dictionary) REFERENCES Dictionary(_id) " +
-//					"ON DELETE CASCADE ON UPDATE CASCADE)";
-//			db.execSQL(longtable);
-//		}
-//		db.setTransactionSuccessful();
-//		}
-//		finally{
-//			db.endTransaction();
-//		}
-	}
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void onOpen(SQLiteDatabase db) {
-	    super.onOpen(db);
-	    if (!db.isReadOnly()) {
-	        // Enable foreign key constraints
-	        db.execSQL("PRAGMA foreign_keys=ON;");
-	    }
-	}
-	public static String DB_FILEPATH = "/data/data/ch.unibe.scg.team3.wordfinder/databases/";
-
-	
-	public void importDatabase() throws IOException {
-    	InputStream myInput = context.getResources().openRawResource(R.raw.localdatabase);
-    	String outFileName = DB_FILEPATH + "localDatabase.db";
-    	OutputStream myOutput = new FileOutputStream(outFileName);
-    	byte[] buffer = new byte[1024];
-    	int length;
-    	while ((length = myInput.read(buffer))>0){
-    		myOutput.write(buffer, 0, length);
-    	}
-    	myOutput.flush();
-    	myOutput.close();
-    	myInput.close();
-    }
-	public static MySQLiteHelper getInstance(Context context) {
-	    if (sInstance == null) {
-	      sInstance = new MySQLiteHelper(context.getApplicationContext());
-	    }
-	    return sInstance;
-	  }
-	
 
 	private static final String DATABASE_NAME = "localDatabase.db";
-	private static final int DATABASE_VERSION = 1;
+	private static int DATABASE_VERSION = 1;
+
+	// TODO: read about this hint
+	public static String DB_FILEPATH = "/data/data/ch.unibe.scg.team3.wordfinder/databases/";
+
+	// TODO: dont need this in final release
 	public static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
-	private static MySQLiteHelper sInstance = null;
+
+	private final Context context;
+	private static MySQLiteHelper instance = null;
+
+	private MySQLiteHelper(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
+	}
+
+	// TODO: check if needed
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		// String dictable =
+		// "CREATE TABLE Dictionary (_id INTEGER PRIMARY KEY ASC, Name TEXT)";
+		// db.execSQL(dictable);
+		// db.beginTransaction();
+		// try{
+		// for (int i = 0; i < ALPHABET.length(); i++) {
+		// String shorttable = "CREATE TABLE " + ALPHABET.charAt(i)
+		// + "short(_id INTEGER PRIMARY KEY ASC, Dictionary, "
+		// + "Content TEXT, FOREIGN KEY(Dictionary) REFERENCES Dictionary(_id) "
+		// +
+		// "ON DELETE CASCADE ON UPDATE CASCADE)" ;
+		// db.execSQL(shorttable);
+		// String longtable = "CREATE TABLE "
+		// + ALPHABET.charAt(i)
+		// + "long(_id INTEGER PRIMARY KEY ASC,Dictionary,"
+		// + "Content TEXT, FOREIGN KEY(Dictionary) REFERENCES Dictionary(_id) "
+		// +
+		// "ON DELETE CASCADE ON UPDATE CASCADE)";
+		// db.execSQL(longtable);
+		// }
+		// db.setTransactionSuccessful();
+		// }
+		// finally{
+		// db.endTransaction();
+		// }
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		// TODO on upgrade
+	}
+
+	@Override
+	public void onOpen(SQLiteDatabase db) {
+		super.onOpen(db);
+		if (!db.isReadOnly()) {
+			// Enable foreign key constraints
+			db.execSQL("PRAGMA foreign_keys=ON;");
+		}
+	}
+
+	public void importDatabase() throws IOException {
+		
+		InputStream input = context.getResources().openRawResource(
+				R.raw.localdatabase);
+		String outFileName = DB_FILEPATH + DATABASE_NAME;
+		OutputStream output = new FileOutputStream(outFileName);
+
+		byte[] buffer = new byte[1024];
+		int length;
+
+		while ((length = input.read(buffer)) > 0) {
+			output.write(buffer, 0, length);
+		}
+
+		output.flush();
+		output.close();
+		input.close();
+	}
+
+	public static MySQLiteHelper getInstance(Context context) {
+		if (instance == null) {
+			instance = new MySQLiteHelper(context.getApplicationContext());
+		}
+		return instance;
+	}
 
 }

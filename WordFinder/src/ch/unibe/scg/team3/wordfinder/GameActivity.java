@@ -12,7 +12,7 @@ import android.widget.TextView;
 import ch.unibe.scg.team3.game.Game;
 import ch.unibe.scg.team3.game.IGameObserver;
 import ch.unibe.scg.team3.gameui.*;
-import ch.unibe.scg.team3.localDatabase.WordlistManager;
+import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
 /**
  * @author faerber
@@ -27,7 +27,7 @@ public class GameActivity extends Activity implements IGameObserver {
 	private Timer timer;
 	private long remainingTime = 5 * 60000;
 	private TextView countDownView;
-	private WordlistManager data;
+	private WordlistHandler data;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class GameActivity extends Activity implements IGameObserver {
 		String selectedWordlist = preferences
 				.getString("choose_wordlist", null);
 
-		data = new WordlistManager(this);
+		data = new WordlistHandler(this);
 
 		// TODO: make this better
 		String wordlistname = "";

@@ -2,27 +2,20 @@ package ch.unibe.scg.team3.wordfinder;
 
 import java.io.IOException;
 
-import android.app.Activity;
-import android.app.ListActivity;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
-import android.view.View;
-import android.widget.Toast;
-import ch.unibe.scg.team3.localDatabase.DataManager;
-import ch.unibe.scg.team3.localDatabase.WordlistManager;
+import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 /**
  * 
  * @author nils
  * 
  */
 public class PreferencesActivity extends PreferenceActivity {
-	WordlistManager wm;
+	WordlistHandler wm;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +24,7 @@ public class PreferencesActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.preferences);
 		final ListPreference wordlistPref = (ListPreference) findPreference("choose_wordlist");
 		//setContentView(R.layout.activity_preferences);
-		wm = new WordlistManager(this);
+		wm = new WordlistHandler(this);
 		
 		//final Preference resetPref = (Preference) findPreference("reset");
 		//final Preference copyDB = (Preference) findPreference("copyDB"); 

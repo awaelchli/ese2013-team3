@@ -11,7 +11,7 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
 import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
-import ch.unibe.scg.team3.localDatabase.WordlistManager;
+import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
 /**
  * 
@@ -19,20 +19,20 @@ import ch.unibe.scg.team3.localDatabase.WordlistManager;
  * 
  */
 public class HomeActivity extends Activity {
-	WordlistManager wordlistmanager;;
+	WordlistHandler wordlistmanager;;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);   
        
-//        wordlistmanager = new WordlistManager(this);
+//        wordlistmanager = new WordlistHandler(this);
 //        //TODO prüfen ob schon vorhanden
 //        File database = new File("/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
 //        if(!database.exists()){
 //	        try {
 //	        	//wordlistmanager.getDb();
 //				wordlistmanager.copyDB();
-//				wordlistmanager = new WordlistManager(this);
+//				wordlistmanager = new WordlistHandler(this);
 //				//wordlistmanager.getDb();
 //				
 //			} catch (IOException e) {
@@ -62,13 +62,13 @@ public class HomeActivity extends Activity {
     protected void onResume() {
         super.onResume();
        
-        wordlistmanager = new WordlistManager(this);
+        wordlistmanager = new WordlistHandler(this);
         File database = new File("/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
         if(!database.exists()){
 	        try {
 	        	//wordlistmanager.getDb();
 				wordlistmanager.copyDB();
-				wordlistmanager = new WordlistManager(this);
+				wordlistmanager = new WordlistHandler(this);
 				//wordlistmanager.getDb();
 				PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 			} catch (IOException e) {

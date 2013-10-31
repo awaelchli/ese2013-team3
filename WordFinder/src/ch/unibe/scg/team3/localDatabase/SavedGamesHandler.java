@@ -2,11 +2,10 @@ package ch.unibe.scg.team3.localDatabase;
 
 import android.content.Context;
 
-public class StatisticsManager extends DataManager{
+public class SavedGamesHandler extends DataHandler {
 
-	public StatisticsManager(Context context) {
+	public SavedGamesHandler(Context context) {
 		super(context);
-		
 	}
 
 }

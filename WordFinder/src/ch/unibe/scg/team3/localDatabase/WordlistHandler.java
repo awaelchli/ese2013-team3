@@ -6,61 +6,80 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import ch.unibe.scg.team3.wordfinder.R;
-import ch.unibe.scg.team3.wordlist.Wordlist;
-import ch.unibe.scg.team3.wordlist.WordlistBuilder;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-public class WordlistManager extends DataManager {
+public class WordlistHandler extends DataHandler {
 
-	public WordlistManager(Context context) {
+	public WordlistHandler(Context context) {
 		super(context);
 
 	}
 
-	public void addEmptyWordlist(String Name) throws WordlistAlreadyInDataBaseException {
-		if (!isWordlistInDatabase(Name)){
-		SQLiteDatabase db = helper.getWritableDatabase();
-		db.execSQL("INSERT INTO Dictionary VALUES(NULL,'" + Name + "')");
-		db.close();
+	public void addEmptyWordlist(String name)
+			throws WordlistAlreadyInDataBaseException {
+
+		if (!isWordlistInDatabase(name)) {
+			SQLiteDatabase db = helper.getWritableDatabase();
+			// TODO: use ? to prevent injection
+			db.execSQL("INSERT INTO Dictionary VALUES(NULL,'" + name + "')");
+			db.close();
+		} else {
+			throw new WordlistAlreadyInDataBaseException();
 		}
-		else throw new WordlistAlreadyInDataBaseException("Wordlist already exists");
 	}
-	
-	public void addWordlistByFileInRaw(String Name, String Filename) throws WordlistAlreadyInDataBaseException {
-		addEmptyWordlist(Name);
-		int resID = context.getResources().getIdentifier(Filename, "raw", context.getPackageName());
-		int wordlistId = getWordlistId(Name);
+
+	// TODO: check if needed after v1 release
+	public void addWordlistByFileInRaw(String name, String filename)
+			throws WordlistAlreadyInDataBaseException {
+
+		addEmptyWordlist(name);
+
+		int resID = context.getResources().getIdentifier(filename, "raw",
+				context.getPackageName());
+
+		int wordlistId = getWordlistId(name);
+
 		InputStream inputStream = context.getResources().openRawResource(resID);
 		InputStreamReader inputreader = new InputStreamReader(inputStream);
-	    BufferedReader buffreader = new BufferedReader(inputreader);
-	    String word;
-	    SQLiteDatabase db = helper.getWritableDatabase();
-	    db.beginTransaction();
-	    try {
-			while((word = buffreader.readLine()) != null) {
+		BufferedReader buffreader = new BufferedReader(inputreader);
+
+		String word;
+		SQLiteDatabase db = helper.getWritableDatabase();
+		db.beginTransaction();
+
+		try {
+			while ((word = buffreader.readLine()) != null) {
 				addWordToOpenDb(word, wordlistId, db);
 			}
 			db.setTransactionSuccessful();
 		}
-	    
-	    catch (IOException e) {
+
+		catch (IOException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			db.endTransaction();
 		}
 	}
 
-	public void setWordToWordlist(String word, String wordlistname) {
+	public void addWordToWordlist(String word, String wordlistname) {
+
 		int wordlistId = getWordlistId(wordlistname);
 		SQLiteDatabase db = helper.getWritableDatabase();
-		addWordToOpenDb(word, wordlistId, db);
-		db.close();
+		
+		try {
+			addWordToOpenDb(word, wordlistId, db);
+		} catch (SQLException e) {
+
+		} finally {
+			db.close();
+		}
 	}
 
-	private void addWordToOpenDb(String word, int wordlistId, SQLiteDatabase db) {
+	private void addWordToOpenDb(String word, int wordlistId, SQLiteDatabase db)
+			throws SQLException {
 		if (word.length() < 5 && word.length() > 0) {
 			// System.out.println(words[i]);
 			db.execSQL("INSERT INTO " + word.substring(0, 1).toLowerCase()
@@ -70,8 +89,7 @@ public class WordlistManager extends DataManager {
 		} else if (word.length() > 5) {
 			// System.out.println(words[i]);
 			db.execSQL("INSERT INTO " + word.substring(0, 1).toLowerCase()
-					+ "long VALUES(NULL, '" + wordlistId + "', '" + word
-					+ "')");
+					+ "long VALUES(NULL, '" + wordlistId + "', '" + word + "')");
 
 		}
 	}
@@ -91,7 +109,6 @@ public class WordlistManager extends DataManager {
 		db.close();
 	}
 
-	
 	public boolean isWordInWordlist(String word, String wordlist) {
 
 		if (word.length() == 0)
@@ -116,11 +133,11 @@ public class WordlistManager extends DataManager {
 		return false;
 
 	}
-	
-	public boolean isWordlistInDatabase(String wordlistname){
+
+	public boolean isWordlistInDatabase(String wordlistname) {
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT _id FROM Dictionary WHERE Name = ?", new String[] {
-				wordlistname});
+		Cursor c = db.rawQuery("SELECT _id FROM Dictionary WHERE Name = ?",
+				new String[] { wordlistname });
 		if (c.getCount() != 0) {
 			c.close();
 			db.close();
@@ -130,11 +147,11 @@ public class WordlistManager extends DataManager {
 		return false;
 
 	}
-	
-	public int getWordlistId(String wordlistname){
+
+	public int getWordlistId(String wordlistname) {
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT _id FROM Dictionary WHERE Name = ?", new String[] {
-				wordlistname});
+		Cursor c = db.rawQuery("SELECT _id FROM Dictionary WHERE Name = ?",
+				new String[] { wordlistname });
 		if (c.getCount() != 0) {
 			c.moveToFirst();
 			int id = c.getInt(0);
@@ -144,44 +161,48 @@ public class WordlistManager extends DataManager {
 		}
 		db.close();
 		return 0;
-		
+
 	}
-	public CharSequence[] getWordlists(){
+
+	public CharSequence[] getWordlists() {
 		CharSequence[] lists;
 		ArrayList<String> tmp = new ArrayList<String>();
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT _id , Name FROM Dictionary", null);
 		if (c.getCount() != 0) {
 			c.moveToFirst();
-			while(!c.isAfterLast()){
-			tmp.add(c.getString(1));
-			c.moveToNext();}
-			
+			while (!c.isAfterLast()) {
+				tmp.add(c.getString(1));
+				c.moveToNext();
+			}
+
 			c.close();
 			db.close();
 			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
 		}
 		db.close();
 		return null;
-		
+
 	}
-	public CharSequence[] getWordlistids(){
+
+	public CharSequence[] getWordlistids() {
 		CharSequence[] lists;
 		ArrayList<String> tmp = new ArrayList<String>();
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT _id , Name FROM Dictionary", null);
 		if (c.getCount() != 0) {
 			c.moveToFirst();
-			while(!c.isAfterLast()){
-			tmp.add(Integer.toString(c.getInt(0)));
-			c.moveToNext();}
+			while (!c.isAfterLast()) {
+				tmp.add(Integer.toString(c.getInt(0)));
+				c.moveToNext();
+			}
 			c.close();
 			db.close();
 			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
 		}
 		db.close();
 		return null;
-		
+
 	}
 
 	public void copyDB() throws IOException {
@@ -189,9 +210,9 @@ public class WordlistManager extends DataManager {
 		helper.importDatabase();
 		db.close();
 	}
-	public SQLiteDatabase getDb(){
+
+	public SQLiteDatabase getDb() {
 		return helper.getWritableDatabase();
 	}
-	
 
 }
