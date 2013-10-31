@@ -13,6 +13,14 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class WordlistHandler extends DataHandler {
 
+	/**
+	 * Words with length smaller than SMALL_WORD are small words
+	 */
+	public static final int SMALL_WORD = 5;
+	public static final String SHORT_WORD_TABLE_SUFFIX = "short";
+	public static final String LONG_WORD_TABLE_SUFFIX = "long";
+
+	// TODO: check for injections
 	public WordlistHandler(Context context) {
 		super(context);
 
@@ -64,34 +72,43 @@ public class WordlistHandler extends DataHandler {
 		}
 	}
 
-	public void addWordToWordlist(String word, String wordlistname) {
+	public boolean addWordToWordlist(String word, String wordlistname) {
 
 		int wordlistId = getWordlistId(wordlistname);
 		SQLiteDatabase db = helper.getWritableDatabase();
-		
+
 		try {
 			addWordToOpenDb(word, wordlistId, db);
 		} catch (SQLException e) {
-
+			db.close();
+			return false;
 		} finally {
 			db.close();
 		}
+
+		return true;
 	}
 
 	private void addWordToOpenDb(String word, int wordlistId, SQLiteDatabase db)
 			throws SQLException {
-		if (word.length() < 5 && word.length() > 0) {
-			// System.out.println(words[i]);
-			db.execSQL("INSERT INTO " + word.substring(0, 1).toLowerCase()
-					+ "short VALUES(NULL, '" + wordlistId + "', '" + word
-					+ "')");
+		if (word.length() < SMALL_WORD && word.length() > 0) {
 
-		} else if (word.length() > 5) {
-			// System.out.println(words[i]);
-			db.execSQL("INSERT INTO " + word.substring(0, 1).toLowerCase()
-					+ "long VALUES(NULL, '" + wordlistId + "', '" + word + "')");
+			db.execSQL("INSERT INTO " + getFirstLetter(word)
+					+ SHORT_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
+					+ "', '" + word + "')");
 
+		} else if (word.length() > SMALL_WORD) {
+			db.execSQL("INSERT INTO " + getFirstLetter(word)
+					+ LONG_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
+					+ "', '" + word + "')");
+
+		} else {
+			throw new SQLException();
 		}
+	}
+
+	private String getFirstLetter(String word) {
+		return word.substring(0, 1).toLowerCase();
 	}
 
 	public void removeWordlist(String name) {
@@ -103,7 +120,7 @@ public class WordlistHandler extends DataHandler {
 
 	public void removeWordFromWordlist(String word, String wordlist) {
 		SQLiteDatabase db = helper.getWritableDatabase();
-		db.execSQL("DELETE IF EXISTS FROM" + word.substring(0, 1).toLowerCase()
+		db.execSQL("DELETE IF EXISTS FROM" + getFirstLetter(word)
 				+ "WHERE Name = '" + wordlist + "' AND content = '" + word
 				+ "'");
 		db.close();
@@ -113,33 +130,46 @@ public class WordlistHandler extends DataHandler {
 
 		if (word.length() == 0)
 			return false;
-		String table = word.substring(0, 1).toLowerCase();
-		if (word.length() < 5) {
-			table += "short";
+
+		String table = getFirstLetter(word);
+
+		if (word.length() < SMALL_WORD) {
+			table += SHORT_WORD_TABLE_SUFFIX;
 		} else {
-			table += "long";
+			table += LONG_WORD_TABLE_SUFFIX;
 		}
+
 		int wordlistId = getWordlistId(wordlist);
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT content FROM " + table
-				+ " WHERE Dictionary = ? AND content = ?", new String[] {
-				Integer.toString(wordlistId), word.toLowerCase() });
-		if (c.getCount() != 0) {
-			c.close();
+
+		String[] contents = { Integer.toString(wordlistId), word.toLowerCase() };
+
+		Cursor cursor = db.rawQuery("SELECT content FROM " + table
+				+ " WHERE Dictionary = ? AND content = ?", contents);
+
+		if (cursor.getCount() != 0) {
+			cursor.close();
 			db.close();
 			return true;
 		}
+
 		db.close();
 		return false;
 
 	}
 
+	// TODO: test, can use in addWordToWordlist
 	public boolean isWordlistInDatabase(String wordlistname) {
+
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT _id FROM Dictionary WHERE Name = ?",
-				new String[] { wordlistname });
-		if (c.getCount() != 0) {
-			c.close();
+
+		String[] content = { wordlistname };
+
+		Cursor cursor = db.rawQuery(
+				"SELECT _id FROM Dictionary WHERE Name = ?", content);
+		
+		if (cursor.getCount() != 0) {
+			cursor.close();
 			db.close();
 			return true;
 		}
@@ -148,6 +178,7 @@ public class WordlistHandler extends DataHandler {
 
 	}
 
+	//TODO: look at code downwards here
 	public int getWordlistId(String wordlistname) {
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT _id FROM Dictionary WHERE Name = ?",
