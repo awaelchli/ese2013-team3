@@ -185,9 +185,13 @@ public class WordlistManager extends DataManager {
 	}
 
 	public void copyDB() throws IOException {
-		helper.importDatabase();
 		SQLiteDatabase db = helper.getWritableDatabase();
+		helper.importDatabase();
 		db.close();
 	}
+	public SQLiteDatabase getDb(){
+		return helper.getWritableDatabase();
+	}
+	
 
 }

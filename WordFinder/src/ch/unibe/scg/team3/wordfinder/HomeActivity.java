@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -22,20 +23,25 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);   
+       
         wordlistmanager = new WordlistManager(this);
-        wordlistmanager.getWordlistids();
         //TODO prüfen ob schon vorhanden
-        if(!(new File("/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db").exists())){
+        File database = new File("/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
+        if(!database.exists()){
 	        try {
+	        	//wordlistmanager.getDb();
 				wordlistmanager.copyDB();
+				wordlistmanager = new WordlistManager(this);
+				//wordlistmanager.getDb();
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
         }
+        
     }
     
     public void startGame(View view){
-    	//Intent intent = new Intent(this, GameActivity.class);
     	Intent intent = new Intent(this, GameActivity.class);
     	startActivity(intent);
     }

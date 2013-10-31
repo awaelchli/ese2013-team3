@@ -27,7 +27,7 @@ public class GameActivity extends Activity implements IGameObserver {
 	private Timer timer;
 	private long remainingTime = 5 * 60000;
 	private TextView countDownView;
-	
+	private WordlistManager data;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class GameActivity extends Activity implements IGameObserver {
 		String selectedWordlist = preferences
 				.getString("choose_wordlist", null);
 
-		WordlistManager data = new WordlistManager(this);
+		data = new WordlistManager(this);
 
 		// TODO: make this better
 		String wordlistname = "";
