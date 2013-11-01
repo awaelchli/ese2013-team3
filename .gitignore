@@ -34,4 +34,7 @@ Desktrop.ini
 .DS_Store
 .directory
 
+# jenkins
+local.properties
+
 
