@@ -36,5 +36,6 @@ Desktrop.ini
 
 # jenkins
 local.properties
+WordFinderTest/junit-report.xml
 
 
