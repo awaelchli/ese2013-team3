@@ -18,6 +18,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 	private Wordlist list;
 	private int listSize;
 	private int minWords;
+	private Random r;
 
 	public SimpleDBBoardGenerator(int size, Wordlist list, int minWords) {
 		super(size);
@@ -25,12 +26,12 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		this.list=list;
 		this.listSize=list.getSize();
 		this.minWords=minWords;
+		this.r = new Random();
 	}
 
 	@Override
 	public void generate() {
 		
-		Random r = new Random();
 		
 		int k=0;
 		
@@ -64,6 +65,18 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 
 	//will place the words in the board, searching randomly for possibilities
 	private boolean placeWord(String word) {
+		
+		char letters[]=word.toCharArray();
+		int k=0;
+		
+		for(int i=0; i < size;i++){
+			for(int j=0; j<size; j++){
+				if(this.board.getToken(i, j).getLetter()==letters[k]){
+					
+				}
+			}
+		}
+		
 		
 		return true;
 	}
