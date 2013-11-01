@@ -35,6 +35,5 @@ Desktrop.ini
 .directory
 
 # jenkins
-local.properties
-
+*/local.properties
 
