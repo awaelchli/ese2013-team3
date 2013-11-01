@@ -1,3 +1,4 @@
+package ch.unibe.scg.team3.wordfinder.test;
 //package ch.unibe.scg.team3.token;
 //
 //import static org.junit.Assert.assertEquals;
