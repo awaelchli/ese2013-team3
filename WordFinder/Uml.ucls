@@ -217,52 +217,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="ch.unibe.scg.team3.localDatabase.FriendsHandler" project="WordFinder" 
-    file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/FriendsManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="16" y="514"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="26" language="java" name="ch.unibe.scg.team3.localDatabase.StatisticsHandler" project="WordFinder" 
-    file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/StatisticsManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="212" y="552"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="27" language="java" name="ch.unibe.scg.team3.localDatabase.FileUtils" project="WordFinder" 
-    file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/FileUtils.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-74" y="68"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="28" language="java" name="ch.unibe.scg.team3.localDatabase.SavedGamesHandler" project="WordFinder" 
-    file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/SavedGamesManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="80" width="199" x="694" y="552"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="29" language="java" name="ch.unibe.scg.team3.localDatabase.WordlistHandler" project="WordFinder" 
-    file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/WordlistManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1450" y="1050"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="30" language="java" name="ch.unibe.scg.team3.localDatabase.WordlistAlreadyInDataBaseException" 
+  <class id="25" language="java" name="ch.unibe.scg.team3.localDatabase.WordlistAlreadyInDataBaseException" 
     project="WordFinder" file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/WordlistAlreadyInDataBaseException.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="350" y="51"/>    
@@ -272,16 +227,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="31" language="java" name="ch.unibe.scg.team3.localDatabase.DataHandler" project="WordFinder" 
-    file="/WordFinder/src/ch/unibe/scg/team3/localDatabase/DataManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="887" y="437"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="32" language="java" name="ch.unibe.scg.team3.token.Token" project="WordFinder" 
+  <class id="26" language="java" name="ch.unibe.scg.team3.token.Token" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/token/Token.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-82" y="519"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -290,7 +236,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="33" language="java" name="ch.unibe.scg.team3.token.NullToken" project="WordFinder" 
+  <class id="27" language="java" name="ch.unibe.scg.team3.token.NullToken" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/token/NullToken.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="152" width="137" x="33" y="621"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -299,7 +245,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="34" language="java" name="ch.unibe.scg.team3.token.AbstractToken" project="WordFinder" 
+  <class id="28" language="java" name="ch.unibe.scg.team3.token.AbstractToken" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/token/AbstractToken.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="170" width="154" x="5" y="411"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -308,7 +254,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="35" language="java" name="ch.unibe.scg.team3.token.TokenTest" project="WordFinder" 
+  <class id="29" language="java" name="ch.unibe.scg.team3.token.TokenTest" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/token/TokenTest.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="220" y="80"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -317,7 +263,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="36" language="java" name="ch.unibe.scg.team3.token.IToken" project="WordFinder" 
+  <interface id="30" language="java" name="ch.unibe.scg.team3.token.IToken" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/token/IToken.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-180" y="527"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -326,7 +272,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="37" language="java" name="ch.unibe.scg.team3.wordfinder.EndGameActivity" project="WordFinder" 
+  <class id="31" language="java" name="ch.unibe.scg.team3.wordfinder.EndGameActivity" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/wordfinder/EndGameActivity.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="422" y="114"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -335,7 +281,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="38" language="java" name="ch.unibe.scg.team3.wordfinder.HomeActivity" project="WordFinder" 
+  <class id="32" language="java" name="ch.unibe.scg.team3.wordfinder.HomeActivity" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/wordfinder/HomeActivity.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="998" y="368"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -344,7 +290,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="39" language="java" name="ch.unibe.scg.team3.wordfinder.GameActivity" project="WordFinder" 
+  <class id="33" language="java" name="ch.unibe.scg.team3.wordfinder.GameActivity" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/wordfinder/GameActivity.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1136" y="815"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -353,7 +299,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="40" language="java" name="ch.unibe.scg.team3.wordfinder.PreferencesActivity" project="WordFinder" 
+  <class id="34" language="java" name="ch.unibe.scg.team3.wordfinder.PreferencesActivity" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/wordfinder/PreferencesActivity.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1466" y="406"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -362,7 +308,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="41" language="java" name="ch.unibe.scg.team3.wordlist.WordlistBuilder" project="WordFinder" 
+  <class id="35" language="java" name="ch.unibe.scg.team3.wordlist.WordlistBuilder" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/wordlist/WordlistBuilder.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="420" y="408"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -371,7 +317,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="42" language="java" name="ch.unibe.scg.team3.wordlist.Wordlist" project="WordFinder" 
+  <class id="36" language="java" name="ch.unibe.scg.team3.wordlist.Wordlist" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/wordlist/Wordlist.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="850" y="852"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -380,7 +326,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="43" language="java" name="ch.unibe.scg.team3.wordlist.WordlistBuilderTest" project="WordFinder" 
+  <class id="37" language="java" name="ch.unibe.scg.team3.wordlist.WordlistBuilderTest" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/wordlist/WordlistBuilderTest.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1227" y="136"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -389,7 +335,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="44" language="java" name="ch.unibe.scg.team3.wordlist.WordlistTest" project="WordFinder" 
+  <class id="38" language="java" name="ch.unibe.scg.team3.wordlist.WordlistTest" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/wordlist/WordlistTest.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="963" y="321"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -398,7 +344,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="45" language="java" name="com.unibe.scg.team3.list.MyCustomBaseAdapter" project="WordFinder" 
+  <class id="39" language="java" name="com.unibe.scg.team3.list.MyCustomBaseAdapter" project="WordFinder" 
     file="/WordFinder/src/com/unibe/scg/team3/list/MyCustomBaseAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="233" y="443"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -407,244 +353,196 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="46">    
+  <association id="40">    
     <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="47" name="path"/>      
-      <multiplicity id="48" minimum="0" maximum="2147483647"/>    
+      <attribute id="41" name="path"/>      
+      <multiplicity id="42" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="49">    
-    <end type="SOURCE" refId="29"/>    
-    <end type="TARGET" refId="31"/>  
-  </generalization>  
-  <realization id="50">    
+  <realization id="43">    
     <end type="SOURCE" refId="23"/>    
     <end type="TARGET" refId="14"/>  
   </realization>  
-  <association id="51">    
-    <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="52" name="game"/>      
-      <multiplicity id="53" minimum="0" maximum="1"/>    
+  <association id="44">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="45" name="game"/>      
+      <multiplicity id="46" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="54">    
+  <association id="47">    
     <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="55" name="path"/>      
-      <multiplicity id="56" minimum="0" maximum="1"/>    
+      <attribute id="48" name="path"/>      
+      <multiplicity id="49" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="57">    
-    <end type="SOURCE" refId="40" navigable="false">      
-      <attribute id="58" name="wm"/>      
-      <multiplicity id="59" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="29" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="60">    
+  <association id="50">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="61" name="tokens"/>      
-      <multiplicity id="62" minimum="0" maximum="2147483647"/>    
+      <attribute id="51" name="tokens"/>      
+      <multiplicity id="52" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="36" navigable="true"/>    
+    <end type="TARGET" refId="30" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="63">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="31"/>  
-  </generalization>  
-  <generalization id="64">    
+  <generalization id="53">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="8"/>  
   </generalization>  
-  <association id="65">    
+  <association id="54">    
     <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="66" name="observers"/>      
-      <multiplicity id="67" minimum="0" maximum="2147483647"/>    
+      <attribute id="55" name="observers"/>      
+      <multiplicity id="56" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="68">    
+  <association id="57">    
     <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="69" name="buttons"/>      
-      <multiplicity id="70" minimum="0" maximum="2147483647"/>    
+      <attribute id="58" name="buttons"/>      
+      <multiplicity id="59" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="71">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="31"/>  
-  </generalization>  
-  <association id="72">    
+  <association id="60">    
     <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="73" name="game"/>      
-      <multiplicity id="74" minimum="0" maximum="1"/>    
+      <attribute id="61" name="game"/>      
+      <multiplicity id="62" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="75">    
-    <end type="SOURCE" refId="38" navigable="false">      
-      <attribute id="76" name="wordlistmanager"/>      
-      <multiplicity id="77" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="29" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="78">    
-    <end type="SOURCE" refId="32"/>    
-    <end type="TARGET" refId="34"/>  
+  <generalization id="63">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="28"/>  
   </generalization>  
-  <generalization id="79">    
+  <generalization id="64">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="11"/>  
   </generalization>  
-  <association id="80">    
-    <end type="SOURCE" refId="31" navigable="false">      
-      <attribute id="81" name="helper"/>      
-      <multiplicity id="82" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="83">    
+  <realization id="65">    
     <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="14"/>  
   </realization>  
-  <association id="84">    
-    <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="85" name="timer"/>      
-      <multiplicity id="86" minimum="0" maximum="1"/>    
+  <association id="66">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="67" name="timer"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="17" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="87">    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="88" name="INSTANCE"/>      
-      <multiplicity id="89" minimum="0" maximum="1"/>    
+  <association id="69">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="70" name="INSTANCE"/>      
+      <multiplicity id="71" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
+    <end type="TARGET" refId="27" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="90">    
+  <realization id="72">    
     <end type="SOURCE" refId="28"/>    
-    <end type="TARGET" refId="31"/>  
-  </generalization>  
-  <realization id="91">    
-    <end type="SOURCE" refId="34"/>    
-    <end type="TARGET" refId="36"/>  
+    <end type="TARGET" refId="30"/>  
   </realization>  
-  <realization id="92">    
+  <realization id="73">    
     <end type="SOURCE" refId="21"/>    
     <end type="TARGET" refId="14"/>  
   </realization>  
-  <generalization id="93">    
-    <end type="SOURCE" refId="33"/>    
-    <end type="TARGET" refId="34"/>  
+  <generalization id="74">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="28"/>  
   </generalization>  
-  <association id="94">    
+  <association id="75">    
     <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="95" name="board"/>      
-      <multiplicity id="96" minimum="0" maximum="1"/>    
+      <attribute id="76" name="board"/>      
+      <multiplicity id="77" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="97">    
+  <realization id="78">    
     <end type="SOURCE" refId="22"/>    
     <end type="TARGET" refId="14"/>  
   </realization>  
-  <association id="98">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="99" name="data"/>      
-      <multiplicity id="100" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="29" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="101">    
+  <association id="79">    
     <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="102" name="meter"/>      
-      <multiplicity id="103" minimum="0" maximum="1"/>    
+      <attribute id="80" name="meter"/>      
+      <multiplicity id="81" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="104">    
-    <end type="SOURCE" refId="41" navigable="false">      
-      <attribute id="105" name="wordlist"/>      
-      <multiplicity id="106" minimum="0" maximum="1"/>    
+  <association id="82">    
+    <end type="SOURCE" refId="35" navigable="false">      
+      <attribute id="83" name="wordlist"/>      
+      <multiplicity id="84" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="42" navigable="true"/>    
+    <end type="TARGET" refId="36" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="107">    
+  <association id="85">    
     <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="108" name="found"/>      
-      <multiplicity id="109" minimum="0" maximum="2147483647"/>    
+      <attribute id="86" name="found"/>      
+      <multiplicity id="87" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="110">    
-    <end type="SOURCE" refId="39"/>    
+  <realization id="88">    
+    <end type="SOURCE" refId="33"/>    
     <end type="TARGET" refId="14"/>  
   </realization>  
-  <association id="111">    
+  <association id="89">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="112" name="list"/>      
-      <multiplicity id="113" minimum="0" maximum="1"/>    
+      <attribute id="90" name="list"/>      
+      <multiplicity id="91" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="42" navigable="true"/>    
+    <end type="TARGET" refId="36" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="114">    
+  <realization id="92">    
     <end type="SOURCE" refId="13"/>    
     <end type="TARGET" refId="15"/>  
   </realization>  
-  <association id="115">    
+  <association id="93">    
     <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="116" name="coordinates"/>      
-      <multiplicity id="117" minimum="0" maximum="1"/>    
+      <attribute id="94" name="coordinates"/>      
+      <multiplicity id="95" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="118">    
+  <generalization id="96">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="8"/>  
   </generalization>  
-  <generalization id="119">    
+  <generalization id="97">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="8"/>  
   </generalization>  
-  <association id="120">    
+  <association id="98">    
     <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="121" name="board"/>      
-      <multiplicity id="122" minimum="0" maximum="1"/>    
+      <attribute id="99" name="board"/>      
+      <multiplicity id="100" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="123">    
+  <generalization id="101">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="8"/>  
   </generalization>  
-  <association id="124">    
+  <association id="102">    
     <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="125" name="selection"/>      
-      <multiplicity id="126" minimum="0" maximum="2147483647"/>    
+      <attribute id="103" name="selection"/>      
+      <multiplicity id="104" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="36" navigable="true"/>    
+    <end type="TARGET" refId="30" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
