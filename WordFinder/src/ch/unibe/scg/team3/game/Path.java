@@ -3,38 +3,35 @@ package ch.unibe.scg.team3.game;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import ch.unibe.scg.team3.gameui.BoardButton;
-
 /**
- * The Path contains a list of buttons which were selected.
  * The responsibility of the path is to know if he is valid or not.
+ * A valid path is a path where its elements are adjacent.
  * 
  * @author adrian
  */
 
-//TODO: make it Path<T> 
-public class Path implements Iterable<BoardButton>{
+public class Path<E extends IElement> implements Iterable<E>{
 
-	private LinkedList<BoardButton> path;
+	private LinkedList<E> path;
 	private int color;
 
 	public Path() {
-		path = new LinkedList<BoardButton>();
+		path = new LinkedList<E>();
 	}
 
 	/**
-	 * @param button The button to be added, not null
-	 * @return True, if the button is not already in the path and adjacent to the last added button, false otherwise
+	 * @param element The element to be added, not null
+	 * @return True, if the element is not already in the path and adjacent to the last added element, false otherwise
 	 */
-	public boolean add(BoardButton button) {
+	public boolean add(E element) {
 		
-		if (path.contains(button))
+		if (path.contains(element))
 			return false;
 
-		if (0 < path.size() && !isAdjacent(button, path.getLast()))
+		if (0 < length() && !isAdjacent(element, path.getLast()))
 			return false;
 
-		path.add(button);
+		path.add(element);
 		return true;
 	}
 	
@@ -50,7 +47,7 @@ public class Path implements Iterable<BoardButton>{
 	}
 
 	@Override
-	public Iterator<BoardButton> iterator() {
+	public Iterator<E> iterator() {
 		return path.iterator();
 	}
 
@@ -62,12 +59,12 @@ public class Path implements Iterable<BoardButton>{
 		return color;
 	}
 	
-	private static boolean isAdjacent(BoardButton b1, BoardButton b2) {
+	private boolean isAdjacent(E e1, E e2) {
 
-		int b1_x = b1.getCoordinates().getX();
-		int b1_y = b1.getCoordinates().getY();
-		int b2_x = b2.getCoordinates().getX();
-		int b2_y = b2.getCoordinates().getY();
+		int b1_x = e1.getCoordinates().getX();
+		int b1_y = e1.getCoordinates().getY();
+		int b2_x = e2.getCoordinates().getX();
+		int b2_y = e2.getCoordinates().getY();
 		
 		if ((Math.abs(b1_x - b2_x) > 1) || Math.abs(b1_y - b2_y) > 1) {
 			return false;

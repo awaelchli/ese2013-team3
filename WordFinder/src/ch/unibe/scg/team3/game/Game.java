@@ -66,7 +66,7 @@ public class Game implements IObservable {
 	 * 
 	 * @param path The path to be checked, not null.
 	 */
-	public void submitPath(Path path) {
+	public void submitPath(Path<BoardButton> path) {
 		assert path != null;
 		
 		WordSelection selection = makeSelection(path);
@@ -81,7 +81,6 @@ public class Game implements IObservable {
 			path.setColor(R.drawable.already_button_animation);
 
 		} else {
-			//found.addWord(word);
 			found.add(selection);
 			path.setColor(R.drawable.valid_button_animation);
 			updateScore(selection);
@@ -99,7 +98,7 @@ public class Game implements IObservable {
 	 * @param path A path which is not null
 	 * @return The word selection with, with token from the board according to the path.
 	 */
-	private WordSelection makeSelection(Path path) {
+	private WordSelection makeSelection(Path<BoardButton> path) {
 
 		assert path != null;
 
