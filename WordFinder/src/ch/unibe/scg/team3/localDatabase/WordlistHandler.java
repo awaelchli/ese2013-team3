@@ -245,5 +245,10 @@ public class WordlistHandler extends DataHandler {
 	public SQLiteDatabase getDb() {
 		return helper.getWritableDatabase();
 	}
+	
+	public String getRandomWordFromWordlist(String wordlistName){
+		
+		return "";
+	}
 
 }
