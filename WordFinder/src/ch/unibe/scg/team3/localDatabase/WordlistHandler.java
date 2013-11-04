@@ -256,7 +256,7 @@ public class WordlistHandler extends DataHandler {
 		return helper.getWritableDatabase();
 	}
 	
-	public String getRandomWordFromWordlist() throws RandomWordExtractorException{
+	public String getRandomWordFromWordlist(){
 		String word;
 		int wordlistId = getWordlistId(selectedWordlist);
 		Random r = new Random();
@@ -269,9 +269,9 @@ public class WordlistHandler extends DataHandler {
 					break;		
 		}
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT content FROM " + table +" WHERE Dictionary = " +
+		Cursor c = db.rawQuery("SELECT Content FROM " + table +" WHERE Dictionary = " +
 				+ wordlistId + " ORDER BY RANDOM() LIMIT 1", null);
-		if (c.getCount() != 0) {
+		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
 			word = c.getString(0);
 			c.close();
@@ -281,7 +281,7 @@ public class WordlistHandler extends DataHandler {
 		else {
 			c.close();
 			db.close();
-			throw new RandomWordExtractorException();
+			return "";
 		}
 		
 	}

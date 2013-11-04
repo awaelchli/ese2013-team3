@@ -28,6 +28,7 @@ public class Game implements IObservable {
 	private final ArrayList<WordSelection> found;
 	
 	private final WordlistHandler data;
+	private int guesses = 0;
 	
 	
 
@@ -68,7 +69,7 @@ public class Game implements IObservable {
 	 */
 	public void submitPath(Path<BoardButton> path) {
 		assert path != null;
-		
+		guesses++;
 		WordSelection selection = makeSelection(path);
 
 		String word = selection.toString();
@@ -86,6 +87,10 @@ public class Game implements IObservable {
 			updateScore(selection);
 		}
 		notifyObservers();
+	}
+
+	public int getGuesses() {
+		return guesses;
 	}
 
 	private void updateScore(WordSelection selection) {
