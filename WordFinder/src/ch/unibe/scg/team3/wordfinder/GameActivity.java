@@ -25,9 +25,11 @@ public class GameActivity extends Activity implements IGameObserver {
 
 	private Game game;
 	private Timer timer;
-	private long remainingTime = 5 * 60000;
+	protected long remainingTime = 5 * 60000;
+	private long totalTime = 300000;
 	private TextView countDownView;
 	private WordlistHandler data;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,7 @@ public class GameActivity extends Activity implements IGameObserver {
 		timer = new Timer(remainingTime, 1000, countDownView) {
 			@Override
 			public void onFinish() {
+				remainingTime = timer.getRemainingTime();
 				finishGameSession();
 			}
 		};
@@ -102,6 +105,7 @@ public class GameActivity extends Activity implements IGameObserver {
 	}
 
 	public void quit(View view) {
+		remainingTime = timer.getRemainingTime();
 		finishGameSession();
 	}
 
@@ -110,6 +114,9 @@ public class GameActivity extends Activity implements IGameObserver {
 
 		intent.putExtra("score", game.getScore());
 		intent.putExtra("words_found", game.getFoundWords().size());
+		intent.putExtra("time", String.valueOf((long) (totalTime - remainingTime)));
+		intent.putExtra("guesses", game.getGuesses());
+		intent.putExtra("board", game.getBoard().toString());
 
 		startActivity(intent);
 		finish();
@@ -118,6 +125,7 @@ public class GameActivity extends Activity implements IGameObserver {
 	@Override
 	public void update(Game game) {
 		if (game.isOver()) {
+			remainingTime = timer.getRemainingTime();
 			finishGameSession();
 		}
 	}

@@ -13,7 +13,7 @@ public class SavedGamesHandler extends DataHandler {
 	public SavedGamesHandler(Context context) {
 		super(context);
 	}
-	public void saveGame(String name, Board board, int words, String time, 
+	public void saveGame(String name, String board, int words, String time, 
 							int score, boolean isPersonal, int guesses ){
 		
 		SharedPreferences preferences = PreferenceManager
@@ -24,19 +24,18 @@ public class SavedGamesHandler extends DataHandler {
 		
 		WordlistHandler wHandler = new WordlistHandler(context);
 		
-		int wordlistId = wHandler.getWordlistId(wordlist);
 		
-		String boardString= board.toString();
-		
+				
 		int timesPlayed = 1;
 		
 		String date = (new Date().toString());
 		
-		String sql = "INSERT INTO Game VALUES(NULL, '" + name+"', '"+ boardString +
-				"', "+ words +", '" + time +"', '"+ date+"', '" + wordlistId +"', "
-				+ score +", "+ isPersonal +"," + timesPlayed + ", " + guesses+")";
+		String sql = "INSERT INTO Games VALUES(NULL, '" + name+"', '"+ board +
+				"', "+ words +", '" + time +"', '"+ date +"', '" + wordlist +"', "
+				+ score +", '"+ isPersonal +"', " + timesPlayed + ", " + guesses+")";
 		SQLiteDatabase db = helper.getReadableDatabase();
 		db.execSQL(sql);
+		db.close();
 		
 	}
 	
