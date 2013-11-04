@@ -19,7 +19,7 @@ public class BoardOnTouchListener implements OnTouchListener {
 
 	public static final int FINGER_PADDING = 20;
 
-	private final Path path;
+	private final Path<BoardButton> path;
 	private final Context context;
 	private final Game game;
 
@@ -27,7 +27,7 @@ public class BoardOnTouchListener implements OnTouchListener {
 		this.context = context;
 		this.game = game;
 
-		path = new Path();
+		path = new Path<BoardButton>();
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class BoardOnTouchListener implements OnTouchListener {
 		makePathAnimation(path);
 	}
 
-	private void makePathAnimation(Path path) {
+	private void makePathAnimation(Path<BoardButton> path) {
 
 		for (BoardButton b : path) {
 

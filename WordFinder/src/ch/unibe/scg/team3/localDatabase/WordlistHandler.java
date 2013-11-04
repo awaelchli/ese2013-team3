@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Random;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 
 public class WordlistHandler extends DataHandler {
 
@@ -19,10 +22,17 @@ public class WordlistHandler extends DataHandler {
 	public static final int SMALL_WORD = 5;
 	public static final String SHORT_WORD_TABLE_SUFFIX = "short";
 	public static final String LONG_WORD_TABLE_SUFFIX = "long";
-
+	private String selectedWordlist;
+	
+	
 	// TODO: check for injections
 	public WordlistHandler(Context context) {
 		super(context);
+		
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		selectedWordlist = preferences
+				.getString("choose_wordlist", null);
 
 	}
 
@@ -244,6 +254,36 @@ public class WordlistHandler extends DataHandler {
 
 	public SQLiteDatabase getDb() {
 		return helper.getWritableDatabase();
+	}
+	
+	public String getRandomWordFromWordlist() throws RandomWordExtractorException{
+		String word;
+		int wordlistId = getWordlistId(selectedWordlist);
+		Random r = new Random();
+		int letter = r.nextInt(26);
+		String table = MySQLiteHelper.ALPHABET.substring(letter,letter + 1);
+		switch(r.nextInt(2)){
+			case 0: table = table + SHORT_WORD_TABLE_SUFFIX;
+					break;
+			case 1: table = table + LONG_WORD_TABLE_SUFFIX;
+					break;		
+		}
+		SQLiteDatabase db = helper.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT content FROM " + table +" WHERE Dictionary = " +
+				+ wordlistId + " ORDER BY RANDOM() LIMIT 1", null);
+		if (c.getCount() != 0) {
+			c.moveToFirst();
+			word = c.getString(0);
+			c.close();
+			db.close();
+			return word;
+		}
+		else {
+			c.close();
+			db.close();
+			throw new RandomWordExtractorException();
+		}
+		
 	}
 
 }

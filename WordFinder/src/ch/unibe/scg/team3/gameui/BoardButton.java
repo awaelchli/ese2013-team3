@@ -6,8 +6,9 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import ch.unibe.scg.team3.board.Point;
+import ch.unibe.scg.team3.game.IElement;
 
-public class BoardButton extends RelativeLayout {
+public class BoardButton extends RelativeLayout implements IElement {
 	
 	private Point coordinates;
 
@@ -35,6 +36,7 @@ public class BoardButton extends RelativeLayout {
 		setLayoutParams(new TableRow.LayoutParams(width,width));
 	}
 
+	@Override
 	public Point getCoordinates() {
 		return coordinates;
 	}
