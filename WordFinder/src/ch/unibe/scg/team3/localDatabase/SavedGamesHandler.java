@@ -14,7 +14,7 @@ public class SavedGamesHandler extends DataHandler {
 		super(context);
 	}
 	public void saveGame(String name, String board, int words, String time, 
-							int score, boolean isPersonal, int guesses ){
+							int score, boolean isPersonal, int guesses){
 		
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
@@ -23,9 +23,7 @@ public class SavedGamesHandler extends DataHandler {
 				.getString("choose_wordlist", null);
 		
 		WordlistHandler wHandler = new WordlistHandler(context);
-		
-		
-				
+					
 		int timesPlayed = 1;
 		
 		String date = (new Date().toString());

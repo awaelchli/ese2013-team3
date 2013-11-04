@@ -258,7 +258,6 @@ public class WordlistHandler extends DataHandler {
 	
 	public String getRandomWordFromWordlist(){
 		String word;
-		int wordlistId = getWordlistId(selectedWordlist);
 		Random r = new Random();
 		int letter = r.nextInt(26);
 		String table = MySQLiteHelper.ALPHABET.substring(letter,letter + 1);
@@ -269,8 +268,8 @@ public class WordlistHandler extends DataHandler {
 					break;		
 		}
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT Content FROM " + table +" WHERE Dictionary = " +
-				+ wordlistId + " ORDER BY RANDOM() LIMIT 1", null);
+		Cursor c = db.rawQuery("SELECT Content FROM " + table +" WHERE Dictionary = '" +
+				selectedWordlist + "' ORDER BY RANDOM() LIMIT 1", null);
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
 			word = c.getString(0);
