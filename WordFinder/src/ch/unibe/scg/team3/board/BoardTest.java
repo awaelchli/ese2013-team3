@@ -8,11 +8,11 @@
 //import ch.unibe.jexample.JExample;
 //import ch.unibe.scg.team3.token.Token;
 //
-//*//**
+///**
 // * 
 // * @author adrian
 // * 
-// *//*
+// */
 //@RunWith(JExample.class)
 //public class BoardTest {
 //
