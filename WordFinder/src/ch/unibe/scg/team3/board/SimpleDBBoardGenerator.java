@@ -82,7 +82,24 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 					Token t=new Token(letters[k],meter.getValue(letters[k]));
 					t.setCoordinates(new Point(i,j));
 					p.add(t);
-					setWord=addNextLetters(letters, k+1, p, t);
+					setWord=addNextLetters(letters, k+1, p);
+					if(!setWord){
+						p.removeLast();
+					}
+				}
+			}
+		}
+		
+		for(int i=0; (i < size) && (!setWord) ;i++){
+			for(int j=0; (j<size) && (!setWord); j++){
+				if(this.board.getToken(i, j).getLetter()==NullToken.getInstance().getLetter()){
+					Token t=new Token(letters[k],meter.getValue(letters[k]));
+					t.setCoordinates(new Point(i,j));
+					p.add(t);
+					setWord=addNextLetters(letters, k+1, p);
+					if(!setWord){
+						p.removeLast();
+					}
 				}
 			}
 		}
@@ -91,9 +108,9 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		return setWord;
 	}
 
-	private boolean addNextLetters(char[] letters, int index, Path<IToken> p, IToken startPoint) {
+	private boolean addNextLetters(char[] letters, int index, Path<IToken> p) {
 		
-		Point coord=startPoint.getCoordinates();
+		Point coord=p.getLast().getCoordinates();
 		char nextLetter=letters[index];
 		ArrayList<Point> adjacent=getAdjacent(coord);
 		ArrayList<Point> empty= new ArrayList<Point>();
@@ -109,12 +126,28 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 				if(index+1==letters.length){
 					placed=true;
 				}else{
-					placed=addNextLetters(letters, index+1, p, boardToken);
+					placed=addNextLetters(letters, index+1, p);
+					if(!placed){
+						p.removeLast();
+					}
 				}
 			}
 			if(boardToken.getLetter() == NullToken.getInstance().getLetter()){
 				empty.add(testNext);
 			}
+		}
+		
+		while(!placed && empty.size()>0){
+			int rand=r.nextInt(adjacent.size());
+			Point testNext= empty.remove(rand);
+			IToken boardToken=this.board.getToken(testNext.getX(), testNext.getY());
+			
+			p.add(boardToken);
+			placed=addNextLetters(letters, index+1, p);
+			if(!placed){
+				p.removeLast();
+			}
+			
 		}
 		
 		return placed;
