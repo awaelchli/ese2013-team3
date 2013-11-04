@@ -263,9 +263,9 @@ public class WordlistHandler extends DataHandler {
 		int letter = r.nextInt(26);
 		String table = MySQLiteHelper.ALPHABET.substring(letter,letter + 1);
 		switch(r.nextInt(2)){
-			case 0: table = table + "short";
+			case 0: table = table + SHORT_WORD_TABLE_SUFFIX;
 					break;
-			case 1: table = table + "long";
+			case 1: table = table + LONG_WORD_TABLE_SUFFIX;
 					break;		
 		}
 		SQLiteDatabase db = helper.getReadableDatabase();
@@ -275,10 +275,12 @@ public class WordlistHandler extends DataHandler {
 			c.moveToFirst();
 			word = c.getString(0);
 			c.close();
+			db.close();
 			return word;
 		}
 		else {
 			c.close();
+			db.close();
 			throw new RandomWordExtractorException();
 		}
 		
