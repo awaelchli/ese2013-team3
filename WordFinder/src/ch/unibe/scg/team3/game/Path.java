@@ -75,5 +75,13 @@ public class Path<E extends IElement> implements Iterable<E>{
 	public boolean isEmpty() {
 		return path.isEmpty();
 	}
+	
+	public E getLast(){
+		return path.getLast();
+	}
+	
+	public E removeLast(){
+		return path.removeLast();
+	}
 
 }
