@@ -74,12 +74,6 @@ public class GameActivity extends Activity implements IGameObserver {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.grid, menu);
-		return true;
-	}
-
-	@Override
 	protected void onPause() {
 		super.onPause();
 		remainingTime = timer.getRemainingTime();

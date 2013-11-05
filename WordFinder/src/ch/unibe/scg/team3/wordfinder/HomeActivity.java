@@ -14,32 +14,15 @@ import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
 /**
- * 
  * @author nils
- * 
+ * @author adrian
  */
 public class HomeActivity extends Activity {
-	WordlistHandler wordlistmanager;;
+	WordlistHandler wordlistHandler;;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);   
-       
-//        wordlistmanager = new WordlistHandler(this);
-//        //TODO prüfen ob schon vorhanden
-//        File database = new File("/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
-//        if(!database.exists()){
-//	        try {
-//	        	//wordlistmanager.getDb();
-//				wordlistmanager.copyDB();
-//				wordlistmanager = new WordlistHandler(this);
-//				//wordlistmanager.getDb();
-//				
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//        }
-        
     }
     
     public void startGame(View view){
@@ -51,25 +34,25 @@ public class HomeActivity extends Activity {
     	Intent intent = new Intent(this, PreferencesActivity.class);
     	startActivity(intent);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
+    
+    public void startSavedGames(View view){
+    	Intent intent = new Intent(this, SavedGamesActivity.class);
+    	startActivity(intent);
     }
+    
     @Override
     protected void onResume() {
         super.onResume();
        
-        wordlistmanager = new WordlistHandler(this);
+        wordlistHandler = new WordlistHandler(this);
         File database = new File("/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
+        
         if(!database.exists()){
 	        try {
-	        	//wordlistmanager.getDb();
-				wordlistmanager.copyDB();
-				wordlistmanager = new WordlistHandler(this);
-				//wordlistmanager.getDb();
+	        	
+				wordlistHandler.copyDB();
+				wordlistHandler = new WordlistHandler(this);
+
 				PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 			} catch (IOException e) {
 				e.printStackTrace();

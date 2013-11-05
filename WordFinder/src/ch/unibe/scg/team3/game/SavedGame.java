@@ -3,20 +3,21 @@ package ch.unibe.scg.team3.game;
 import ch.unibe.scg.team3.board.Board;
 
 public class SavedGame {
+	
 	private int id;
 	private String name;
 	private Board board;
 	private int foundWords;
 	private String time;
-	private String Date;
+	private String date;
 	private int wordlistId;
 	private int score;
 	private boolean isPrivate;
 	private int timesPlayed;
 	private int guesses;
-	
+
 	public SavedGame() {
-		
+
 	}
 
 	public int getId() {
@@ -39,7 +40,7 @@ public class SavedGame {
 		return board;
 	}
 
-	public void setBoard(Board Board) {
+	public void setBoard(Board board) {
 		this.board = board;
 	}
 
@@ -60,11 +61,11 @@ public class SavedGame {
 	}
 
 	public String getDate() {
-		return Date;
+		return date;
 	}
 
 	public void setDate(String date) {
-		Date = date;
+		this.date = date;
 	}
 
 	public int getWordlistId() {

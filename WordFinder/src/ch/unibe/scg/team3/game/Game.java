@@ -56,7 +56,8 @@ public class Game implements IObservable {
 	}
 
 	private void generateBoard(int boardSize) {
-		SimpleDBBoardGenerator rnd = new SimpleDBBoardGenerator(boardSize, data, 30);
+		//SimpleDBBoardGenerator gen = new SimpleDBBoardGenerator(boardSize, data, 30);
+		RandomBoardGenerator rnd = new RandomBoardGenerator(Board.DEFAULT_SIZE);
 		board = rnd.getBoard();
 	}
 
