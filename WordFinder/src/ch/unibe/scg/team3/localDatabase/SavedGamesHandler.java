@@ -40,11 +40,12 @@ public class SavedGamesHandler extends DataHandler {
 	public ArrayList<SavedGame> getSavedGames(){
 		ArrayList<SavedGame> list = new ArrayList<SavedGame>();
 		SQLiteDatabase db = helper.getReadableDatabase();
-		SavedGame temp = new SavedGame();
+		SavedGame temp;
 		Cursor c = db.rawQuery("SELECT * FROM Games", null);
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
 			for(int i =0 ; i < c.getCount(); i++){
+				temp = new SavedGame();
 				temp.setId(c.getInt(0));
 				temp.setName(c.getString(1));
 //				temp.setBoard(new RawBoardBuilder(c.getString(2)));
