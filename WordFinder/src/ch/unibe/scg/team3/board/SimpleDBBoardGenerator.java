@@ -155,10 +155,14 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 			Token nextTok=new Token(nextLetter, meter.getValue(nextLetter));
 			nextTok.setCoordinates(coord);
 			
-			p.add(boardToken);
-			placed=addNextLetters(letters, index+1, p);
-			if(!placed){
-				p.removeLast();
+			p.add(nextTok);
+			if(index+1==letters.length){
+				placed=true;
+			}else{
+				placed=addNextLetters(letters, index+1, p);
+				if(!placed){
+					p.removeLast();
+				}
 			}
 			
 		}
