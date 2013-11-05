@@ -35,7 +35,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 	}
 
 	@Override
-	public void generate() {
+	protected void generate() {
 		
 		
 		int k=0;
@@ -155,7 +155,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 			Token nextTok=new Token(nextLetter, meter.getValue(nextLetter));
 			nextTok.setCoordinates(coord);
 			
-			p.add(boardToken);
+			p.add(nextTok);
 			placed=addNextLetters(letters, index+1, p);
 			if(!placed){
 				p.removeLast();

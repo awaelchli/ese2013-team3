@@ -86,11 +86,12 @@ public class Board {
 		
 		for(IToken tok : path){
 			Point point = tok.getCoordinates();
-			
 			if(!inRange(point.getX(), point.getY())){
 				return false;
 			}
-			
+		}
+		
+		for(IToken tok : path){
 			setToken(tok);
 		}
 		

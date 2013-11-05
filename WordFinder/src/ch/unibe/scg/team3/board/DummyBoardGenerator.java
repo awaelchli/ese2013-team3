@@ -26,7 +26,7 @@ public class DummyBoardGenerator extends AbstractBoardGenerator {
 	}
 
 	@Override
-	public void generate() {
+	protected void generate() {
 
 		// put the words apple, gold, and and into the board
 

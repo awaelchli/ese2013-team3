@@ -1,7 +1,6 @@
 package ch.unibe.scg.team3.board;
 
 /**
- * 
  * @author adrian
  */
 public abstract class AbstractBoardGenerator {
@@ -14,9 +13,10 @@ public abstract class AbstractBoardGenerator {
 		meter = new DefaultLetterMeter();
 	}
 
-	public abstract void generate();
+	protected abstract void generate();
 
 	public Board getBoard() {
+		generate();
 		return board;
 	}
 	
