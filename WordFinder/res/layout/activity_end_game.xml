@@ -46,12 +46,12 @@
                 android:onClick="startGame" />
 
             <Button
-                android:id="@+id/share_button"
+                android:id="@+id/save_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.33"
                 android:onClick="enterTitle"
-                android:text="@string/share_button" />
+                android:text="@string/save_Game" />
 
         </LinearLayout>
 

@@ -72,7 +72,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO on upgrade
+		try {
+			importDatabase();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
