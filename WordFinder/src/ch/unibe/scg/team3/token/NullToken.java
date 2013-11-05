@@ -36,7 +36,7 @@ public class NullToken extends AbstractToken {
 
 	@Override
 	public Point getCoordinates() {
-		return null;
+		return new Point(-1, -1);
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class Token extends AbstractToken implements IElement {
 
 	@Override
 	public IToken clone() {
-		return new Token(letter, value);
+		return new Token(letter, value, coordinates);
 	}
 
 	@Override

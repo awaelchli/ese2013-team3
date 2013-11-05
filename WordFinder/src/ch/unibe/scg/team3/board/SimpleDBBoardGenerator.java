@@ -9,7 +9,6 @@ import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.token.NullToken;
 import ch.unibe.scg.team3.token.Token;
-import ch.unibe.scg.team3.wordlist.Wordlist;
 
 /**
  * 
@@ -156,9 +155,13 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 			nextTok.setCoordinates(coord);
 			
 			p.add(nextTok);
-			placed=addNextLetters(letters, index+1, p);
-			if(!placed){
-				p.removeLast();
+			if(index+1==letters.length){
+				placed=true;
+			}else{
+				placed=addNextLetters(letters, index+1, p);
+				if(!placed){
+					p.removeLast();
+				}
 			}
 			
 		}

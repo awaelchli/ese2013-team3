@@ -8,9 +8,16 @@ public class PathTest extends AndroidTestCase {
 
 	public void testAddRemoveElement(){
 		Path<Token> path = new Path<Token>();
-//		
-//		path.add(new Token('A', 1, 0, 0));
+		assertTrue(path.isEmpty());
 		
+		assertTrue(path.add(new Token('A', 1, 0, 0)));
+		assertEquals(path.length(), 1);
+		
+		path.add(new Token('A', 1, 0, 0));
+		assertEquals(path.length(), 1);
+		
+		assertEquals(path.removeLast(), new Token('A', 1, 0, 0));
+		assertTrue(path.isEmpty());
 	}
 
 }

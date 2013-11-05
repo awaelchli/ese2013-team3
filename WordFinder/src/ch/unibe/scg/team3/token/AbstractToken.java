@@ -28,7 +28,7 @@ public abstract class AbstractToken implements IToken{
 		
 		boolean letters = tok.getLetter() == this.getLetter();
 		boolean values = tok.getValue() == this.getValue();
-		boolean coordinates = tok.getCoordinates() == this.getCoordinates();
+		boolean coordinates = tok.getCoordinates().equals(this.getCoordinates());
 		
 		return letters && values && coordinates;
 	}

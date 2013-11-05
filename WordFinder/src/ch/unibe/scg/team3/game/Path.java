@@ -3,8 +3,6 @@ package ch.unibe.scg.team3.game;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import ch.unibe.scg.team3.token.IToken;
-
 /**
  * The responsibility of the path is to know if he is valid or not.
  * A valid path is a path where its elements are adjacent.
@@ -27,7 +25,7 @@ public class Path<E extends IElement> implements Iterable<E>{
 	 */
 	public boolean add(E element) {
 		
-		if (path.contains(element))
+		if (contains(element))
 			return false;
 
 		if (0 < length() && !isAdjacent(element, path.getLast()))
@@ -78,8 +76,13 @@ public class Path<E extends IElement> implements Iterable<E>{
 		return path.isEmpty();
 	}
 	
-	public boolean contains(IToken token){
-		return path.contains(token);
+	public boolean contains(E element){
+//		return path.contains(element);
+		for(E pathElement : path){
+			if(pathElement.equals(element)) return true;
+		}
+		
+		return false;
 	}
 	
 	/**

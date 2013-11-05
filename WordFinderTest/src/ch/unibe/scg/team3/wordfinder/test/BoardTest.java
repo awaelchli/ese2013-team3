@@ -51,8 +51,9 @@ public class BoardTest extends AndroidTestCase {
 		
 		Token tok1 = new Token('1', 1, 0, 0);
 		Token tok2 = new Token('2', 1, 1, 0);
-		Token tok3 = new Token('3', 1, 2, 0);
-		Token tok4 = new Token('4', 1, 3, 0);
+		Token tok3 = new Token('3', 1, 0, 1);
+		Token tok4 = new Token('4', 1, 2, 0);
+		Token tok5 = new Token('5', 1, 3, 0);
 		Token badTok = new Token('b', 1, 4, 0);
 		
 		Path<IToken> path = new Path<IToken>();
@@ -67,12 +68,12 @@ public class BoardTest extends AndroidTestCase {
 		
 		assertEquals(board.getToken(0, 0), tok1);
 		assertEquals(board.getToken(1, 0), tok2);
-		assertEquals(board.getToken(2, 0), tok3);
-		assertEquals(board.getToken(3, 0), tok4);
+		assertEquals(board.getToken(0, 1), tok3);
+		assertEquals(board.getToken(2, 0), tok4);
 		
 		Path<IToken> badPath = new Path<IToken>();
 		
-		badPath.add(tok4);
+		badPath.add(tok5);
 		badPath.add(badTok);
 		
 		assertFalse(board.setPath(badPath));
