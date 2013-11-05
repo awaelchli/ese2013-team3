@@ -152,6 +152,9 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 			Point testNext= empty.remove(rand);
 			IToken boardToken=this.board.getToken(testNext.getX(), testNext.getY());
 			
+			Token nextTok=new Token(nextLetter, meter.getValue(nextLetter));
+			nextTok.setCoordinates(coord);
+			
 			p.add(boardToken);
 			placed=addNextLetters(letters, index+1, p);
 			if(!placed){
