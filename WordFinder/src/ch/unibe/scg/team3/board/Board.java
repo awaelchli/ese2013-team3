@@ -1,5 +1,6 @@
 package ch.unibe.scg.team3.board;
 
+import ch.unibe.scg.team3.game.Path;
 import ch.unibe.scg.team3.token.*;
 
 /**
@@ -56,6 +57,12 @@ public class Board {
 		assert inRange(row, col);
 		tokens[row][col] = tok;
 	}
+	
+	//TODO: use this instead of the method above
+	public void setToken(IToken tok) {
+		Point point = tok.getCoordinates();
+		setToken(tok, point.getX(), point.getY());
+	}
 
 	/**
 	 * 
@@ -67,6 +74,27 @@ public class Board {
 		assert inRange(row, col);
 
 		return tokens[row][col].clone();
+	}
+	
+	/**
+	 * Places the tokens of a path on the board according to the coordinates of the tokens.
+	 * 
+	 * @param path The path containing the tokens to place
+	 * @return true if the path fits on the board and false otherwise.
+	 */
+	public boolean setPath(Path<IToken> path){
+		
+		for(IToken tok : path){
+			Point point = tok.getCoordinates();
+			
+			if(!inRange(point.getX(), point.getY())){
+				return false;
+			}
+			
+			setToken(tok);
+		}
+		
+		return true;
 	}
 
 	/**
@@ -88,7 +116,6 @@ public class Board {
 
 		return sb.toString();
 	}
-	
 	
 	@Override
 	public Board clone() {

@@ -148,7 +148,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		}
 		
 		while(!placed && empty.size()>0){
-			int rand=r.nextInt(adjacent.size());
+			int rand=r.nextInt(empty.size());
 			Point testNext= empty.remove(rand);
 			IToken boardToken=this.board.getToken(testNext.getX(), testNext.getY());
 			

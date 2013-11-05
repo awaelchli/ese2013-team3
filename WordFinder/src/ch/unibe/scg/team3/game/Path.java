@@ -76,10 +76,20 @@ public class Path<E extends IElement> implements Iterable<E>{
 		return path.isEmpty();
 	}
 	
+	/**
+	 * Returns the last path element that was added
+	 * 
+	 * @return The last element if the path is not empty
+	 */
 	public E getLast(){
 		return path.getLast();
 	}
 	
+	/**
+	 * Removes and returns the last path element that was added
+	 * 
+	 * @return The returned element if the path is not empty
+	 */
 	public E removeLast(){
 		return path.removeLast();
 	}

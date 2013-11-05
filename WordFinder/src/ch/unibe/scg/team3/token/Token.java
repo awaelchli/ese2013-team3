@@ -17,6 +17,15 @@ public class Token extends AbstractToken implements IElement {
 		this.letter = letter;
 		this.value = value;
 	}
+	
+	public Token(char letter, int value, Point coordinates){
+		this(letter, value);
+		this.coordinates = coordinates;
+	}
+	
+	public Token(char letter, int value, int x, int y){
+		this(letter, value, new Point(x, y));
+	}
 
 	@Override
 	public int getValue() {
@@ -42,6 +51,4 @@ public class Token extends AbstractToken implements IElement {
 	public void setCoordinates(Point point) {
 		coordinates = point;
 	}
-
-
 }
