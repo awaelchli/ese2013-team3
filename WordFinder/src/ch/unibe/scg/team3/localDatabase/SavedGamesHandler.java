@@ -24,18 +24,16 @@ public class SavedGamesHandler extends DataHandler {
 		
 		String wordlist = preferences
 				.getString("choose_wordlist", null);
-		
-		WordlistHandler wHandler = new WordlistHandler(context);
 					
 		int timesPlayed = 1;
 		
 		String date = (new Date().toString());
 		
-		String sql = "INSERT INTO Games VALUES(NULL, '" + name+"', '"+ board +
+		String sql = "INSERT INTO Games VALUES(NULL, ?, '"+ board +
 				"', "+ words +", '" + time +"', '"+ date +"', '" + wordlist +"', "
 				+ score +", '"+ isPersonal +"', " + timesPlayed + ", " + guesses+")";
 		SQLiteDatabase db = helper.getReadableDatabase();
-		db.execSQL(sql);
+		db.execSQL(sql, new String[] {"'"+ name +"'"});
 		db.close();
 		
 	}
