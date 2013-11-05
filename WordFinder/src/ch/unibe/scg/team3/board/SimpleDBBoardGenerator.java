@@ -1,9 +1,11 @@
 package ch.unibe.scg.team3.board;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import ch.unibe.scg.team3.game.Path;
+import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.token.NullToken;
 import ch.unibe.scg.team3.token.Token;
@@ -18,17 +20,15 @@ import ch.unibe.scg.team3.wordlist.Wordlist;
 public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 	
 	private int size;
-	private Wordlist list;
-	private int listSize;
+	private WordlistHandler list;
 	private int minWords;
 	private Random r;
 	private AbstractLetterMeter meter;
 
-	public SimpleDBBoardGenerator(int size, Wordlist list, int minWords) {
+	public SimpleDBBoardGenerator(int size, WordlistHandler wordList, int minWords) {
 		super(size);
 		this.size=size;
-		this.list=list;
-		this.listSize=list.getSize();
+		this.list=wordList;
 		this.minWords=minWords;
 		this.r = new Random();
 		this.meter=new DefaultLetterMeter();
@@ -42,7 +42,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		
 		while(k<minWords){
 			
-			String word=list.getWord(r.nextInt(listSize));
+			String word=list.getRandomWordFromWordlist();
 			
 			if(placeWord(word)){
 				k++;
@@ -104,6 +104,16 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 			}
 		}
 		
+		if(setWord){
+			Iterator<IToken> itr=p.iterator();
+			
+			while(itr.hasNext()){
+				IToken t=itr.next();
+				board.setToken(t, t.getCoordinates().getX(), t.getCoordinates().getY());
+				
+			}
+			
+		}
 		
 		return setWord;
 	}
