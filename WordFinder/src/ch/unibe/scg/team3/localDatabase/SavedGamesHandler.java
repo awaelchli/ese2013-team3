@@ -1,10 +1,13 @@
 package ch.unibe.scg.team3.localDatabase;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import ch.unibe.scg.team3.board.Board;
+import ch.unibe.scg.team3.game.SavedGame;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 
@@ -36,6 +39,40 @@ public class SavedGamesHandler extends DataHandler {
 		db.close();
 		
 	}
+	public ArrayList<SavedGame> getSavedGames(){
+		ArrayList<SavedGame> list = new ArrayList<SavedGame>();
+		SQLiteDatabase db = helper.getReadableDatabase();
+		SavedGame temp = new SavedGame();
+		Cursor c = db.rawQuery("SELECT * FROM Games", null);
+		if (c != null && c.getCount() != 0) {
+			c.moveToFirst();
+			for(int i =0 ; i < c.getCount(); i++){
+				temp.setId(c.getInt(0));
+				temp.setName(c.getString(1));
+//				temp.setBoard(new RawBoardBuilder(c.getString(2)));
+				temp.setFoundWords(c.getInt(3));
+				temp.setTime(c.getString(4));
+				temp.setDate(c.getString(5));
+				temp.setWordlistId(c.getInt(6));
+				temp.setScore(c.getInt(7));
+				temp.setPrivate(Boolean.parseBoolean(c.getString(8)));
+				temp.setTimesPlayed(c.getInt(9));
+				temp.setGuesses(c.getInt(10));
+				list.add(temp);
+			}
+			c.close();
+			db.close();
+			
+			return list;
+		}
+		else {
+			c.close();
+			db.close();
+			return list;
+		}
+		
+	}
+	
 	
 
 }
