@@ -196,7 +196,7 @@ public class WordlistHandler extends DataHandler {
 
 		SQLiteDatabase db = helper.getReadableDatabase();
 
-		String[] contents = { Integer.toString(wordlistId), word.toLowerCase() };
+		String[] contents = { "" + wordlistId, word.toLowerCase() };
 
 		Cursor cursor = db.rawQuery("SELECT content FROM " + table
 				+ " WHERE Dictionary = ? AND content = ?", contents);
@@ -250,7 +250,7 @@ public class WordlistHandler extends DataHandler {
 	}
 
 	public CharSequence[] getWordlists() {
-		CharSequence[] lists;
+		CharSequence[] lists = null;
 		ArrayList<String> tmp = new ArrayList<String>();
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT _id , Name FROM Dictionary", null);
@@ -266,12 +266,12 @@ public class WordlistHandler extends DataHandler {
 			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
 		}
 		db.close();
-		return null;
+		return lists;
 
 	}
 
 	public CharSequence[] getWordlistids() {
-		CharSequence[] lists;
+		CharSequence[] lists = null;
 		ArrayList<String> tmp = new ArrayList<String>();
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT _id , Name FROM Dictionary", null);
@@ -286,7 +286,7 @@ public class WordlistHandler extends DataHandler {
 			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
 		}
 		db.close();
-		return null;
+		return lists;
 
 	}
 
@@ -296,9 +296,6 @@ public class WordlistHandler extends DataHandler {
 		db.close();
 	}
 
-	public SQLiteDatabase getDb() {
-		return helper.getWritableDatabase();
-	}
 	
 	public String getRandomWordFromWordlist(){
 		String word;
