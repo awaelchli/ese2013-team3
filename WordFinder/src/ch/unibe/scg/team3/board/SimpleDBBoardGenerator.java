@@ -56,7 +56,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		StringLengthComparator comp=new StringLengthComparator();
 		ArrayList<String> words= new ArrayList<String>();
 		
-		for(int m=0; m<3*minWords;m++){
+		for(int m=0; m<9*minWords;m++){
 			String word=list.getRandomWordFromWordlist();
 			if(word.length()<8){
 				words.add(word);
@@ -115,35 +115,37 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		LinkedList<Point> pCoord=new LinkedList<Point>();
 		boolean setWord=false;
 		
+		//place word on an existing letter if possible
 		for(int i=0; (i < size) && (!setWord) ;i++){
 			for(int j=0; (j<size) && (!setWord); j++){
 				if(this.board.getToken(i, j).getLetter()==letters[k]){
 					
-					setWord = placeLetterAndContinue(letters, k, p, pCoord, new Point(i,j));
-					
+					setWord = placeLetterAndContinue(letters, k, p, pCoord, new Point(i,j));	
 					
 				}
 			}
 		}
 		
+		//if not possible on existing letter, search for empty spot
 		for(int i=0; (i < size) && (!setWord) ;i++){
 			for(int j=0; (j<size) && (!setWord); j++){
 				if(this.board.getToken(i, j).getLetter()==NullToken.getInstance().getLetter()){
 					
 					setWord = placeLetterAndContinue(letters, k, p, pCoord, new Point(i,j));
-
 				}
 			}
 		}
 		
 		if(setWord){
-			Iterator<IToken> itr=p.iterator();
+//			Iterator<IToken> itr=p.iterator();
+//			
+//			while(itr.hasNext()){
+//				IToken t=itr.next();
+//				board.setToken(t, t.getCoordinates().getX(), t.getCoordinates().getY());
+//				
+//			}
 			
-			while(itr.hasNext()){
-				IToken t=itr.next();
-				board.setToken(t, t.getCoordinates().getX(), t.getCoordinates().getY());
-				
-			}
+			board.setPath(p);
 			
 			System.out.println(word);
 			
@@ -193,11 +195,8 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		Token nextTok=new Token(nextLetter, meter.getValue(nextLetter));
 		nextTok.setCoordinates(nextPoint);
 		pCoord.add(nextPoint);
-		boolean added=p.add(nextTok);
+		p.add(nextTok);
 		
-		if(added==false){
-			p.add(nextTok);
-		}
 		
 		if(index+1==letters.length){
 			placed=true;
