@@ -57,8 +57,13 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		ArrayList<String> words= new ArrayList<String>();
 		
 		for(int m=0; m<3*minWords;m++){
-			words.add(list.getRandomWordFromWordlist());
+			String word=list.getRandomWordFromWordlist();
+			if(word.length()<8){
+				words.add(word);
+			}
+			
 		}
+		
 		
 		Collections.sort(words, comp);
 		
