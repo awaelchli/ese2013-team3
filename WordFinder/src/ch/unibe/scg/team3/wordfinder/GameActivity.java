@@ -70,6 +70,14 @@ public class GameActivity extends Activity implements IGameObserver {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		try {
+			  PhoneCallListener PhoneCallingState = new PhoneCallListener();
+			  if(PhoneCallingState.isCalling()){
+				 //Do anything
+			  }
+		} catch(Exception e) {
+			  //Log.e("callMonitor", "Exception: "+e.toString());
+		}
 	}
 
 	@Override
