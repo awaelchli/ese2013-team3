@@ -13,7 +13,11 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
-
+/**
+ * This class gives the possibility to manage wordlists in the database.
+ * @author nils
+ *
+ */
 public class WordlistHandler extends DataHandler {
 
 	/**
