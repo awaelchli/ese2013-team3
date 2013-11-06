@@ -40,10 +40,13 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		
 		
 		int k=0;
+		int i=0;
 		
 		while(k<minWords){
 			
 			String word=list.getRandomWordFromWordlist();
+			
+			i++;
 			
 			if(placeWord(word)){
 				k++;
@@ -51,22 +54,23 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 			
 		}
 		
+		System.out.println(i);
 		// fill the rest with random letters
 
 		
 
-		for (int i = 0; i < this.board.getSize(); i++) {
-		
-			for (int j = 0; j < this.board.getSize(); j++) {
-
-				if (board.getToken(i, j).getLetter() == NullToken.getInstance().getLetter()) {
-							
-					char letter = (char) (r.nextInt(26) + 'a');
-					Token tok = new Token(letter, meter.getValue(letter));
-					this.board.setToken(tok, i, j);
-				}
-			}
-		}
+//		for (int i = 0; i < this.board.getSize(); i++) {
+//		
+//			for (int j = 0; j < this.board.getSize(); j++) {
+//
+//				if (board.getToken(i, j).getLetter() == NullToken.getInstance().getLetter()) {
+//							
+//					char letter = (char) (r.nextInt(26) + 'a');
+//					Token tok = new Token(letter, meter.getValue(letter));
+//					this.board.setToken(tok, i, j);
+//				}
+//			}
+//		}
 	}
 
 	//will place the words in the board, using existing letters if possible
@@ -81,6 +85,9 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		for(int i=0; (i < size) && (!setWord) ;i++){
 			for(int j=0; (j<size) && (!setWord); j++){
 				if(this.board.getToken(i, j).getLetter()==letters[k]){
+					
+//					setWord = placeLetterAndContinue(letters, k, p, pCoord, new Point(i,j));
+					
 					Token t=new Token(letters[k],meter.getValue(letters[k]));
 					Point coord=new Point(i,j);
 					t.setCoordinates(coord);
@@ -104,11 +111,13 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		for(int i=0; (i < size) && (!setWord) ;i++){
 			for(int j=0; (j<size) && (!setWord); j++){
 				if(this.board.getToken(i, j).getLetter()==NullToken.getInstance().getLetter()){
+					
+//					setWord = placeLetterAndContinue(letters, k, p, pCoord, new Point(i,j));
 					Token t=new Token(letters[k],meter.getValue(letters[k]));
 					Point coord=new Point(i,j);
 					t.setCoordinates(coord);
 					pCoord.add(coord);
-					p.add(t);
+					System.out.println(p.add(t));
 					if(k+1==letters.length){
 						setWord=true;
 					}else{
@@ -153,19 +162,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 			IToken boardToken=this.board.getToken(testNext.getX(), testNext.getY());
 			
 			if((boardToken.getLetter()==nextLetter) && !(pCoord.contains(testNext))){
-				Token nextTok=new Token(nextLetter, meter.getValue(nextLetter));
-				nextTok.setCoordinates(testNext);
-				pCoord.add(testNext);
-				p.add(nextTok);
-				if(index+1==letters.length){
-					placed=true;
-				}else{
-					placed=addNextLetters(letters, index+1, p, pCoord);
-					if(!placed){
-						p.removeLast();
-						pCoord.removeLast();
-					}
-				}
+				placed = placeLetterAndContinue(letters, index, p, pCoord, testNext);
 			}
 			if((boardToken.getLetter() == NullToken.getInstance().getLetter()) && !(pCoord.contains(testNext))){
 				empty.add(testNext);
@@ -175,24 +172,37 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		while(!placed && empty.size()>0){
 			int rand=r.nextInt(empty.size());
 			Point testNext= empty.remove(rand);
-			IToken boardToken=this.board.getToken(testNext.getX(), testNext.getY());
 			
-			Token nextTok=new Token(nextLetter, meter.getValue(nextLetter));
-			nextTok.setCoordinates(testNext);
-			
-			p.add(nextTok);
-			if(index+1==letters.length){
-				placed=true;
-			}else{
-				placed=addNextLetters(letters, index+1, p, pCoord);
-				if(!placed){
-					p.removeLast();
-					pCoord.removeLast();
-				}
-			}
+			placed = placeLetterAndContinue(letters, index, p, pCoord, testNext);
 			
 		}
 		
+		return placed;
+	}
+
+	private boolean placeLetterAndContinue(char[] letters, int index, Path<IToken> p, LinkedList<Point> pCoord, Point nextPoint) {
+		
+		char nextLetter=letters[index];
+		boolean placed=false;
+		
+		Token nextTok=new Token(nextLetter, meter.getValue(nextLetter));
+		nextTok.setCoordinates(nextPoint);
+		pCoord.add(nextPoint);
+		boolean added=p.add(nextTok);
+		
+		if(added==false){
+			p.add(nextTok);
+		}
+		
+		if(index+1==letters.length){
+			placed=true;
+		}else{
+			placed=addNextLetters(letters, index+1, p, pCoord);
+			if(!placed){
+				p.removeLast();
+				pCoord.removeLast();
+			}
+		}
 		return placed;
 	}
 
@@ -203,7 +213,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		for(int i=-1; i<=1; i++){
 			for(int j=-1 ; j <= 1; j++){
 				if(!(i==0 && j==0)){
-					if((coord.getX()+i>=0) && (coord.getX()+i<6) && (coord.getY()+j >=0) && (coord.getY()+j < 6 ))
+					if((coord.getX()+i>=0) && (coord.getX()+i<size) && (coord.getY()+j >=0) && (coord.getY()+j < size ))
 						adjacent.add(new Point(coord.getX()+i, coord.getY()+j));	
 				}
 			}

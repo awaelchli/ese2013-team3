@@ -25,12 +25,24 @@ public class Path<E extends IElement> implements Iterable<E>{
 	 */
 	public boolean add(E element) {
 		
-		if (path.contains(element))
+//		boolean c=path.contains(element);
+//		
+//		if (c){
+//			return false;
+//		}
+//		boolean notadj=0 < length() && !isAdjacent(element, path.getLast());
+//		if (notadj){
+//			return false;
+//		}
+//		path.add(element);
+//		return true;
+		
+		if (path.contains(element)){
 			return false;
-
-		if (0 < length() && !isAdjacent(element, path.getLast()))
+		}
+		if (0 < length() && !isAdjacent(element, path.getLast())){
 			return false;
-
+		}
 		path.add(element);
 		return true;
 	}
