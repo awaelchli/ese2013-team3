@@ -1,5 +1,6 @@
 package ch.unibe.scg.team3.game;
 
+
 import ch.unibe.scg.team3.board.*;
 import ch.unibe.scg.team3.gameui.*;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
@@ -17,8 +18,12 @@ import ch.unibe.scg.team3.wordfinder.R;
 public class Game extends AbstractGame {
 
 	public static final int MAX_WORDS_TO_FIND = 10;
+	public static final long TIME_LIMIT = 2 * 60000;
 
 	private final WordlistHandler wordlistHandler;
+
+	private Timer timer;
+	private boolean timeOver;
 
 	/**
 	 * @param boardSize
@@ -31,8 +36,10 @@ public class Game extends AbstractGame {
 
 		wordlistHandler = handler;
 		this.wordlistId = wordlistId;
+		timeOver = false;
 
 		generateBoard(boardSize);
+		initTimer();
 	}
 
 	public Game(WordlistHandler data, int wordlistId) {
@@ -102,10 +109,40 @@ public class Game extends AbstractGame {
 
 		return selection;
 	}
+	
+	private void initTimer() {
+		timer = new Timer(TIME_LIMIT) {
+			@Override
+			public void onFinish() {
+				timeOver = true;
+				notifyObservers();
+			}
 
+			@Override
+			public void onTick(long millisUntilFinished) {
+				super.onTick(millisUntilFinished);
+				notifyObservers();
+			}
+		};
+	}
+
+	public void startTime() {
+		timer.start();
+	}
+
+	public long stopTime() {
+		timer.cancel();
+		timeOver = true;
+		return  timer.getRemainingTime();
+	}
+
+	public Timer getTimer() {
+		return timer;
+	}
+	
 	@Override
 	public boolean isOver() {
-		return found.size() == MAX_WORDS_TO_FIND;
+		return found.size() == MAX_WORDS_TO_FIND || timeOver;
 	}
 
 }

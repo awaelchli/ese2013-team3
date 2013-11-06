@@ -22,10 +22,6 @@ import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 public class GameActivity extends Activity implements IGameObserver {
 
 	private Game game;
-	private Timer timer;
-	protected long remainingTime = 2 * 60000;
-	private long totalTime = 300000;
-	private TextView countDownView;
 	private WordlistHandler wordlistHandler;
 
 	@Override
@@ -44,7 +40,7 @@ public class GameActivity extends Activity implements IGameObserver {
 		FoundWordsView found = (FoundWordsView) findViewById(R.id.foundWordsField);
 		ScoreView scoreView = (ScoreView) findViewById(R.id.score_view);
 		WordCounterView wordCounter = (WordCounterView) findViewById(R.id.foundCounter);
-		countDownView = (TextView) findViewById(R.id.timer_field);
+		CountDownView countDownView = (CountDownView) findViewById(R.id.timer_field);
 
 		boardUI.setOnTouchListener(new BoardOnTouchListener(this, game));
 
@@ -52,9 +48,12 @@ public class GameActivity extends Activity implements IGameObserver {
 		game.addObserver(found);
 		game.addObserver(scoreView);
 		game.addObserver(wordCounter);
+		game.addObserver(countDownView);
 		game.addObserver(this);
 
 		game.notifyObservers();
+		
+		game.startTime();
 
 	}
 
@@ -72,28 +71,15 @@ public class GameActivity extends Activity implements IGameObserver {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		remainingTime = timer.getRemainingTime();
-		if (timer != null) {
-			timer.cancel();
-		}
-
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		timer = new Timer(remainingTime, 1000, countDownView) {
-			@Override
-			public void onFinish() {
-				remainingTime = timer.getRemainingTime();
-				finishGameSession();
-			}
-		};
-		timer.start();
 	}
 
 	public void quit(View view) {
-		remainingTime = timer.getRemainingTime();
+		//remainingTime = timer.getRemainingTime();
 		finishGameSession();
 	}
 
@@ -102,8 +88,13 @@ public class GameActivity extends Activity implements IGameObserver {
 
 		intent.putExtra("score", game.getScore());
 		intent.putExtra("words_found", game.getFoundWords().size());
-		intent.putExtra("time",
-				String.valueOf((long) (totalTime - remainingTime)));
+		
+		long remainingTime = game.getTimer().getRemainingTime();
+		long elapsed = Game.TIME_LIMIT - remainingTime;
+		
+		String time = Timer.format(elapsed);
+		
+		intent.putExtra("time", time);
 		intent.putExtra("guesses", game.getNumberOfGuesses());
 		intent.putExtra("board", game.getBoard().toString());
 
@@ -114,7 +105,6 @@ public class GameActivity extends Activity implements IGameObserver {
 	@Override
 	public void update(AbstractGame game) {
 		if (game.isOver()) {
-			remainingTime = timer.getRemainingTime();
 			finishGameSession();
 		}
 	}

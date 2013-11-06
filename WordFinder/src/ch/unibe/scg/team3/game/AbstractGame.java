@@ -1,6 +1,7 @@
 package ch.unibe.scg.team3.game;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 import ch.unibe.scg.team3.board.Board;
 import ch.unibe.scg.team3.board.WordSelection;

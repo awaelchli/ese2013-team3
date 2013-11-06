@@ -37,7 +37,8 @@ public class EndGameActivity extends Activity {
 		this.time = intent.getStringExtra("time");
 		this.guesses = intent.getIntExtra("guesses", 0);
 
-		String text = "Your Score: " + score + "\n\n" + "Found Words: " + found;
+		String text = "Your Score: " + score + "\n\n" + "Found Words: " + found
+				+ "\n\n" + "Elapsed time: " + time;
 
 		TextView stats = (TextView) findViewById(R.id.display_Stats);
 		stats.setText(text);
