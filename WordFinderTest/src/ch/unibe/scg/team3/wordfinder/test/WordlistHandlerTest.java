@@ -13,6 +13,7 @@ import android.test.AndroidTestCase;
 public class WordlistHandlerTest extends AndroidTestCase {
 	protected  WordlistHandler wordlistHandler;
 	protected void setUp(){
+		android.preference.PreferenceManager.setDefaultValues(mContext.getApplicationContext(), R.xml.preferences, false);
 		wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
 		File database = new File("/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
 		try {
@@ -23,8 +24,7 @@ public class WordlistHandlerTest extends AndroidTestCase {
 	}
 	
 	public void testGetRandomWordFromWordlist(){
-		
-			android.preference.PreferenceManager.setDefaultValues(mContext.getApplicationContext(), R.xml.preferences, false);
+			
 			String string = wordlistHandler.getRandomWordFromWordlist();
 			assertNotNull(string);
 			assertFalse(string.equals(""));
