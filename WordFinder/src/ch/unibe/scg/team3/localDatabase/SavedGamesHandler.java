@@ -11,7 +11,13 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
-
+/**
+ * This class give the options to save games to the main database. It also allows
+ * also to edit these games in different ways.
+ * @author nils
+ * @author adrian
+ *
+ */
 public class SavedGamesHandler extends DataHandler {
 
 	public SavedGamesHandler(Context context) {

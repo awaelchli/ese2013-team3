@@ -28,6 +28,11 @@ public class PhoneCallListener extends PhoneStateListener {
 
     }
     
+    public void resetListener(){
+    	isPhoneCalling = false;
+    	
+    }
+    
     public boolean isCalling(){
 		return isPhoneCalling;
     }

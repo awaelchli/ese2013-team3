@@ -73,7 +73,9 @@ public class GameActivity extends Activity implements IGameObserver {
 		try {
 			  PhoneCallListener PhoneCallingState = new PhoneCallListener();
 			  if(PhoneCallingState.isCalling()){
-				 //Do anything
+				  game.stopTime();
+				  PhoneCallingState.resetListener();
+
 			  }
 		} catch(Exception e) {
 			  //Log.e("callMonitor", "Exception: "+e.toString());
