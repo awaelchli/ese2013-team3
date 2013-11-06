@@ -9,6 +9,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+/**
+ * This view is a custom {@link TextView}. It is responsible for displaying the
+ * words the user found on the board.
+ * 
+ * @author adrian
+ */
 public class FoundWordsView extends TextView implements IGameObserver {
 
 	public FoundWordsView(Context context) {
@@ -26,17 +32,17 @@ public class FoundWordsView extends TextView implements IGameObserver {
 	@Override
 	public void update(AbstractGame game) {
 		ArrayList<WordSelection> list = game.getFoundWords();
-		
+
 		StringBuilder builder = new StringBuilder();
-		
-		for(WordSelection word : list){
+
+		for (WordSelection word : list) {
 			builder.append(word);
 			builder.append(" (");
 			builder.append(word.getScore());
 			builder.append(")");
 			builder.append("\n");
 		}
-		
+
 		String text = builder.toString();
 		setText(text.toUpperCase());
 	}

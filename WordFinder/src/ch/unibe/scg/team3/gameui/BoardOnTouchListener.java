@@ -11,6 +11,9 @@ import android.view.View.OnTouchListener;
 import android.widget.TableRow;
 
 /**
+ * The instance of this class is responsible for monitoring the user input on
+ * the board user interface.
+ * 
  * @author adrian
  * @author faerber
  */

@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.TextView;
 import ch.unibe.scg.team3.game.*;
 import ch.unibe.scg.team3.gameui.*;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
@@ -84,6 +83,8 @@ public class GameActivity extends Activity implements IGameObserver {
 	}
 
 	public void finishGameSession() {
+		game.stopTime();
+		
 		Intent intent = new Intent(this, EndGameActivity.class);
 
 		intent.putExtra("score", game.getScore());

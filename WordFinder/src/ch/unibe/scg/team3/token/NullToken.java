@@ -3,6 +3,8 @@ package ch.unibe.scg.team3.token;
 import ch.unibe.scg.team3.board.Point;
 
 /**
+ * This token is a special type of {@link IToken}. It implements the singleton
+ * design pattern.
  * 
  * @author adrian
  * 
@@ -40,5 +42,6 @@ public class NullToken extends AbstractToken {
 	}
 
 	@Override
-	public void setCoordinates(Point point) {}
+	public void setCoordinates(Point point) {
+	}
 }

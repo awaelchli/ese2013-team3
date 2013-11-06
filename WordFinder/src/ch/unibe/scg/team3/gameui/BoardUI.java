@@ -9,10 +9,17 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.*;
 
+/**
+ * The BoardUI is the user interface for the board. It is responsible to update
+ * its buttons when the observed board changes.
+ * 
+ * @author adrian
+ * @see Board
+ */
 public class BoardUI extends TableLayout implements IGameObserver {
 
 	private BoardButton[][] buttons;
-	
+
 	public BoardUI(Context context) {
 		super(context);
 	}
@@ -27,35 +34,35 @@ public class BoardUI extends TableLayout implements IGameObserver {
 		TableRow[] rows = new TableRow[size];
 
 		for (int i = 0; i < size; i++) {
-			TableRow row = (TableRow) View.inflate(getContext(), R.layout.board_row,
-					null);
+			TableRow row = (TableRow) View.inflate(getContext(),
+					R.layout.board_row, null);
 
 			rows[i] = row;
 
 			for (int j = 0; j < size; j++) {
-				BoardButton btn = (BoardButton) View.inflate(getContext(), R.layout.board_button, null);
-				
-				
+				BoardButton btn = (BoardButton) View.inflate(getContext(),
+						R.layout.board_button, null);
+
 				btn.setCoordinates(new Point(j, i));
 				buttons[j][i] = btn;
 				row.addView(btn);
 			}
 
 			this.addView(row);
-			
+
 		}
 	}
 
 	@Override
 	public void update(AbstractGame game) {
 		int size = game.getBoardSize();
-		
-		if(buttons == null){
+
+		if (buttons == null) {
 			init(size);
 		}
-		
+
 		Board board = game.getBoard();
-		
+
 		assert board.getSize() == size;
 
 		for (int i = 0; i < size; i++) {

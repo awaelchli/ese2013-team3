@@ -136,7 +136,12 @@ public class Game extends AbstractGame {
 		return  timer.getRemainingTime();
 	}
 
-	public Timer getTimer() {
+	@Override
+	public String getTime() {
+		return timer.toString();
+	}
+	
+	public Timer getTimer(){
 		return timer;
 	}
 	

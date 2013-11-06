@@ -4,10 +4,16 @@ import java.io.Serializable;
 
 import ch.unibe.scg.team3.board.Board;
 
-public class SavedGame extends AbstractGame implements Serializable{
-	
+/**
+ * A saved game stores all the data needed to recover the game and replay it.
+ * 
+ * @author adrian
+ * @see AbstractGame
+ */
+public class SavedGame extends AbstractGame implements Serializable {
+
 	private static final long serialVersionUID = 5916020210779611232L;
-	
+
 	private int id;
 	private String name;
 	private String time;
@@ -31,10 +37,7 @@ public class SavedGame extends AbstractGame implements Serializable{
 		this.name = name;
 	}
 
-	public int getNumberOfFoundWords() {
-		return found.size();
-	}
-
+	@Override
 	public String getTime() {
 		return time;
 	}
@@ -51,10 +54,6 @@ public class SavedGame extends AbstractGame implements Serializable{
 		this.date = date;
 	}
 
-	public int getWordlistId() {
-		return wordlistId;
-	}
-
 	public void setWordlistId(int wordlistId) {
 		this.wordlistId = wordlistId;
 	}
@@ -63,6 +62,13 @@ public class SavedGame extends AbstractGame implements Serializable{
 		this.score = score;
 	}
 
+	/**
+	 * Returns if the game is private. Private games are games explicitly saved
+	 * by the user. Non-private games are saved automatically and not visible to
+	 * the user
+	 * 
+	 * @return True, if the game is private, false otherwise
+	 */
 	public boolean isPrivate() {
 		return isPrivate;
 	}

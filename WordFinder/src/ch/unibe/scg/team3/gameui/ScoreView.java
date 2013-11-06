@@ -6,7 +6,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-public class ScoreView extends TextView implements IGameObserver{
+/**
+ * This view is a custom {@link TextView} for displaying the score of the game.
+ * 
+ * @author adrian
+ */
+public class ScoreView extends TextView implements IGameObserver {
 
 	public ScoreView(Context context) {
 		super(context);

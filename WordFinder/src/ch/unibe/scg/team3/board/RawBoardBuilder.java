@@ -2,6 +2,11 @@ package ch.unibe.scg.team3.board;
 
 import ch.unibe.scg.team3.token.Token;
 
+/**
+ * This class is responsible for building a board from a string input.
+ * 
+ * @author adrian
+ */
 public class RawBoardBuilder extends AbstractBoardGenerator {
 
 	private String raw;

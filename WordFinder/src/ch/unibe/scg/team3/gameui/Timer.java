@@ -1,8 +1,12 @@
 package ch.unibe.scg.team3.gameui;
 
 import android.os.CountDownTimer;
-import android.widget.TextView;
 
+/**
+ * 
+ * @author lukas
+ * @author adrian
+ */
 public abstract class Timer extends CountDownTimer {
 	
 	private long remainingTime;

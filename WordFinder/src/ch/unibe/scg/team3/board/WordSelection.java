@@ -6,9 +6,11 @@ import java.util.List;
 import ch.unibe.scg.team3.token.IToken;
 
 /**
- * The instance of this class represents a selection of a word on a board {@see
- * Board}.
+ * The instance of this class represents a selection of a word on a board. The
+ * selection contains tokens from the board. The responsibility of this class is
+ * to add tokens correctly to form a word and to compute the score of the word.
  * 
+ * @see Board
  * @author adrian
  */
 public class WordSelection {
@@ -20,8 +22,7 @@ public class WordSelection {
 	}
 
 	/**
-	 * @param tok
-	 *            A token not equal to null
+	 * @param tok A token not equal to null
 	 */
 	public void addToken(IToken tok) {
 		assert tok != null;
@@ -29,7 +30,7 @@ public class WordSelection {
 	}
 
 	/**
-	 * @return the length of the selection is a positive integer
+	 * @return The length of the selection is a positive integer
 	 */
 	public int length() {
 		assert selection.size() >= 0;

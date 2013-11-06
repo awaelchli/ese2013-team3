@@ -1,12 +1,10 @@
-package ch.unibe.scg.team3.wordfinder;
+package ch.unibe.scg.team3.gameui;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 import ch.unibe.scg.team3.game.AbstractGame;
-import ch.unibe.scg.team3.game.Game;
 import ch.unibe.scg.team3.game.IGameObserver;
-import ch.unibe.scg.team3.gameui.Timer;
 
 public class CountDownView extends TextView implements IGameObserver {
 
@@ -24,10 +22,8 @@ public class CountDownView extends TextView implements IGameObserver {
 
 	@Override
 	public void update(AbstractGame game) {
-		Game g = (Game) game;
-		Timer timer = g.getTimer();
 
-		setText(timer.toString());
+		setText(game.getTime());
 	}
 
 }
