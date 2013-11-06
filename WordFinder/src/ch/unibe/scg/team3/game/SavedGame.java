@@ -1,23 +1,25 @@
 package ch.unibe.scg.team3.game;
 
+import java.io.Serializable;
+
 import ch.unibe.scg.team3.board.Board;
 
-public class SavedGame {
+/**
+ * A saved game stores all the data needed to recover the game and replay it.
+ * 
+ * @author adrian
+ * @see AbstractGame
+ */
+public class SavedGame extends AbstractGame implements Serializable {
+
+	private static final long serialVersionUID = 5916020210779611232L;
+
 	private int id;
 	private String name;
-	private Board board;
-	private int foundWords;
 	private String time;
-	private String Date;
-	private int wordlistId;
-	private int score;
+	private String date;
 	private boolean isPrivate;
 	private int timesPlayed;
-	private int guesses;
-	
-	public SavedGame() {
-		
-	}
 
 	public int getId() {
 		return id;
@@ -35,22 +37,7 @@ public class SavedGame {
 		this.name = name;
 	}
 
-	public Board getBoard() {
-		return board;
-	}
-
-	public void setBoard(Board Board) {
-		this.board = board;
-	}
-
-	public int getFoundWords() {
-		return foundWords;
-	}
-
-	public void setFoundWords(int foundWords) {
-		this.foundWords = foundWords;
-	}
-
+	@Override
 	public String getTime() {
 		return time;
 	}
@@ -60,29 +47,28 @@ public class SavedGame {
 	}
 
 	public String getDate() {
-		return Date;
+		return date;
 	}
 
 	public void setDate(String date) {
-		Date = date;
-	}
-
-	public int getWordlistId() {
-		return wordlistId;
+		this.date = date;
 	}
 
 	public void setWordlistId(int wordlistId) {
 		this.wordlistId = wordlistId;
 	}
 
-	public int getScore() {
-		return score;
-	}
-
 	public void setScore(int score) {
 		this.score = score;
 	}
 
+	/**
+	 * Returns if the game is private. Private games are games explicitly saved
+	 * by the user. Non-private games are saved automatically and not visible to
+	 * the user
+	 * 
+	 * @return True, if the game is private, false otherwise
+	 */
 	public boolean isPrivate() {
 		return isPrivate;
 	}
@@ -99,12 +85,17 @@ public class SavedGame {
 		this.timesPlayed = timesPlayed;
 	}
 
-	public int getGuesses() {
-		return guesses;
-	}
-
 	public void setGuesses(int guesses) {
 		this.guesses = guesses;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	@Override
+	public boolean isOver() {
+		return true;
 	}
 
 }

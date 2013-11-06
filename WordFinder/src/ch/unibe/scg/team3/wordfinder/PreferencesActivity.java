@@ -67,14 +67,7 @@ public class PreferencesActivity extends PreferenceActivity {
         lp.setEntries(entries);
         lp.setEntryValues(entryValues);
 }
-	
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.preferences, menu);
-		return true;
-	}
 	public void resetDB(){
 		wm.reset(this);
 		finish();

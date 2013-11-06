@@ -1,7 +1,6 @@
 package ch.unibe.scg.team3.wordfinder.test;
 
 import android.test.AndroidTestCase;
-import ch.unibe.scg.team3.wordlist.*;
 
 
 /**

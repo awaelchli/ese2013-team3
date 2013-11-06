@@ -1,62 +1,66 @@
 package ch.unibe.scg.team3.gameui;
 
 import ch.unibe.scg.team3.board.*;
-import ch.unibe.scg.team3.game.Game;
-import ch.unibe.scg.team3.game.IGameObserver;
+import ch.unibe.scg.team3.game.*;
 import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.wordfinder.R;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.TableLayout;
-import android.widget.TableRow;
+import android.widget.*;
 
+/**
+ * The BoardUI is the user interface for the board. It is responsible to update
+ * its buttons when the observed board changes.
+ * 
+ * @author adrian
+ * @see Board
+ */
 public class BoardUI extends TableLayout implements IGameObserver {
 
 	private BoardButton[][] buttons;
-	private TableRow[] rows;
-	private final int size;
 
 	public BoardUI(Context context) {
 		super(context);
-		size = Board.DEFAULT_SIZE;
-		init(context);
 	}
 
 	public BoardUI(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		size = Board.DEFAULT_SIZE;
-		init(context);
 	}
 
-	private void init(Context context) {
+	private void init(int size) {
 
 		buttons = new BoardButton[size][size];
-		rows = new TableRow[size];
+		TableRow[] rows = new TableRow[size];
 
 		for (int i = 0; i < size; i++) {
-			TableRow row = (TableRow) View.inflate(context, R.layout.board_row,
-					null);
+			TableRow row = (TableRow) View.inflate(getContext(),
+					R.layout.board_row, null);
 
 			rows[i] = row;
 
 			for (int j = 0; j < size; j++) {
-				BoardButton btn = (BoardButton) View.inflate(context, R.layout.board_button, null);
-				
-				
+				BoardButton btn = (BoardButton) View.inflate(getContext(),
+						R.layout.board_button, null);
+
 				btn.setCoordinates(new Point(j, i));
 				buttons[j][i] = btn;
 				row.addView(btn);
 			}
 
 			this.addView(row);
-			
+
 		}
 	}
 
 	@Override
-	public void update(Game game) {
+	public void update(AbstractGame game) {
+		int size = game.getBoardSize();
+
+		if (buttons == null) {
+			init(size);
+		}
+
 		Board board = game.getBoard();
 
 		assert board.getSize() == size;

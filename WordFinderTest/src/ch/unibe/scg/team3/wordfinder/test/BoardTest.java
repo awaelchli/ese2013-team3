@@ -3,6 +3,9 @@ package ch.unibe.scg.team3.wordfinder.test;
 import android.test.AndroidTestCase;
 
 import ch.unibe.scg.team3.board.Board;
+import ch.unibe.scg.team3.game.Path;
+import ch.unibe.scg.team3.token.IToken;
+import ch.unibe.scg.team3.token.NullToken;
 import ch.unibe.scg.team3.token.Token;
 
 /**
@@ -30,7 +33,7 @@ public class BoardTest extends AndroidTestCase {
 		Token tok2 = new Token('2', 2);
 		Token tok3 = new Token('3', 3);
 		Token tok4 = new Token('4', 4);
-
+		
 		board.setToken(tok1, 0, 0);
 		board.setToken(tok2, 0, 6);
 		board.setToken(tok3, 6, 0);
@@ -40,5 +43,40 @@ public class BoardTest extends AndroidTestCase {
 		assertEquals(board.getToken(0, 6).toString(), "2");
 		assertEquals(board.getToken(6, 0).toString(), "3");
 		assertEquals(board.getToken(6, 6).toString(), "4");
+	}
+	
+	public void testSetPath(){
+		
+		Board board = new Board(4);
+		
+		Token tok1 = new Token('1', 1, 0, 0);
+		Token tok2 = new Token('2', 1, 1, 0);
+		Token tok3 = new Token('3', 1, 0, 1);
+		Token tok4 = new Token('4', 1, 2, 0);
+		Token tok5 = new Token('5', 1, 3, 0);
+		Token badTok = new Token('b', 1, 4, 0);
+		
+		Path<IToken> path = new Path<IToken>();
+		
+		
+		path.add(tok1);
+		path.add(tok3);
+		path.add(tok2);
+		path.add(tok4);
+		
+		board.setPath(path);
+		
+		assertEquals(board.getToken(0, 0), tok1);
+		assertEquals(board.getToken(1, 0), tok2);
+		assertEquals(board.getToken(0, 1), tok3);
+		assertEquals(board.getToken(2, 0), tok4);
+		
+		Path<IToken> badPath = new Path<IToken>();
+		
+		badPath.add(tok5);
+		badPath.add(badTok);
+		
+		assertFalse(board.setPath(badPath));
+		assertEquals(board.getToken(3, 0), NullToken.getInstance());
 	}
 }

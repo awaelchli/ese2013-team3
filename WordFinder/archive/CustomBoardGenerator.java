@@ -43,7 +43,7 @@ public class CustomBoardGenerator extends AbstractBoardGenerator {
 	}
 
 	@Override
-	public void generate() {
+	protected void generate() {
 		
 		Random r = new Random();
 		char[] customBoard = this.customBoards.get((r.nextInt(1000))%4);

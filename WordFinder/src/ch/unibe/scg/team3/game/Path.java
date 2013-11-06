@@ -37,12 +37,12 @@ public class Path<E extends IElement> implements Iterable<E>{
 //		path.add(element);
 //		return true;
 		
-		if (path.contains(element)){
+		if (path.contains(element))
 			return false;
-		}
-		if (0 < length() && !isAdjacent(element, path.getLast())){
+
+		if (0 < length() && !isAdjacent(element, path.getLast()))
 			return false;
-		}
+
 		path.add(element);
 		return true;
 	}
@@ -63,6 +63,10 @@ public class Path<E extends IElement> implements Iterable<E>{
 		return path.iterator();
 	}
 
+	/**
+	 * Set the color of the path to mark its state.
+	 * @param color The color
+	 */
 	public void setColor(int color) {
 		this.color = color;
 	}
@@ -87,12 +91,32 @@ public class Path<E extends IElement> implements Iterable<E>{
 	public boolean isEmpty() {
 		return path.isEmpty();
 	}
-	
-	public E getLast(){
+
+	public boolean contains(E element) {
+		// return path.contains(element);
+		for (E pathElement : path) {
+			if (pathElement.equals(element))
+				return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns the last path element that was added
+	 * 
+	 * @return The last element if the path is not empty
+	 */
+	public E getLast() {
 		return path.getLast();
 	}
-	
-	public E removeLast(){
+
+	/**
+	 * Removes and returns the last path element that was added
+	 * 
+	 * @return The returned element if the path is not empty
+	 */
+	public E removeLast() {
 		return path.removeLast();
 	}
 

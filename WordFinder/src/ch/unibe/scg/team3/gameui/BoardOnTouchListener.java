@@ -11,6 +11,9 @@ import android.view.View.OnTouchListener;
 import android.widget.TableRow;
 
 /**
+ * The instance of this class is responsible for monitoring the user input on
+ * the board user interface.
+ * 
  * @author adrian
  * @author faerber
  */
@@ -37,7 +40,8 @@ public class BoardOnTouchListener implements OnTouchListener {
 		case MotionEvent.ACTION_DOWN:
 			path.clear();
 		case MotionEvent.ACTION_UP:
-			if(!path.isEmpty()) submitPath();
+			if (!path.isEmpty())
+				submitPath();
 			return true;
 		case MotionEvent.ACTION_MOVE:
 			break;
@@ -84,12 +88,13 @@ public class BoardOnTouchListener implements OnTouchListener {
 		return true;
 	}
 
-	private Rect makeRectangle(View view, int pad_left, int pad_top, int pad_right, int pad_bottom) {
+	private Rect makeRectangle(View view, int pad_left, int pad_top,
+			int pad_right, int pad_bottom) {
 
 		Rect viewRect = new Rect(view.getLeft() + pad_left, view.getTop()
 				+ pad_top, view.getRight() + pad_right, view.getBottom()
 				+ pad_bottom);
-		
+
 		return viewRect;
 	}
 

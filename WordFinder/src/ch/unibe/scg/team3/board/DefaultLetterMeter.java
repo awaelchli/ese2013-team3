@@ -1,5 +1,10 @@
 package ch.unibe.scg.team3.board;
 
+/**
+ * The measurement of the letters is based on the frequency of the letters in the English language.
+ * 
+ * @author adrian
+ */
 public class DefaultLetterMeter extends AbstractLetterMeter {
 
 	@Override

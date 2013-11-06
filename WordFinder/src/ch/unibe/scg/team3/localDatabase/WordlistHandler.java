@@ -136,7 +136,7 @@ public class WordlistHandler extends DataHandler {
 		db.close();
 	}
 
-	public boolean isWordInWordlist(String word, String wordlist) {
+	public boolean isWordInWordlist(String word, int wordlistId) {
 
 		if (word.length() == 0)
 			return false;
@@ -149,7 +149,6 @@ public class WordlistHandler extends DataHandler {
 			table += LONG_WORD_TABLE_SUFFIX;
 		}
 
-		int wordlistId = getWordlistId(wordlist);
 		SQLiteDatabase db = helper.getReadableDatabase();
 
 		String[] contents = { Integer.toString(wordlistId), word.toLowerCase() };

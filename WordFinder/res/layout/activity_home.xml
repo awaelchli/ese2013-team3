@@ -40,7 +40,8 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/saved_games_button" />
+            android:text="@string/saved_games_button"
+            android:onClick="startSavedGames" />
 
         <Button
             android:id="@+id/statistics_button"

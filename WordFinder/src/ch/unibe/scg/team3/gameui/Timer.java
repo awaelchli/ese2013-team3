@@ -1,32 +1,42 @@
 package ch.unibe.scg.team3.gameui;
 
 import android.os.CountDownTimer;
-import android.widget.TextView;
 
+/**
+ * 
+ * @author lukas
+ * @author adrian
+ */
 public abstract class Timer extends CountDownTimer {
-	private TextView display;
+	
 	private long remainingTime;
 
-	public Timer(long millisInFuture, long countDownInterval, TextView timerTextView) {
-		super(millisInFuture, countDownInterval);
-		display = timerTextView;
+	public Timer(long millisInFuture) {
+		super(millisInFuture, 1000);
 	}
 
 	@Override
 	public void onTick(long millisUntilFinished) {
 		remainingTime = millisUntilFinished;
-
-		long seconds = (millisUntilFinished / 1000) % 60;
-		long minutes = ((millisUntilFinished / (1000 * 60)) % 60);
-
-		String minText = String.format("%02d", minutes);
-		String secText = String.format("%02d", seconds);
-
-		display.setText(minText + ":" + secText);
-
 	}
 
 	public long getRemainingTime() {
 		return remainingTime;
+	}
+	
+	@Override
+	public String toString() {
+		
+		return format(remainingTime);
+	}
+
+	public static String format(long millis) {
+		long seconds = (millis / 1000) % 60;
+		long minutes = ((millis / (1000 * 60)) % 60);
+
+		String minText = String.format("%02d", minutes);
+		String secText = String.format("%02d", seconds);
+
+		return minText + ":" + secText;
 	}
 }

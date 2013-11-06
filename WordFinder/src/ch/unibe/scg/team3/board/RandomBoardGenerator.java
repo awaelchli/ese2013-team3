@@ -18,7 +18,7 @@ public class RandomBoardGenerator extends AbstractBoardGenerator {
 	}
 
 	@Override
-	public void generate() {
+	protected void generate() {
 
 		Random r = new Random();
 

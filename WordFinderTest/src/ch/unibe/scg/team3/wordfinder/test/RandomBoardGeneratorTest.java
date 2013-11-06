@@ -12,7 +12,6 @@ public class RandomBoardGeneratorTest extends AndroidTestCase {
 
 	public void testBoardWithSize1() {
 		RandomBoardGenerator r = new RandomBoardGenerator(1);
-		r.generate();
 
 		Board board = r.getBoard();
 
@@ -24,7 +23,6 @@ public class RandomBoardGeneratorTest extends AndroidTestCase {
 
 	public void testBoardNoNullToken() {
 		RandomBoardGenerator r = new RandomBoardGenerator(100);
-		r.generate();
 
 		Board board = r.getBoard();
 		IToken nul = NullToken.getInstance();
