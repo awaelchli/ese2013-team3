@@ -87,7 +87,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			db.execSQL("PRAGMA foreign_keys=ON;");
 		}
 	}
-
+	
 	public void importDatabase() throws IOException {
 		
 		InputStream input = context.getResources().openRawResource(

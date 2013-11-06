@@ -35,7 +35,11 @@ public class WordlistHandler extends DataHandler {
 				.getString("choose_wordlist", null);
 
 	}
-
+	/**
+//	 * Adds a new Wordlistentry in Database
+	 * @param name
+	 * @throws WordlistAlreadyInDataBaseException
+	 */
 	public void addEmptyWordlist(String name)
 			throws WordlistAlreadyInDataBaseException {
 
@@ -81,7 +85,16 @@ public class WordlistHandler extends DataHandler {
 			db.endTransaction();
 		}
 	}
-
+	/**
+	 * Adds a word to the given wordlist in main database. Pay attention that database
+	 * is closed before invoke and it will be closed after execution.
+	 * @param word
+	 * 			should not be empty or null
+	 * @param wordlistname
+	 * 			should not be empty or null
+	 * @return
+	 * 			returns boolean value whether adding entry in database was successful
+	 */
 	public boolean addWordToWordlist(String word, String wordlistname) {
 
 		int wordlistId = getWordlistId(wordlistname);
@@ -98,17 +111,28 @@ public class WordlistHandler extends DataHandler {
 
 		return true;
 	}
+	/**
+	 * 			Adds a word to an OPEN! database. Its important to use this method carefully!
+	 * 			Database will NOT! be closed after execution!
+	 * @param word
+	 * 			should not be empty or null
+	 * @param wordlistId
+	 * 			should not be empty or null
+	 * @param db
+	 * 			should be a valid dataBase
+	 * @throws SQLException
+	 */
 
 	private void addWordToOpenDb(String word, int wordlistId, SQLiteDatabase db)
 			throws SQLException {
 		if (word.length() < SMALL_WORD && word.length() > 0) {
 
-			db.execSQL("INSERT INTO " + getFirstLetter(word)
+			db.execSQL("INSERT INTO " + getFirstLetterFromInputToLowerCase(word)
 					+ SHORT_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
 					+ "', '" + word + "')");
 
 		} else if (word.length() > SMALL_WORD) {
-			db.execSQL("INSERT INTO " + getFirstLetter(word)
+			db.execSQL("INSERT INTO " + getFirstLetterFromInputToLowerCase(word)
 					+ LONG_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
 					+ "', '" + word + "')");
 
@@ -117,31 +141,48 @@ public class WordlistHandler extends DataHandler {
 		}
 	}
 
-	private String getFirstLetter(String word) {
+	private String getFirstLetterFromInputToLowerCase(String word) {
 		return word.substring(0, 1).toLowerCase();
 	}
-
+	/**
+	 * Removes a wordlist given by name in main database. Pay attention that database
+	 * is closed before invoke and it will be closed after execution.
+	 * @param name
+	 * 			name of wordlist to be removed from main database
+	 */
 	public void removeWordlist(String name) {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		db.execSQL("DELETE IF EXISTS FROM Dictionary WHERE Name = '" + name
 				+ "'");
 		db.close();
 	}
-
+	/**
+	 * Removes a word from the given wordlist in main database. Pay attention that database
+	 * is closed before invoke and it will be closed after execution.
+	 * @param word
+	 * 			word to be removed from a wordlist given by name
+	 * @param wordlist
+	 * 			name of wordlist which contains the word to remove
+	 */
 	public void removeWordFromWordlist(String word, String wordlist) {
 		SQLiteDatabase db = helper.getWritableDatabase();
-		db.execSQL("DELETE IF EXISTS FROM" + getFirstLetter(word)
+		db.execSQL("DELETE IF EXISTS FROM" + getFirstLetterFromInputToLowerCase(word)
 				+ "WHERE Name = '" + wordlist + "' AND content = '" + word
 				+ "'");
 		db.close();
 	}
-
+	/**
+	 * 
+	 * @param word
+	 * @param wordlistId
+	 * @return
+	 */
 	public boolean isWordInWordlist(String word, int wordlistId) {
 
 		if (word.length() == 0)
 			return false;
 
-		String table = getFirstLetter(word);
+		String table = getFirstLetterFromInputToLowerCase(word);
 
 		if (word.length() < SMALL_WORD) {
 			table += SHORT_WORD_TABLE_SUFFIX;
