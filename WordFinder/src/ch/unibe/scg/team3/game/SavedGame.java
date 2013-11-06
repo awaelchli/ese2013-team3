@@ -1,24 +1,19 @@
 package ch.unibe.scg.team3.game;
 
+import java.io.Serializable;
+
 import ch.unibe.scg.team3.board.Board;
 
-public class SavedGame {
+public class SavedGame extends AbstractGame implements Serializable{
+	
+	private static final long serialVersionUID = 5916020210779611232L;
 	
 	private int id;
 	private String name;
-	private Board board;
-	private int foundWords;
 	private String time;
 	private String date;
-	private int wordlistId;
-	private int score;
 	private boolean isPrivate;
 	private int timesPlayed;
-	private int guesses;
-
-	public SavedGame() {
-
-	}
 
 	public int getId() {
 		return id;
@@ -36,20 +31,8 @@ public class SavedGame {
 		this.name = name;
 	}
 
-	public Board getBoard() {
-		return board;
-	}
-
-	public void setBoard(Board board) {
-		this.board = board;
-	}
-
-	public int getFoundWords() {
-		return foundWords;
-	}
-
-	public void setFoundWords(int foundWords) {
-		this.foundWords = foundWords;
+	public int getNumberOfFoundWords() {
+		return found.size();
 	}
 
 	public String getTime() {
@@ -76,10 +59,6 @@ public class SavedGame {
 		this.wordlistId = wordlistId;
 	}
 
-	public int getScore() {
-		return score;
-	}
-
 	public void setScore(int score) {
 		this.score = score;
 	}
@@ -100,12 +79,17 @@ public class SavedGame {
 		this.timesPlayed = timesPlayed;
 	}
 
-	public int getGuesses() {
-		return guesses;
-	}
-
 	public void setGuesses(int guesses) {
 		this.guesses = guesses;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	@Override
+	public boolean isOver() {
+		return true;
 	}
 
 }

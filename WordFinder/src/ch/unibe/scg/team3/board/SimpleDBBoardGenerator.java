@@ -12,9 +12,7 @@ import ch.unibe.scg.team3.token.NullToken;
 import ch.unibe.scg.team3.token.Token;
 
 /**
- * 
  * @author viviane
- * 
  */
 
 public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
