@@ -180,14 +180,15 @@ public class WordlistHandler extends DataHandler {
 	 */
 	public void removeWordFromWordlist(String word, String wordlist) {
 		SQLiteDatabase db = helper.getWritableDatabase();
+		String table;
 		if (word.length() < SMALL_WORD) {
-			word = getFirstLetterFromInputToLowerCase(word)
+			table = getFirstLetterFromInputToLowerCase(word)
 					+ SHORT_WORD_TABLE_SUFFIX;
 		} else {
-			word = getFirstLetterFromInputToLowerCase(word)
+			table = getFirstLetterFromInputToLowerCase(word)
 					+ LONG_WORD_TABLE_SUFFIX;
 		}
-		db.execSQL("DELETE FROM " + getFirstLetterFromInputToLowerCase(word)
+		db.execSQL("DELETE FROM " + table
 				+ " WHERE Name = '" + wordlist + "' AND content = '" + word
 				+ "'");
 		db.close();
