@@ -105,7 +105,7 @@ public class WordlistHandler extends DataHandler {
 		SQLiteDatabase db = helper.getWritableDatabase();
 
 		try {
-			addWordToOpenDb(word, wordlistId, db);
+			addWordToOpenDb(word.toLowerCase(), wordlistId, db);
 		} catch (SQLException e) {
 			db.close();
 			return false;
@@ -133,12 +133,12 @@ public class WordlistHandler extends DataHandler {
 
 			db.execSQL("INSERT INTO " + getFirstLetterFromInputToLowerCase(word)
 					+ SHORT_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
-					+ "', '" + word + "')");
+					+ "', '" + word.toLowerCase() + "')");
 
 		} else if (word.length() > SMALL_WORD) {
 			db.execSQL("INSERT INTO " + getFirstLetterFromInputToLowerCase(word)
 					+ LONG_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
-					+ "', '" + word + "')");
+					+ "', '" + word.toLowerCase() + "')");
 
 		} else {
 			throw new SQLException();
@@ -196,10 +196,10 @@ public class WordlistHandler extends DataHandler {
 
 		SQLiteDatabase db = helper.getReadableDatabase();
 
-		String[] contents = { "" + wordlistId, word.toLowerCase() };
+		String[] contents = {word.toLowerCase() };
 
-		Cursor cursor = db.rawQuery("SELECT content FROM " + table
-				+ " WHERE Dictionary = ? AND content = ?", contents);
+		Cursor cursor = db.rawQuery("SELECT Content FROM " + table
+				+ " WHERE Dictionary = " + wordlistId + " AND Content = ? ", contents);
 
 		if (cursor.getCount() != 0) {
 			cursor.close();
