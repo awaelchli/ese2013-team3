@@ -54,7 +54,8 @@ public class WordlistHandler extends DataHandler {
 			// TODO: use ? to prevent injection
 			db.execSQL("INSERT INTO Dictionary VALUES(NULL,'" + name + "')");
 			db.close();
-		} else {
+		} 
+		else {
 			throw new WordlistAlreadyInDataBaseException();
 		}
 	}
@@ -137,14 +138,14 @@ public class WordlistHandler extends DataHandler {
 
 			db.execSQL("INSERT INTO "
 					+ getFirstLetterFromInputToLowerCase(word)
-					+ SHORT_WORD_TABLE_SUFFIX + " VALUES(NULL, " + wordlistId
-					+ ", '" + word.toLowerCase() + "')");
+					+ SHORT_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
+					+ "', '" + word.toLowerCase() + "')");
 
 		} else if (word.length() >= SMALL_WORD) {
 			db.execSQL("INSERT INTO "
 					+ getFirstLetterFromInputToLowerCase(word)
-					+ LONG_WORD_TABLE_SUFFIX + " VALUES(NULL, " + wordlistId
-					+ ", '" + word.toLowerCase() + "')");
+					+ LONG_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
+					+ "', '" + word.toLowerCase() + "')");
 
 		} else {
 			throw new SQLException();
@@ -191,7 +192,7 @@ public class WordlistHandler extends DataHandler {
 					+ LONG_WORD_TABLE_SUFFIX;
 		}
 		db.execSQL("DELETE FROM " + table
-				+ " WHERE Dictionary = " + wordlistId + " AND content = '" + word
+				+ " WHERE Dictionary = '" + wordlistId + "' AND content = '" + word
 				+ "'");
 		db.close();
 	}
@@ -217,17 +218,17 @@ public class WordlistHandler extends DataHandler {
 
 		SQLiteDatabase db = helper.getReadableDatabase();
 
-		String[] contents = { word.toLowerCase() };
+		String[] contents = {word.toLowerCase()};
 
 		Cursor cursor = db.rawQuery("SELECT Dictionary, Content FROM " + table
-				+ " WHERE Dictionary = " + wordlistId + " AND Content = ? ",
-				contents);
+				+ " WHERE Dictionary = '" + wordlistId + "' AND Content = ? ",contents);
 
 		if (cursor.getCount() != 0) {
 			cursor.close();
 			db.close();
 			return true;
 		} else {
+			cursor.close();
 			db.close();
 			return false;
 		}
@@ -321,14 +322,22 @@ public class WordlistHandler extends DataHandler {
 	public String getRandomWordFromWordlist() {
 		String word;
 		Random r = new Random();
-		int letter = r.nextInt(26);
-		String table = MySQLiteHelper.ALPHABET.substring(letter, letter + 1);
+		int randomint = r.nextInt(26);
+		String table = MySQLiteHelper.ALPHABET.substring(randomint, randomint + 1);
+		return getRandomWordFromWordlistByLetter(table);
+
+	}
+
+	public String getRandomWordFromWordlistByLetter(String letter) {
+		Random r = new Random();
+		String word;
+		String table ="";
 		switch (r.nextInt(2)) {
 		case 0:
-			table = table + SHORT_WORD_TABLE_SUFFIX;
+			table = letter + SHORT_WORD_TABLE_SUFFIX;
 			break;
 		case 1:
-			table = table + LONG_WORD_TABLE_SUFFIX;
+			table = letter + LONG_WORD_TABLE_SUFFIX;
 			break;
 		}
 		SQLiteDatabase db = helper.getReadableDatabase();
@@ -346,7 +355,6 @@ public class WordlistHandler extends DataHandler {
 			db.close();
 			return "";
 		}
-
 	}
 
 }
