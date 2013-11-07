@@ -1,6 +1,7 @@
 package ch.unibe.scg.team3.board;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -55,6 +56,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		
 		StringLengthComparator comp=new StringLengthComparator();
 		ArrayList<String> words= new ArrayList<String>();
+		ArrayList<Character> lettersOnBoard= new ArrayList<Character>();
 		
 		for(int m=0; m<9*minWords;m++){
 			String word=list.getRandomWordFromWordlist();
@@ -71,6 +73,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 			String word=words.get(m);
 			if(placeWord(word)){
 				k++;
+				
 			}
 		}
 		
@@ -132,18 +135,12 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 				if(this.board.getToken(i, j).getLetter()==NullToken.getInstance().getLetter()){
 					
 					setWord = placeLetterAndContinue(letters, k, p, pCoord, new Point(i,j));
+					
 				}
 			}
 		}
 		
 		if(setWord){
-//			Iterator<IToken> itr=p.iterator();
-//			
-//			while(itr.hasNext()){
-//				IToken t=itr.next();
-//				board.setToken(t, t.getCoordinates().getX(), t.getCoordinates().getY());
-//				
-//			}
 			
 			board.setPath(p);
 			
@@ -187,6 +184,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		return placed;
 	}
 
+	// places the token on the board and recursively invoke addNextLetters
 	private boolean placeLetterAndContinue(char[] letters, int index, Path<IToken> p, LinkedList<Point> pCoord, Point nextPoint) {
 		
 		char nextLetter=letters[index];
@@ -210,6 +208,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		return placed;
 	}
 
+	//returns Points adjacent to the parameter (only valid coordinates)
 	private ArrayList<Point> getAdjacent(Point coord){
 		
 		ArrayList<Point> adjacent=new ArrayList<Point>();
