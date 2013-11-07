@@ -17,6 +17,7 @@ import ch.unibe.scg.team3.wordfinder.R;
 
 public class Game extends AbstractGame {
 
+	public static final int DEFAULT_MIN_WORDS_TO_FIND = 30;
 	public static final int MAX_WORDS_TO_FIND = 10;
 	public static final long TIME_LIMIT = 2 * 60000;
 
@@ -48,7 +49,7 @@ public class Game extends AbstractGame {
 
 	private void generateBoard(int boardSize) {
 		 SimpleDBBoardGenerator gen = new SimpleDBBoardGenerator(boardSize,
-		 wordlistHandler, 30);
+		 wordlistHandler, DEFAULT_MIN_WORDS_TO_FIND);
 		 board = gen.getBoard();
 //		RandomBoardGenerator rnd = new RandomBoardGenerator(boardSize);
 //		board = rnd.getBoard();

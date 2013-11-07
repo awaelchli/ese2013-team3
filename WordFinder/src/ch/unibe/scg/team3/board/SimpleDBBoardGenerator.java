@@ -1,17 +1,14 @@
 package ch.unibe.scg.team3.board;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
 import ch.unibe.scg.team3.game.Path;
+import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import ch.unibe.scg.team3.token.AbstractToken;
 import ch.unibe.scg.team3.token.IToken;
-import ch.unibe.scg.team3.token.NullToken;
 import ch.unibe.scg.team3.token.Token;
 
 /**
@@ -24,7 +21,6 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 	private WordlistHandler list;
 	private int minWords;
 	private Random r;
-	private AbstractLetterMeter meter;
 
 	public SimpleDBBoardGenerator(int size, WordlistHandler wordList, int minWords) {
 		super(size);
@@ -32,17 +28,52 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		this.list=wordList;
 		this.minWords=minWords;
 		this.r = new Random();
-		this.meter=new DefaultLetterMeter();
+		//this.meter=new DefaultLetterMeter();
 	}
 
 	@Override
 	public void generate() {
 		
 		
-		
-		int k=0;
-		int n=0;
-		
+//		
+//		int k=0;
+//		int n=0;
+//		
+////		while(k<minWords){
+////			
+////			String word=list.getRandomWordFromWordlist();
+////			
+////			n++;
+////			
+////			if(placeWord(word)){
+////				k++;
+////			}
+////			
+////		}
+//		
+//		StringLengthComparator comp=new StringLengthComparator();
+//		ArrayList<String> words= new ArrayList<String>();
+//		ArrayList<Character> lettersOnBoard= new ArrayList<Character>();
+//		
+//		for(int m=0; m<9*minWords;m++){
+//			String word=list.getRandomWordFromWordlist();
+//			if(word.length()<8){
+//				words.add(word);
+//			}
+//			
+//		}
+//		
+//		
+//		Collections.sort(words, comp);
+//		
+//		for(int m=0; m<words.size();m++){
+//			String word=words.get(m);
+//			if(placeWord(word)){
+//				k++;
+//				
+//			}
+//		}
+//		
 //		while(k<minWords){
 //			
 //			String word=list.getRandomWordFromWordlist();
@@ -54,60 +85,53 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 //			}
 //			
 //		}
+//		
+//		
+//		System.out.println(n);
+//		
+		String firstWord = list.getRandomWordFromWordlist();
+		placeWord(firstWord);
 		
-		StringLengthComparator comp=new StringLengthComparator();
-		ArrayList<String> words= new ArrayList<String>();
-		ArrayList<Character> lettersOnBoard= new ArrayList<Character>();
-		
-		for(int m=0; m<9*minWords;m++){
-			String word=list.getRandomWordFromWordlist();
-			if(word.length()<8){
-				words.add(word);
-			}
+		int placedCount = 0;
+		while(placedCount < minWords){
 			
-		}
-		
-		
-		Collections.sort(words, comp);
-		
-		for(int m=0; m<words.size();m++){
-			String word=words.get(m);
-			if(placeWord(word)){
-				k++;
-				
-			}
-		}
-		
-		while(k<minWords){
-			
-			String word=list.getRandomWordFromWordlist();
-			
-			n++;
-			
-			if(placeWord(word)){
-				k++;
-			}
-			
-		}
-		
-		
-		System.out.println(n);
-		
-		
-		// fill the rest with random letters
-
-		for (int i = 0; i < this.board.getSize(); i++) {
-		
-			for (int j = 0; j < this.board.getSize(); j++) {
-
-				if (board.getToken(i, j).isEmpty()) {
-							
-					char letter = (char) (r.nextInt(26) + 'a');
-					AbstractToken tok = new Token(letter, meter.getValue(letter), i, j);
-					this.board.setToken(tok);
+			for(IToken tok : board){
+				if(!tok.isEmpty()){
+					
+					String letter = "" + tok.getLetter();
+					String random = list.getRandomWordFromWordlistByLetter(letter);
+					
+					if(placeWord(random)){
+						placedCount++;
+					}
 				}
 			}
 		}
+		
+		// fill the rest with random letters
+		for(IToken tok : board){
+			if(tok.isEmpty()){
+				String alphabet = MySQLiteHelper.ALPHABET;
+				Random rnd = new Random();
+				int rndIndex = rnd.nextInt(alphabet.length());
+				char letter = alphabet.charAt(rndIndex);
+				
+				board.setToken(new Token(letter, meter.getValue(letter), tok.getCoordinates()));
+			}
+		}
+
+//		for (int i = 0; i < this.board.getSize(); i++) {
+//		
+//			for (int j = 0; j < this.board.getSize(); j++) {
+//
+//				if (board.getToken(i, j).isEmpty()) {
+//							
+//					char letter = (char) (r.nextInt(26) + 'a');
+//					AbstractToken tok = new Token(letter, meter.getValue(letter), i, j);
+//					this.board.setToken(tok);
+//				}
+//			}
+//		}
 	}
 
 	//will place the words in the board, using existing letters if possible

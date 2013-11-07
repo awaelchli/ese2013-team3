@@ -1,5 +1,8 @@
 package ch.unibe.scg.team3.board;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import ch.unibe.scg.team3.game.Path;
 import ch.unibe.scg.team3.token.*;
 
@@ -9,7 +12,7 @@ import ch.unibe.scg.team3.token.*;
  * 
  * @author adrian
  */
-public class Board {
+public class Board implements Iterable<IToken>{
 
 	public static final int DEFAULT_SIZE = 6;
 	
@@ -127,5 +130,16 @@ public class Board {
 			}
 		}
 		return clone;
+	}
+
+	@Override
+	public Iterator<IToken> iterator() {
+		ArrayList<IToken> iterable = new ArrayList<IToken>();
+		for(int row = 0; row < size; row++){
+			for(int col = 0; col < size; col++){
+				iterable.add(getToken(col, row));
+			}
+		}
+		return iterable.iterator();
 	}
 }
