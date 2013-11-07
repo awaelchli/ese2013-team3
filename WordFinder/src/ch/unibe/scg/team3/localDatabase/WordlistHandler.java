@@ -143,7 +143,7 @@ public class WordlistHandler extends DataHandler {
 		}
 	}
 
-	private String getFirstLetterFromInputToLowerCase(String word) {
+	public String getFirstLetterFromInputToLowerCase(String word) {
 		return word.substring(0, 1).toLowerCase();
 	}
 	/**
