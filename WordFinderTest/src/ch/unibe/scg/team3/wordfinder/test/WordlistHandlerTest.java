@@ -50,8 +50,8 @@ public class WordlistHandlerTest extends AndroidTestCase {
 
 	public void testAddWordToWordlist() throws WordlistAlreadyInDataBaseException {
 		wordlistHandler.addEmptyWordlist("TestAddWordToWordlist");
-		wordlistHandler.addWordToWordlist("Teste", "TestAddWordToWordlist");
-		assertTrue(wordlistHandler.isWordInWordlist("Teste", wordlistHandler.getWordlistId("TestAddWordToWordlist")));
+		wordlistHandler.addWordToWordlist("teste", "TestAddWordToWordlist");
+		assertTrue(wordlistHandler.isWordInWordlist("teste", wordlistHandler.getWordlistId("TestAddWordToWordlist")));
 	}
 	
 	public void testAddWordToOpenDb()

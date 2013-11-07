@@ -109,10 +109,8 @@ public class WordlistHandler extends DataHandler {
 		} catch (SQLException e) {
 			db.close();
 			return false;
-		} finally {
-			db.close();
-		}
-
+		} 
+		db.close();
 		return true;
 	}
 	/**
@@ -132,13 +130,13 @@ public class WordlistHandler extends DataHandler {
 		if (word.length() < SMALL_WORD && word.length() > 0) {
 
 			db.execSQL("INSERT INTO " + getFirstLetterFromInputToLowerCase(word)
-					+ SHORT_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
-					+ "', '" + word.toLowerCase() + "')");
+					+ SHORT_WORD_TABLE_SUFFIX + " VALUES(NULL, " + wordlistId
+					+ ", '" + word.toLowerCase() + "')");
 
-		} else if (word.length() > SMALL_WORD) {
+		} else if (word.length() >= SMALL_WORD) {
 			db.execSQL("INSERT INTO " + getFirstLetterFromInputToLowerCase(word)
-					+ LONG_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
-					+ "', '" + word.toLowerCase() + "')");
+					+ LONG_WORD_TABLE_SUFFIX + " VALUES(NULL, " + wordlistId
+					+ ", '" + word.toLowerCase() + "')");
 
 		} else {
 			throw new SQLException();
@@ -198,7 +196,7 @@ public class WordlistHandler extends DataHandler {
 
 		String[] contents = {word.toLowerCase() };
 
-		Cursor cursor = db.rawQuery("SELECT Content FROM " + table
+		Cursor cursor = db.rawQuery("SELECT Dictionary, Content FROM " + table
 				+ " WHERE Dictionary = " + wordlistId + " AND Content = ? ", contents);
 
 		if (cursor.getCount() != 0) {
@@ -206,9 +204,10 @@ public class WordlistHandler extends DataHandler {
 			db.close();
 			return true;
 		}
-
+		else{
 		db.close();
 		return false;
+		}
 
 	}
 
