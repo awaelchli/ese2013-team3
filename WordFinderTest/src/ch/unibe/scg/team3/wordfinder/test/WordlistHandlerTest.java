@@ -61,17 +61,17 @@ public class WordlistHandlerTest extends AndroidTestCase {
 	}
 
 	public void testRemoveWordlist() throws WordlistAlreadyInDataBaseException {
-		wordlistHandler.addEmptyWordlist("TestIsWordInWordlist");
-		wordlistHandler.removeWordlist("TestIsWordInWordlist");
-		assertFalse(wordlistHandler.isWordlistInDatabase("TestIsWordInWordlist"));
+		wordlistHandler.addEmptyWordlist("TestRemoveWordlist");
+		wordlistHandler.removeWordlist("TestRemoveWordlist");
+		assertFalse(wordlistHandler.isWordlistInDatabase("TestRemoveWordlist"));
 		assertFalse(wordlistHandler.isWordlistInDatabase(""));
 	}
 	
 	public void testRemoveWordFromWordlist() throws WordlistAlreadyInDataBaseException {
-		wordlistHandler.addEmptyWordlist("TestIsWordInWordlist");
-		wordlistHandler.addWordToWordlist("Teste", "TestIsWordInWordlist");
-		wordlistHandler.removeWordFromWordlist("teste","TestIsWordInWordlist");
-		assertTrue(!(wordlistHandler.isWordInWordlist("Teste", wordlistHandler.getWordlistId("TestIsWordInWordlist"))));
+		wordlistHandler.addEmptyWordlist("TestRemoveWordFromWordlist");
+		wordlistHandler.addWordToWordlist("Teste", "TestRemoveWordFromWordlist");
+		wordlistHandler.removeWordFromWordlist("teste","TestRemoveWordFromWordlist");
+		assertFalse((wordlistHandler.isWordInWordlist("Teste", wordlistHandler.getWordlistId("TestRemoveWordFromWordlist"))));
 	}
 	
 	public void testIsWordInWordlist() throws WordlistAlreadyInDataBaseException {

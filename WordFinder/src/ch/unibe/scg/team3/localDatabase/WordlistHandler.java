@@ -179,8 +179,10 @@ public class WordlistHandler extends DataHandler {
 	 *            name of wordlist which contains the word to remove
 	 */
 	public void removeWordFromWordlist(String word, String wordlist) {
+		int wordlistId =getWordlistId(wordlist);
 		SQLiteDatabase db = helper.getWritableDatabase();
 		String table;
+		
 		if (word.length() < SMALL_WORD) {
 			table = getFirstLetterFromInputToLowerCase(word)
 					+ SHORT_WORD_TABLE_SUFFIX;
@@ -189,7 +191,7 @@ public class WordlistHandler extends DataHandler {
 					+ LONG_WORD_TABLE_SUFFIX;
 		}
 		db.execSQL("DELETE FROM " + table
-				+ " WHERE Name = '" + wordlist + "' AND content = '" + word
+				+ " WHERE Dictionary = " + wordlistId + " AND content = '" + word
 				+ "'");
 		db.close();
 	}
