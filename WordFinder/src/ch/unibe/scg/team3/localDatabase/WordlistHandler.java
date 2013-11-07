@@ -187,8 +187,8 @@ public class WordlistHandler extends DataHandler {
 			word = getFirstLetterFromInputToLowerCase(word)
 					+ LONG_WORD_TABLE_SUFFIX;
 		}
-		db.execSQL("DELETE FROM" + getFirstLetterFromInputToLowerCase(word)
-				+ "WHERE Name = '" + wordlist + "' AND content = '" + word
+		db.execSQL("DELETE FROM " + getFirstLetterFromInputToLowerCase(word)
+				+ " WHERE Name = '" + wordlist + "' AND content = '" + word
 				+ "'");
 		db.close();
 	}
