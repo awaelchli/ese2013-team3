@@ -3,22 +3,21 @@ package ch.unibe.scg.team3.token;
 import ch.unibe.scg.team3.board.Point;
 
 /**
- * This token is a special type of {@link IToken}. It implements the singleton
- * design pattern.
+ * This token is a special type of {@link IToken}. It is used to represent empty
+ * tokens which have no letter
  * 
  * @author adrian
- * 
  */
 public class NullToken extends AbstractToken {
 
-	private static final NullToken INSTANCE = new NullToken();
+	public static final char NULL_CHAR = ' ';
 
-	private NullToken() {
-
+	public NullToken(Point coordinates){
+		setCoordinates(coordinates);
 	}
-
-	public static IToken getInstance() {
-		return INSTANCE;
+	
+	public NullToken(int x, int y){
+		this(new Point(x, y));
 	}
 
 	@Override
@@ -28,20 +27,16 @@ public class NullToken extends AbstractToken {
 
 	@Override
 	public char getLetter() {
-		return ' ';
+		return NULL_CHAR;
 	}
 
 	@Override
 	public IToken clone() {
-		return new NullToken();
+		return new NullToken(getCoordinates());
 	}
 
 	@Override
-	public Point getCoordinates() {
-		return new Point(-1, -1);
-	}
-
-	@Override
-	public void setCoordinates(Point point) {
+	public boolean isEmpty() {
+		return true;
 	}
 }

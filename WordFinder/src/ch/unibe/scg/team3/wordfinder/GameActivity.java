@@ -22,6 +22,7 @@ public class GameActivity extends Activity implements IGameObserver {
 
 	private Game game;
 	private WordlistHandler wordlistHandler;
+	private PhoneCallListener phoneCallingState;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class GameActivity extends Activity implements IGameObserver {
 		setContentView(R.layout.activity_game);
 
 		wordlistHandler = new WordlistHandler(this);
-
+		phoneCallingState = new PhoneCallListener();
 		int wordlistId = getSelectedWordlistId();
 
 		game = new Game(wordlistHandler, wordlistId);
@@ -71,9 +72,11 @@ public class GameActivity extends Activity implements IGameObserver {
 	protected void onPause() {
 		super.onPause();
 		try {
-			  PhoneCallListener phoneCallingState = new PhoneCallListener();
+			  
 			  if(phoneCallingState.isCalling()){
-				 game.stopTime();
+				  game.stopTime();
+				  phoneCallingState.resetListener();
+
 			  }
 		} catch(Exception e) {
 			  //Log.e("callMonitor", "Exception: "+e.toString());

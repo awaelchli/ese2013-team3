@@ -11,16 +11,15 @@ public class Token extends AbstractToken implements IElement {
 
 	private final char letter;
 	private final int value;
-	private Point coordinates;
 
-	public Token(char letter, int value) {
-		this.letter = letter;
-		this.value = value;
-	}
+//	public Token(char letter, int value) {
+//		
+//	}
 	
 	public Token(char letter, int value, Point coordinates){
-		this(letter, value);
-		this.coordinates = coordinates;
+		this.letter = letter;
+		this.value = value;
+		setCoordinates(coordinates);
 	}
 	
 	public Token(char letter, int value, int x, int y){
@@ -29,26 +28,21 @@ public class Token extends AbstractToken implements IElement {
 
 	@Override
 	public int getValue() {
-		return this.value;
+		return value;
 	}
 
 	@Override
 	public char getLetter() {
-		return this.letter;
+		return letter;
 	}
 
 	@Override
 	public IToken clone() {
-		return new Token(letter, value, coordinates);
+		return new Token(letter, value, getCoordinates());
 	}
 
 	@Override
-	public Point getCoordinates() {
-		return coordinates;
-	}
-
-	@Override
-	public void setCoordinates(Point point) {
-		coordinates = point;
+	public boolean isEmpty() {
+		return false;
 	}
 }

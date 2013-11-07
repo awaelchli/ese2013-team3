@@ -12,4 +12,8 @@ public interface IToken extends IElement{
 	public char getLetter();
 
 	public IToken clone();
+	
+	public boolean letterEquals(IToken tok);
+	
+	public boolean isEmpty();
 }

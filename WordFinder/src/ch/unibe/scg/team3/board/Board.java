@@ -32,9 +32,9 @@ public class Board {
 	private void init() {
 		tokens = new IToken[size][size];
 
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				setToken(NullToken.getInstance(), i, j);
+		for (int col = 0; col < size; col++) {
+			for (int row = 0; row < size; row++) {
+				setToken(new NullToken(col, row));
 			}
 		}
 	}
@@ -46,26 +46,20 @@ public class Board {
 	private boolean inRange(int col, int row) {
 		return 0 <= col && 0 <= row && col < size && row < size;
 	}
-
-	/**
-	 * @param tok The token to place
-	 * @param col A non-negative integer within the range of the board
-	 * @param row A non-negative integer within the range of the board
-	 */
-	public void setToken(IToken tok, int col, int row) {
-		assert tok != null;
-		assert inRange(col, row);
-		tokens[col][row] = tok;
-	}
 	
-	//TODO: use this instead of the method above
 	/**
 	 * Places the token on the board according to its coordinates.
 	 * @param tok The token to be placed
 	 */
 	public void setToken(IToken tok) {
+		assert tok != null;
+		
 		Point point = tok.getCoordinates();
-		setToken(tok, point.getX(), point.getY());
+		int col = point.getX();
+		int row = point.getY();
+		
+		assert inRange(col, row);
+		tokens[col][row] = tok.clone();
 	}
 
 	/**
@@ -126,10 +120,10 @@ public class Board {
 		
 		Board clone = new Board(size);
 		
-		for(int i = 0; i < size; i++){
-			for(int j = 0; j < size; j++){
-				IToken tok = getToken(i, j);
-				clone.setToken(tok.clone(), i, j);
+		for(int col = 0; col < size; col++){
+			for(int row = 0; row < size; row++){
+				IToken tok = getToken(col, row);
+				clone.setToken(tok);
 			}
 		}
 		return clone;

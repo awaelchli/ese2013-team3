@@ -2,6 +2,7 @@ package ch.unibe.scg.team3.board;
 
 import java.util.Random;
 
+import ch.unibe.scg.team3.token.AbstractToken;
 import ch.unibe.scg.team3.token.Token;
 
 /**
@@ -27,8 +28,8 @@ public class RandomBoardGenerator extends AbstractBoardGenerator {
 
 				char letter = (char) (r.nextInt(26) + 'a');
 				int value = valueOf(letter);
-				Token tok = new Token(letter, value);
-				this.board.setToken(tok, i, j);
+				AbstractToken tok = new Token(letter, value, i, j);
+				this.board.setToken(tok);
 			}
 
 		}

@@ -14,18 +14,15 @@ public class RandomBoardGeneratorTest extends AndroidTestCase {
 		RandomBoardGenerator r = new RandomBoardGenerator(1);
 
 		Board board = r.getBoard();
-
 		IToken tok = board.getToken(0, 0);
-		IToken nul = NullToken.getInstance();
 
-		assertFalse(tok.getLetter() == nul.getLetter());
+		assertFalse(tok.isEmpty());
 	}
 
 	public void testBoardNoNullToken() {
 		RandomBoardGenerator r = new RandomBoardGenerator(100);
 
 		Board board = r.getBoard();
-		IToken nul = NullToken.getInstance();
 
 		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toLowerCase();
 
@@ -33,7 +30,7 @@ public class RandomBoardGeneratorTest extends AndroidTestCase {
 			for (int j = 0; j < board.getSize(); j++) {
 
 				IToken tok = board.getToken(i, j);
-				assertFalse(tok.equals(nul));
+				assertFalse(tok.isEmpty());
 				assertTrue(alphabet.contains(tok.toString()));
 			}
 		}

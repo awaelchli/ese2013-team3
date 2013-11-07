@@ -8,6 +8,7 @@ import java.util.Random;
 
 import ch.unibe.scg.team3.game.Path;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
+import ch.unibe.scg.team3.token.AbstractToken;
 import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.token.NullToken;
 import ch.unibe.scg.team3.token.Token;
@@ -56,7 +57,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		StringLengthComparator comp=new StringLengthComparator();
 		ArrayList<String> words= new ArrayList<String>();
 		
-		for(int m=0; m<3*minWords;m++){
+		for(int m=0; m<9*minWords;m++){
 			String word=list.getRandomWordFromWordlist();
 			if(word.length()<8){
 				words.add(word);
@@ -96,11 +97,11 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		
 			for (int j = 0; j < this.board.getSize(); j++) {
 
-				if (board.getToken(i, j).getLetter() == NullToken.getInstance().getLetter()) {
+				if (board.getToken(i, j).isEmpty()) {
 							
 					char letter = (char) (r.nextInt(26) + 'a');
-					Token tok = new Token(letter, meter.getValue(letter));
-					this.board.setToken(tok, i, j);
+					AbstractToken tok = new Token(letter, meter.getValue(letter), i, j);
+					this.board.setToken(tok);
 				}
 			}
 		}
@@ -115,35 +116,37 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		LinkedList<Point> pCoord=new LinkedList<Point>();
 		boolean setWord=false;
 		
+		//place word on an existing letter if possible
 		for(int i=0; (i < size) && (!setWord) ;i++){
 			for(int j=0; (j<size) && (!setWord); j++){
 				if(this.board.getToken(i, j).getLetter()==letters[k]){
 					
-					setWord = placeLetterAndContinue(letters, k, p, pCoord, new Point(i,j));
-					
+					setWord = placeLetterAndContinue(letters, k, p, pCoord, new Point(i,j));	
 					
 				}
 			}
 		}
 		
+		//if not possible on existing letter, search for empty spot
 		for(int i=0; (i < size) && (!setWord) ;i++){
 			for(int j=0; (j<size) && (!setWord); j++){
-				if(this.board.getToken(i, j).getLetter()==NullToken.getInstance().getLetter()){
+				if(this.board.getToken(i, j).isEmpty()){
 					
 					setWord = placeLetterAndContinue(letters, k, p, pCoord, new Point(i,j));
-
 				}
 			}
 		}
 		
 		if(setWord){
-			Iterator<IToken> itr=p.iterator();
+//			Iterator<IToken> itr=p.iterator();
+//			
+//			while(itr.hasNext()){
+//				IToken t=itr.next();
+//				board.setToken(t, t.getCoordinates().getX(), t.getCoordinates().getY());
+//				
+//			}
 			
-			while(itr.hasNext()){
-				IToken t=itr.next();
-				board.setToken(t, t.getCoordinates().getX(), t.getCoordinates().getY());
-				
-			}
+			board.setPath(p);
 			
 			System.out.println(word);
 			
@@ -169,7 +172,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 			if((boardToken.getLetter()==nextLetter) && !(p.contains(boardToken))){
 				placed = placeLetterAndContinue(letters, index, p, pCoord, testNext);
 			}
-			if((boardToken.getLetter() == NullToken.getInstance().getLetter()) && !(pCoord.contains(testNext))){
+			if(boardToken.isEmpty()&& !(pCoord.contains(testNext))){
 				empty.add(testNext);
 			}
 		}
@@ -190,14 +193,10 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		char nextLetter=letters[index];
 		boolean placed=false;
 		
-		Token nextTok=new Token(nextLetter, meter.getValue(nextLetter));
-		nextTok.setCoordinates(nextPoint);
+		AbstractToken nextTok=new Token(nextLetter, meter.getValue(nextLetter), nextPoint);
 		pCoord.add(nextPoint);
-		boolean added=p.add(nextTok);
+		p.add(nextTok);
 		
-		if(added==false){
-			p.add(nextTok);
-		}
 		
 		if(index+1==letters.length){
 			placed=true;

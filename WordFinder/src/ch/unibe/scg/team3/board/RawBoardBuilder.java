@@ -1,5 +1,6 @@
 package ch.unibe.scg.team3.board;
 
+import ch.unibe.scg.team3.token.AbstractToken;
 import ch.unibe.scg.team3.token.Token;
 
 /**
@@ -35,7 +36,7 @@ public class RawBoardBuilder extends AbstractBoardGenerator {
 				char letter = raw.charAt(index);
 				int value = meter.getValue(letter);
 				
-				Token tok = new Token(letter, value, i, j);
+				AbstractToken tok = new Token(letter, value, i, j);
 				board.setToken(tok);
 				
 				index++;
