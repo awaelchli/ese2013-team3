@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.4" icons="true">  
+  <object id="1" language="java" name="ch.unibe.scg.team3.game.Game" project="WordFinder" 
+    file="/WordFinder/src/ch/unibe/scg/team3/game/Game.java" binary="false" label="game" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="250" y="0"/>  
+  </object>
+</sequence-diagram>

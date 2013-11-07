@@ -13,10 +13,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
+
 /**
  * This class gives the possibility to manage wordlists in the database.
+ * 
  * @author nils
- *
+ * 
  */
 public class WordlistHandler extends DataHandler {
 
@@ -27,20 +29,20 @@ public class WordlistHandler extends DataHandler {
 	public static final String SHORT_WORD_TABLE_SUFFIX = "short";
 	public static final String LONG_WORD_TABLE_SUFFIX = "long";
 	private String selectedWordlist;
-	
-	
+
 	// TODO: check for injections
 	public WordlistHandler(Context context) {
 		super(context);
-		
+
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
-		selectedWordlist = preferences
-				.getString("choose_wordlist", null);
+		selectedWordlist = preferences.getString("choose_wordlist", null);
 
 	}
+
 	/**
-//	 * Adds a new Wordlistentry in Database
+	 * // * Adds a new Wordlistentry in Database
+	 * 
 	 * @param name
 	 * @throws WordlistAlreadyInDataBaseException
 	 */
@@ -52,7 +54,8 @@ public class WordlistHandler extends DataHandler {
 			// TODO: use ? to prevent injection
 			db.execSQL("INSERT INTO Dictionary VALUES(NULL,'" + name + "')");
 			db.close();
-		} else {
+		} 
+		else {
 			throw new WordlistAlreadyInDataBaseException();
 		}
 	}
@@ -89,15 +92,17 @@ public class WordlistHandler extends DataHandler {
 			db.endTransaction();
 		}
 	}
+
 	/**
-	 * Adds a word to the given wordlist in main database. Pay attention that database
-	 * is closed before invoke and it will be closed after execution.
+	 * Adds a word to the given wordlist in main database. Pay attention that
+	 * database is closed before invoke and it will be closed after execution.
+	 * 
 	 * @param word
-	 * 			should not be empty or null
+	 *            should not be empty or null
 	 * @param wordlistname
-	 * 			should not be empty or null
-	 * @return
-	 * 			returns boolean value whether adding entry in database was successful
+	 *            should not be empty or null
+	 * @return returns boolean value whether adding entry in database was
+	 *         successful
 	 */
 	public boolean addWordToWordlist(String word, String wordlistname) {
 
@@ -105,25 +110,25 @@ public class WordlistHandler extends DataHandler {
 		SQLiteDatabase db = helper.getWritableDatabase();
 
 		try {
-			addWordToOpenDb(word, wordlistId, db);
+			addWordToOpenDb(word.toLowerCase(), wordlistId, db);
 		} catch (SQLException e) {
 			db.close();
 			return false;
-		} finally {
-			db.close();
 		}
-
+		db.close();
 		return true;
 	}
+
 	/**
-	 * 			Adds a word to an OPEN! database. Its important to use this method carefully!
-	 * 			Database will NOT! be closed after execution!
+	 * Adds a word to an OPEN! database. Its important to use this method
+	 * carefully! Database will NOT! be closed after execution!
+	 * 
 	 * @param word
-	 * 			should not be empty or null
+	 *            should not be empty or null
 	 * @param wordlistId
-	 * 			should not be empty or null
+	 *            should not be empty or null
 	 * @param db
-	 * 			should be a valid dataBase
+	 *            should be a valid dataBase
 	 * @throws SQLException
 	 */
 
@@ -131,50 +136,67 @@ public class WordlistHandler extends DataHandler {
 			throws SQLException {
 		if (word.length() < SMALL_WORD && word.length() > 0) {
 
-			db.execSQL("INSERT INTO " + getFirstLetterFromInputToLowerCase(word)
+			db.execSQL("INSERT INTO "
+					+ getFirstLetterFromInputToLowerCase(word)
 					+ SHORT_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
-					+ "', '" + word + "')");
+					+ "', '" + word.toLowerCase() + "')");
 
-		} else if (word.length() > SMALL_WORD) {
-			db.execSQL("INSERT INTO " + getFirstLetterFromInputToLowerCase(word)
+		} else if (word.length() >= SMALL_WORD) {
+			db.execSQL("INSERT INTO "
+					+ getFirstLetterFromInputToLowerCase(word)
 					+ LONG_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
-					+ "', '" + word + "')");
+					+ "', '" + word.toLowerCase() + "')");
 
 		} else {
 			throw new SQLException();
 		}
 	}
 
-	private String getFirstLetterFromInputToLowerCase(String word) {
+	public String getFirstLetterFromInputToLowerCase(String word) {
 		return word.substring(0, 1).toLowerCase();
 	}
+
 	/**
-	 * Removes a wordlist given by name in main database. Pay attention that database
-	 * is closed before invoke and it will be closed after execution.
+	 * Removes a wordlist given by name in main database. Pay attention that
+	 * database is closed before invoke and it will be closed after execution.
+	 * 
 	 * @param name
-	 * 			name of wordlist to be removed from main database
+	 *            name of wordlist to be removed from main database
 	 */
 	public void removeWordlist(String name) {
 		SQLiteDatabase db = helper.getWritableDatabase();
-		db.execSQL("DELETE IF EXISTS FROM Dictionary WHERE Name = '" + name
-				+ "'");
+		db.execSQL("DELETE FROM Dictionary WHERE Name = '" + name + "'");
 		db.close();
 	}
+
 	/**
-	 * Removes a word from the given wordlist in main database. Pay attention that database
-	 * is closed before invoke and it will be closed after execution.
+	 * Removes a word from the given wordlist in main database. Pay attention
+	 * that database is closed before invoke and it will be closed after
+	 * execution.
+	 * 
 	 * @param word
-	 * 			word to be removed from a wordlist given by name
+	 *            word to be removed from a wordlist given by name
 	 * @param wordlist
-	 * 			name of wordlist which contains the word to remove
+	 *            name of wordlist which contains the word to remove
 	 */
 	public void removeWordFromWordlist(String word, String wordlist) {
+		int wordlistId =getWordlistId(wordlist);
 		SQLiteDatabase db = helper.getWritableDatabase();
-		db.execSQL("DELETE IF EXISTS FROM" + getFirstLetterFromInputToLowerCase(word)
-				+ "WHERE Name = '" + wordlist + "' AND content = '" + word
+		String table;
+		
+		if (word.length() < SMALL_WORD) {
+			table = getFirstLetterFromInputToLowerCase(word)
+					+ SHORT_WORD_TABLE_SUFFIX;
+		} else {
+			table = getFirstLetterFromInputToLowerCase(word)
+					+ LONG_WORD_TABLE_SUFFIX;
+		}
+		db.execSQL("DELETE FROM " + table
+				+ " WHERE Dictionary = '" + wordlistId + "' AND content = '" + word
 				+ "'");
 		db.close();
 	}
+
 	/**
 	 * 
 	 * @param word
@@ -196,19 +218,20 @@ public class WordlistHandler extends DataHandler {
 
 		SQLiteDatabase db = helper.getReadableDatabase();
 
-		String[] contents = { Integer.toString(wordlistId), word.toLowerCase() };
+		String[] contents = {word.toLowerCase()};
 
-		Cursor cursor = db.rawQuery("SELECT content FROM " + table
-				+ " WHERE Dictionary = ? AND content = ?", contents);
+		Cursor cursor = db.rawQuery("SELECT Dictionary, Content FROM " + table
+				+ " WHERE Dictionary = '" + wordlistId + "' AND Content = ? ",contents);
 
 		if (cursor.getCount() != 0) {
 			cursor.close();
 			db.close();
 			return true;
+		} else {
+			cursor.close();
+			db.close();
+			return false;
 		}
-
-		db.close();
-		return false;
 
 	}
 
@@ -221,7 +244,7 @@ public class WordlistHandler extends DataHandler {
 
 		Cursor cursor = db.rawQuery(
 				"SELECT _id FROM Dictionary WHERE Name = ?", content);
-		
+
 		if (cursor.getCount() != 0) {
 			cursor.close();
 			db.close();
@@ -232,7 +255,7 @@ public class WordlistHandler extends DataHandler {
 
 	}
 
-	//TODO: look at code downwards here
+	// TODO: look at code downwards here
 	public int getWordlistId(String wordlistname) {
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT _id FROM Dictionary WHERE Name = ?",
@@ -250,7 +273,7 @@ public class WordlistHandler extends DataHandler {
 	}
 
 	public CharSequence[] getWordlists() {
-		CharSequence[] lists;
+		CharSequence[] lists = null;
 		ArrayList<String> tmp = new ArrayList<String>();
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT _id , Name FROM Dictionary", null);
@@ -266,12 +289,12 @@ public class WordlistHandler extends DataHandler {
 			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
 		}
 		db.close();
-		return null;
+		return lists;
 
 	}
 
 	public CharSequence[] getWordlistids() {
-		CharSequence[] lists;
+		CharSequence[] lists = null;
 		ArrayList<String> tmp = new ArrayList<String>();
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT _id , Name FROM Dictionary", null);
@@ -286,7 +309,7 @@ public class WordlistHandler extends DataHandler {
 			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
 		}
 		db.close();
-		return null;
+		return lists;
 
 	}
 
@@ -296,37 +319,42 @@ public class WordlistHandler extends DataHandler {
 		db.close();
 	}
 
-	public SQLiteDatabase getDb() {
-		return helper.getWritableDatabase();
-	}
-	
-	public String getRandomWordFromWordlist(){
+	public String getRandomWordFromWordlist() {
 		String word;
 		Random r = new Random();
-		int letter = r.nextInt(26);
-		String table = MySQLiteHelper.ALPHABET.substring(letter,letter + 1);
-		switch(r.nextInt(2)){
-			case 0: table = table + SHORT_WORD_TABLE_SUFFIX;
-					break;
-			case 1: table = table + LONG_WORD_TABLE_SUFFIX;
-					break;		
+		int randomint = r.nextInt(26);
+		String table = MySQLiteHelper.ALPHABET.substring(randomint, randomint + 1);
+		return getRandomWordFromWordlistByLetter(table);
+
+	}
+
+	public String getRandomWordFromWordlistByLetter(String letter) {
+		Random r = new Random();
+		String word;
+		String table ="";
+		switch (r.nextInt(2)) {
+		case 0:
+			table = letter + SHORT_WORD_TABLE_SUFFIX;
+			break;
+		case 1:
+			table = letter + LONG_WORD_TABLE_SUFFIX;
+			break;
 		}
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT Content FROM " + table +" WHERE Dictionary = '" +
-				selectedWordlist + "' ORDER BY RANDOM() LIMIT 1", null);
+		Cursor c = db.rawQuery("SELECT Content FROM " + table
+				+ " WHERE Dictionary = '" + selectedWordlist
+				+ "' ORDER BY RANDOM() LIMIT 1", null);
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
 			word = c.getString(0);
 			c.close();
 			db.close();
 			return word;
-		}
-		else {
+		} else {
 			c.close();
 			db.close();
 			return "";
 		}
-		
 	}
 
 }

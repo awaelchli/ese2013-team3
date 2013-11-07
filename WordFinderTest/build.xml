@@ -91,8 +91,8 @@
     
     <target name="fetch-test-report">
    <echo>Downloading XML test report…</echo>
+   <delete dir="/data/data/${tested.project.app.package}/"/>
    <mkdir dir="junitreports"/>
-     <delete dir="/data/data/${tested.project.app.package}/"/>
    <exec executable="${adb}" failonerror="true">
       <arg line="${adb.device.arg}"/>
       <arg value="pull"/>
