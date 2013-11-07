@@ -154,7 +154,7 @@ public class WordlistHandler extends DataHandler {
 	 */
 	public void removeWordlist(String name) {
 		SQLiteDatabase db = helper.getWritableDatabase();
-		db.execSQL("DELETE IF EXISTS FROM Dictionary WHERE Name = '" + name
+		db.execSQL("DELETE FROM Dictionary WHERE Name = '" + name
 				+ "'");
 		db.close();
 	}
@@ -168,7 +168,7 @@ public class WordlistHandler extends DataHandler {
 	 */
 	public void removeWordFromWordlist(String word, String wordlist) {
 		SQLiteDatabase db = helper.getWritableDatabase();
-		db.execSQL("DELETE IF EXISTS FROM" + getFirstLetterFromInputToLowerCase(word)
+		db.execSQL("DELETE FROM" + getFirstLetterFromInputToLowerCase(word)
 				+ "WHERE Name = '" + wordlist + "' AND content = '" + word
 				+ "'");
 		db.close();
