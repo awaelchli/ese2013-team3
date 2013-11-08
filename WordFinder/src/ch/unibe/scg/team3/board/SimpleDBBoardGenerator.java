@@ -92,6 +92,7 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 		String firstWord = list.getRandomWordFromWordlist();
 		placeWord(firstWord);
 		
+		int n=0;
 		int placedCount = 0;
 		while(placedCount < minWords){
 			
@@ -100,13 +101,23 @@ public class SimpleDBBoardGenerator extends AbstractBoardGenerator {
 					
 					String letter = "" + tok.getLetter();
 					String random = list.getRandomWordFromWordlistByLetter(letter);
+					n++;
 					
-					if(placeWord(random)){
+					char letters[]=random.toCharArray();
+					Path<IToken> p=new Path<IToken>();
+					LinkedList<Point> pCoord=new LinkedList<Point>();
+					
+					if(placeLetterAndContinue(letters, 0, p, pCoord, tok.getCoordinates())){
+						
+						System.out.println(random);
+						board.setPath(p);
 						placedCount++;
 					}
 				}
 			}
 		}
+		
+		System.out.println(n);
 		
 		// fill the rest with random letters
 		for(IToken tok : board){
