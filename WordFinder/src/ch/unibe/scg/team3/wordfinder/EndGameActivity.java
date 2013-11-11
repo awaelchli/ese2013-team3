@@ -56,7 +56,7 @@ public class EndGameActivity extends Activity {
 		finish();
 	}
 
-	public void enterTitle(View view) {
+	public void enterTitle(final View view) {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 		alert.setTitle("Save Game");
@@ -64,14 +64,15 @@ public class EndGameActivity extends Activity {
 
 		final EditText input = new EditText(this);
 		alert.setView(input);
-
+		Boolean correct = false;
+		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String value = input.getText().toString();
-				handler.saveGame(value, board, found, time, score, true,
-						guesses);
-				goHome(null);
+				if (handler.saveGame(value, board, found, time, score, true,
+						guesses)){
+				goHome(null);}
+				else reenterTitle(view);
 			}
 		});
 
@@ -85,8 +86,35 @@ public class EndGameActivity extends Activity {
 		alert.show();
 	}
 
-	public void saveGame() {
+	public void reenterTitle(final View view) {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
+		alert.setTitle("Game already in Database");
+		alert.setMessage("Please choose another Title for your game.");
+
+		final EditText input = new EditText(this);
+		alert.setView(input);
+		Boolean correct = false;
+		
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				String value = input.getText().toString();
+				if (handler.saveGame(value, board, found, time, score, true,
+						guesses)){
+				goHome(null);}
+				else enterTitle(view);
+			}
+		});
+
+		alert.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						// Canceled.
+					}
+				});
+
+		alert.show();
 	}
+
 
 }
