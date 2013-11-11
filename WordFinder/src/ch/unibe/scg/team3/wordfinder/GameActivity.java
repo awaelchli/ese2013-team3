@@ -106,20 +106,22 @@ public class GameActivity extends Activity implements IGameObserver {
 
 	public void finishGameSession() {
 		game.stopTime();
-
+		
+		SavedGame savedGame = game.save();
 		Intent intent = new Intent(this, EndGameActivity.class);
-
-		intent.putExtra("score", game.getScore());
-		intent.putExtra("words_found", game.getFoundWords().size());
-
-		long remainingTime = game.getTimer().getRemainingTime();
-		long elapsed = Game.TIME_LIMIT - remainingTime;
-
-		String time = Timer.format(elapsed);
-
-		intent.putExtra("time", time);
-		intent.putExtra("guesses", game.getNumberOfGuesses());
-		intent.putExtra("board", game.getBoard().toString());
+		intent.putExtra("saved_game", savedGame);
+//
+//		intent.putExtra("score", game.getScore());
+//		intent.putExtra("words_found", game.getFoundWords().size());
+//
+//		long remainingTime = game.getTimer().getRemainingTime();
+//		long elapsed = Game.TIME_LIMIT - remainingTime;
+//
+//		String time = Timer.format(elapsed);
+//
+//		intent.putExtra("time", time);
+//		intent.putExtra("guesses", game.getNumberOfGuesses());
+//		intent.putExtra("board", game.getBoard().toString());
 
 		startActivity(intent);
 		finish();

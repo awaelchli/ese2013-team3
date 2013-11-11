@@ -167,4 +167,17 @@ public class Game extends AbstractGame {
 	public int getBoardSize() {
 		return board.getSize();
 	}
+
+	public SavedGame save() {
+		SavedGame saved = new SavedGame();
+		
+		saved.setScore(getScore());
+		saved.setStringBoard(board.toString());
+		saved.setTime(getTime());
+		saved.setGuesses(getNumberOfGuesses());
+		saved.setWordlistId(getWordlistId());
+		saved.setTimesPlayed(getTimesPlayed());
+		
+		return saved;
+	}
 }

@@ -62,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="startGame"
+                    android:onClick="newGame"
                     android:text="@string/new_game_button" />
 
                 <Button
@@ -70,6 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="replayGame"
                     android:text="@string/replay_button" />
 
             </LinearLayout>

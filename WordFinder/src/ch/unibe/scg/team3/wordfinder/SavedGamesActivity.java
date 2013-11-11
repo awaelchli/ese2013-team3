@@ -50,7 +50,7 @@ public class SavedGamesActivity extends Activity {
 	}
 	
 	public void viewSavedGame(View view){
-		view.refreshDrawableState();
+		
 		SavedGamesHandler handler = new SavedGamesHandler(this);
 		TextView textView = (TextView) view.findViewById(R.id.saved_game_name);
 		String gameName = textView.getText().toString();
