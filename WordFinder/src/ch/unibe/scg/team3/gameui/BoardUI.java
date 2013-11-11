@@ -54,7 +54,7 @@ public class BoardUI extends TableLayout implements IGameObserver {
 	}
 
 	@Override
-	public void update(AbstractGame game) {
+	public void update(IGame game) {
 		int size = game.getBoardSize();
 
 		if (buttons == null) {

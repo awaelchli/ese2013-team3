@@ -9,6 +9,7 @@ import android.view.*;
 import android.widget.*;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
 public class SavedGamesActivity extends Activity {
 
@@ -46,5 +47,15 @@ public class SavedGamesActivity extends Activity {
 
 		ListView list = (ListView) findViewById(R.id.saved_Games_list);
 		list.setAdapter(adapter);
+	}
+	public void viewSavedGame(View view){
+		SavedGamesHandler handler = new SavedGamesHandler(this);
+		TextView textView = (TextView) view.findViewById(R.id.saved_game_name);
+		String gameName = textView.getText().toString();
+		SavedGame savedGame = handler.getSavedGameByName(gameName);
+		Intent intent = new Intent(this, ViewSavedGameActivity.class);
+		
+		intent.putExtra("saved_game", savedGame);
+		startActivity(intent);
 	}
 }

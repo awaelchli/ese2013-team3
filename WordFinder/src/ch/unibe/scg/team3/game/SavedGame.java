@@ -1,18 +1,25 @@
 package ch.unibe.scg.team3.game;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import ch.unibe.scg.team3.board.Board;
+import ch.unibe.scg.team3.board.RawBoardBuilder;
+import ch.unibe.scg.team3.board.WordSelection;
 
 /**
  * A saved game stores all the data needed to recover the game and replay it.
  * 
  * @author adrian
- * @see AbstractGame
+ * @see IGame
  */
-public class SavedGame extends AbstractGame implements Serializable {
+public class SavedGame implements IGame, Serializable {
 
-	private static final long serialVersionUID = 5916020210779611232L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5443483841551113239L;
+	// private static final long serialVersionUID = 5916020210779611232L;
 
 	private int id;
 	private String name;
@@ -20,6 +27,31 @@ public class SavedGame extends AbstractGame implements Serializable {
 	private String date;
 	private boolean isPrivate;
 	private int timesPlayed;
+	private String stringBoard;
+
+	private int score;
+
+	private int guesses;
+
+	private int wordlistId;
+
+	private final ArrayList<IGameObserver> observers;
+	private final ArrayList<WordSelection> found;
+
+	private int foundWords;
+
+	public SavedGame() {
+		observers = new ArrayList<IGameObserver>();
+		found = new ArrayList<WordSelection>();
+	}
+
+	public String getStringBoard() {
+		return stringBoard;
+	}
+
+	public void setStringBoard(String stringBoard) {
+		this.stringBoard = stringBoard;
+	}
 
 	public int getId() {
 		return id;
@@ -89,13 +121,67 @@ public class SavedGame extends AbstractGame implements Serializable {
 		this.guesses = guesses;
 	}
 
-	public void setBoard(Board board) {
-		this.board = board;
-	}
-
 	@Override
 	public boolean isOver() {
 		return true;
+	}
+
+	@Override
+	public Board getBoard() {
+		RawBoardBuilder builder = new RawBoardBuilder(stringBoard);
+		return builder.getBoard();
+	}
+
+	@Override
+	public int getBoardSize() {
+		return (int) Math.sqrt(stringBoard.length());
+	}
+
+	@Override
+	public void addObserver(IGameObserver observer) {
+		observers.add(observer);
+	}
+
+	@Override
+	public void removeObserver(IGameObserver observer) {
+		observers.remove(observer);
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (IGameObserver observer : observers) {
+			observer.update(this);
+		}
+	}
+
+	@Override
+	public int getScore() {
+		return score;
+	}
+
+	@Override
+	public int getNumberOfGuesses() {
+		return guesses;
+	}
+
+	@Override
+	public int getNumberOfFoundWords() {
+		return foundWords;
+	}
+
+	@Override
+	public ArrayList<WordSelection> getFoundWords() {
+		return found;
+	}
+
+	@Override
+	public int getWordlistId() {
+		return wordlistId;
+	}
+
+	public void setFoundWords(int found) {
+		foundWords = found;
+		
 	}
 
 }

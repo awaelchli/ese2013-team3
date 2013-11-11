@@ -1,6 +1,6 @@
 package ch.unibe.scg.team3.gameui;
 
-import ch.unibe.scg.team3.game.AbstractGame;
+import ch.unibe.scg.team3.game.IGame;
 import ch.unibe.scg.team3.game.IGameObserver;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -26,7 +26,7 @@ public class ScoreView extends TextView implements IGameObserver {
 	}
 
 	@Override
-	public void update(AbstractGame game) {
+	public void update(IGame game) {
 		setText(Integer.toString(game.getScore()));
 	}
 }

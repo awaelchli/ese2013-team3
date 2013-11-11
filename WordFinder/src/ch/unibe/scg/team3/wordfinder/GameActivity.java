@@ -115,7 +115,7 @@ public class GameActivity extends Activity implements IGameObserver {
 	}
 
 	@Override
-	public void update(AbstractGame game) {
+	public void update(IGame game) {
 		if (game.isOver()) {
 			finishGameSession();
 		}

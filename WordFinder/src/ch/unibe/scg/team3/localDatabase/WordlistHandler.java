@@ -332,13 +332,29 @@ public class WordlistHandler extends DataHandler {
 		Random r = new Random();
 		String word;
 		String table ="";
-		switch (r.nextInt(2)) {
+		int random = r.nextInt(2);
+		boolean rboolean;
+		switch (random) {
 		case 0:
+			rboolean = true;
 			table = letter + SHORT_WORD_TABLE_SUFFIX;
 			break;
-		case 1:
+		default:
 			table = letter + LONG_WORD_TABLE_SUFFIX;
+			rboolean = false;
 			break;
+		}
+		return getRandomWordFromDatabaseByLetterAndLength(letter, rboolean );
+	}
+
+	private String getRandomWordFromDatabaseByLetterAndLength(String letter, boolean length) {
+		String word;
+		String table ="";
+		if (length){
+			table = letter + SHORT_WORD_TABLE_SUFFIX;
+		}
+		else{
+			table = letter + LONG_WORD_TABLE_SUFFIX;
 		}
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT Content FROM " + table

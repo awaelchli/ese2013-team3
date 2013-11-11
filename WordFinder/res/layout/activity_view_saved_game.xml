@@ -1,16 +1,56 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ViewSavedGameActivity" >
+    android:orientation="vertical" 
+    android:gravity="center_horizontal">
 
     <TextView
+        android:id="@+id/titleGameOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/gameoverview"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="35sp" />
 
-</RelativeLayout>
+    <ch.unibe.scg.team3.gameui.BoardUI
+        android:id="@+id/tableboardUI"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:shrinkColumns="*"
+        android:stretchColumns="*" >
+    </ch.unibe.scg.team3.gameui.BoardUI>
+
+    <TextView
+        android:id="@+id/game_overview_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal"
+        android:weightSum="2">
+        
+
+        <Button
+            android:id="@+id/quit_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/quit_button" 
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/replay_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/replay_button" 
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>

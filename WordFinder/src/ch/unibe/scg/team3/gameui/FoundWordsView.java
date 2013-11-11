@@ -3,7 +3,7 @@ package ch.unibe.scg.team3.gameui;
 import java.util.ArrayList;
 
 import ch.unibe.scg.team3.board.WordSelection;
-import ch.unibe.scg.team3.game.AbstractGame;
+import ch.unibe.scg.team3.game.IGame;
 import ch.unibe.scg.team3.game.IGameObserver;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -30,7 +30,7 @@ public class FoundWordsView extends TextView implements IGameObserver {
 	}
 
 	@Override
-	public void update(AbstractGame game) {
+	public void update(IGame game) {
 		ArrayList<WordSelection> list = game.getFoundWords();
 
 		StringBuilder builder = new StringBuilder();

@@ -13,7 +13,7 @@ public class RawBoardBuilder extends AbstractBoardGenerator {
 	private String raw;
 
 	public RawBoardBuilder(String board) {
-		super(board.length());
+		super((int)Math.sqrt(board.length()));
 		raw = board;
 	}
 
@@ -21,7 +21,7 @@ public class RawBoardBuilder extends AbstractBoardGenerator {
 	protected void generate() {
 		double side = Math.sqrt(raw.length());
 
-		if (side % 0 == 0) {
+		if (side % 1 == 0) {
 			fillBoard((int) side);
 		}
 	}
