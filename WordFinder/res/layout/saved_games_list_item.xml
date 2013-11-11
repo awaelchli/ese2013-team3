@@ -2,24 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:longClickable="true"
     android:orientation="vertical"
-    android:padding="@dimen/saved_games_list_item_padding" 
-    android:onClick="viewSavedGame">
-
-    <TextView
-        android:id="@+id/saved_game_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/saved_games_name_size" />
-
-    <TextView
-        android:id="@+id/saved_game_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/saved_game_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+    android:padding="@dimen/saved_games_list_item_padding"
+    android:onClick="viewSavedGame"
+    >
+    
+	<TextView 
+	    android:id="@+id/saved_game_name"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textSize="@dimen/saved_games_name_size"
+	    />
+	
+	<TextView 
+	    android:id="@+id/saved_game_score"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"/>
+	
+	<TextView 
+	    android:id="@+id/saved_game_date"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"/>
+    
 </LinearLayout>
