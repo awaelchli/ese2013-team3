@@ -5,6 +5,7 @@ import java.util.Date;
 
 import ch.unibe.scg.team3.board.Board;
 import ch.unibe.scg.team3.board.RawBoardBuilder;
+import ch.unibe.scg.team3.game.AbstractGame;
 import ch.unibe.scg.team3.game.SavedGame;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -94,7 +95,7 @@ public class SavedGamesHandler extends DataHandler {
 			game.setId(c.getInt(0));
 			game.setName(c.getString(1));
 			game.setStringBoard(c.getString(2));
-			game.setFoundWords(c.getInt(3));
+//			game.setFoundWords(c.getInt(3));
 			game.setTime(c.getString(4));
 			game.setDate(c.getString(5));
 			game.setWordlistId(c.getInt(6));

@@ -5,5 +5,5 @@ package ch.unibe.scg.team3.game;
  */
 public interface IGameObserver {
 
-	public void update(IGame game);
+	public void update(AbstractGame game);
 }

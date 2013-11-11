@@ -335,7 +335,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="38" language="java" name="ch.unibe.scg.team3.game.IGame" project="WordFinder" 
+  <class id="38" language="java" name="ch.unibe.scg.team3.game.AbstractGame" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/game/IGame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="472" y="1452"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 

@@ -2,6 +2,7 @@ package ch.unibe.scg.team3.wordfinder;
 
 import java.util.ArrayList;
 
+import ch.unibe.scg.team3.game.AbstractGame;
 import ch.unibe.scg.team3.game.SavedGame;
 import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 import android.os.Bundle;

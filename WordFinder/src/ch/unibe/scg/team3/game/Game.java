@@ -1,7 +1,5 @@
 package ch.unibe.scg.team3.game;
 
-import java.util.ArrayList;
-
 import ch.unibe.scg.team3.board.*;
 import ch.unibe.scg.team3.gameui.*;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
@@ -16,7 +14,7 @@ import ch.unibe.scg.team3.wordfinder.R;
  * @author faerber
  */
 
-public class Game implements IGame {
+public class Game extends AbstractGame {
 
 	public static final int DEFAULT_MIN_WORDS_TO_FIND = 30;
 	public static final int MAX_WORDS_TO_FIND = 10;
@@ -27,11 +25,6 @@ public class Game implements IGame {
 	private Timer timer;
 	private boolean timeOver;
 	private Board board;
-	protected int score;
-	protected int guesses;
-	protected int wordlistId;
-	protected final ArrayList<IGameObserver> observers;
-	protected final ArrayList<WordSelection> found;
 
 	/**
 	 * @param boardSize
@@ -40,10 +33,7 @@ public class Game implements IGame {
 	 *            A DataHandler to access the database, not null
 	 */
 	public Game(int boardSize, WordlistHandler handler, int wordlistId) {
-		observers = new ArrayList<IGameObserver>();
-		found = new ArrayList<WordSelection>();
-		score = 0;
-		guesses = 0;
+		super();
 
 		wordlistHandler = handler;
 		this.wordlistId = wordlistId;
@@ -58,16 +48,17 @@ public class Game implements IGame {
 	}
 
 	private void generateBoard(int boardSize) {
-//		 SimpleDBBoardGenerator gen = new SimpleDBBoardGenerator(boardSize,
-//		 wordlistHandler, DEFAULT_MIN_WORDS_TO_FIND);
-//		IterativeDBBoardGenerator gen = new IterativeDBBoardGenerator(boardSize,
-//			 wordlistHandler, DEFAULT_MIN_WORDS_TO_FIND);
-		PrimitiveDBBoardGenerator gen = new PrimitiveDBBoardGenerator(boardSize,
-				 wordlistHandler, DEFAULT_MIN_WORDS_TO_FIND);
-		
-		 board = gen.getBoard();
-//		RandomBoardGenerator rnd = new RandomBoardGenerator(boardSize);
-//		board = rnd.getBoard();
+		// SimpleDBBoardGenerator gen = new SimpleDBBoardGenerator(boardSize,
+		// wordlistHandler, DEFAULT_MIN_WORDS_TO_FIND);
+		// IterativeDBBoardGenerator gen = new
+		// IterativeDBBoardGenerator(boardSize,
+		// wordlistHandler, DEFAULT_MIN_WORDS_TO_FIND);
+		PrimitiveDBBoardGenerator gen = new PrimitiveDBBoardGenerator(boardSize, wordlistHandler,
+				DEFAULT_MIN_WORDS_TO_FIND);
+
+		board = gen.getBoard();
+		// RandomBoardGenerator rnd = new RandomBoardGenerator(boardSize);
+		// board = rnd.getBoard();
 
 	}
 
@@ -176,49 +167,4 @@ public class Game implements IGame {
 	public int getBoardSize() {
 		return board.getSize();
 	}
-
-	@Override
-	public void addObserver(IGameObserver observer) {
-		observers.add(observer);
-	}
-
-	@Override
-	public void removeObserver(IGameObserver observer) {
-		observers.remove(observer);
-
-	}
-
-	@Override
-	public void notifyObservers() {
-		for (IGameObserver observer : observers) {
-			observer.update(this);
-		}
-	}
-
-	@Override
-	public int getScore() {
-		assert score >= 0;
-		return score;
-	}
-
-	@Override
-	public int getNumberOfGuesses() {
-		return guesses;
-	}
-
-	@Override
-	public int getNumberOfFoundWords() {
-		return found.size();
-	}
-
-	@Override
-	public ArrayList<WordSelection> getFoundWords() {
-		return found;
-	}
-
-	@Override
-	public int getWordlistId() {
-		return wordlistId;
-	}
-
 }

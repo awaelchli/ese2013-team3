@@ -3,7 +3,7 @@ package ch.unibe.scg.team3.gameui;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
-import ch.unibe.scg.team3.game.IGame;
+import ch.unibe.scg.team3.game.AbstractGame;
 import ch.unibe.scg.team3.game.IGameObserver;
 
 public class CountDownView extends TextView implements IGameObserver {
@@ -21,7 +21,7 @@ public class CountDownView extends TextView implements IGameObserver {
 	}
 
 	@Override
-	public void update(IGame game) {
+	public void update(AbstractGame game) {
 
 		setText(game.getTime());
 	}
