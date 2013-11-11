@@ -43,7 +43,12 @@ public class PrimitiveDBBoardGenerator extends AbstractBoardGenerator {
 		placeWord(firstWord, start);
 		
 		int n=0;
-		int placedCount = 0;
+		int placedCount = 1;
+		boolean shortWords=false;
+		
+		//String[] strings=firstWord.split(".*");
+		
+		//System.out.println(strings);
 		while(placedCount < minWords){
 			
 			for(int i=0;i<size;i++){
@@ -51,14 +56,16 @@ public class PrimitiveDBBoardGenerator extends AbstractBoardGenerator {
 					if(!(matrix[i][j]=='\u0000')){
 						
 						String letter = "" + matrix[i][j];
-						String random = list.getRandomWordFromWordlistByLetter(letter);
+						String random = list.getRandomWordFromDatabaseByLetterAndLength(letter, shortWords);
 						n++;
 					
 					
 					
 						if(placeWord(random, new Point(i,j))){
-						
 							placedCount++;
+							if(placedCount==3){
+								shortWords=true;
+							}
 						}
 					}
 				}	
