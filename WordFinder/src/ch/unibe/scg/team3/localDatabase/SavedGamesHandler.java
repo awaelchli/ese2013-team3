@@ -9,6 +9,7 @@ import ch.unibe.scg.team3.game.SavedGame;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 
@@ -131,6 +132,19 @@ public class SavedGamesHandler extends DataHandler {
 			db.close();
 			return false;
 		}
+	}
+	public boolean removeGameByName(String name){
+		SQLiteDatabase db = helper.getReadableDatabase();
+		
+		String[] query={name};
+		try {
+			db.rawQuery("DELETE FROM Games WHERE Name = ?", query);
+		} catch (SQLException e) {
+			db.close();
+			return false;
+		}
+		db.close();
+		return true;
 	}
 
 }
