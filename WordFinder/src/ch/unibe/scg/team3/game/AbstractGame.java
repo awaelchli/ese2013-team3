@@ -18,9 +18,9 @@ public abstract class AbstractGame implements IObservable {
 	protected int score;
 	protected int guesses;
 	protected int wordlistId;
+	protected int timesPlayed;
 	protected ArrayList<IGameObserver> observers;
 	protected ArrayList<WordSelection> found;
-	protected int timesPlayed;
 
 	protected AbstractGame() {
 		score = 0;
@@ -29,6 +29,12 @@ public abstract class AbstractGame implements IObservable {
 		timesPlayed = 0;
 		observers = new ArrayList<IGameObserver>();
 		found = new ArrayList<WordSelection>();
+	}
+	
+	protected AbstractGame(final SavedGame game){
+		this();
+		wordlistId = game.getWordlistId();
+		timesPlayed = game.getTimesPlayed();
 	}
 
 	/**

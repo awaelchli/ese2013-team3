@@ -1,8 +1,6 @@
 package ch.unibe.scg.team3.wordfinder;
 
 import java.util.ArrayList;
-
-import ch.unibe.scg.team3.game.AbstractGame;
 import ch.unibe.scg.team3.game.SavedGame;
 import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 import android.os.Bundle;
@@ -41,6 +39,7 @@ public class SavedGamesActivity extends Activity {
 				name.setText(game.getName());
 				score.setText("Score: " + game.getScore());
 				date.setText("Date: " + game.getDate());
+				
 				return element;
 			}
 
@@ -49,7 +48,9 @@ public class SavedGamesActivity extends Activity {
 		ListView list = (ListView) findViewById(R.id.saved_Games_list);
 		list.setAdapter(adapter);
 	}
+	
 	public void viewSavedGame(View view){
+		view.refreshDrawableState();
 		SavedGamesHandler handler = new SavedGamesHandler(this);
 		TextView textView = (TextView) view.findViewById(R.id.saved_game_name);
 		String gameName = textView.getText().toString();

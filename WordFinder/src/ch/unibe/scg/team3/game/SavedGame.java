@@ -16,9 +16,6 @@ import ch.unibe.scg.team3.board.*;
  */
 public class SavedGame extends AbstractGame implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -269683003596675103L;
 
 	private int id;

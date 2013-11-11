@@ -2,44 +2,42 @@ package ch.unibe.scg.team3.wordfinder;
 
 import ch.unibe.scg.team3.game.SavedGame;
 import ch.unibe.scg.team3.gameui.BoardUI;
-import ch.unibe.scg.team3.gameui.CountDownView;
-import ch.unibe.scg.team3.gameui.FoundWordsView;
-import ch.unibe.scg.team3.gameui.ScoreView;
-import ch.unibe.scg.team3.gameui.WordCounterView;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
+import android.view.View;
 import android.widget.TextView;
 
 public class ViewSavedGameActivity extends Activity {
+
+	private SavedGame savedGame;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_saved_game);
-		
+
 		Intent intent = getIntent();
-		SavedGame savedGame = (SavedGame) intent.getSerializableExtra("saved_game");
-		savedGame.setStringBoard(savedGame.getStringBoard());
-		
+		savedGame = (SavedGame) intent.getSerializableExtra("saved_game");
+
 		BoardUI boardUI = (BoardUI) findViewById(R.id.tableboardUI);
 		boardUI.update(savedGame);
-		String text = "Game Title    : " + savedGame.getName() +"\n" +
-					  "Last Played   : " + savedGame.getDate() + "\n" +
-				      "Found Words   : " + savedGame.getNumberOfFoundWords() +"\n" +
-				      "Guessed Words : " + savedGame.getNumberOfGuesses() +"\n" +
-				      "Elapsed Time  : " + savedGame.getTime() + "\n" +
-				      "Gained Score  : " + savedGame.getScore() +"\n";
+
+		String labels = "Title: %s\nLast played: %s\nFound words: %s\nGuessed words: %s\nElapsed time: %s\nScore: %s";
+		
+		String text = String.format(labels, savedGame.getName(), savedGame.getDate(),
+				savedGame.getNumberOfFoundWords(), savedGame.getNumberOfGuesses(),
+				savedGame.getTime(), savedGame.getScore());
+
 		TextView gameOverview = (TextView) findViewById(R.id.game_overview_text);
 		gameOverview.setText(text);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.view_saved_game, menu);
-		return true;
+	public void replaySavedGame(View view) {
+		Intent intent = getIntent();
+		intent.setClass(this, GameActivity.class);
+		startActivity(intent);
+		finish();
 	}
 
 }

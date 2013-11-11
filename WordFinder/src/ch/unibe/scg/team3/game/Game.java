@@ -42,24 +42,24 @@ public class Game extends AbstractGame {
 		generateBoard(boardSize);
 		initTimer();
 	}
-
+	
 	public Game(WordlistHandler data, int wordlistId) {
 		this(Board.DEFAULT_SIZE, data, wordlistId);
 	}
+	
+	public Game(final SavedGame game, WordlistHandler handler){
+		super(game);
+		wordlistHandler = handler;
+		board = game.getBoard();
+		timeOver = false;
+		initTimer();
+	}
 
 	private void generateBoard(int boardSize) {
-		// SimpleDBBoardGenerator gen = new SimpleDBBoardGenerator(boardSize,
-		// wordlistHandler, DEFAULT_MIN_WORDS_TO_FIND);
-		// IterativeDBBoardGenerator gen = new
-		// IterativeDBBoardGenerator(boardSize,
-		// wordlistHandler, DEFAULT_MIN_WORDS_TO_FIND);
 		PrimitiveDBBoardGenerator gen = new PrimitiveDBBoardGenerator(boardSize, wordlistHandler,
 				DEFAULT_MIN_WORDS_TO_FIND);
 
 		board = gen.getBoard();
-		// RandomBoardGenerator rnd = new RandomBoardGenerator(boardSize);
-		// board = rnd.getBoard();
-
 	}
 
 	/**
