@@ -347,7 +347,7 @@ public class WordlistHandler extends DataHandler {
 		return getRandomWordFromDatabaseByLetterAndLength(letter, rboolean );
 	}
 
-	private String getRandomWordFromDatabaseByLetterAndLength(String letter, boolean length) {
+	public String getRandomWordFromDatabaseByLetterAndLength(String letter, boolean length) {
 		String word;
 		String table ="";
 		if (length){
