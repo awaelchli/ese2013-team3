@@ -39,7 +39,6 @@ public class SavedGamesActivity extends Activity {
 				name.setText(game.getName());
 				score.setText("Score: " + game.getScore());
 				date.setText("Date: " + game.getDate());
-				
 				return element;
 			}
 

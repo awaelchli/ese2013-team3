@@ -21,5 +21,7 @@
     <string name="title_home">Wordfinder Game</string>
     <string name="cancel_button">Cancel</string>
     <string name="new_game_button">New</string>
+    <string name="title_activity_view_saved_game">ViewSavedGameActivity</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
