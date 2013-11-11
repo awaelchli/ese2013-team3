@@ -71,6 +71,7 @@ public class EndGameActivity extends Activity {
 				String value = input.getText().toString();
 				handler.saveGame(value, board, found, time, score, true,
 						guesses);
+				goHome(null);
 			}
 		});
 
