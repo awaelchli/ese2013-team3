@@ -25,6 +25,10 @@ public class SavedGame extends AbstractGame implements Serializable {
 	private boolean isPrivate;
 	private String board;
 
+	public boolean getIsPersonal(){
+		return this.isPersonal;
+	}
+
 	public String getStringBoard() {
 		return board;
 	}
@@ -128,6 +132,7 @@ public class SavedGame extends AbstractGame implements Serializable {
 		timesPlayed = (Integer) aStream.readObject();
 		observers = (ArrayList<IGameObserver>) aStream.readObject();
 		found = (ArrayList<WordSelection>) aStream.readObject();
+		isPersonal = (Boolean) aStream.readObject();
 	}
 
 	/**
@@ -142,5 +147,6 @@ public class SavedGame extends AbstractGame implements Serializable {
 		aStream.writeObject(timesPlayed);
 		aStream.writeObject(observers);
 		aStream.writeObject(found);
+		aStream.writeObject(isPersonal);
 	}
 }

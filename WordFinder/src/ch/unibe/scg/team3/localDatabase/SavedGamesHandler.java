@@ -28,8 +28,14 @@ public class SavedGamesHandler extends DataHandler {
 		super(context);
 	}
 
-	public boolean saveGame(String name, String board, int words, String time,
-			int score, boolean isPersonal, int guesses) {
+	public boolean saveGame(SavedGame game) {
+		String name = game.getName();
+		String board = game.getStringBoard();
+		int words = game.getFoundWords().size();
+		String time = game.getTime();
+		int score = game.getScore();
+		boolean isPersonal = game.getIsPersonal();
+		int guesses = game.getNumberOfGuesses();
 
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
@@ -122,8 +128,8 @@ public class SavedGamesHandler extends DataHandler {
 	}
 	public boolean gameInDatabase(String gameName){
 		SQLiteDatabase db = helper.getReadableDatabase();
-		String[] query={gameName};
-		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = ?", query);
+		
+		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = ?", new String[] {gameName});
 		if (c != null && c.getCount() != 0) {
 			c.close();
 			db.close();

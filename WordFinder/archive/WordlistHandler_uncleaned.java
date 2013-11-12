@@ -59,6 +59,38 @@ public class WordlistHandler extends DataHandler {
 		}
 	}
 
+	// TODO: check if needed after v1 release
+	public void addWordlistByFileInRaw(String name, String filename)
+			throws WordlistAlreadyInDataBaseException {
+
+		addEmptyWordlist(name);
+
+		int resID = context.getResources().getIdentifier(filename, "raw",
+				context.getPackageName());
+
+		int wordlistId = getWordlistId(name);
+
+		InputStream inputStream = context.getResources().openRawResource(resID);
+		InputStreamReader inputreader = new InputStreamReader(inputStream);
+		BufferedReader buffreader = new BufferedReader(inputreader);
+
+		String word;
+		SQLiteDatabase db = helper.getWritableDatabase();
+		db.beginTransaction();
+
+		try {
+			while ((word = buffreader.readLine()) != null) {
+				addWordToOpenDb(word, wordlistId, db);
+			}
+			db.setTransactionSuccessful();
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			db.endTransaction();
+		}
+	}
 
 	/**
 	 * Adds a word to the given wordlist in main database. Pay attention that
@@ -106,13 +138,13 @@ public class WordlistHandler extends DataHandler {
 			db.execSQL("INSERT INTO "
 					+ getFirstLetterFromInputToLowerCase(word)
 					+ SHORT_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
-					+ "', ?)",new String[]{ word.toLowerCase()});
+					+ "', '" + word.toLowerCase() + "')");
 
 		} else if (word.length() >= SMALL_WORD) {
 			db.execSQL("INSERT INTO "
 					+ getFirstLetterFromInputToLowerCase(word)
 					+ LONG_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
-					+ "', ?)",new String[]{ word.toLowerCase()});
+					+ "', '" + word.toLowerCase() + "')");
 
 		} else {
 			throw new SQLException();

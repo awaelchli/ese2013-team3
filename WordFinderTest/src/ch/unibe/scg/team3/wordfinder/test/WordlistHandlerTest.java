@@ -19,10 +19,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.test.AndroidTestCase;
 
-public class WordlistHandlerTest extends AndroidTestCase {
+public class WordlistHandlerTest extends AndroidTestCase implements IDataHandlerTest{
 	protected WordlistHandler wordlistHandler;
 
-	protected void setUp() {
+	public void setUp() {
 		android.preference.PreferenceManager.setDefaultValues(
 				mContext.getApplicationContext(), R.xml.preferences, false);
 		wordlistHandler = new WordlistHandler(mContext.getApplicationContext());

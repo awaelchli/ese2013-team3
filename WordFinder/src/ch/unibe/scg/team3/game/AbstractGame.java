@@ -21,6 +21,7 @@ public abstract class AbstractGame implements IObservable {
 	protected int timesPlayed;
 	protected ArrayList<IGameObserver> observers;
 	protected ArrayList<WordSelection> found;
+	protected boolean isPersonal;
 
 	protected AbstractGame() {
 		score = 0;
