@@ -38,6 +38,7 @@ public abstract class Timer extends CountDownTimer {
 		return remainingTime;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return format(remainingTime);

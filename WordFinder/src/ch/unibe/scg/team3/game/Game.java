@@ -1,5 +1,7 @@
 package ch.unibe.scg.team3.game;
 
+import java.util.ArrayList;
+
 import ch.unibe.scg.team3.board.*;
 import ch.unibe.scg.team3.gameui.*;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
@@ -24,6 +26,7 @@ public class Game extends AbstractGame {
 	private Timer timer;
 	private boolean timeOver;
 	private Board board;
+	
 
 	
 	/**
@@ -88,8 +91,8 @@ public class Game extends AbstractGame {
 	private void generateBoard(int boardSize) {
 		PrimitiveDBBoardGenerator gen = new PrimitiveDBBoardGenerator(boardSize, wordlistHandler,
 				DEFAULT_MIN_WORDS_TO_FIND);
-
 		board = gen.getBoard();
+
 	}
 
 	/**
@@ -210,4 +213,7 @@ public class Game extends AbstractGame {
 
 		return saved;
 	}
+
+	
+
 }

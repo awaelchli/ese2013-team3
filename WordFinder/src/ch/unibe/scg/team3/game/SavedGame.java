@@ -12,6 +12,7 @@ import ch.unibe.scg.team3.board.*;
  * A saved game stores all the data needed to recover the game and replay it.
  * 
  * @author adrian
+ * @author nils
  * @see AbstractGame
  */
 public class SavedGame extends AbstractGame implements Serializable {
@@ -22,15 +23,22 @@ public class SavedGame extends AbstractGame implements Serializable {
 	private String name;
 	private String time;
 	private String date;
+
 	private boolean isPrivate;
 	private String board;
+	private int foundWords;
 
-	
-	public ArrayList<WordSelection> getFoundWords(){
+	public ArrayList<WordSelection> getFoundWords() {
 		return this.found;
 	}
-	public void setFoundWords(ArrayList<WordSelection> found){
-		this.found=found;
+
+	public void setFoundWords(ArrayList<WordSelection> found) {
+		this.found = found;
+	}
+
+	@Override
+	public int getNumberOfFoundWords() {
+		return foundWords;
 	}
 
 	public String getStringBoard() {
@@ -38,9 +46,14 @@ public class SavedGame extends AbstractGame implements Serializable {
 	}
 
 	public void setStringBoard(String stringBoard) {
-		double side = Math.sqrt(stringBoard.length());
-		if (side % 1 == 0) {
-			board = stringBoard;
+
+		try {
+			double side = Math.sqrt(stringBoard.length());
+			if (side % 1 == 0) {
+				board = stringBoard;
+			}
+		} catch (Exception e) {
+			board = "";
 		}
 	}
 
@@ -135,7 +148,7 @@ public class SavedGame extends AbstractGame implements Serializable {
 		wordlistId = (Integer) aStream.readObject();
 		timesPlayed = (Integer) aStream.readObject();
 		observers = (ArrayList<IGameObserver>) aStream.readObject();
-		isPrivate = (Boolean) aStream.readObject();	
+		isPrivate = (Boolean) aStream.readObject();
 	}
 
 	/**
@@ -151,4 +164,10 @@ public class SavedGame extends AbstractGame implements Serializable {
 		aStream.writeObject(observers);
 		aStream.writeObject(isPrivate);
 	}
+
+	public void setNumberOfFoundWords(int foundWords) {
+		this.foundWords = foundWords;
+
+	}
+
 }

@@ -39,13 +39,13 @@ public class GameActivity extends Activity implements IGameObserver {
 		setContentView(R.layout.activity_game);
 
 		wordlistHandler = new WordlistHandler(this);
-		
+
 		found = (FoundWordsView) findViewById(R.id.foundWordsField);
 		scoreView = (ScoreView) findViewById(R.id.score_view);
 		wordCounter = (WordCounterView) findViewById(R.id.foundCounter);
 		countDownView = (TextView) findViewById(R.id.timer_field);
 		boardUI = (BoardUI) findViewById(R.id.tableboardUI);
-		
+
 		makeLoadPreview();
 
 		new LoadGameTask(this).execute();
@@ -55,15 +55,15 @@ public class GameActivity extends Activity implements IGameObserver {
 	private void makeLoadPreview() {
 
 		Game empty = new Game(new Board(), wordlistHandler, 1);
-		
+
 		countDownView.setText("00:00");
-		
+
 		empty.addObserver(boardUI);
 		empty.addObserver(scoreView);
 		empty.addObserver(wordCounter);
 		empty.addObserver(wordCounter);
 		empty.addObserver(boardUI);
-		
+
 		empty.notifyObservers();
 	}
 
@@ -156,7 +156,7 @@ public class GameActivity extends Activity implements IGameObserver {
 
 			Button quit = (Button) context.findViewById(R.id.quit_button);
 			quit.setEnabled(true);
-			
+
 			game.notifyObservers();
 			game.startTime();
 		}

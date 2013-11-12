@@ -51,7 +51,7 @@ public class EndGameActivity extends Activity {
 		finish();
 	}
 
-	public void replayGame(View view){
+	public void replayGame(View view) {
 		Intent intent = new Intent(this, GameActivity.class);
 		intent.putExtra("saved_game", game);
 		startActivity(intent);
@@ -72,7 +72,6 @@ public class EndGameActivity extends Activity {
 
 		final EditText input = new EditText(this);
 		alert.setView(input);
-		Boolean correct = false;
 
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
@@ -102,7 +101,6 @@ public class EndGameActivity extends Activity {
 
 		final EditText input = new EditText(this);
 		alert.setView(input);
-		Boolean correct = false;
 
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
