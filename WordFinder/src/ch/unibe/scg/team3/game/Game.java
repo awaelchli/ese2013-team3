@@ -1,5 +1,6 @@
 package ch.unibe.scg.team3.game;
 
+import java.text.Format;
 import java.util.ArrayList;
 
 import ch.unibe.scg.team3.board.*;
@@ -176,7 +177,9 @@ public class Game extends AbstractGame {
 		SavedGame saved = new SavedGame();
 		saved.setScore(getScore());
 		saved.setStringBoard(board.toString());
-		saved.setTime(getTime());
+		long elapsedMillis = TIME_LIMIT - timer.getRemainingTime();
+		String elapsedTime = Timer.format(elapsedMillis);
+		saved.setTime(elapsedTime);
 		saved.setGuesses(getNumberOfGuesses());
 		saved.setWordlistId(getWordlistId());
 		saved.setTimesPlayed(getTimesPlayed());

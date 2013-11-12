@@ -43,12 +43,12 @@ public class SavedGamesHandler extends DataHandler {
 		int timesPlayed = 1;
 		String date = (new Date().toString());
 		if(!gameInDatabase(name)){
-		String sql = "INSERT INTO Games VALUES(NULL, ?, '" + board + "', "
+		String sql = "INSERT INTO Games VALUES(NULL, ?, ? , "
 				+ words + ", '" + time + "', '" + date + "', '" + wordlist
 				+ "', " + score + ", '" + isPrivate + "', " + timesPlayed
 				+ ", " + guesses + ")";
 		SQLiteDatabase db = helper.getReadableDatabase();
-		db.execSQL(sql, new String[] { name });
+		db.execSQL(sql, new String[] { name, board });
 		db.close();
 		return true;
 		}
@@ -107,7 +107,7 @@ public class SavedGamesHandler extends DataHandler {
 			game.setId(c.getInt(0));
 			game.setName(c.getString(1));
 			game.setStringBoard(c.getString(2));
-//			game.setFoundWords(c.getInt(3));
+ 			game.setNumberOfFoundWords(c.getInt(3));
 			game.setTime(c.getString(4));
 			game.setDate(c.getString(5));
 			game.setWordlistId(c.getInt(6));
