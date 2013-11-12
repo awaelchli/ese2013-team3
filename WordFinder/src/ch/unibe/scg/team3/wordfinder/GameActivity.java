@@ -114,17 +114,23 @@ public class GameActivity extends Activity implements IGameObserver {
 
 	private class LoadGameTask extends AsyncTask<String, Void, Game> {
 
-		private Activity context;
+		private final Activity context;
 
 		public LoadGameTask(Activity activity) {
 			context = activity;
 		}
 
+		/**
+		 * The board for the game gets generated in the background
+		 */
 		protected Game doInBackground(String... urls) {
 			loadGame();
 			return game;
 		}
 
+		/**
+		 * Will be executed after the loading of the game is done
+		 */
 		protected void onPostExecute(Game result) {
 
 			ProgressBar progress = (ProgressBar) findViewById(R.id.loadingGameBar);
@@ -138,7 +144,6 @@ public class GameActivity extends Activity implements IGameObserver {
 				public void onFinish() {
 					finishGameSession();
 				}
-
 			};
 
 			game.setTimer(timer);

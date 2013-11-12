@@ -49,7 +49,6 @@ public class BoardUI extends TableLayout implements IGameObserver {
 			}
 
 			this.addView(row);
-
 		}
 	}
 

@@ -175,10 +175,6 @@ public class Game extends AbstractGame {
 		return timer.toString();
 	}
 
-//	public Timer getTimer() {
-//		return timer;
-//	}
-
 	/**
 	 * The game is over when enough words were found or the time runs out.
 	 */

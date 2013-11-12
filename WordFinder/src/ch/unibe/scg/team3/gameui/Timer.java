@@ -5,7 +5,6 @@ import android.os.CountDownTimer;
 import android.widget.TextView;
 
 /**
- * 
  * @author lukas
  * @author adrian
  */
@@ -38,10 +37,6 @@ public abstract class Timer extends CountDownTimer {
 	public long getRemainingTime() {
 		return remainingTime;
 	}
-	
-//	public void setTextView(TextView countdownView){
-//		view = countdownView;
-//	}
 	
 	@Override
 	public String toString() {
