@@ -1,16 +1,23 @@
 package ch.unibe.scg.team3.wordfinder;
 
 import java.util.ArrayList;
-import ch.unibe.scg.team3.game.SavedGame;
-import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
-import android.os.Bundle;
-import android.view.*;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.*;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import ch.unibe.scg.team3.game.SavedGame;
+import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 
 public class SavedGamesActivity extends Activity {
 	private ArrayList<SavedGame> games;

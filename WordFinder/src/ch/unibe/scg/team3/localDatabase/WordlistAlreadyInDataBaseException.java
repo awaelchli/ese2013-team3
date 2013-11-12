@@ -6,6 +6,11 @@ package ch.unibe.scg.team3.localDatabase;
  */
 public class WordlistAlreadyInDataBaseException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6850055872037882539L;
+
 	public WordlistAlreadyInDataBaseException() {
 		super("Wordlist already exists");
 	}

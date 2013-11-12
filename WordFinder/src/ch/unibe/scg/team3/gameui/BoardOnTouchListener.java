@@ -1,14 +1,16 @@
 package ch.unibe.scg.team3.gameui;
 
-import ch.unibe.scg.team3.game.*;
-import ch.unibe.scg.team3.wordfinder.R;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
-import android.view.*;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.TableRow;
+import ch.unibe.scg.team3.game.Game;
+import ch.unibe.scg.team3.game.Path;
+import ch.unibe.scg.team3.wordfinder.R;
 
 /**
  * The instance of this class is responsible for monitoring the user input on
@@ -33,6 +35,7 @@ public class BoardOnTouchListener implements OnTouchListener {
 		path = new Path<BoardButton>();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 
@@ -103,6 +106,7 @@ public class BoardOnTouchListener implements OnTouchListener {
 		makePathAnimation(path);
 	}
 
+	@SuppressWarnings("deprecation")
 	private void makePathAnimation(Path<BoardButton> path) {
 
 		for (BoardButton b : path) {

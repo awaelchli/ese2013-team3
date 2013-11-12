@@ -1,11 +1,13 @@
 package ch.unibe.scg.team3.game;
 
-import java.util.ArrayList;
-
-import ch.unibe.scg.team3.board.*;
-import ch.unibe.scg.team3.gameui.*;
+import ch.unibe.scg.team3.board.Board;
+import ch.unibe.scg.team3.board.Point;
+import ch.unibe.scg.team3.board.PrimitiveDBBoardGenerator;
+import ch.unibe.scg.team3.board.WordSelection;
+import ch.unibe.scg.team3.gameui.BoardButton;
+import ch.unibe.scg.team3.gameui.Timer;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
-import ch.unibe.scg.team3.token.*;
+import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.wordfinder.R;
 
 /**

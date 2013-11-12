@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import ch.unibe.scg.team3.game.Path;
-import ch.unibe.scg.team3.token.*;
+import ch.unibe.scg.team3.token.IToken;
+import ch.unibe.scg.team3.token.NullToken;
 
 /**
  * This class has the responsibility to model a matrix filled with token.

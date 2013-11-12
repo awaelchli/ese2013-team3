@@ -11,8 +11,16 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import ch.unibe.scg.team3.board.Board;
-import ch.unibe.scg.team3.game.*;
-import ch.unibe.scg.team3.gameui.*;
+import ch.unibe.scg.team3.game.AbstractGame;
+import ch.unibe.scg.team3.game.Game;
+import ch.unibe.scg.team3.game.IGameObserver;
+import ch.unibe.scg.team3.game.SavedGame;
+import ch.unibe.scg.team3.gameui.BoardOnTouchListener;
+import ch.unibe.scg.team3.gameui.BoardUI;
+import ch.unibe.scg.team3.gameui.FoundWordsView;
+import ch.unibe.scg.team3.gameui.ScoreView;
+import ch.unibe.scg.team3.gameui.Timer;
+import ch.unibe.scg.team3.gameui.WordCounterView;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
 /**

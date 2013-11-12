@@ -1,13 +1,16 @@
 package ch.unibe.scg.team3.gameui;
 
-import ch.unibe.scg.team3.board.*;
-import ch.unibe.scg.team3.game.*;
-import ch.unibe.scg.team3.token.IToken;
-import ch.unibe.scg.team3.wordfinder.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.*;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import ch.unibe.scg.team3.board.Board;
+import ch.unibe.scg.team3.board.Point;
+import ch.unibe.scg.team3.game.AbstractGame;
+import ch.unibe.scg.team3.game.IGameObserver;
+import ch.unibe.scg.team3.token.IToken;
+import ch.unibe.scg.team3.wordfinder.R;
 
 /**
  * The BoardUI is the user interface for the board. It is responsible to update

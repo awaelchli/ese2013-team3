@@ -6,7 +6,6 @@ import java.util.Date;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import ch.unibe.scg.team3.game.SavedGame;

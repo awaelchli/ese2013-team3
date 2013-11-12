@@ -1,15 +1,11 @@
 package ch.unibe.scg.team3.board;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Random;
 
-import ch.unibe.scg.team3.game.Path;
 import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
-import ch.unibe.scg.team3.token.AbstractToken;
-import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.token.Token;
 
 /**

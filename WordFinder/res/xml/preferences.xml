@@ -31,19 +31,4 @@
         
     </PreferenceCategory>
     
-    <!--  <PreferenceCategory 
-        android:title="Database"
-        android:key="database">
-         <Preference 
-            android:title="Copy From Raw"
-            android:key="copyDB" >
-            </Preference>
-        <Preference 
-            android:title="Reset"
-            android:key="reset" >
-            </Preference>
-
-
-    </PreferenceCategory>
-    -->
 </PreferenceScreen>

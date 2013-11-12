@@ -1,12 +1,10 @@
 package ch.unibe.scg.team3.localDatabase;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -20,6 +18,7 @@ import android.preference.PreferenceManager;
  * @author nils
  * 
  */
+@SuppressLint("DefaultLocale")
 public class WordlistHandler extends DataHandler {
 
 	/**
@@ -72,6 +71,7 @@ public class WordlistHandler extends DataHandler {
 	 * @return returns boolean value whether adding entry in database was
 	 *         successful
 	 */
+	@SuppressLint("DefaultLocale")
 	public boolean addWordToWordlist(String word, String wordlistname) {
 
 		int wordlistId = getWordlistId(wordlistname);
@@ -288,7 +288,6 @@ public class WordlistHandler extends DataHandler {
 	}
 
 	public String getRandomWordFromWordlist() {
-		String word;
 		Random r = new Random();
 		int randomint = r.nextInt(26);
 		String table = MySQLiteHelper.ALPHABET.substring(randomint,
@@ -299,17 +298,13 @@ public class WordlistHandler extends DataHandler {
 
 	public String getRandomWordFromWordlistByLetter(String letter) {
 		Random r = new Random();
-		String word;
-		String table = "";
 		int random = r.nextInt(2);
 		boolean rboolean;
 		switch (random) {
 		case 0:
 			rboolean = true;
-			table = letter + SHORT_WORD_TABLE_SUFFIX;
 			break;
 		default:
-			table = letter + LONG_WORD_TABLE_SUFFIX;
 			rboolean = false;
 			break;
 		}
