@@ -176,6 +176,7 @@ public class Game extends AbstractGame {
 		saved.setGuesses(getNumberOfGuesses());
 		saved.setWordlistId(getWordlistId());
 		saved.setTimesPlayed(getTimesPlayed());
+		saved.setFoundWords(found);
 		
 		return saved;
 	}

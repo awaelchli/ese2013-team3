@@ -1,5 +1,7 @@
 package ch.unibe.scg.team3.token;
 
+import java.io.Serializable;
+
 import ch.unibe.scg.team3.board.Point;
 import ch.unibe.scg.team3.game.IElement;
 
@@ -7,8 +9,12 @@ import ch.unibe.scg.team3.game.IElement;
 /**
  * @author adrian
  */
-public class Token extends AbstractToken implements IElement {
+public class Token extends AbstractToken implements IElement, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1976053210330896089L;
 	private final char letter;
 	private final int value;
 

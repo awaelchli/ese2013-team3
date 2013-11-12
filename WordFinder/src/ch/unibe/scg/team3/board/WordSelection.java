@@ -1,5 +1,6 @@
 package ch.unibe.scg.team3.board;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,12 @@ import ch.unibe.scg.team3.token.IToken;
  * @see Board
  * @author adrian
  */
-public class WordSelection {
+public class WordSelection implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8992770960252410029L;
 	private List<IToken> selection;
 
 	public WordSelection() {
