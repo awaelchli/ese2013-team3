@@ -1,27 +1,27 @@
 package ch.unibe.scg.team3.wordfinder.test;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 
-import ch.unibe.scg.team3.localDatabase.*;
+import android.test.AndroidTestCase;
+
+import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
+import ch.unibe.scg.team3.localDatabase.WordlistAlreadyInDataBaseException;
+import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import ch.unibe.scg.team3.wordfinder.R;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.test.AndroidTestCase;
 
 public class WordlistHandlerTest extends AndroidTestCase implements IDataHandlerTest {
 	
-	private WordlistHandler wordlistHandler;
-
-	public void setUp() {
-		android.preference.PreferenceManager.setDefaultValues(mContext.getApplicationContext(),
-				R.xml.preferences, false);
-		wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
-
-		try {
-			wordlistHandler.copyDB();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
+	protected WordlistHandler wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
+	
 	public void testGetRandomWordFromWordlist() {
 
 		String string = wordlistHandler.getRandomWordFromWordlist();
@@ -40,8 +40,7 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 	public void testAddWordToWordlist() throws WordlistAlreadyInDataBaseException {
 		wordlistHandler.addEmptyWordlist("TestAddWordToWordlist");
 		wordlistHandler.addWordToWordlist("teste", "TestAddWordToWordlist");
-		assertTrue(wordlistHandler.isWordInWordlist("teste",
-				wordlistHandler.getWordlistId("TestAddWordToWordlist")));
+		assertTrue(wordlistHandler.isWordInWordlist("teste",wordlistHandler.getWordlistId("TestAddWordToWordlist")));
 	}
 
 	public void testGetFirstLetterFromInputToLowerCase() {
@@ -56,15 +55,19 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 		assertFalse(wordlistHandler.isWordlistInDatabase(""));
 	}
 
-	public void testRemoveWordFromWordlist() throws WordlistAlreadyInDataBaseException {
+	public void testRemoveWordFromWordlist()
+			throws WordlistAlreadyInDataBaseException {
 		wordlistHandler.addEmptyWordlist("TestRemoveWordFromWordlist");
-		wordlistHandler.addWordToWordlist("Teste", "TestRemoveWordFromWordlist");
-		wordlistHandler.removeWordFromWordlist("teste", "TestRemoveWordFromWordlist");
+		wordlistHandler
+				.addWordToWordlist("Teste", "TestRemoveWordFromWordlist");
+		wordlistHandler.removeWordFromWordlist("teste",
+				"TestRemoveWordFromWordlist");
 		assertFalse((wordlistHandler.isWordInWordlist("Teste",
 				wordlistHandler.getWordlistId("TestRemoveWordFromWordlist"))));
 	}
 
-	public void testIsWordInWordlist() throws WordlistAlreadyInDataBaseException {
+	public void testIsWordInWordlist()
+			throws WordlistAlreadyInDataBaseException {
 		wordlistHandler.addEmptyWordlist("TestIsWordInWordlist");
 		wordlistHandler.addWordToWordlist("Teste", "TestIsWordInWordlist");
 		assertTrue(wordlistHandler.isWordInWordlist("Teste",
@@ -92,7 +95,7 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 
 	}
 
-	public void testGetWordlistIds() {
+	public void testGetWordlistids() {
 		assertNotNull(wordlistHandler.getWordlistIds());
 		assertTrue(wordlistHandler.getWordlistIds().length >= 2);
 	}
@@ -100,8 +103,10 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 	public void testGetRandomWordFromWordlistByLetter() {
 		String a = MySQLiteHelper.ALPHABET;
 		for (int i = 0; i < a.length(); i++) {
-			String temp = wordlistHandler.getRandomWordFromWordlistByLetter(a.substring(i, i + 1));
-			String temp2 = wordlistHandler.getFirstLetterFromInputToLowerCase(temp);
+			String temp = wordlistHandler.getRandomWordFromWordlistByLetter(a
+					.substring(i, i + 1));
+			String temp2 = wordlistHandler
+					.getFirstLetterFromInputToLowerCase(temp);
 			assertTrue(a.substring(i, i + 1).equals(temp2));
 		}
 	}

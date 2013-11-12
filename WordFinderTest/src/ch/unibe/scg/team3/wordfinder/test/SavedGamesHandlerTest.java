@@ -1,80 +1,39 @@
 package ch.unibe.scg.team3.wordfinder.test;
 
-import java.io.File;
 import java.io.IOException;
+
+import android.test.AndroidTestCase;
 
 import ch.unibe.scg.team3.game.SavedGame;
 import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import ch.unibe.scg.team3.wordfinder.R;
-import android.test.AndroidTestCase;
 
 public class SavedGamesHandlerTest extends AndroidTestCase implements IDataHandlerTest {
+	
+	
+	protected String defaultBoard = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 	protected WordlistHandler wordlistHandler;
 	protected SavedGamesHandler savedGamesHandler;
-
-	public void setUp() {
-		
-		wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
-		android.preference.PreferenceManager.setDefaultValues(
-				mContext.getApplicationContext(), R.xml.preferences, false);
-		File database = new File(
-				"/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
-		try {
-			wordlistHandler.copyDB();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-
-
 
 	public void testGetSavedGames(){
 		SavedGame saved = new SavedGame();
 		SavedGame saved2 = new SavedGame();
-		String board ="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-		saved.setName("Test");
-		saved.setStringBoard(board);
-		saved.setDate("now");
-		saved.setPrivate(true);
-		saved.setScore(914356341);
-		saved.setTime("now");
-		saved.setTimesPlayed(0);
-		saved.setGuesses(1332434);
-		saved.setWordlistId(1);
-		saved2.setName("Test2");
-		saved2.setStringBoard(board);
-		saved2.setDate("now");
-		saved2.setPrivate(true);
-		saved2.setScore(914356341);
-		saved2.setTime("now");
-		saved2.setTimesPlayed(0);
-		saved2.setGuesses(1332434);
-		saved2.setWordlistId(1);
-		savedGamesHandler = new SavedGamesHandler(mContext.getApplicationContext());
+		saved = initSavedGame(saved, "Test1");
+		saved2 = initSavedGame(saved2, "Test2");
 		savedGamesHandler.saveGame(saved);
 		savedGamesHandler.saveGame(saved2);
 		assertEquals(savedGamesHandler.getSavedGames().size(),2);
 	}
+
 	public void testGetSavedGameByNameAndSaveGame(){
 		SavedGame saved = new SavedGame();
 		SavedGame saved2 = new SavedGame();
-		String board ="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-		saved.setName("Test");
-		saved.setStringBoard(board);
-		saved.setDate("now");
-		saved.setPrivate(true);
-		saved.setScore(914356341);
-		saved.setTime("now");
-		saved.setTimesPlayed(0);
-		saved.setGuesses(1332434);
-		saved.setWordlistId(1);
-		savedGamesHandler = new SavedGamesHandler(mContext.getApplicationContext());
+		saved = initSavedGame(saved, "Test1");
 		savedGamesHandler.saveGame(saved);
-		saved2 = savedGamesHandler.getSavedGameByName("Test");
-		assertEquals(saved2.getName(), "Test");
-		assertEquals(saved2.getStringBoard(), board);
+		saved2 = savedGamesHandler.getSavedGameByName("Test1");
+		assertEquals(saved2.getName(), "Test1");
+		assertEquals(saved2.getStringBoard(), defaultBoard);
 		assertEquals(saved2.isPrivate(), true);
 		assertEquals(saved2.getScore(), 914356341);
 		assertEquals(saved2.getTime(),"now");
@@ -83,24 +42,23 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements IDataHandl
 	}
 	public void testGameInDatabase(){
 		SavedGame saved = new SavedGame();
-		String board ="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-		saved.setName("Test");
-		saved.setStringBoard(board);
-		saved.setDate("now");
-		saved.setPrivate(true);
-		saved.setScore(914356341);
-		saved.setTime("now");
-		saved.setTimesPlayed(0);
-		saved.setGuesses(1332434);
-		saved.setWordlistId(1);
-		savedGamesHandler = new SavedGamesHandler(mContext.getApplicationContext());
+		saved = initSavedGame(saved, "Test1");
 		savedGamesHandler.saveGame(saved);
-		assertTrue(savedGamesHandler.gameInDatabase("Test"));
+		assertTrue(savedGamesHandler.gameInDatabase("Test1"));
 	}
 	public void testRemoveGameByName(){
 		SavedGame saved = new SavedGame();
-		String board ="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-		saved.setName("Test");
+		saved = initSavedGame(saved, "Test1");
+		savedGamesHandler.saveGame(saved);
+		assertTrue(savedGamesHandler.gameInDatabase("Test1"));
+		assertTrue(savedGamesHandler.removeGameByName("Test1"));
+		assertFalse(savedGamesHandler.gameInDatabase("Test1"));
+		assertFalse(savedGamesHandler.removeGameByName("Test1"));
+	}
+	
+	private SavedGame initSavedGame(SavedGame saved, String name) {
+		String board = defaultBoard;
+		saved.setName(name);
 		saved.setStringBoard(board);
 		saved.setDate("now");
 		saved.setPrivate(true);
@@ -109,12 +67,19 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements IDataHandl
 		saved.setTimesPlayed(0);
 		saved.setGuesses(1332434);
 		saved.setWordlistId(1);
-		
-		savedGamesHandler = new SavedGamesHandler(mContext.getApplicationContext());
-		savedGamesHandler.saveGame(saved);
-		assertTrue(savedGamesHandler.gameInDatabase("Test"));
-		savedGamesHandler.removeGameByName("Test");
-		assertFalse(savedGamesHandler.gameInDatabase("Test"));
+		return saved;
+	}
+
+	public void setUp() {
+		 wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
+		 savedGamesHandler = new SavedGamesHandler(mContext.getApplicationContext());
+		android.preference.PreferenceManager.setDefaultValues(
+				mContext.getApplicationContext(), R.xml.preferences, false);
+		try {
+			wordlistHandler.copyDB();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

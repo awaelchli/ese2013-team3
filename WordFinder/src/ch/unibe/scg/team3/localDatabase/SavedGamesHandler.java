@@ -3,16 +3,13 @@ package ch.unibe.scg.team3.localDatabase;
 import java.util.ArrayList;
 import java.util.Date;
 
-import ch.unibe.scg.team3.board.Board;
-import ch.unibe.scg.team3.board.RawBoardBuilder;
-import ch.unibe.scg.team3.game.AbstractGame;
-import ch.unibe.scg.team3.game.SavedGame;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
+import ch.unibe.scg.team3.game.SavedGame;
 
 /**
  * This class give the options to save games to the main database. It also
@@ -42,17 +39,16 @@ public class SavedGamesHandler extends DataHandler {
 		String wordlist = preferences.getString("choose_wordlist", null);
 		int timesPlayed = 1;
 		String date = (new Date().toString());
-		if(!gameInDatabase(name)){
-		String sql = "INSERT INTO Games VALUES(NULL, ?, ? , "
-				+ words + ", '" + time + "', '" + date + "', " + wordlist
-				+ ", " + score + ", '" + isPrivate + "', " + timesPlayed
-				+ ", " + guesses + ")";
-		SQLiteDatabase db = helper.getReadableDatabase();
-		db.execSQL(sql, new String[] { name, board });
-		db.close();
-		return true;
-		}
-		else{
+		if (!gameInDatabase(name)) {
+			String sql = "INSERT INTO Games VALUES(NULL, ?, ? , " + words
+					+ ", '" + time + "', '" + date + "', " + wordlist + ", "
+					+ score + ", '" + isPrivate + "', " + timesPlayed + ", "
+					+ guesses + ")";
+			SQLiteDatabase db = helper.getReadableDatabase();
+			db.execSQL(sql, new String[] { name, board });
+			db.close();
+			return true;
+		} else {
 			return false;
 		}
 
@@ -61,7 +57,7 @@ public class SavedGamesHandler extends DataHandler {
 	public ArrayList<SavedGame> getSavedGames() {
 
 		ArrayList<SavedGame> list = new ArrayList<SavedGame>();
-		
+
 		SQLiteDatabase db = helper.getReadableDatabase();
 
 		Cursor c = db.rawQuery("SELECT * FROM Games", null);
@@ -87,8 +83,7 @@ public class SavedGamesHandler extends DataHandler {
 			db.close();
 
 			return list;
-		}
-		else {
+		} else {
 			c.close();
 			db.close();
 			return list;
@@ -98,7 +93,7 @@ public class SavedGamesHandler extends DataHandler {
 
 	public SavedGame getSavedGameByName(String name) {
 		SQLiteDatabase db = helper.getReadableDatabase();
-		String[] query={name};
+		String[] query = { name };
 		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = ?", query);
 		SavedGame game = new SavedGame();
 		if (c != null && c.getCount() != 0) {
@@ -107,7 +102,7 @@ public class SavedGamesHandler extends DataHandler {
 			game.setId(c.getInt(0));
 			game.setName(c.getString(1));
 			game.setStringBoard(c.getString(2));
- 			game.setNumberOfFoundWords(c.getInt(3));
+			game.setNumberOfFoundWords(c.getInt(3));
 			game.setTime(c.getString(4));
 			game.setDate(c.getString(5));
 			game.setWordlistId(c.getInt(6));
@@ -126,25 +121,27 @@ public class SavedGamesHandler extends DataHandler {
 			return game;
 		}
 	}
-	public boolean gameInDatabase(String gameName){
+
+	public boolean gameInDatabase(String gameName) {
 		SQLiteDatabase db = helper.getReadableDatabase();
-		
-		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = ?", new String[] {gameName});
+
+		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = ?",
+				new String[] { gameName });
 		if (c != null && c.getCount() != 0) {
 			c.close();
 			db.close();
 			return true;
-		}
-		else{
+		} else {
 			c.close();
 			db.close();
 			return false;
 		}
 	}
-	public boolean removeGameByName(String name){
+
+	public boolean removeGameByName(String name) {
 		SQLiteDatabase db = helper.getReadableDatabase();
-		
-		String[] query={name};
+
+		String[] query = { name };
 		try {
 			db.execSQL("DELETE FROM Games WHERE Name = ?", query);
 		} catch (SQLException e) {
