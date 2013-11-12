@@ -28,6 +28,12 @@ public class SavedGame extends AbstractGame implements Serializable {
 	public boolean getIsPersonal(){
 		return this.isPersonal;
 	}
+	public ArrayList<WordSelection> getFoundWords(){
+		return this.found;
+	}
+	public void setFoundWords(ArrayList<WordSelection> found){
+		this.found=found;
+	}
 
 	public String getStringBoard() {
 		return board;

@@ -170,7 +170,6 @@ public class Game extends AbstractGame {
 
 	public SavedGame save() {
 		SavedGame saved = new SavedGame();
-		
 		saved.setScore(getScore());
 		saved.setStringBoard(board.toString());
 		saved.setTime(getTime());
