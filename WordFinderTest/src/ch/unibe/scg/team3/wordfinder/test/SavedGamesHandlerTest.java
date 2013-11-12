@@ -14,7 +14,10 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements IDataHandl
 	protected SavedGamesHandler savedGamesHandler;
 
 	public void setUp() {
+		
 		wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
+		android.preference.PreferenceManager.setDefaultValues(
+				mContext.getApplicationContext(), R.xml.preferences, false);
 		File database = new File(
 				"/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
 		try {

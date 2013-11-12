@@ -44,8 +44,8 @@ public class SavedGamesHandler extends DataHandler {
 		String date = (new Date().toString());
 		if(!gameInDatabase(name)){
 		String sql = "INSERT INTO Games VALUES(NULL, ?, ? , "
-				+ words + ", '" + time + "', '" + date + "', '" + wordlist
-				+ "', " + score + ", '" + isPrivate + "', " + timesPlayed
+				+ words + ", '" + time + "', '" + date + "', " + wordlist
+				+ ", " + score + ", '" + isPrivate + "', " + timesPlayed
 				+ ", " + guesses + ")";
 		SQLiteDatabase db = helper.getReadableDatabase();
 		db.execSQL(sql, new String[] { name, board });
