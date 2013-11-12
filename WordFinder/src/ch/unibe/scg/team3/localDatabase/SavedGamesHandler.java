@@ -31,10 +31,10 @@ public class SavedGamesHandler extends DataHandler {
 	public boolean saveGame(SavedGame game) {
 		String name = game.getName();
 		String board = game.getStringBoard();
-		int words = game.getFoundWords().size();
+		int words = game.getNumberOfFoundWords();
 		String time = game.getTime();
 		int score = game.getScore();
-		boolean isPersonal = game.getIsPersonal();
+		boolean isPrivate = game.isPrivate();
 		int guesses = game.getNumberOfGuesses();
 
 		SharedPreferences preferences = PreferenceManager
@@ -45,7 +45,7 @@ public class SavedGamesHandler extends DataHandler {
 		if(!gameInDatabase(name)){
 		String sql = "INSERT INTO Games VALUES(NULL, ?, '" + board + "', "
 				+ words + ", '" + time + "', '" + date + "', '" + wordlist
-				+ "', " + score + ", '" + isPersonal + "', " + timesPlayed
+				+ "', " + score + ", '" + isPrivate + "', " + timesPlayed
 				+ ", " + guesses + ")";
 		SQLiteDatabase db = helper.getReadableDatabase();
 		db.execSQL(sql, new String[] { name });

@@ -9,12 +9,8 @@ import ch.unibe.scg.team3.game.IElement;
 /**
  * @author adrian
  */
-public class Token extends AbstractToken implements IElement, Serializable {
+public class Token extends AbstractToken implements IElement {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1976053210330896089L;
 	private final char letter;
 	private final int value;
 
