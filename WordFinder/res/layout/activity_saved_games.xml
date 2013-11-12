@@ -7,12 +7,11 @@
     tools:context=".SavedGamesActivity" >
 
     <TextView
-        android:id="@+id/savedGames"
+        android:id="@+id/saved_Games_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/saved_games"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="35dp" />
+        android:textSize="@dimen/saved_games_title_textsize" />
 
     <ListView
         android:id="@+id/saved_Games_list"

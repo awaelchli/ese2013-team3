@@ -5,12 +5,11 @@
     android:gravity="center_horizontal">
 
     <TextView
-        android:id="@+id/savedGames"
+        android:id="@+id/saved_game_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/gameoverview"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="35sp" />
+        android:textSize="@dimen/saved_game_title_textsize" />
 
     <ch.unibe.scg.team3.gameui.BoardUI
         android:id="@+id/tableboardUI"
@@ -24,20 +23,21 @@
     </ch.unibe.scg.team3.gameui.BoardUI>
 
     <ScrollView
-        android:id="@+id/scrollView1"
+        android:id="@+id/scroll_overview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dip"
+        android:padding="@dimen/board_button_border_radius"
         android:layout_weight="1" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/game_overview_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dip"
                 android:layout_weight="1" />
 
         </LinearLayout>
@@ -48,11 +48,10 @@
         android:layout_height="wrap_content" 
         android:orientation="horizontal"
         android:weightSum="1">
-        
 
         <Button
             android:id="@+id/replay_button"
-            android:layout_width="match_parent"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:text="@string/replay_button" 
             android:onClick="replaySavedGame"

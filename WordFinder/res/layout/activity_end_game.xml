@@ -1,83 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".EndGameActivity" >
+
+    <TextView
+        android:id="@+id/end_of_game_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/end_of_Game"
+        android:textSize="@dimen/end_game_title_textsize" />
+
+    <TextView
+        android:id="@+id/display_Stats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.03"
+        android:textSize="@dimen/stats_text_size" />
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-   		 xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        tools:context=".EndGameActivity" >
-
-        <TextView
-            android:id="@+id/savedGames"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/end_of_Game"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="35sp" />
-
-        <TextView
-            android:id="@+id/display_Stats"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/stats_text_size"
-            android:layout_weight="0.03" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:weightSum="2" >
 
-            <LinearLayout
+            <Button
+                android:id="@+id/cancel_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="2" >
+                android:layout_weight="1"
+                android:onClick="goHome"
+                android:text="@string/cancel_button" />
 
-                <Button
-                    android:id="@+id/cancel_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="goHome"
-                    android:text="@string/cancel_button" />
-
-                <Button
-                    android:id="@+id/save_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="enterTitle"
-                    android:text="@string/save_Game" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <Button
+                android:id="@+id/save_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2" >
-
-                <Button
-                    android:id="@+id/new_game_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="newGame"
-                    android:text="@string/new_game_button" />
-
-                <Button
-                    android:id="@+id/play_again_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="replayGame"
-                    android:text="@string/replay_button" />
-
-            </LinearLayout>
-
+                android:layout_weight="1"
+                android:onClick="enterTitle"
+                android:text="@string/save_Game" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2" >
+
+            <Button
+                android:id="@+id/new_game_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="newGame"
+                android:text="@string/new_game_button" />
+
+            <Button
+                android:id="@+id/play_again_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="replayGame"
+                android:text="@string/replay_button" />
+        </LinearLayout>
     </LinearLayout>
 
+</LinearLayout>

@@ -1,7 +1,5 @@
 package ch.unibe.scg.team3.game;
 
-import java.util.ArrayList;
-
 import ch.unibe.scg.team3.board.*;
 import ch.unibe.scg.team3.gameui.*;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
@@ -210,7 +208,8 @@ public class Game extends AbstractGame {
 		saved.setWordlistId(getWordlistId());
 		saved.setTimesPlayed(getTimesPlayed());
 		saved.setFoundWords(found);
-
+		saved.setNumberOfFoundWords(found.size());
+		saved.setTime(timer.getElapsedTime());
 		return saved;
 	}
 

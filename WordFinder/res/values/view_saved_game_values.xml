@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="gameoverview">Game Overview</string>
+
+    <dimen name="saved_game_title_textsize">35sp</dimen>
+
+</resources>

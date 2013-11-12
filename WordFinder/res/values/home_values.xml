@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_home">Wordfinder Game</string>
+
+    <dimen name="home_title_textSize">35sp</dimen>
+
+    <string name="start_game_button">Start Game</string>
+    <string name="preferences_button">Preferences</string>
+    <string name="saved_games_button">Saved Games</string>
+    <string name="statistics_button">Statistics</string>
+    <string name="friends_button">Friends</string>
+
+</resources>

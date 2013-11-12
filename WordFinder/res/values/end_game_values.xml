@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="end_of_Game">Game Over</string>
+
+    <dimen name="end_game_title_textsize">35sp</dimen>
     <dimen name="stats_text_size">30sp</dimen>
-    
+
 </resources>

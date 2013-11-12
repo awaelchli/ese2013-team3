@@ -10,12 +10,15 @@ import android.widget.TextView;
  */
 public abstract class Timer extends CountDownTimer {
 	
+	private final long initialTime;
+	
 	private long remainingTime;
 	private TextView view;
 	private final Activity context;
 
 	public Timer(long millisInFuture, TextView countdownView, Activity context) {
 		super(millisInFuture, 1000);
+		initialTime = millisInFuture;
 		this.context = context;
 		view = countdownView;
 	}
@@ -52,5 +55,9 @@ public abstract class Timer extends CountDownTimer {
 		String secText = String.format("%02d", seconds);
 
 		return minText + ":" + secText;
+	}
+
+	public String getElapsedTime() {
+		return format(initialTime - remainingTime);
 	}
 }

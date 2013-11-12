@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
+    <dimen name="saved_games_title_textsize">35sp</dimen>
     <dimen name="saved_games_list_item_padding">10dp</dimen>
     <dimen name="saved_games_list_item_text_size">15dp</dimen>
     <dimen name="saved_games_name_size">20dp</dimen>
     
+    <string name="saved_games">Saved Games</string>
+
 </resources>
