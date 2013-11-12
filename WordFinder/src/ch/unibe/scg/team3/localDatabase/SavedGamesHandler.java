@@ -6,7 +6,6 @@ import java.util.Date;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import ch.unibe.scg.team3.game.SavedGame;
@@ -36,7 +35,7 @@ public class SavedGamesHandler extends DataHandler {
 
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(context);
-		String wordlist = preferences.getString("choose_wordlist", null);
+		int wordlist = Integer.parseInt(preferences.getString("choose_wordlist", null));
 		int timesPlayed = 1;
 		String date = (new Date().toString());
 		if (!gameInDatabase(name)) {
@@ -139,17 +138,16 @@ public class SavedGamesHandler extends DataHandler {
 	}
 
 	public boolean removeGameByName(String name) {
-		SQLiteDatabase db = helper.getReadableDatabase();
-
-		String[] query = { name };
-		try {
+		if (gameInDatabase(name)){
+			SQLiteDatabase db = helper.getReadableDatabase();
+			String[] query = { name };
 			db.execSQL("DELETE FROM Games WHERE Name = ?", query);
-		} catch (SQLException e) {
 			db.close();
-			return false;
+			return true;
 		}
-		db.close();
-		return true;
+		else{
+		return false;
+		}
 	}
 
 }

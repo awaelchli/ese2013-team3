@@ -210,9 +210,7 @@ public class Game extends AbstractGame {
 		saved.setFoundWords(found);
 		saved.setNumberOfFoundWords(found.size());
 		saved.setTime(timer.getElapsedTime());
+
 		return saved;
 	}
-
-	
-
 }

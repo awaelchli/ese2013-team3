@@ -1,13 +1,13 @@
 package ch.unibe.scg.team3.wordfinder;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 import ch.unibe.scg.team3.game.SavedGame;
 import ch.unibe.scg.team3.gameui.BoardUI;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.view.View;
-import android.widget.TextView;
 
 public class ViewSavedGameActivity extends Activity {
 

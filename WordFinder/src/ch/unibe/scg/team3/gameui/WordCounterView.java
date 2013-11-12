@@ -1,11 +1,11 @@
 package ch.unibe.scg.team3.gameui;
 
-import ch.unibe.scg.team3.game.AbstractGame;
-import ch.unibe.scg.team3.game.Game;
-import ch.unibe.scg.team3.game.IGameObserver;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
+import ch.unibe.scg.team3.game.AbstractGame;
+import ch.unibe.scg.team3.game.Game;
+import ch.unibe.scg.team3.game.IGameObserver;
 
 /**
  * This custom {@link Textiew} is responsible for displaying the number of words

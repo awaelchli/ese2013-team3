@@ -6,7 +6,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import ch.unibe.scg.team3.board.*;
+import ch.unibe.scg.team3.board.Board;
+import ch.unibe.scg.team3.board.RawBoardBuilder;
+import ch.unibe.scg.team3.board.WordSelection;
 
 /**
  * A saved game stores all the data needed to recover the game and replay it.
@@ -140,6 +142,7 @@ public class SavedGame extends AbstractGame implements Serializable {
 	/**
 	 * Custom deserialization is needed for superclass fields.
 	 */
+	@SuppressWarnings("unchecked")
 	private void readObject(ObjectInputStream aStream) throws IOException, ClassNotFoundException {
 		aStream.defaultReadObject();
 		// manually deserialize and init superclass

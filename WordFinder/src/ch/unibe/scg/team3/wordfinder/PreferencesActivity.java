@@ -1,13 +1,10 @@
 package ch.unibe.scg.team3.wordfinder;
 
-import java.io.IOException;
-
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
-import android.view.Menu;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
 /**
@@ -18,6 +15,7 @@ import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 public class PreferencesActivity extends PreferenceActivity {
 	WordlistHandler wm;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

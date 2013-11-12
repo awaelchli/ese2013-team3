@@ -1,6 +1,5 @@
 package ch.unibe.scg.team3.board;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

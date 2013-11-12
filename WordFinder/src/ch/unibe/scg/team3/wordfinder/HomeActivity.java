@@ -5,12 +5,9 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Menu;
 import android.view.View;
-import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
 /**
