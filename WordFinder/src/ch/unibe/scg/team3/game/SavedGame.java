@@ -22,8 +22,11 @@ public class SavedGame extends AbstractGame implements Serializable {
 	private String name;
 	private String time;
 	private String date;
+	
+
 	private boolean isPrivate;
 	private String board;
+	private int foundWords;
 
 	
 	public ArrayList<WordSelection> getFoundWords(){
@@ -31,6 +34,10 @@ public class SavedGame extends AbstractGame implements Serializable {
 	}
 	public void setFoundWords(ArrayList<WordSelection> found){
 		this.found=found;
+	}
+	@Override
+	public int getNumberOfFoundWords() {
+		return foundWords;
 	}
 
 	public String getStringBoard() {
