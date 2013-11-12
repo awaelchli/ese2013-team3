@@ -34,7 +34,7 @@ public class SavedGamesHandler extends DataHandler {
 		int words = game.getFoundWords().size();
 		String time = game.getTime();
 		int score = game.getScore();
-		boolean isPersonal = game.getIsPersonal();
+		boolean isPersonal = game.isPersonal();
 		int guesses = game.getNumberOfGuesses();
 
 		SharedPreferences preferences = PreferenceManager

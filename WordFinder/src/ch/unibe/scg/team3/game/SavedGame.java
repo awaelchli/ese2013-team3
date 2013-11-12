@@ -25,9 +25,10 @@ public class SavedGame extends AbstractGame implements Serializable {
 	private boolean isPrivate;
 	private String board;
 
-	public boolean getIsPersonal(){
+	public boolean isPersonal(){
 		return this.isPersonal;
 	}
+	
 	public ArrayList<WordSelection> getFoundWords(){
 		return this.found;
 	}
