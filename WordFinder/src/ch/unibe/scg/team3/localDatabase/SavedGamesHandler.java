@@ -68,7 +68,7 @@ public class SavedGamesHandler extends DataHandler {
 				game.setId(c.getInt(0));
 				game.setName(c.getString(1));
 				game.setStringBoard(c.getString(2));
-				// game.setFoundWords(c.getInt(3));
+				game.setNumberOfFoundWords(c.getInt(3));
 				game.setTime(c.getString(4));
 				game.setDate(c.getString(5));
 				game.setWordlistId(c.getInt(6));
