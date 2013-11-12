@@ -45,9 +45,14 @@ public class SavedGame extends AbstractGame implements Serializable {
 	}
 
 	public void setStringBoard(String stringBoard) {
-		double side = Math.sqrt(stringBoard.length());
-		if (side % 1 == 0) {
-			board = stringBoard;
+		
+		try {
+			double side = Math.sqrt(stringBoard.length());
+			if (side % 1 == 0) {
+				board = stringBoard;
+			}
+		} catch (Exception e) {
+			board="";
 		}
 	}
 
@@ -158,4 +163,10 @@ public class SavedGame extends AbstractGame implements Serializable {
 		aStream.writeObject(observers);
 		aStream.writeObject(isPrivate);
 	}
+	public void setNumberOfFoundWords(int foundWords) {
+		this.foundWords = foundWords;
+		
+	}
+	
+	
 }
