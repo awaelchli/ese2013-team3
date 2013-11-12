@@ -1,68 +1,37 @@
 package ch.unibe.scg.team3.wordfinder.test;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
+
+import android.test.AndroidTestCase;
 
 import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
 import ch.unibe.scg.team3.localDatabase.WordlistAlreadyInDataBaseException;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import ch.unibe.scg.team3.wordfinder.R;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.preference.PreferenceManager;
-import android.test.AndroidTestCase;
 
-public class WordlistHandlerTest extends AndroidTestCase implements IDataHandlerTest{
-	protected WordlistHandler wordlistHandler;
-
-	public void setUp() {
-		android.preference.PreferenceManager.setDefaultValues(
-				mContext.getApplicationContext(), R.xml.preferences, false);
-		wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
-		File database = new File(
-				"/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
-		try {
-			wordlistHandler.copyDB();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
+public class WordlistHandlerTest extends AndroidTestCase implements IDataHandlerTest {
+	
+	protected WordlistHandler wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
+	
 	public void testGetRandomWordFromWordlist() {
-
 		String string = wordlistHandler.getRandomWordFromWordlist();
 		assertNotNull(string);
 		assertFalse(string.equals(""));
-
 	}
 
-	public void testAddEmptyWordlist()
-			throws WordlistAlreadyInDataBaseException {
+	public void testAddEmptyWordlist() throws WordlistAlreadyInDataBaseException {
 		wordlistHandler.addEmptyWordlist("TestAddEmptyWordlist");
 		assertTrue(wordlistHandler.isWordlistInDatabase("TestAddEmptyWordlist"));
-		// wordlistHandler.addEmptyWordlist("TestAddEmptyWordlist");
-
 	}
 
-	public void testAddWordToWordlist()
-			throws WordlistAlreadyInDataBaseException {
+	public void testAddWordToWordlist() throws WordlistAlreadyInDataBaseException {
 		wordlistHandler.addEmptyWordlist("TestAddWordToWordlist");
 		wordlistHandler.addWordToWordlist("teste", "TestAddWordToWordlist");
-		assertTrue(wordlistHandler.isWordInWordlist("teste",
-				wordlistHandler.getWordlistId("TestAddWordToWordlist")));
+		assertTrue(wordlistHandler.isWordInWordlist("teste",wordlistHandler.getWordlistId("TestAddWordToWordlist")));
 	}
 
 	public void testGetFirstLetterFromInputToLowerCase() {
-		assertTrue(wordlistHandler.getFirstLetterFromInputToLowerCase("Test")
-				.equals("t"));
-
+		assertTrue(wordlistHandler.getFirstLetterFromInputToLowerCase("Test").equals("t"));
 	}
 
 	public void testRemoveWordlist() throws WordlistAlreadyInDataBaseException {
@@ -125,6 +94,17 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 			String temp2 = wordlistHandler
 					.getFirstLetterFromInputToLowerCase(temp);
 			assertTrue(a.substring(i, i + 1).equals(temp2));
+		}
+	}
+
+	public void setUp() {
+		 wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
+		android.preference.PreferenceManager.setDefaultValues(
+				mContext.getApplicationContext(), R.xml.preferences, false);
+		try {
+			wordlistHandler.copyDB();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
