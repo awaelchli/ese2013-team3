@@ -30,8 +30,25 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements IDataHandl
 	public void testGetSavedGames(){
 		SavedGame saved = new SavedGame();
 		SavedGame saved2 = new SavedGame();
-		saved.setName("Test1");
+		String board ="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+		saved.setName("Test");
+		saved.setStringBoard(board);
+		saved.setDate("now");
+		saved.setPrivate(true);
+		saved.setScore(914356341);
+		saved.setTime("now");
+		saved.setTimesPlayed(0);
+		saved.setGuesses(1332434);
+		saved.setWordlistId(1);
 		saved2.setName("Test2");
+		saved2.setStringBoard(board);
+		saved2.setDate("now");
+		saved2.setPrivate(true);
+		saved2.setScore(914356341);
+		saved2.setTime("now");
+		saved2.setTimesPlayed(0);
+		saved2.setGuesses(1332434);
+		saved2.setWordlistId(1);
 		savedGamesHandler = new SavedGamesHandler(mContext.getApplicationContext());
 		savedGamesHandler.saveGame(saved);
 		savedGamesHandler.saveGame(saved2);
@@ -63,14 +80,33 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements IDataHandl
 	}
 	public void testGameInDatabase(){
 		SavedGame saved = new SavedGame();
+		String board ="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 		saved.setName("Test");
+		saved.setStringBoard(board);
+		saved.setDate("now");
+		saved.setPrivate(true);
+		saved.setScore(914356341);
+		saved.setTime("now");
+		saved.setTimesPlayed(0);
+		saved.setGuesses(1332434);
+		saved.setWordlistId(1);
 		savedGamesHandler = new SavedGamesHandler(mContext.getApplicationContext());
 		savedGamesHandler.saveGame(saved);
 		assertTrue(savedGamesHandler.gameInDatabase("Test"));
 	}
 	public void testRemoveGameByName(){
 		SavedGame saved = new SavedGame();
+		String board ="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 		saved.setName("Test");
+		saved.setStringBoard(board);
+		saved.setDate("now");
+		saved.setPrivate(true);
+		saved.setScore(914356341);
+		saved.setTime("now");
+		saved.setTimesPlayed(0);
+		saved.setGuesses(1332434);
+		saved.setWordlistId(1);
+		
 		savedGamesHandler = new SavedGamesHandler(mContext.getApplicationContext());
 		savedGamesHandler.saveGame(saved);
 		assertTrue(savedGamesHandler.gameInDatabase("Test"));
