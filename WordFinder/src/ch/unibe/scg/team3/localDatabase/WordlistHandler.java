@@ -260,7 +260,7 @@ public class WordlistHandler extends DataHandler {
 
 	}
 
-	public CharSequence[] getWordlistids() {
+	public CharSequence[] getWordlistIds() {
 		CharSequence[] lists = null;
 		ArrayList<String> tmp = new ArrayList<String>();
 		SQLiteDatabase db = helper.getReadableDatabase();

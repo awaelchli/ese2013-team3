@@ -1,6 +1,8 @@
 package ch.unibe.scg.team3.gameui;
 
+import android.app.Activity;
 import android.os.CountDownTimer;
+import android.widget.TextView;
 
 /**
  * 
@@ -10,23 +12,39 @@ import android.os.CountDownTimer;
 public abstract class Timer extends CountDownTimer {
 	
 	private long remainingTime;
+	private TextView view;
+	private final Activity context;
 
-	public Timer(long millisInFuture) {
+	public Timer(long millisInFuture, TextView countdownView, Activity context) {
 		super(millisInFuture, 1000);
+		this.context = context;
+		view = countdownView;
 	}
 
 	@Override
 	public void onTick(long millisUntilFinished) {
 		remainingTime = millisUntilFinished;
+		
+		 context.runOnUiThread(new Runnable(){
+
+		      @Override
+		      public void run(){
+		    	  view.setText(format(remainingTime));
+		      }
+		  });     
+		
 	}
 
 	public long getRemainingTime() {
 		return remainingTime;
 	}
 	
+//	public void setTextView(TextView countdownView){
+//		view = countdownView;
+//	}
+	
 	@Override
 	public String toString() {
-		
 		return format(remainingTime);
 	}
 

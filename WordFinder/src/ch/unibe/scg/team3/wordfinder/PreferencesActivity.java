@@ -43,7 +43,7 @@ public class PreferencesActivity extends PreferenceActivity {
 		CharSequence[] entries;
 		CharSequence[] entryValues;
 		entries = wm.getWordlists();
-		entryValues = wm.getWordlistids();
+		entryValues = wm.getWordlistIds();
 		lp.setEntries(entries);
 		lp.setEntryValues(entryValues);
 	}

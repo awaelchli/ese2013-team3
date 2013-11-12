@@ -1,33 +1,20 @@
 package ch.unibe.scg.team3.wordfinder.test;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 
-import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
-import ch.unibe.scg.team3.localDatabase.WordlistAlreadyInDataBaseException;
-import ch.unibe.scg.team3.localDatabase.WordlistHandler;
+import ch.unibe.scg.team3.localDatabase.*;
 import ch.unibe.scg.team3.wordfinder.R;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.preference.PreferenceManager;
 import android.test.AndroidTestCase;
 
-public class WordlistHandlerTest extends AndroidTestCase implements IDataHandlerTest{
-	protected WordlistHandler wordlistHandler;
+public class WordlistHandlerTest extends AndroidTestCase implements IDataHandlerTest {
+	
+	private WordlistHandler wordlistHandler;
 
 	public void setUp() {
-		android.preference.PreferenceManager.setDefaultValues(
-				mContext.getApplicationContext(), R.xml.preferences, false);
+		android.preference.PreferenceManager.setDefaultValues(mContext.getApplicationContext(),
+				R.xml.preferences, false);
 		wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
-		File database = new File(
-				"/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
+
 		try {
 			wordlistHandler.copyDB();
 		} catch (IOException e) {
@@ -43,16 +30,14 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 
 	}
 
-	public void testAddEmptyWordlist()
-			throws WordlistAlreadyInDataBaseException {
+	public void testAddEmptyWordlist() throws WordlistAlreadyInDataBaseException {
 		wordlistHandler.addEmptyWordlist("TestAddEmptyWordlist");
 		assertTrue(wordlistHandler.isWordlistInDatabase("TestAddEmptyWordlist"));
 		// wordlistHandler.addEmptyWordlist("TestAddEmptyWordlist");
 
 	}
 
-	public void testAddWordToWordlist()
-			throws WordlistAlreadyInDataBaseException {
+	public void testAddWordToWordlist() throws WordlistAlreadyInDataBaseException {
 		wordlistHandler.addEmptyWordlist("TestAddWordToWordlist");
 		wordlistHandler.addWordToWordlist("teste", "TestAddWordToWordlist");
 		assertTrue(wordlistHandler.isWordInWordlist("teste",
@@ -60,8 +45,7 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 	}
 
 	public void testGetFirstLetterFromInputToLowerCase() {
-		assertTrue(wordlistHandler.getFirstLetterFromInputToLowerCase("Test")
-				.equals("t"));
+		assertTrue(wordlistHandler.getFirstLetterFromInputToLowerCase("Test").equals("t"));
 
 	}
 
@@ -72,19 +56,15 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 		assertFalse(wordlistHandler.isWordlistInDatabase(""));
 	}
 
-	public void testRemoveWordFromWordlist()
-			throws WordlistAlreadyInDataBaseException {
+	public void testRemoveWordFromWordlist() throws WordlistAlreadyInDataBaseException {
 		wordlistHandler.addEmptyWordlist("TestRemoveWordFromWordlist");
-		wordlistHandler
-				.addWordToWordlist("Teste", "TestRemoveWordFromWordlist");
-		wordlistHandler.removeWordFromWordlist("teste",
-				"TestRemoveWordFromWordlist");
+		wordlistHandler.addWordToWordlist("Teste", "TestRemoveWordFromWordlist");
+		wordlistHandler.removeWordFromWordlist("teste", "TestRemoveWordFromWordlist");
 		assertFalse((wordlistHandler.isWordInWordlist("Teste",
 				wordlistHandler.getWordlistId("TestRemoveWordFromWordlist"))));
 	}
 
-	public void testIsWordInWordlist()
-			throws WordlistAlreadyInDataBaseException {
+	public void testIsWordInWordlist() throws WordlistAlreadyInDataBaseException {
 		wordlistHandler.addEmptyWordlist("TestIsWordInWordlist");
 		wordlistHandler.addWordToWordlist("Teste", "TestIsWordInWordlist");
 		assertTrue(wordlistHandler.isWordInWordlist("Teste",
@@ -112,18 +92,16 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 
 	}
 
-	public void testGetWordlistids() {
-		assertNotNull(wordlistHandler.getWordlistids());
-		assertTrue(wordlistHandler.getWordlistids().length >= 2);
+	public void testGetWordlistIds() {
+		assertNotNull(wordlistHandler.getWordlistIds());
+		assertTrue(wordlistHandler.getWordlistIds().length >= 2);
 	}
 
 	public void testGetRandomWordFromWordlistByLetter() {
 		String a = MySQLiteHelper.ALPHABET;
 		for (int i = 0; i < a.length(); i++) {
-			String temp = wordlistHandler.getRandomWordFromWordlistByLetter(a
-					.substring(i, i + 1));
-			String temp2 = wordlistHandler
-					.getFirstLetterFromInputToLowerCase(temp);
+			String temp = wordlistHandler.getRandomWordFromWordlistByLetter(a.substring(i, i + 1));
+			String temp2 = wordlistHandler.getFirstLetterFromInputToLowerCase(temp);
 			assertTrue(a.substring(i, i + 1).equals(temp2));
 		}
 	}

@@ -1,73 +1,85 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-        <ch.unibe.scg.team3.gameui.CountDownView
-            android:id="@+id/timer_field"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="@dimen/header_textsize" />
+            android:orientation="horizontal"
+            android:weightSum="3" >
 
-        <ch.unibe.scg.team3.gameui.WordCounterView
-            android:id="@+id/foundCounter"
+            <TextView
+                android:id="@+id/timer_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/header_textsize" />
+
+            <ch.unibe.scg.team3.gameui.WordCounterView
+                android:id="@+id/foundCounter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="@dimen/header_textsize" />
+
+            <ch.unibe.scg.team3.gameui.ScoreView
+                android:id="@+id/score_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textSize="@dimen/header_textsize" />
+        </LinearLayout>
+
+        <ch.unibe.scg.team3.gameui.BoardUI
+            android:id="@+id/tableboardUI"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"          
-            android:layout_weight="1"
-            android:textSize="@dimen/header_textsize" />
-        
-        <ch.unibe.scg.team3.gameui.ScoreView
-            android:id="@+id/score_view"
-            android:layout_width="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:shrinkColumns="*"
+            android:stretchColumns="*" />
+
+        <TextView
+            android:id="@+id/title_found_words"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/found_words" />
+
+        <ScrollView
+            android:id="@+id/scrollFoundWords"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/header_textsize"
-            android:gravity="right" />
-        
+            android:fillViewport="true" >
+
+            <ch.unibe.scg.team3.gameui.FoundWordsView
+                android:id="@+id/foundWordsField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+        <Button
+            android:id="@+id/quit_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="quit"
+            android:text="@string/quit_button"
+            android:enabled="false" />
     </LinearLayout>
 
-    <ch.unibe.scg.team3.gameui.BoardUI
-        android:id="@+id/tableboardUI"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:shrinkColumns="*"
-        android:stretchColumns="*" />
-
-    <TextView
-        android:id="@+id/title_found_words"
+    <ProgressBar
+        android:id="@+id/loadingGameBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/found_words" />
+        android:layout_gravity="center" />
 
-    <ScrollView
-        android:id="@+id/scrollFoundWords"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true" >
-
-        <ch.unibe.scg.team3.gameui.FoundWordsView
-            android:id="@+id/foundWordsField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
-
-    <Button
-        android:id="@+id/quit_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:onClick="quit"
-        android:text="@string/quit_button" />
-
-</LinearLayout>
+</FrameLayout>

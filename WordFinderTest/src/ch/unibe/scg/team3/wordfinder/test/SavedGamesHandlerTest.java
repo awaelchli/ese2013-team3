@@ -1,12 +1,9 @@
 package ch.unibe.scg.team3.wordfinder.test;
 
-import java.io.File;
 import java.io.IOException;
 
 import ch.unibe.scg.team3.game.SavedGame;
-import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
-import ch.unibe.scg.team3.localDatabase.WordlistHandler;
-import ch.unibe.scg.team3.wordfinder.R;
+import ch.unibe.scg.team3.localDatabase.*;
 import android.test.AndroidTestCase;
 
 public class SavedGamesHandlerTest extends AndroidTestCase implements IDataHandlerTest {
@@ -15,8 +12,6 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements IDataHandl
 
 	public void setUp() {
 		wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
-		File database = new File(
-				"/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
 		try {
 			wordlistHandler.copyDB();
 		} catch (IOException e) {

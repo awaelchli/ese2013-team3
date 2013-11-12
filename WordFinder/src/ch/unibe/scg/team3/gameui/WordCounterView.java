@@ -31,7 +31,7 @@ public class WordCounterView extends TextView implements IGameObserver {
 	@Override
 	public void update(AbstractGame game) {
 		int found = game.getFoundWords().size();
-		setText(found + "/" + Game.MAX_WORDS_TO_FIND);
+		setText(found + "/" + Game.DEFAULT_MIN_WORDS_TO_FIND);
 	}
 
 }

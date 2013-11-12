@@ -14,16 +14,14 @@ import ch.unibe.scg.team3.token.*;
  */
 public class Board implements Iterable<IToken>{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6700103751808440849L;
-
 	public static final int DEFAULT_SIZE = 6;
 	
 	private IToken[][] tokens;
 	private final int size;
 
+	/**
+	 * Creates a board with default size
+	 */
 	public Board(){
 		this(DEFAULT_SIZE);
 	}

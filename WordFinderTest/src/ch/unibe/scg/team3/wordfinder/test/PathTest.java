@@ -40,5 +40,29 @@ public class PathTest extends AndroidTestCase {
 		
 		assertTrue(path.isEmpty());
 	}
+	
+	public void testContains(){
+		Path<IToken> path = new Path<IToken>();
+		
+		Token tok1 = new Token('A', 1, 0, 0);
+		Token tok2 = new Token('B', 1, 0, 1);
+		Token tok3 = new Token('B', 2, 0, 3);
+		
+		path.add(tok1);
+		path.add(tok2);
+		path.add(tok3);
+		
+		assertTrue(path.contains(tok1));
+		assertTrue(path.contains(tok2));
+		assertFalse(path.contains(tok3));
+		
+		path.removeLast();
+		assertFalse(path.contains(tok2));
+		path.removeLast();
+		assertFalse(path.contains(tok1));
+		
+		assertTrue(path.isEmpty());
+	}
 
+	
 }
