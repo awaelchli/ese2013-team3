@@ -62,7 +62,9 @@ public class Game implements IGame {
 //		 wordlistHandler, DEFAULT_MIN_WORDS_TO_FIND);
 //		IterativeDBBoardGenerator gen = new IterativeDBBoardGenerator(boardSize,
 //			 wordlistHandler, DEFAULT_MIN_WORDS_TO_FIND);
-		PrimitiveDBBoardGenerator gen = new PrimitiveDBBoardGenerator(boardSize,
+//		PrimitiveDBBoardGenerator gen = new PrimitiveDBBoardGenerator(boardSize,
+//				 wordlistHandler, DEFAULT_MIN_WORDS_TO_FIND);
+		PrimitiveRecursiveDBBoardGenerator gen = new PrimitiveRecursiveDBBoardGenerator(boardSize,
 				 wordlistHandler, DEFAULT_MIN_WORDS_TO_FIND);
 		
 		 board = gen.getBoard();
