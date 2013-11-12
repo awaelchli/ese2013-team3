@@ -25,5 +25,7 @@
     <string name="action_settings">Settings</string>
     <string name="replay_button">Replay</string>
     <string name="gameoverview">Game Overview</string>
+    <string name="end_of_Game">End Of Game</string>
+    <string name="saved_games">Saved Games</string>
 
 </resources>

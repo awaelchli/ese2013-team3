@@ -1,5 +1,6 @@
 package ch.unibe.scg.team3.board;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import ch.unibe.scg.team3.token.IToken;
  * @author adrian
  */
 public class WordSelection {
-
 	private List<IToken> selection;
 
 	public WordSelection() {

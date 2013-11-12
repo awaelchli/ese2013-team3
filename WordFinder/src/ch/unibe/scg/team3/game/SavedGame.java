@@ -1,56 +1,54 @@
 package ch.unibe.scg.team3.game;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import ch.unibe.scg.team3.board.Board;
-import ch.unibe.scg.team3.board.RawBoardBuilder;
-import ch.unibe.scg.team3.board.WordSelection;
+import ch.unibe.scg.team3.board.*;
 
 /**
  * A saved game stores all the data needed to recover the game and replay it.
  * 
  * @author adrian
- * @see IGame
+ * @see AbstractGame
  */
-public class SavedGame implements IGame, Serializable {
+public class SavedGame extends AbstractGame implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5443483841551113239L;
-	// private static final long serialVersionUID = 5916020210779611232L;
+	private static final long serialVersionUID = -269683003596675103L;
 
 	private int id;
 	private String name;
 	private String time;
 	private String date;
+	
+
 	private boolean isPrivate;
-	private int timesPlayed;
-	private String stringBoard;
-
-	private int score;
-
-	private int guesses;
-
-	private int wordlistId;
-
-	private final ArrayList<IGameObserver> observers;
-	private final ArrayList<WordSelection> found;
-
+	private String board;
 	private int foundWords;
 
-	public SavedGame() {
-		observers = new ArrayList<IGameObserver>();
-		found = new ArrayList<WordSelection>();
+	
+	public ArrayList<WordSelection> getFoundWords(){
+		return this.found;
+	}
+	public void setFoundWords(ArrayList<WordSelection> found){
+		this.found=found;
+	}
+	@Override
+	public int getNumberOfFoundWords() {
+		return foundWords;
 	}
 
 	public String getStringBoard() {
-		return stringBoard;
+		return board;
 	}
 
 	public void setStringBoard(String stringBoard) {
-		this.stringBoard = stringBoard;
+		double side = Math.sqrt(stringBoard.length());
+		if (side % 1 == 0) {
+			board = stringBoard;
+		}
 	}
 
 	public int getId() {
@@ -109,10 +107,6 @@ public class SavedGame implements IGame, Serializable {
 		this.isPrivate = isPrivate;
 	}
 
-	public int getTimesPlayed() {
-		return timesPlayed;
-	}
-
 	public void setTimesPlayed(int timesPlayed) {
 		this.timesPlayed = timesPlayed;
 	}
@@ -128,60 +122,40 @@ public class SavedGame implements IGame, Serializable {
 
 	@Override
 	public Board getBoard() {
-		RawBoardBuilder builder = new RawBoardBuilder(stringBoard);
+		RawBoardBuilder builder = new RawBoardBuilder(board);
 		return builder.getBoard();
 	}
 
 	@Override
 	public int getBoardSize() {
-		return (int) Math.sqrt(stringBoard.length());
+		return (int) Math.sqrt(board.length());
 	}
 
-	@Override
-	public void addObserver(IGameObserver observer) {
-		observers.add(observer);
+	/**
+	 * Custom deserialization is needed for superclass fields.
+	 */
+	private void readObject(ObjectInputStream aStream) throws IOException, ClassNotFoundException {
+		aStream.defaultReadObject();
+		// manually deserialize and init superclass
+		score = (Integer) aStream.readObject();
+		guesses = (Integer) aStream.readObject();
+		wordlistId = (Integer) aStream.readObject();
+		timesPlayed = (Integer) aStream.readObject();
+		observers = (ArrayList<IGameObserver>) aStream.readObject();
+		isPrivate = (Boolean) aStream.readObject();	
 	}
 
-	@Override
-	public void removeObserver(IGameObserver observer) {
-		observers.remove(observer);
+	/**
+	 * Custom serialization is needed for superclass fields.
+	 */
+	private void writeObject(ObjectOutputStream aStream) throws IOException {
+		aStream.defaultWriteObject();
+		// manually serialize superclass
+		aStream.writeObject(score);
+		aStream.writeObject(guesses);
+		aStream.writeObject(wordlistId);
+		aStream.writeObject(timesPlayed);
+		aStream.writeObject(observers);
+		aStream.writeObject(isPrivate);
 	}
-
-	@Override
-	public void notifyObservers() {
-		for (IGameObserver observer : observers) {
-			observer.update(this);
-		}
-	}
-
-	@Override
-	public int getScore() {
-		return score;
-	}
-
-	@Override
-	public int getNumberOfGuesses() {
-		return guesses;
-	}
-
-	@Override
-	public int getNumberOfFoundWords() {
-		return foundWords;
-	}
-
-	@Override
-	public ArrayList<WordSelection> getFoundWords() {
-		return found;
-	}
-
-	@Override
-	public int getWordlistId() {
-		return wordlistId;
-	}
-
-	public void setFoundWords(int found) {
-		foundWords = found;
-		
-	}
-
 }

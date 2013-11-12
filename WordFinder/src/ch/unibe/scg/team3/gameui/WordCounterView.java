@@ -1,6 +1,6 @@
 package ch.unibe.scg.team3.gameui;
 
-import ch.unibe.scg.team3.game.IGame;
+import ch.unibe.scg.team3.game.AbstractGame;
 import ch.unibe.scg.team3.game.Game;
 import ch.unibe.scg.team3.game.IGameObserver;
 import android.content.Context;
@@ -29,7 +29,7 @@ public class WordCounterView extends TextView implements IGameObserver {
 	}
 
 	@Override
-	public void update(IGame game) {
+	public void update(AbstractGame game) {
 		int found = game.getFoundWords().size();
 		setText(found + "/" + Game.MAX_WORDS_TO_FIND);
 	}

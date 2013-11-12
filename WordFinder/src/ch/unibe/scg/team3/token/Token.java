@@ -1,5 +1,7 @@
 package ch.unibe.scg.team3.token;
 
+import java.io.Serializable;
+
 import ch.unibe.scg.team3.board.Point;
 import ch.unibe.scg.team3.game.IElement;
 
