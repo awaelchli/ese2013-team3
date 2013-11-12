@@ -7,6 +7,7 @@ import java.io.IOException;
 import android.test.AndroidTestCase;
 
 import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
+import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 import ch.unibe.scg.team3.localDatabase.WordlistAlreadyInDataBaseException;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import ch.unibe.scg.team3.wordfinder.R;
@@ -20,7 +21,7 @@ import android.test.AndroidTestCase;
 
 public class WordlistHandlerTest extends AndroidTestCase implements IDataHandlerTest {
 	
-	protected WordlistHandler wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
+	protected WordlistHandler wordlistHandler;
 	
 	public void testGetRandomWordFromWordlist() {
 
@@ -102,12 +103,23 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 
 	public void testGetRandomWordFromWordlistByLetter() {
 		String a = MySQLiteHelper.ALPHABET;
+		wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
 		for (int i = 0; i < a.length(); i++) {
 			String temp = wordlistHandler.getRandomWordFromWordlistByLetter(a
 					.substring(i, i + 1));
 			String temp2 = wordlistHandler
 					.getFirstLetterFromInputToLowerCase(temp);
 			assertTrue(a.substring(i, i + 1).equals(temp2));
+		}
+	}
+	public void setUp() {
+		 wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
+		android.preference.PreferenceManager.setDefaultValues(
+				mContext.getApplicationContext(), R.xml.preferences, false);
+		try {
+			wordlistHandler.copyDB();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
