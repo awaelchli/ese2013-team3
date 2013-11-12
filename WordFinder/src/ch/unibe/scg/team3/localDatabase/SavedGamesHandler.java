@@ -140,7 +140,7 @@ public class SavedGamesHandler extends DataHandler {
 		
 		String[] query={name};
 		try {
-			db.rawQuery("DELETE FROM Games WHERE Name = ?", query);
+			db.execSQL("DELETE FROM Games WHERE Name = ?", query);
 		} catch (SQLException e) {
 			db.close();
 			return false;

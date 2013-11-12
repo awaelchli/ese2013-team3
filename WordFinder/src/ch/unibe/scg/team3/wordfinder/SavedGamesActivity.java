@@ -14,12 +14,13 @@ import android.content.Intent;
 
 public class SavedGamesActivity extends Activity {
 	private ArrayList<SavedGame> games;
+	private SavedGamesHandler handler;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_saved_games);
 
-		SavedGamesHandler handler = new SavedGamesHandler(this);
+		handler = new SavedGamesHandler(this);
 		games = handler.getSavedGames();
 
 		ArrayAdapter<SavedGame> adapter = new ArrayAdapter<SavedGame>(this,
@@ -67,20 +68,28 @@ public class SavedGamesActivity extends Activity {
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		menu.setHeaderTitle("Options");
-		menu.add(0, v.getId(), 0, "Overview");
+		menu.add(0, v.getId(), 0, "Share");
 		menu.add(0, v.getId(), 0, "Delete");
 	}
 
 	@SuppressLint("NewApi")
 	public boolean onContextItemSelected(MenuItem item) {
-		if (item.getTitle() == "Overview") {
-			viewSavedGame(findViewById(item.getItemId()));
-		} else if (item.getTitle() == "Delete") {
+		if (item.getTitle() == "Share") {
 			
+		} else if (item.getTitle() == "Delete") {
+			removeGame(findViewById(item.getItemId()));
 		} else {
 			return false;
 		}
 		return true;
+	}
+
+	@SuppressLint("NewApi")
+	private void removeGame(View view) {
+		SavedGame savedGame = games.get(view.getId());
+		handler.removeGameByName(savedGame.getName());
+		recreate();
+		
 	}
 
 }

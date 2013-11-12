@@ -2,6 +2,7 @@ package ch.unibe.scg.team3.wordfinder;
 
 import ch.unibe.scg.team3.game.SavedGame;
 import ch.unibe.scg.team3.gameui.BoardUI;
+import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -19,15 +20,15 @@ public class ViewSavedGameActivity extends Activity {
 
 		Intent intent = getIntent();
 		savedGame = (SavedGame) intent.getSerializableExtra("saved_game");
-
+		WordlistHandler wh = new WordlistHandler(this);
 		BoardUI boardUI = (BoardUI) findViewById(R.id.tableboardUI);
 		boardUI.update(savedGame);
 
-		String labels = "Title: %s\nLast played: %s\nFound words: %s\nGuessed words: %s\nElapsed time: %s\nScore: %s";
+		String labels = "Title: %s\nLast played: %s\nFound words: %s\nGuessed words: %s\nElapsed time: %s\nScore: %s\nWordlist: %s";
 		
 		String text = String.format(labels, savedGame.getName(), savedGame.getDate(),
 				savedGame.getNumberOfFoundWords(), savedGame.getNumberOfGuesses(),
-				savedGame.getTime(), savedGame.getScore());
+				savedGame.getTime(), savedGame.getScore(), wh.getWordlistNameById(savedGame.getWordlistId()));
 
 		TextView gameOverview = (TextView) findViewById(R.id.game_overview_text);
 		gameOverview.setText(text);

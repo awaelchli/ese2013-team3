@@ -373,4 +373,20 @@ public class WordlistHandler extends DataHandler {
 		}
 	}
 
+	public Object getWordlistNameById(int wordlistId) {
+		SQLiteDatabase db = helper.getReadableDatabase();
+		String name="";
+		Cursor c = db.rawQuery("SELECT Name FROM Dictionary WHERE _id ='" + wordlistId+"'",
+				null);
+		if (c.getCount() != 0) {
+			c.moveToFirst();
+			name = c.getString(0);
+			c.close();
+			db.close();
+			return name;
+		}
+		db.close();
+		return name;
+	}
+
 }
