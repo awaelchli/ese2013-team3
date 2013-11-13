@@ -23,7 +23,14 @@ public class SavedGamesHandler extends DataHandler {
 	public SavedGamesHandler(Context context) {
 		super(context);
 	}
-
+/**
+ * 			Method to transfer a SavedGameObject to Database.  
+ * 
+ * @param game
+ * 			takes a Saved game not Null
+ * @return
+ * 			Boolean value which indicates that saving was successfull or not.
+ */
 	public boolean saveGame(SavedGame game) {
 		String name = game.getName();
 		String board = game.getStringBoard();
@@ -52,6 +59,12 @@ public class SavedGamesHandler extends DataHandler {
 		}
 
 	}
+	/**
+	 * 
+	 * @return
+	 * 		an ArrayList of SavedGames which contains all Games that are saved in the Database.
+	 * 		If there are no Games in the Database the return is an empty ArrayList.
+	 */
 
 	public ArrayList<SavedGame> getSavedGames() {
 
@@ -89,7 +102,13 @@ public class SavedGamesHandler extends DataHandler {
 		}
 
 	}
-
+/**
+ * 
+ * @param name
+ * 		the name of the Wordlist which is saved in the DataBase
+ * @return
+ * 		a SavedGame which can be empty when ther was no entry with this name in the Database.
+ */
 	public SavedGame getSavedGameByName(String name) {
 		SQLiteDatabase db = helper.getReadableDatabase();
 		String[] query = { name };
@@ -120,7 +139,12 @@ public class SavedGamesHandler extends DataHandler {
 			return game;
 		}
 	}
-
+/**
+ * 
+ * @param gameName
+ * @return
+ * 		Boolean value which indicates whether a Game by the Name is in the Database.
+ */
 	public boolean gameInDatabase(String gameName) {
 		SQLiteDatabase db = helper.getReadableDatabase();
 
@@ -136,7 +160,13 @@ public class SavedGamesHandler extends DataHandler {
 			return false;
 		}
 	}
-
+/**
+ * 
+ * @param name
+ * 		of the Database to remove from Database.
+ * @return
+ * 		whether the deletion was successful.
+ */
 	public boolean removeGameByName(String name) {
 		if (gameInDatabase(name)){
 			SQLiteDatabase db = helper.getReadableDatabase();
