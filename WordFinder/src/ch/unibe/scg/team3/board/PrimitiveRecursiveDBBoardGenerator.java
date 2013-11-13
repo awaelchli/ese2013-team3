@@ -9,6 +9,7 @@ import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import ch.unibe.scg.team3.token.Token;
 
 /**
+ * 
  * @author viviane
  */
 
@@ -26,9 +27,8 @@ public class PrimitiveRecursiveDBBoardGenerator extends AbstractBoardGenerator {
 		this.list=wordList;
 		this.minWords=minWords;
 		this.r = new Random();
-		//this.meter=new DefaultLetterMeter();
 	}
-
+	
 	@Override
 	public void generate() {
 		
