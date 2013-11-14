@@ -1,5 +1,6 @@
 package ch.unibe.scg.team3.localDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +20,7 @@ import ch.unibe.scg.team3.game.SavedGame;
  * 
  */
 public class SavedGamesHandler extends DataHandler {
-
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM, yyyy HH:mm");
 	public SavedGamesHandler(Context context) {
 		super(context);
 	}
@@ -39,12 +40,9 @@ public class SavedGamesHandler extends DataHandler {
 		int score = game.getScore();
 		boolean isPrivate = game.isPrivate();
 		int guesses = game.getNumberOfGuesses();
-
-		SharedPreferences preferences = PreferenceManager
-				.getDefaultSharedPreferences(context);
-		int wordlist = Integer.parseInt(preferences.getString("choose_wordlist", null));
+		int wordlist = game.getWordlistId();
 		int timesPlayed = 1;
-		String date = (new Date().toString());
+		String date = (Long.toString(new Date().getTime()));
 		if (!gameInDatabase(name)) {
 			String sql = "INSERT INTO Games VALUES(NULL, ?, ? , " + words
 					+ ", '" + time + "', '" + date + "', " + wordlist + ", "
@@ -72,7 +70,7 @@ public class SavedGamesHandler extends DataHandler {
 
 		SQLiteDatabase db = helper.getReadableDatabase();
 
-		Cursor c = db.rawQuery("SELECT * FROM Games", null);
+		Cursor c = db.rawQuery("SELECT * FROM Games ORDER BY Date DESC", null);
 
 		if (c != null && c.getCount() != 0) {
 
@@ -83,7 +81,7 @@ public class SavedGamesHandler extends DataHandler {
 				game.setStringBoard(c.getString(2));
 				game.setNumberOfFoundWords(c.getInt(3));
 				game.setTime(c.getString(4));
-				game.setDate(c.getString(5));
+				game.setDate(sdf.format(new Date(Long.parseLong(c.getString(5)))));
 				game.setWordlistId(c.getInt(6));
 				game.setScore(c.getInt(7));
 				game.setPrivate(Boolean.parseBoolean(c.getString(8)));
@@ -112,7 +110,7 @@ public class SavedGamesHandler extends DataHandler {
 	public SavedGame getSavedGameByName(String name) {
 		SQLiteDatabase db = helper.getReadableDatabase();
 		String[] query = { name };
-		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = ?", query);
+		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = ? ", query);
 		SavedGame game = new SavedGame();
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
@@ -122,7 +120,7 @@ public class SavedGamesHandler extends DataHandler {
 			game.setStringBoard(c.getString(2));
 			game.setNumberOfFoundWords(c.getInt(3));
 			game.setTime(c.getString(4));
-			game.setDate(c.getString(5));
+			game.setDate(sdf.format(new Date(Long.parseLong(c.getString(5)))));
 			game.setWordlistId(c.getInt(6));
 			game.setScore(c.getInt(7));
 			game.setPrivate(Boolean.parseBoolean(c.getString(8)));
