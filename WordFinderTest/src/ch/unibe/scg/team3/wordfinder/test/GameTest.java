@@ -35,7 +35,7 @@ public class GameTest extends AndroidTestCase {
 
 		SavedGame saved = new SavedGame();
 
-		saved.setGuesses(3);
+		saved.setAttempts(3);
 		saved.setTime("2:01");
 		saved.setTimesPlayed(4);
 		saved.setScore(100);
@@ -46,7 +46,7 @@ public class GameTest extends AndroidTestCase {
 		Game game = new Game(saved, wordlistHandler);
 
 		assertEquals(game.getBoardSize(), 3);
-		assertEquals(game.getNumberOfGuesses(), 0);
+		assertEquals(game.getNumberOfAttempts(), 0);
 //		assertEquals(game.getTime(), "00:00");
 		assertEquals(game.getTimesPlayed(), 4);
 		assertEquals(game.getScore(), 0);

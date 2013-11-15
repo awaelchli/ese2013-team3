@@ -39,7 +39,7 @@ public class EndGameActivity extends Activity {
 		String labels = "Your Score: %s\nFound Words: %s\nGuessed Words: %s\nElapsed Time: %s\n";
 
 		String text = String.format(labels, game.getScore(), game.getNumberOfFoundWords(),
-				game.getNumberOfGuesses(), game.getTime());
+				game.getNumberOfAttempts(), game.getTime());
 
 		TextView stats = (TextView) findViewById(R.id.display_Stats);
 		stats.setText(text);

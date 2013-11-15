@@ -39,7 +39,7 @@ public class SavedGamesHandler extends DataHandler {
 		String time = game.getTime();
 		int score = game.getScore();
 		boolean isPrivate = game.isPrivate();
-		int guesses = game.getNumberOfGuesses();
+		int guesses = game.getNumberOfAttempts();
 		int wordlist = game.getWordlistId();
 		int timesPlayed = 1;
 		String date = (Long.toString(new Date().getTime()));
@@ -86,7 +86,7 @@ public class SavedGamesHandler extends DataHandler {
 				game.setScore(c.getInt(7));
 				game.setPrivate(Boolean.parseBoolean(c.getString(8)));
 				game.setTimesPlayed(c.getInt(9));
-				game.setGuesses(c.getInt(10));
+				game.setAttempts(c.getInt(10));
 				list.add(game);
 			}
 			c.close();
@@ -125,7 +125,7 @@ public class SavedGamesHandler extends DataHandler {
 			game.setScore(c.getInt(7));
 			game.setPrivate(Boolean.parseBoolean(c.getString(8)));
 			game.setTimesPlayed(c.getInt(9));
-			game.setGuesses(c.getInt(10));
+			game.setAttempts(c.getInt(10));
 
 			c.close();
 			db.close();

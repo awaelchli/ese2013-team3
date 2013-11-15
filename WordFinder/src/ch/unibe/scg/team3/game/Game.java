@@ -204,7 +204,7 @@ public class Game extends AbstractGame {
 		saved.setScore(getScore());
 		saved.setStringBoard(board.toString());
 		saved.setTime(getTime());
-		saved.setGuesses(getNumberOfGuesses());
+		saved.setAttempts(getNumberOfAttempts());
 		saved.setWordlistId(getWordlistId());
 		saved.setTimesPlayed(getTimesPlayed());
 		saved.setFoundWords(found);

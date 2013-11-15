@@ -36,8 +36,12 @@ public class HomeActivity extends Activity {
     	Intent intent = new Intent(this, SavedGamesActivity.class);
     	startActivity(intent);
     }
+    public void quitApp(View view){
+    	finish();
+    }
     
-    @Override
+
+	@Override
     protected void onResume() {
         super.onResume();
        
@@ -57,5 +61,6 @@ public class HomeActivity extends Activity {
         }
         
     }
+    
     
 }

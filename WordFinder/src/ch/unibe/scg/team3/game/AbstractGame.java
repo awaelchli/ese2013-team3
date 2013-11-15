@@ -81,7 +81,7 @@ public abstract class AbstractGame implements IObservable {
 	/**
 	 * @return The total guesses the player made, positive
 	 */
-	public int getNumberOfGuesses() {
+	public int getNumberOfAttempts() {
 		return guesses;
 	}
 

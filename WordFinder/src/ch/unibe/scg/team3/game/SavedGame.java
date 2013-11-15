@@ -119,7 +119,7 @@ public class SavedGame extends AbstractGame implements Serializable {
 		this.timesPlayed = timesPlayed;
 	}
 
-	public void setGuesses(int guesses) {
+	public void setAttempts(int guesses) {
 		this.guesses = guesses;
 	}
 

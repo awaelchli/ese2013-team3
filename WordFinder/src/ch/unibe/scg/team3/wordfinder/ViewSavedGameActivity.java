@@ -24,10 +24,10 @@ public class ViewSavedGameActivity extends Activity {
 		BoardUI boardUI = (BoardUI) findViewById(R.id.tableboardUI);
 		boardUI.update(savedGame);
 
-		String labels = "Title: %s\nLast played: %s\nFound words: %s\nGuessed words: %s\nElapsed time: %s\nScore: %s\nWordlist: %s";
+		String labels = "Title: %s\nLast played: %s\nFound words: %s\nAttempts: %s\nElapsed time: %s\nScore: %s\nWordlist: %s";
 		
 		String text = String.format(labels, savedGame.getName(), savedGame.getDate(),
-				savedGame.getNumberOfFoundWords(), savedGame.getNumberOfGuesses(),
+				savedGame.getNumberOfFoundWords(), savedGame.getNumberOfAttempts(),
 				savedGame.getTime(), savedGame.getScore(), wh.getWordlistNameById(savedGame.getWordlistId()));
 
 		TextView gameOverview = (TextView) findViewById(R.id.game_overview_text);

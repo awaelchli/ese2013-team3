@@ -37,7 +37,7 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements IDataHandl
 		assertEquals(saved2.isPrivate(), true);
 		assertEquals(saved2.getScore(), 914356341);
 		assertEquals(saved2.getTime(),"now");
-		assertEquals(saved2.getNumberOfGuesses(), 1332434);
+		assertEquals(saved2.getNumberOfAttempts(), 1332434);
 		assertEquals(saved2.getWordlistId(), 1);
 	}
 	public void testGameInDatabase(){
@@ -65,7 +65,7 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements IDataHandl
 		saved.setScore(914356341);
 		saved.setTime("now");
 		saved.setTimesPlayed(0);
-		saved.setGuesses(1332434);
+		saved.setAttempts(1332434);
 		saved.setWordlistId(1);
 		return saved;
 	}
