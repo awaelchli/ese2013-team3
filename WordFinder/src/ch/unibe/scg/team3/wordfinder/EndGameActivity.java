@@ -36,7 +36,7 @@ public class EndGameActivity extends Activity {
 		Intent intent = getIntent();
 		game = (SavedGame) intent.getSerializableExtra("saved_game");
 
-		String labels = "Your Score: %s\nFound Words: %s\nGuessed Words: %s\nElapsed Time: %s\n";
+		String labels = "Your Score: %s\nFound Words: %s\nAttempts Words: %s\nElapsed Time: %s\n";
 
 		String text = String.format(labels, game.getScore(), game.getNumberOfFoundWords(),
 				game.getNumberOfAttempts(), game.getTime());
