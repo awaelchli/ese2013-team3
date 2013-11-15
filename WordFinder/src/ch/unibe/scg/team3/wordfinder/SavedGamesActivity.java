@@ -61,9 +61,6 @@ public class SavedGamesActivity extends Activity {
 	}
 
 	public void viewSavedGame(View view) {
-//		SavedGamesHandler handler = new SavedGamesHandler(this);
-//		TextView textView = (TextView) view.findViewById(R.id.saved_game_name);
-//		String gameName = textView.getText().toString();
 		SavedGame savedGame = games.get(view.getId());
 		Intent intent = new Intent(this, ViewSavedGameActivity.class);
 
