@@ -1,7 +1,8 @@
 package ch.unibe.scg.team3.board;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Iterator;
+import java.util.Random;
 
 import ch.unibe.scg.team3.game.Path;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
@@ -23,49 +24,70 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 	protected void generate() {
 
 		String firstWord = handler.getRandomWordFromWordlist();
+		
+		IToken firstToken = getRandomToken();
+		Path<IToken> firstPath = new Path<IToken>();
 
-		placeWord(firstWord, new Path<IToken>(), board.getToken(0, 0));
+		placeWord(firstWord, firstPath, firstToken);
+		board.setPath(firstPath);
 
 		int placedCount = 0;
-		// while(placedCount < minWords){
+		int boardloops = 0;
+		int loops = 0;
 
-		for (IToken tok : board) {
-			if (!tok.isEmpty()) {
+		while (board.hasEmptyTokens()) {
+			loops++;
+			for (IToken tok : board) {
+				boardloops++;
+				if (!tok.isEmpty()) {
 
-				String letter = "" + tok.getLetter();
-				String random = handler.getRandomWordFromDatabaseByLetterAndLength(letter, true);
+					String letter = "" + tok.getLetter();
+					String random = handler
+							.getRandomWordFromDatabaseByLetterAndLength(letter, true);
 
-				Path<IToken> path = new Path<IToken>();
+					Path<IToken> path = new Path<IToken>();
 
-				if (placeWord(random, path, tok))
-					placedCount++;
-
-				if (placedCount == minWords)
-					break;
+					if (placeWord(random, path, tok)) {
+						placedCount++;
+						board.setPath(path);;
+					}
+//
+//					if (occupied == minWords)
+//						break;
+				}
 			}
 		}
-		// }
+		System.out.println("loops: " + loops + " bloops: " + boardloops + " placed: " + placedCount + " first: " + firstToken.getCoordinates());
 	}
 
 	private boolean placeWord(String word, Path<IToken> path, IToken start) {
+
+		if (path.length() == word.length())
+			return true;
 
 		char letter = word.charAt(path.length());
 
 		if (!start.isEmpty() && start.getLetter() != letter) {
 			return false;
 		}
-		path.add(new Token(letter, valueOf(letter), start.getCoordinates()));
+
+		IToken current = new Token(letter, valueOf(letter), start.getCoordinates());
+		path.add(current);
 
 		ArrayList<IToken> candidates = getNextPossibleTokens(start, path);
 
-		if (candidates.isEmpty())
+		if (candidates.isEmpty()) {
+			path.removeLast();
 			return false;
+		}
 
 		for (IToken next : candidates) {
 
 			if (placeWord(word, path, next))
 				return true;
 		}
+
+		path.removeLast();
 		return false;
 	}
 
@@ -73,24 +95,16 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 
 		ArrayList<IToken> candidates = getNeighbors(start);
 
-		for (IToken token : candidates) {
+		Iterator<IToken> iter = candidates.iterator();
+
+		while (iter.hasNext()) {
+			IToken token = iter.next();
 			if (path.contains(token)) {
-				candidates.remove(token);
+				iter.remove();
 			}
 		}
+
 		return candidates;
-	}
-
-	private IToken getRandomNonEmptyNeighbor(IToken start) {
-		return null;
-	}
-
-	private boolean allNeighborsEmpty(IToken start) {
-		return false;
-	}
-
-	private IToken getRandomNeighbor(IToken token) {
-		return null;
 	}
 
 	private ArrayList<IToken> getNeighbors(IToken token) {
@@ -118,6 +132,15 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 		}
 
 		return neighbors;
+	}
+	
+	private IToken getRandomToken() {
+		Random random  = new Random();
+		
+		int row = random.nextInt(board.getSize());
+		int col = random.nextInt(board.getSize());
+		
+		return board.getToken(col, row);
 	}
 
 }

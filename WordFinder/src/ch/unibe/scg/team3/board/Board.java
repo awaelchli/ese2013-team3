@@ -112,6 +112,15 @@ public class Board implements Iterable<IToken>{
 	public int getSize() {
 		return size;
 	}
+	
+	public boolean hasEmptyTokens() {
+		for(IToken tok : this){
+			if(tok.isEmpty()){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public String toString() {
