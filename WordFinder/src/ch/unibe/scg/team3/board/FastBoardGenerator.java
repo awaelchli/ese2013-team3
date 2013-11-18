@@ -5,10 +5,14 @@ import java.util.Iterator;
 import java.util.Random;
 
 import ch.unibe.scg.team3.game.Path;
+import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
-import ch.unibe.scg.team3.token.IToken;
-import ch.unibe.scg.team3.token.Token;
+import ch.unibe.scg.team3.token.*;
 
+/**
+ * @author viviane
+ * @author adrian
+ */
 public class FastBoardGenerator extends AbstractBoardGenerator {
 
 	private final int minWords;
@@ -23,41 +27,29 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 	@Override
 	protected void generate() {
 
-		String firstWord = handler.getRandomWordFromWordlist();
-		
-		IToken firstToken = getRandomToken();
-		Path<IToken> firstPath = new Path<IToken>();
-
-		placeWord(firstWord, firstPath, firstToken);
-		board.setPath(firstPath);
-
 		int placedCount = 0;
-		int boardloops = 0;
-		int loops = 0;
 
-		while (board.hasEmptyTokens()) {
-			loops++;
-			for (IToken tok : board) {
-				boardloops++;
-				if (!tok.isEmpty()) {
+		while (placedCount < minWords) {
 
-					String letter = "" + tok.getLetter();
-					String random = handler
-							.getRandomWordFromDatabaseByLetterAndLength(letter, true);
-
-					Path<IToken> path = new Path<IToken>();
-
-					if (placeWord(random, path, tok)) {
-						placedCount++;
-						board.setPath(path);;
-					}
-//
-//					if (occupied == minWords)
-//						break;
-				}
+			IToken tok = getRandomToken();
+			if (tok.isEmpty()) {
+				char letter = getRandomLetter();
+				tok = new Token(letter, valueOf(letter), tok.getCoordinates());
+				board.setToken(tok);
 			}
+
+			String letter = "" + tok.getLetter();
+			String random = handler.getRandomWordFromDatabaseByLetterAndLength(letter, true);
+
+			Path<IToken> path = new Path<IToken>();
+
+			if (placeWord(random, path, tok)) {
+				placedCount++;
+				board.setPath(path);
+			}
+
 		}
-		System.out.println("loops: " + loops + " bloops: " + boardloops + " placed: " + placedCount + " first: " + firstToken.getCoordinates());
+		fillEmptyTokens();
 	}
 
 	private boolean placeWord(String word, Path<IToken> path, IToken start) {
@@ -133,14 +125,35 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 
 		return neighbors;
 	}
-	
+
 	private IToken getRandomToken() {
-		Random random  = new Random();
-		
+		Random random = new Random();
+
 		int row = random.nextInt(board.getSize());
 		int col = random.nextInt(board.getSize());
-		
+
 		return board.getToken(col, row);
+	}
+
+	private void fillEmptyTokens() {
+
+		for (IToken tok : board) {
+
+			if (tok.isEmpty()) {
+				char letter = getRandomLetter();
+				board.setToken(new Token(letter, meter.getValue(letter), tok.getCoordinates()));
+			}
+		}
+
+	}
+
+	private char getRandomLetter() {
+		String alphabet = MySQLiteHelper.ALPHABET;
+		Random rnd = new Random();
+
+		int rndIndex = rnd.nextInt(alphabet.length());
+		char letter = alphabet.charAt(rndIndex);
+		return letter;
 	}
 
 }
