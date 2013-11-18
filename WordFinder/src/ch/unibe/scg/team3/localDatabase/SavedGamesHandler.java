@@ -76,17 +76,7 @@ public class SavedGamesHandler extends DataHandler {
 
 			while (c.moveToNext()) {
 				SavedGame game = new SavedGame();
-				game.setId(c.getInt(0));
-				game.setName(c.getString(1));
-				game.setStringBoard(c.getString(2));
-				game.setNumberOfFoundWords(c.getInt(3));
-				game.setTime(c.getString(4));
-				game.setDate(sdf.format(new Date(Long.parseLong(c.getString(5)))));
-				game.setWordlistId(c.getInt(6));
-				game.setScore(c.getInt(7));
-				game.setPrivate(Boolean.parseBoolean(c.getString(8)));
-				game.setTimesPlayed(c.getInt(9));
-				game.setAttempts(c.getInt(10));
+				writeDataentryToGame(c, game);
 				list.add(game);
 			}
 			c.close();
@@ -100,6 +90,7 @@ public class SavedGamesHandler extends DataHandler {
 		}
 
 	}
+	
 /**
  * 
  * @param name
@@ -115,17 +106,7 @@ public class SavedGamesHandler extends DataHandler {
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
 
-			game.setId(c.getInt(0));
-			game.setName(c.getString(1));
-			game.setStringBoard(c.getString(2));
-			game.setNumberOfFoundWords(c.getInt(3));
-			game.setTime(c.getString(4));
-			game.setDate(sdf.format(new Date(Long.parseLong(c.getString(5)))));
-			game.setWordlistId(c.getInt(6));
-			game.setScore(c.getInt(7));
-			game.setPrivate(Boolean.parseBoolean(c.getString(8)));
-			game.setTimesPlayed(c.getInt(9));
-			game.setAttempts(c.getInt(10));
+			writeDataentryToGame(c, game);
 
 			c.close();
 			db.close();
@@ -157,6 +138,19 @@ public class SavedGamesHandler extends DataHandler {
 			db.close();
 			return false;
 		}
+	}
+	private void writeDataentryToGame(Cursor c, SavedGame game) {
+		game.setId(c.getInt(0));
+		game.setName(c.getString(1));
+		game.setStringBoard(c.getString(2));
+		game.setNumberOfFoundWords(c.getInt(3));
+		game.setTime(c.getString(4));
+		game.setDate(sdf.format(new Date(Long.parseLong(c.getString(5)))));
+		game.setWordlistId(c.getInt(6));
+		game.setScore(c.getInt(7));
+		game.setPrivate(Boolean.parseBoolean(c.getString(8)));
+		game.setTimesPlayed(c.getInt(9));
+		game.setAttempts(c.getInt(10));
 	}
 /**
  * 
