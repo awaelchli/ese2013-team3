@@ -312,10 +312,10 @@ public class WordlistHandler extends DataHandler {
 	}
 
 	public String getRandomWordFromDatabaseByLetterAndLength(String letter,
-			boolean length) {
+			boolean isShort) {
 		String word = "";
 		String table = "";
-		if (length) {
+		if (isShort) {
 			table = letter + SHORT_WORD_TABLE_SUFFIX;
 		} else {
 			table = letter + LONG_WORD_TABLE_SUFFIX;
