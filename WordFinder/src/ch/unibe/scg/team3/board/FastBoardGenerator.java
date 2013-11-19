@@ -27,6 +27,8 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 	@Override
 	protected void generate() {
 
+		//TODO: make a list containing all placed words and check...
+		
 		int placedCount = 0;
 
 		while (placedCount < minWords) {
@@ -35,20 +37,24 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 			if (tok.isEmpty()) {
 				char letter = getRandomLetter();
 				tok = new Token(letter, valueOf(letter), tok.getCoordinates());
-				board.setToken(tok);
 			}
 
 			String letter = "" + tok.getLetter();
-			String random = handler.getRandomWordFromDatabaseByLetterAndLength(letter, true);
+			String word = handler.getRandomWordFromDatabaseByLetterAndLength(letter, false);
 
 			Path<IToken> path = new Path<IToken>();
 
-			if (placeWord(random, path, tok)) {
+			if (placeWord(word, path, tok.clone())) {
+				
 				placedCount++;
 				board.setPath(path);
+				
+				placedCount += placeSimilarWordsOnPath(path);
+				
 			}
 
 		}
+
 		fillEmptyTokens();
 	}
 
@@ -73,6 +79,22 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 			return false;
 		}
 
+		// try placing on matching letters first
+		Iterator<IToken> iter = candidates.iterator();
+		while (iter.hasNext()) {
+			IToken candidate = iter.next();
+
+			if (candidate.letterEquals(current)) {
+				if (placeWord(word, path, candidate)) {
+					return true;
+				} else {
+					iter.remove();
+					candidates.remove(candidate);
+				}
+			}
+		}
+
+		// try the rest
 		for (IToken next : candidates) {
 
 			if (placeWord(word, path, next))
@@ -93,6 +115,7 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 			IToken token = iter.next();
 			if (path.contains(token)) {
 				iter.remove();
+				candidates.remove(token);
 			}
 		}
 
@@ -124,6 +147,50 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 		}
 
 		return neighbors;
+	}
+	
+	private int placeSimilarWordsOnPath(Path<IToken> path){
+		int placedCount = 0;
+		
+		Iterator<IToken> iterator = path.iterator();
+		
+		if(path.isEmpty()) 
+			return 0;
+		
+		IToken current = iterator.next();
+		
+		while(iterator.hasNext()){
+			IToken next = iterator.next();
+			
+			String suffix = current.getLetter() + "" + next.getLetter();
+			placedCount += placeSimilarWords(suffix, current.clone());
+			
+			current = next;
+		}
+		
+		return placedCount;
+	}
+	
+	private int placeSimilarWords(String suffix, IToken start) {
+		int placedCount = 0;
+		
+		ArrayList<String> similarWords = handler.getWordsStartingWith(suffix);
+		Path<IToken> path = new Path<IToken>();
+		
+		Iterator<String> iterator = similarWords.iterator();
+		
+		while(iterator.hasNext()){
+			String like = iterator.next();
+			
+			if(placeWord(like, path, start)){
+				placedCount++;
+				board.setPath(path);
+				
+				iterator.remove();
+			}
+			path.clear();
+		}
+		return placedCount;
 	}
 
 	private IToken getRandomToken() {
