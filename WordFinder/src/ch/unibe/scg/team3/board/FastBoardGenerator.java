@@ -10,6 +10,10 @@ import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import ch.unibe.scg.team3.token.*;
 
 /**
+ * This generator creates a board containing words from the selected wordlist.
+ * The words are placed such that they overlap each other. However, the
+ * generator puts more short words on the board than long ones.
+ * 
  * @author viviane
  * @author adrian
  */
@@ -27,8 +31,8 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 	@Override
 	protected void generate() {
 
-		//TODO: make a list containing all placed words and check...
-		
+		// TODO: make a list containing all placed words and check...
+
 		int placedCount = 0;
 
 		while (placedCount < minWords) {
@@ -45,12 +49,12 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 			Path<IToken> path = new Path<IToken>();
 
 			if (placeWord(word, path, tok.clone())) {
-				
+
 				placedCount++;
 				board.setPath(path);
-				
+
 				placedCount += placeSimilarWordsOnPath(path);
-				
+
 			}
 
 		}
@@ -148,44 +152,44 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 
 		return neighbors;
 	}
-	
-	private int placeSimilarWordsOnPath(Path<IToken> path){
+
+	private int placeSimilarWordsOnPath(Path<IToken> path) {
 		int placedCount = 0;
-		
+
 		Iterator<IToken> iterator = path.iterator();
-		
-		if(path.isEmpty()) 
+
+		if (path.isEmpty())
 			return 0;
-		
+
 		IToken current = iterator.next();
-		
-		while(iterator.hasNext()){
+
+		while (iterator.hasNext()) {
 			IToken next = iterator.next();
-			
+
 			String suffix = current.getLetter() + "" + next.getLetter();
 			placedCount += placeSimilarWords(suffix, current.clone());
-			
+
 			current = next;
 		}
-		
+
 		return placedCount;
 	}
-	
+
 	private int placeSimilarWords(String suffix, IToken start) {
 		int placedCount = 0;
-		
+
 		ArrayList<String> similarWords = handler.getWordsStartingWith(suffix);
 		Path<IToken> path = new Path<IToken>();
-		
+
 		Iterator<String> iterator = similarWords.iterator();
-		
-		while(iterator.hasNext()){
+
+		while (iterator.hasNext()) {
 			String like = iterator.next();
-			
-			if(placeWord(like, path, start)){
+
+			if (placeWord(like, path, start)) {
 				placedCount++;
 				board.setPath(path);
-				
+
 				iterator.remove();
 			}
 			path.clear();

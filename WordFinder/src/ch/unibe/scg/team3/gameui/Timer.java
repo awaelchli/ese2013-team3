@@ -1,6 +1,5 @@
 package ch.unibe.scg.team3.gameui;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.CountDownTimer;
 import android.widget.TextView;
@@ -24,14 +23,12 @@ public abstract class Timer extends CountDownTimer {
 		view = countdownView;
 	}
 
-	@SuppressLint("DefaultLocale")
 	@Override
 	public void onTick(long millisUntilFinished) {
 		remainingTime = millisUntilFinished;
 		
 		 context.runOnUiThread(new Runnable(){
 
-		      @SuppressLint("DefaultLocale")
 			@Override
 		      public void run(){
 		    	  view.setText(format(remainingTime));
