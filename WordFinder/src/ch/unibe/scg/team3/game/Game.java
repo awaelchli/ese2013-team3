@@ -87,7 +87,9 @@ public class Game extends AbstractGame {
 	}
 
 	private void generateBoard(int boardSize) {
-		PrimitiveDBBoardGenerator gen = new PrimitiveDBBoardGenerator(boardSize, wordlistHandler,
+//		AbstractBoardGenerator gen = new PrimitiveDBBoardGenerator(boardSize, wordlistHandler,
+//				DEFAULT_MIN_WORDS_TO_FIND);
+		AbstractBoardGenerator gen = new FastBoardGenerator(boardSize, wordlistHandler,
 				DEFAULT_MIN_WORDS_TO_FIND);
 		board = gen.getBoard();
 

@@ -8,7 +8,7 @@ import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.token.NullToken;
 
 /**
- * This class has the responsibility to model a matrix filled with token.
+ * This class models a matrix filled with tokens.
  * The size of the board can be any number greater than zero.
  * 
  * @author adrian
@@ -50,7 +50,7 @@ public class Board implements Iterable<IToken>{
 		return size > 0;
 	}
 
-	private boolean inRange(int col, int row) {
+	public boolean inRange(int col, int row) {
 		return 0 <= col && 0 <= row && col < size && row < size;
 	}
 	
@@ -80,6 +80,10 @@ public class Board implements Iterable<IToken>{
 		return tokens[col][row].clone();
 	}
 	
+	public IToken getToken(Point coordinate) {
+		return getToken(coordinate.getX(), coordinate.getY());
+	}
+	
 	/**
 	 * Places the tokens of a path on the board according to the coordinates of the tokens.
 	 * 
@@ -107,6 +111,15 @@ public class Board implements Iterable<IToken>{
 	 */
 	public int getSize() {
 		return size;
+	}
+	
+	public boolean hasEmptyTokens() {
+		for(IToken tok : this){
+			if(tok.isEmpty()){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

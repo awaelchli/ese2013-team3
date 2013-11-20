@@ -312,10 +312,10 @@ public class WordlistHandler extends DataHandler {
 	}
 
 	public String getRandomWordFromDatabaseByLetterAndLength(String letter,
-			boolean length) {
+			boolean isShort) {
 		String word = "";
 		String table = "";
-		if (length) {
+		if (isShort) {
 			table = letter + SHORT_WORD_TABLE_SUFFIX;
 		} else {
 			table = letter + LONG_WORD_TABLE_SUFFIX;
@@ -334,6 +334,32 @@ public class WordlistHandler extends DataHandler {
 				db.close();
 			}
 		return word;
+	}
+	
+	public ArrayList<String> getWordsStartingWith(String suffix){
+		ArrayList<String> list = new ArrayList<String>();
+	
+		if(suffix.length() == 0){
+			return list;
+		}
+		
+		String letter = String.valueOf(suffix.charAt(0));
+		String table = "";
+		
+		if (suffix.length() < SMALL_WORD) {
+			table = letter + SHORT_WORD_TABLE_SUFFIX;
+		} else {
+			table = letter + LONG_WORD_TABLE_SUFFIX;
+		}
+		
+		SQLiteDatabase db = helper.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT Content FROM " + table + " WHERE Dictionary = '" + selectedWordlist +"' AND Content LIKE '" + suffix + "%'", null);
+		
+		while(c != null && c.moveToNext()){
+			list.add(c.getString(0));
+		}
+		
+		return list;
 	}
 
 	public Object getWordlistNameById(int wordlistId) {
