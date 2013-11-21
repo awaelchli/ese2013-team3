@@ -22,7 +22,7 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);  
-        Parse.initialize(this, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK", "FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
+        //Parse.initialize(this, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK", "FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
     }
     
     public void startGame(View view){
