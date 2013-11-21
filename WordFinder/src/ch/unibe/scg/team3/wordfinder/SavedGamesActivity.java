@@ -66,6 +66,7 @@ public class SavedGamesActivity extends Activity {
 
 		intent.putExtra("saved_game", savedGame);
 		startActivity(intent);
+		finish();
 	}
 
 	public void onCreateContextMenu(ContextMenu menu, View v,

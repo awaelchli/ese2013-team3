@@ -28,13 +28,14 @@ public class GameActivity extends Activity implements IGameObserver {
 	private ScoreView scoreView;
 	private WordCounterView wordCounter;
 	private CountDownView countDownView;
+	public static Activity activity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
-
+		activity = this;
 		wordlistHandler = new WordlistHandler(this);
 
 		found = (FoundWordsView) findViewById(R.id.foundWordsField);
@@ -43,28 +44,55 @@ public class GameActivity extends Activity implements IGameObserver {
 		countDownView = (CountDownView) findViewById(R.id.timer_field);
 		boardUI = (BoardUI) findViewById(R.id.tableboardUI);
 
-		loadGame();
+	}
 
-		boardUI.setOnTouchListener(new BoardOnTouchListener(this, game));
+	@Override
+	protected void onResume() {
+		super.onResume();
 
-//		Timer timer = new Timer(Game.TIME_LIMIT, countDownView, this) {
-//
-//			@Override
-//			public void onFinish() {
-//				finishGameSession();
-//			}
-//		};
-//
-//		game.setTimer(timer);
+		if (game == null) {
+			loadGame();
 
-		game.addObserver(boardUI);
-		game.addObserver(found);
-		game.addObserver(scoreView);
-		game.addObserver(wordCounter);
-		game.addObserver(countDownView);
-		game.addObserver(this);
-		
-		game.notifyObservers(new Event(Event.BOARD_UPDATED));
+			game.addObserver(boardUI);
+			game.addObserver(found);
+			game.addObserver(scoreView);
+			game.addObserver(wordCounter);
+			game.addObserver(countDownView);
+			game.addObserver(this);
+			
+			boardUI.setOnTouchListener(new BoardOnTouchListener(this, game));
+
+			game.notifyObservers(new Event(Event.BOARD_UPDATED));
+
+		} else {
+			game.startTime();
+		}
+
+
+		// Timer timer = new Timer(Game.TIME_LIMIT, countDownView, this) {
+		//
+		// @Override
+		// public void onFinish() {
+		// finishGameSession();
+		// }
+		// };
+		//
+		// game.setTimer(timer);
+
+		//
+		// if(game!= null){
+		// if(game.remainigTime != Game.TIME_LIMIT){
+		// Timer timer = new Timer(game.remainigTime, countDownView, this) {
+		// @Override
+		// public void onFinish() {
+		// finishGameSession();
+		// }
+		// };
+		// game.setTimer(timer);
+		// game.startTime();
+		// }
+		//
+		// }
 
 	}
 
@@ -74,15 +102,21 @@ public class GameActivity extends Activity implements IGameObserver {
 
 		if (savedGame != null) {
 			game = new Game(savedGame, wordlistHandler);
-//			update(game, new Event(Event.BOARD_CREATED));
+			update(game, new Event(Event.BOARD_CREATED));
+//			game.startTime();
 		} else {
 			int wordlistId = getSelectedWordlistId();
 			game = new Game(wordlistHandler, wordlistId);
+
 		}
 	}
 
 	public void quit(View view) {
 		finishGameSession();
+	}
+
+	public void pause(View view) {
+		pauseGameSession();
 	}
 
 	public void finishGameSession() {
@@ -96,6 +130,14 @@ public class GameActivity extends Activity implements IGameObserver {
 		finish();
 	}
 
+	public void pauseGameSession() {
+		game.pauseTime();
+		SavedGame savedGame = game.save();
+		Intent intent = new Intent(this, EndGameActivity.class);
+		intent.putExtra("saved_game", savedGame);
+		startActivity(intent);
+	}
+
 	@Override
 	public void update(AbstractGame game, Event event) {
 
@@ -103,7 +145,7 @@ public class GameActivity extends Activity implements IGameObserver {
 
 		case Event.BOARD_CREATED:
 			hideProgressBar();
-			enableQuitButton();
+			enableNavigationButtons();
 			this.game.startTime();
 			break;
 		case Event.GAME_OVER:
@@ -112,16 +154,18 @@ public class GameActivity extends Activity implements IGameObserver {
 		}
 	}
 
-	private void enableQuitButton() {
+	private void enableNavigationButtons() {
 		Button quit = (Button) findViewById(R.id.quit_button);
+		Button pause = (Button) findViewById(R.id.pause_button);
 		quit.setEnabled(true);
+		pause.setEnabled(true);
 	}
 
 	private void hideProgressBar() {
 		ProgressBar progress = (ProgressBar) findViewById(R.id.loadingGameBar);
 		progress.setVisibility(View.GONE);
 	}
-	
+
 	private int getSelectedWordlistId() {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -129,6 +173,12 @@ public class GameActivity extends Activity implements IGameObserver {
 
 		int id = Integer.parseInt(selectedWordlist);
 		return id;
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		game.pauseTime();
 	}
 
 }

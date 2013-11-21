@@ -21,17 +21,18 @@ import ch.unibe.scg.team3.game.SavedGame;
  */
 public class SavedGamesHandler extends DataHandler {
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM, yyyy HH:mm");
+
 	public SavedGamesHandler(Context context) {
 		super(context);
 	}
-/**
- * 			Method to transfer a SavedGameObject to Database.  
- * 
- * @param game
- * 			takes a Saved game not Null
- * @return
- * 			Boolean value which indicates that saving was successfull or not.
- */
+
+	/**
+	 * Method to transfer a SavedGameObject to Database.
+	 * 
+	 * @param game
+	 *            takes a Saved game not Null
+	 * @return Boolean value which indicates that saving was successfull or not.
+	 */
 	public boolean saveGame(SavedGame game) {
 		String name = game.getName();
 		String board = game.getStringBoard();
@@ -43,7 +44,7 @@ public class SavedGamesHandler extends DataHandler {
 		int wordlist = game.getWordlistId();
 		int timesPlayed = 1;
 		String date = (Long.toString(new Date().getTime()));
-		if (!gameInDatabase(name)) {
+		if ((!gameInDatabase(name)) | (name == null)) {
 			String sql = "INSERT INTO Games VALUES(NULL, ?, ? , " + words
 					+ ", '" + time + "', '" + date + "', " + wordlist + ", "
 					+ score + ", '" + isPrivate + "', " + timesPlayed + ", "
@@ -57,11 +58,12 @@ public class SavedGamesHandler extends DataHandler {
 		}
 
 	}
+
 	/**
 	 * 
-	 * @return
-	 * 		an ArrayList of SavedGames which contains all Games that are saved in the Database.
-	 * 		If there are no Games in the Database the return is an empty ArrayList.
+	 * @return an ArrayList of SavedGames which contains all Games that are
+	 *         saved in the Database. If there are no Games in the Database the
+	 *         return is an empty ArrayList.
 	 */
 
 	public ArrayList<SavedGame> getSavedGames() {
@@ -76,8 +78,9 @@ public class SavedGamesHandler extends DataHandler {
 
 			while (c.moveToNext()) {
 				SavedGame game = new SavedGame();
-				writeDataentryToGame(c, game);
-				list.add(game);
+				if (writeDataentryToGame(c, game)) {
+					list.add(game);
+				}
 			}
 			c.close();
 			db.close();
@@ -90,14 +93,14 @@ public class SavedGamesHandler extends DataHandler {
 		}
 
 	}
-	
-/**
- * 
- * @param name
- * 		the name of the Wordlist which is saved in the DataBase
- * @return
- * 		a SavedGame which can be empty when ther was no entry with this name in the Database.
- */
+
+	/**
+	 * 
+	 * @param name
+	 *            the name of the Wordlist which is saved in the DataBase
+	 * @return a SavedGame which can be empty when ther was no entry with this
+	 *         name in the Database.
+	 */
 	public SavedGame getSavedGameByName(String name) {
 		SQLiteDatabase db = helper.getReadableDatabase();
 		String[] query = { name };
@@ -118,15 +121,18 @@ public class SavedGamesHandler extends DataHandler {
 			return game;
 		}
 	}
-/**
- * 
- * @param gameName
- * @return
- * 		Boolean value which indicates whether a Game by the Name is in the Database.
- */
-	public boolean gameInDatabase(String gameName) {
-		SQLiteDatabase db = helper.getReadableDatabase();
 
+	/**
+	 * 
+	 * @param gameName
+	 * @return Boolean value which indicates whether a Game by the Name is in
+	 *         the Database.
+	 */
+	public boolean gameInDatabase(String gameName) {
+		if(gameName == null){
+			return false;
+		}
+		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = ?",
 				new String[] { gameName });
 		if (c != null && c.getCount() != 0) {
@@ -139,7 +145,11 @@ public class SavedGamesHandler extends DataHandler {
 			return false;
 		}
 	}
-	private void writeDataentryToGame(Cursor c, SavedGame game) {
+
+	private boolean writeDataentryToGame(Cursor c, SavedGame game) {
+		if (c.getString(1) == null) {
+			return false;
+		}
 		game.setId(c.getInt(0));
 		game.setName(c.getString(1));
 		game.setStringBoard(c.getString(2));
@@ -151,24 +161,24 @@ public class SavedGamesHandler extends DataHandler {
 		game.setPrivate(Boolean.parseBoolean(c.getString(8)));
 		game.setTimesPlayed(c.getInt(9));
 		game.setAttempts(c.getInt(10));
+		return true;
 	}
-/**
- * 
- * @param name
- * 		of the Database to remove from Database.
- * @return
- * 		whether the deletion was successful.
- */
+
+	/**
+	 * 
+	 * @param name
+	 *            of the Database to remove from Database.
+	 * @return whether the deletion was successful.
+	 */
 	public boolean removeGameByName(String name) {
-		if (gameInDatabase(name)){
+		if (gameInDatabase(name)) {
 			SQLiteDatabase db = helper.getReadableDatabase();
 			String[] query = { name };
 			db.execSQL("DELETE FROM Games WHERE Name = ?", query);
 			db.close();
 			return true;
-		}
-		else{
-		return false;
+		} else {
+			return false;
 		}
 	}
 

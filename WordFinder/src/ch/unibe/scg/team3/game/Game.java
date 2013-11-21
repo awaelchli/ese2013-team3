@@ -18,6 +18,7 @@ public class Game extends AbstractGame {
 
 	public static final int DEFAULT_MIN_WORDS_TO_FIND = 30;
 	public static final long TIME_LIMIT = 5 * 60000;
+//	public long remainigTime = TIME_LIMIT;
 
 	private final WordlistHandler wordlistHandler;
 
@@ -83,8 +84,8 @@ public class Game extends AbstractGame {
 		super(game);
 		wordlistHandler = handler;
 		board = game.getBoard();
-		timeOver = false;
-//		initTimer(game.getRemainingTime());
+		initTimer(TIME_LIMIT);
+//		notifyObservers(new Event(Event.BOARD_CREATED));
 	}
 
 	private void generateBoard(int boardSize) {
@@ -130,7 +131,12 @@ public class Game extends AbstractGame {
 			path.setColor(R.drawable.valid_button_animation);
 			updateScore(selection);
 		}
+		
 		notifyObservers(new Event(Event.WORD_FOUND));
+		
+		if(isOver()){
+			notifyObservers(new Event(Event.GAME_OVER));
+		}
 	}
 
 	private void updateScore(WordSelection selection) {
@@ -196,6 +202,7 @@ public class Game extends AbstractGame {
 	 * @return Returns the remaining time of the game
 	 */
 	public long stopTime() {
+//		remainigTime = timer.getRemainingTime();
 		timer.cancel();
 		timeOver = true;
 		return timer.getRemainingTime();
@@ -243,5 +250,20 @@ public class Game extends AbstractGame {
 		saved.setTime(timer.getElapsedTime());
 
 		return saved;
+	}
+	
+//	public long pauseTime() {
+//		remainigTime = timer.getRemainingTime();
+//		timer.cancel();
+//		timeOver = false;
+//		return timer.getRemainingTime();
+//		
+//	}
+	
+	public long pauseTime() {
+		timer.cancel();
+		initTimer(timer.getRemainingTime());
+		return timer.getRemainingTime();
+		
 	}
 }

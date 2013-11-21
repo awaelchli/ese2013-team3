@@ -9,37 +9,23 @@ import android.os.CountDownTimer;
 public abstract class Timer extends CountDownTimer {
 	
 	private final long initialTime;
-	
 	private long remainingTime;
-//	private TextView view;
-//	private final Activity context;
 
 	public Timer(long millisInFuture) {
 		super(millisInFuture, 1000);
 		initialTime = millisInFuture;
-//		this.context = context;
-//		view = countdownView;
+		remainingTime = initialTime;
 	}
 
 	@Override
 	public void onTick(long millisUntilFinished) {
-		remainingTime = millisUntilFinished;
-		
-//		 context.runOnUiThread(new Runnable(){
-//
-//			@Override
-//		      public void run(){
-//		    	  view.setText(format(remainingTime));
-//		      }
-//		  });     
-		
+		remainingTime = millisUntilFinished;   
 	}
 
 	public long getRemainingTime() {
 		return remainingTime;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return format(remainingTime);

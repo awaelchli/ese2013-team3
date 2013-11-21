@@ -8,5 +8,7 @@
     <string name="title_activity_saved_games">SavedGamesActivity</string>
     <string name="title_activity_view_saved_game">ViewSavedGameActivity</string>
     <string name="app_quit_button">Quit</string>
+    <string name="pause_button_text">Pause</string>
+    <string name="resume_button_string">Resume</string>
 
 </resources>
