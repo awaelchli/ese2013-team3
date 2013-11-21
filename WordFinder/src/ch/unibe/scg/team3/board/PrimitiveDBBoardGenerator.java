@@ -60,6 +60,8 @@ public class PrimitiveDBBoardGenerator extends AbstractBoardGenerator {
 						// if a word is placed augment the count
 						if(placeWord(random, new Point(i,j))){
 							placedCount++;
+							System.out.println(random);
+							
 							if(placedCount==3){ //we only place 3 longer words on the board
 								shortWords=true;
 							}
