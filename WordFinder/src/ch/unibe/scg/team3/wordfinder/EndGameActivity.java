@@ -35,7 +35,7 @@ public class EndGameActivity extends Activity {
 
 		Intent intent = getIntent();
 		game = (SavedGame) intent.getSerializableExtra("saved_game");
-
+		handler.saveGame(game);
 		String labels = "Your Score: %s\nFound Words: %s\nAttempts Words: %s\nElapsed Time: %s\n";
 
 		String text = String.format(labels, game.getScore(), game.getNumberOfFoundWords(),
@@ -46,19 +46,28 @@ public class EndGameActivity extends Activity {
 	}
 
 	public void newGame(View view) {
+		GameActivity.activity.finish();
 		Intent intent = new Intent(this, GameActivity.class);
 		startActivity(intent);
 		finish();
 	}
 
 	public void replayGame(View view) {
+		GameActivity.activity.finish();
 		Intent intent = new Intent(this, GameActivity.class);
 		intent.putExtra("saved_game", game);
 		startActivity(intent);
 		finish();
 	}
+	public void resumeGame(View view){
+		
+		Intent intent = new Intent(this, GameActivity.class);
+    	startActivity(intent);
+    	finish();
+	}
 
 	public void goHome(View view) {
+		GameActivity.activity.finish();
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
 		finish();
@@ -121,5 +130,13 @@ public class EndGameActivity extends Activity {
 
 		alert.show();
 	}
+	@Override
+    public void onBackPressed() {
+		Intent intent = new Intent(this, GameActivity.class);
+    	startActivity(intent);
+        super.onBackPressed();   
+
+
+    }
 
 }

@@ -40,13 +40,14 @@ public class GameActivity extends Activity implements IGameObserver {
 	private ScoreView scoreView;
 	private WordCounterView wordCounter;
 	private TextView countDownView;
+	public static Activity activity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
-
+		activity = this;
 		wordlistHandler = new WordlistHandler(this);
 
 		found = (FoundWordsView) findViewById(R.id.foundWordsField);
@@ -100,7 +101,13 @@ public class GameActivity extends Activity implements IGameObserver {
 	}
 
 	public void quit(View view) {
-		finishGameSession();
+//		Intent intent = new Intent(this, HomeActivity.class);
+//		startActivity(intent);
+		finish();
+	}
+	public void pause(View view) {
+		pauseGameSession();
+		
 	}
 
 	public void finishGameSession() {
@@ -112,6 +119,13 @@ public class GameActivity extends Activity implements IGameObserver {
 
 		startActivity(intent);
 		finish();
+	}
+	public void pauseGameSession(){
+		game.pauseTime();
+		SavedGame savedGame = game.save();
+		Intent intent = new Intent(this, EndGameActivity.class);
+		intent.putExtra("saved_game", savedGame);
+		startActivity(intent);
 	}
 
 	@Override
@@ -165,6 +179,8 @@ public class GameActivity extends Activity implements IGameObserver {
 
 			Button quit = (Button) context.findViewById(R.id.quit_button);
 			quit.setEnabled(true);
+			Button pause = (Button) context.findViewById(R.id.pause_button);
+			pause.setEnabled(true);
 
 			game.notifyObservers();
 			game.startTime();
@@ -172,14 +188,28 @@ public class GameActivity extends Activity implements IGameObserver {
 	}
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
+		game.pauseTime();
 		super.onPause();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
+		
+		if(game!= null){
+			if(game.remainigTime != Game.TIME_LIMIT){
+			Timer timer = new Timer(game.remainigTime, countDownView, this) {
+				@Override
+				public void onFinish() {
+					finishGameSession();
+				}
+			};
+			game.setTimer(timer);
+			game.startTime();
+			}
+		
+		}
+		
 	}
 
 }

@@ -18,6 +18,7 @@ public class Game extends AbstractGame {
 
 	public static final int DEFAULT_MIN_WORDS_TO_FIND = 30;
 	public static final long TIME_LIMIT = 5 * 60000;
+	public long remainigTime = TIME_LIMIT;
 
 	private final WordlistHandler wordlistHandler;
 
@@ -168,6 +169,7 @@ public class Game extends AbstractGame {
 	 * @return Returns the remaining time of the game
 	 */
 	public long stopTime() {
+		remainigTime = timer.getRemainingTime();
 		timer.cancel();
 		timeOver = true;
 		return timer.getRemainingTime();
@@ -214,5 +216,12 @@ public class Game extends AbstractGame {
 		saved.setTime(timer.getElapsedTime());
 
 		return saved;
+	}
+	public long pauseTime() {
+		remainigTime = timer.getRemainingTime();
+		timer.cancel();
+		timeOver = false;
+		return timer.getRemainingTime();
+		
 	}
 }

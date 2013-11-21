@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="goHome"
-                android:text="@string/cancel_button" />
+                android:text="@string/quit_button" />
 
             <Button
                 android:id="@+id/save_button"
@@ -71,6 +71,15 @@
                 android:onClick="replayGame"
                 android:text="@string/replay_button" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/resume_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/resume_button_string" 
+            android:onClick="resumeGame"
+            />
+
     </LinearLayout>
 
 </LinearLayout>

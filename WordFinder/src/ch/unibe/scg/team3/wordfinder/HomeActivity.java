@@ -28,11 +28,13 @@ public class HomeActivity extends Activity {
     public void startGame(View view){
     	Intent intent = new Intent(this, GameActivity.class);
     	startActivity(intent);
+    	
     }
     
     public void startPreferences(View view){
     	Intent intent = new Intent(this, PreferencesActivity.class);
     	startActivity(intent);
+    	
     }
     
     public void startSavedGames(View view){

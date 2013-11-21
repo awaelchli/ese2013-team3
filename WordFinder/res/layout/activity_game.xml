@@ -67,13 +67,31 @@
                 android:layout_height="wrap_content" />
         </ScrollView>
 
-        <Button
-            android:id="@+id/quit_button"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="quit"
-            android:text="@string/quit_button"
-            android:enabled="false" />
+            android:orientation="horizontal"
+            android:weightSum="2" >
+
+            <Button
+                android:id="@+id/quit_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:onClick="quit"
+                android:text="@string/quit_button" 
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/pause_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:onClick="pause"
+                android:text="@string/pause_button_text" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <ProgressBar
