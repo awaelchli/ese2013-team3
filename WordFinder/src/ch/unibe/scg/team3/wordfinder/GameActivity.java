@@ -28,6 +28,7 @@ public class GameActivity extends Activity implements IGameObserver {
 	private ScoreView scoreView;
 	private WordCounterView wordCounter;
 	private CountDownView countDownView;
+	
 	public static Activity activity;
 
 	@Override
@@ -35,6 +36,7 @@ public class GameActivity extends Activity implements IGameObserver {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
+		
 		activity = this;
 		wordlistHandler = new WordlistHandler(this);
 

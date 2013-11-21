@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import ch.unibe.scg.team3.game.SavedGame;
+import ch.unibe.scg.team3.game.Timer;
 
 /**
  * This class give the options to save games to the main database. It also
@@ -37,7 +38,7 @@ public class SavedGamesHandler extends DataHandler {
 		String name = game.getName();
 		String board = game.getStringBoard();
 		int words = game.getNumberOfFoundWords();
-		String time = game.getTime();
+		long remainingTime = game.getRemainingTime();
 		int score = game.getScore();
 		boolean isPrivate = game.isPrivate();
 		int guesses = game.getNumberOfAttempts();
@@ -45,10 +46,9 @@ public class SavedGamesHandler extends DataHandler {
 		int timesPlayed = 1;
 		String date = (Long.toString(new Date().getTime()));
 		if ((!gameInDatabase(name)) | (name == null)) {
-			String sql = "INSERT INTO Games VALUES(NULL, ?, ? , " + words
-					+ ", '" + time + "', '" + date + "', " + wordlist + ", "
-					+ score + ", '" + isPrivate + "', " + timesPlayed + ", "
-					+ guesses + ")";
+			String sql = "INSERT INTO Games VALUES(NULL, ?, ? , " + words + ", '" + remainingTime
+					+ "', '" + date + "', " + wordlist + ", " + score + ", '" + isPrivate + "', "
+					+ timesPlayed + ", " + guesses + ")";
 			SQLiteDatabase db = helper.getReadableDatabase();
 			db.execSQL(sql, new String[] { name, board });
 			db.close();
@@ -129,12 +129,11 @@ public class SavedGamesHandler extends DataHandler {
 	 *         the Database.
 	 */
 	public boolean gameInDatabase(String gameName) {
-		if(gameName == null){
+		if (gameName == null) {
 			return false;
 		}
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = ?",
-				new String[] { gameName });
+		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = ?", new String[] { gameName });
 		if (c != null && c.getCount() != 0) {
 			c.close();
 			db.close();
@@ -154,7 +153,7 @@ public class SavedGamesHandler extends DataHandler {
 		game.setName(c.getString(1));
 		game.setStringBoard(c.getString(2));
 		game.setNumberOfFoundWords(c.getInt(3));
-		game.setTime(c.getString(4));
+		game.setRemainingTime(c.getLong(4));
 		game.setDate(sdf.format(new Date(Long.parseLong(c.getString(5)))));
 		game.setWordlistId(c.getInt(6));
 		game.setScore(c.getInt(7));

@@ -63,7 +63,7 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements IDataHandl
 		saved.setDate("now");
 		saved.setPrivate(true);
 		saved.setScore(914356341);
-		saved.setTime("now");
+		saved.setRemainingTime("now");
 		saved.setTimesPlayed(0);
 		saved.setAttempts(1332434);
 		saved.setWordlistId(1);

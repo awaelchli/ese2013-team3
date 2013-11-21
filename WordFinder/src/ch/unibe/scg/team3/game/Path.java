@@ -7,7 +7,7 @@ import ch.unibe.scg.team3.board.Point;
 
 /**
  * The responsibility of the path is to know if he is valid or not. A valid path
- * is a path where its elements are adjacent.
+ * is a path where its elements are adjacent. This class partly wraps the {@link LinkedList}.
  * 
  * @author adrian
  */

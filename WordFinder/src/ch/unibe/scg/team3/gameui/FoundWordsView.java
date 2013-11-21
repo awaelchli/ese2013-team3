@@ -6,9 +6,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 import ch.unibe.scg.team3.board.WordSelection;
-import ch.unibe.scg.team3.game.AbstractGame;
-import ch.unibe.scg.team3.game.Event;
-import ch.unibe.scg.team3.game.IGameObserver;
+import ch.unibe.scg.team3.game.*;
 
 /**
  * This view is a custom {@link TextView}. It is responsible for displaying the

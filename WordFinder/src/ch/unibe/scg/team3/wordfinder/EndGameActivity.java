@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import ch.unibe.scg.team3.game.SavedGame;
+import ch.unibe.scg.team3.game.Timer;
 import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 
 /**
@@ -39,7 +40,7 @@ public class EndGameActivity extends Activity {
 		String labels = "Your Score: %s\nFound Words: %s\nAttempts Words: %s\nElapsed Time: %s\n";
 
 		String text = String.format(labels, game.getScore(), game.getNumberOfFoundWords(),
-				game.getNumberOfAttempts(), game.getTime());
+				game.getNumberOfAttempts(), Timer.format(game.getRemainingTime()));
 
 		TextView stats = (TextView) findViewById(R.id.display_Stats);
 		stats.setText(text);

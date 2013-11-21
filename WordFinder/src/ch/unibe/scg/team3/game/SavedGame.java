@@ -23,7 +23,7 @@ public class SavedGame extends AbstractGame implements Serializable {
 
 	private int id;
 	private String name;
-	private String time;
+	private long remainingTime;
 	private String date;
 
 	private boolean isPrivate;
@@ -36,6 +36,10 @@ public class SavedGame extends AbstractGame implements Serializable {
 
 	public void setFoundWords(ArrayList<WordSelection> found) {
 		this.found = found;
+	}
+
+	public void setNumberOfFoundWords(int foundWords) {
+		this.foundWords = foundWords;
 	}
 
 	@Override
@@ -76,12 +80,12 @@ public class SavedGame extends AbstractGame implements Serializable {
 	}
 
 	@Override
-	public String getTime() {
-		return time;
+	public long getRemainingTime() {
+		return remainingTime;
 	}
 
-	public void setTime(String time) {
-		this.time = time;
+	public void setRemainingTime(long remaining) {
+		remainingTime = remaining;
 	}
 
 	public String getDate() {
@@ -145,7 +149,6 @@ public class SavedGame extends AbstractGame implements Serializable {
 	@SuppressWarnings("unchecked")
 	private void readObject(ObjectInputStream aStream) throws IOException, ClassNotFoundException {
 		aStream.defaultReadObject();
-		// manually deserialize and init superclass
 		score = (Integer) aStream.readObject();
 		guesses = (Integer) aStream.readObject();
 		wordlistId = (Integer) aStream.readObject();
@@ -159,7 +162,6 @@ public class SavedGame extends AbstractGame implements Serializable {
 	 */
 	private void writeObject(ObjectOutputStream aStream) throws IOException {
 		aStream.defaultWriteObject();
-		// manually serialize superclass
 		aStream.writeObject(score);
 		aStream.writeObject(guesses);
 		aStream.writeObject(wordlistId);
@@ -167,10 +169,4 @@ public class SavedGame extends AbstractGame implements Serializable {
 		aStream.writeObject(observers);
 		aStream.writeObject(isPrivate);
 	}
-
-	public void setNumberOfFoundWords(int foundWords) {
-		this.foundWords = foundWords;
-
-	}
-
 }

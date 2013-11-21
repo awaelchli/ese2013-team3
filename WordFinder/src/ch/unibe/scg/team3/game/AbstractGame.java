@@ -49,7 +49,7 @@ public abstract class AbstractGame implements IObservable {
 	 */
 	public abstract int getBoardSize();
 
-	public abstract String getTime();
+	public abstract long getRemainingTime();
 
 	public abstract boolean isOver();
 
