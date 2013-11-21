@@ -8,6 +8,7 @@ import android.widget.TableRow;
 import ch.unibe.scg.team3.board.Board;
 import ch.unibe.scg.team3.board.Point;
 import ch.unibe.scg.team3.game.AbstractGame;
+import ch.unibe.scg.team3.game.Event;
 import ch.unibe.scg.team3.game.IGameObserver;
 import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.wordfinder.R;
@@ -37,14 +38,13 @@ public class BoardUI extends TableLayout implements IGameObserver {
 		TableRow[] rows = new TableRow[size];
 
 		for (int i = 0; i < size; i++) {
-			TableRow row = (TableRow) View.inflate(getContext(),
-					R.layout.board_row, null);
+			TableRow row = (TableRow) View.inflate(getContext(), R.layout.board_row, null);
 
 			rows[i] = row;
 
 			for (int j = 0; j < size; j++) {
-				BoardButton btn = (BoardButton) View.inflate(getContext(),
-						R.layout.board_button, null);
+				BoardButton btn = (BoardButton) View.inflate(getContext(), R.layout.board_button,
+						null);
 
 				btn.setCoordinates(new Point(j, i));
 				buttons[j][i] = btn;
@@ -56,26 +56,29 @@ public class BoardUI extends TableLayout implements IGameObserver {
 	}
 
 	@Override
-	public void update(AbstractGame game) {
-		int size = game.getBoardSize();
+	public void update(AbstractGame game, Event event) {
+		if (event.getAction() == Event.BOARD_CREATED || event.getAction() == Event.BOARD_UPDATED) {
+			
+			int size = game.getBoardSize();
 
-		if (buttons == null) {
-			init(size);
-		}
+			if (buttons == null) {
+				init(size);
+			}
 
-		Board board = game.getBoard();
+			Board board = game.getBoard();
 
-		assert board.getSize() == size;
+			assert board.getSize() == size;
 
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
+			for (int i = 0; i < size; i++) {
+				for (int j = 0; j < size; j++) {
 
-				BoardButton button = buttons[i][j];
-				IToken tok = board.getToken(i, j);
-				String letter = "" + tok.getLetter();
-				int value = tok.getValue();
-				button.setLetter(letter.toUpperCase());
-				button.setValue(value);
+					BoardButton button = buttons[i][j];
+					IToken tok = board.getToken(i, j);
+					String letter = "" + tok.getLetter();
+					int value = tok.getValue();
+					button.setLetter(letter.toUpperCase());
+					button.setValue(value);
+				}
 			}
 		}
 	}

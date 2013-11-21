@@ -24,14 +24,13 @@ public class Game extends AbstractGame {
 	private Timer timer;
 	private boolean timeOver;
 	private Board board;
-	
 
-	
 	/**
 	 * Creates a game for a given board
 	 * 
-	 * @param board The board to be played on, not null
-	 *            The size of the board must be greater than zero
+	 * @param board
+	 *            The board to be played on, not null The size of the board must
+	 *            be greater than zero
 	 * @param wordlistHandler
 	 *            A DataHandler to access the database, not null
 	 * @param wordlistId
@@ -43,11 +42,12 @@ public class Game extends AbstractGame {
 		this.board = board;
 		wordlistHandler = handler;
 		this.wordlistId = wordlistId;
-		timeOver = false;
-
+		initTimer(TIME_LIMIT);
 	}
+
 	/**
-	 * Creates a new game with a board generated with words from the given wordlist
+	 * Creates a new game with a board generated with words from the given
+	 * wordlist
 	 * 
 	 * @param boardSize
 	 *            The size of the board must be greater than zero
@@ -84,15 +84,24 @@ public class Game extends AbstractGame {
 		wordlistHandler = handler;
 		board = game.getBoard();
 		timeOver = false;
+//		initTimer(game.getRemainingTime());
 	}
 
 	private void generateBoard(int boardSize) {
-//		AbstractBoardGenerator gen = new PrimitiveDBBoardGenerator(boardSize, wordlistHandler,
-//				DEFAULT_MIN_WORDS_TO_FIND);
-		AbstractBoardGenerator gen = new FastBoardGenerator(boardSize, wordlistHandler,
-				DEFAULT_MIN_WORDS_TO_FIND);
-		board = gen.getBoard();
 
+		AbstractBoardGenerator generator = new FastBoardGenerator(boardSize, wordlistHandler,
+				DEFAULT_MIN_WORDS_TO_FIND);
+
+		BoardGenerationTask task = new BoardGenerationTask() {
+
+			@Override
+			protected void onPostExecute(Board result) {
+				board = result;
+				notifyObservers(new Event(Event.BOARD_CREATED));
+			}
+		};
+
+		task.execute(generator);
 	}
 
 	/**
@@ -102,7 +111,7 @@ public class Game extends AbstractGame {
 	 * @param path
 	 *            The path to be checked, not null.
 	 */
-	public void submitPath(Path<BoardButton> path) {
+	public void submitPath(Path<? extends IElement> path) {
 		assert path != null;
 		guesses++;
 		WordSelection selection = makeSelection(path);
@@ -121,7 +130,7 @@ public class Game extends AbstractGame {
 			path.setColor(R.drawable.valid_button_animation);
 			updateScore(selection);
 		}
-		notifyObservers();
+		notifyObservers(new Event(Event.WORD_FOUND));
 	}
 
 	private void updateScore(WordSelection selection) {
@@ -136,24 +145,43 @@ public class Game extends AbstractGame {
 	 * @return The word selection with, with token from the board according to
 	 *         the path.
 	 */
-	private WordSelection makeSelection(Path<BoardButton> path) {
+	private WordSelection makeSelection(Path<? extends IElement> path) {
 
 		assert path != null;
 
 		WordSelection selection = new WordSelection();
 
-		for (BoardButton b : path) {
-			Point p = b.getCoordinates();
-			IToken tok = board.getToken(p.getX(), p.getY());
+		for (IElement b : path) {
+			Point point = b.getCoordinates();
+			IToken tok = board.getToken(point);
 			selection.addToken(tok);
 		}
 
 		return selection;
 	}
 	
-	public void setTimer(Timer timer){
-		this.timer = timer;
+	private void initTimer(long timeInMillis) {
+		timeOver = false;
+		
+		timer = new Timer(timeInMillis){
+
+			@Override
+			public void onFinish() {
+				notifyObservers(new Event(Event.GAME_OVER));
+				timeOver = true;
+			}
+			
+			@Override
+			public void onTick(long millisUntilFinished) {
+				super.onTick(millisUntilFinished);
+				notifyObservers(new Event(Event.TIME_TICK));
+			}
+		};
 	}
+
+//	public void setTimer(Timer timer) {
+//		this.timer = timer;
+//	}
 
 	/**
 	 * Starts the countdown timer
@@ -197,7 +225,8 @@ public class Game extends AbstractGame {
 	}
 
 	/**
-	 * Saves all relevant data such as score, board, found words etc. in a {@link SavedGame}.
+	 * Saves all relevant data such as score, board, found words etc. in a
+	 * {@link SavedGame}.
 	 * 
 	 * @return The saved state of the game.
 	 */

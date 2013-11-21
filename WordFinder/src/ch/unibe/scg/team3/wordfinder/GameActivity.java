@@ -3,24 +3,13 @@ package ch.unibe.scg.team3.wordfinder;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import ch.unibe.scg.team3.board.Board;
-import ch.unibe.scg.team3.game.AbstractGame;
-import ch.unibe.scg.team3.game.Game;
-import ch.unibe.scg.team3.game.IGameObserver;
-import ch.unibe.scg.team3.game.SavedGame;
-import ch.unibe.scg.team3.gameui.BoardOnTouchListener;
-import ch.unibe.scg.team3.gameui.BoardUI;
-import ch.unibe.scg.team3.gameui.FoundWordsView;
-import ch.unibe.scg.team3.gameui.ScoreView;
-import ch.unibe.scg.team3.gameui.Timer;
-import ch.unibe.scg.team3.gameui.WordCounterView;
+import ch.unibe.scg.team3.game.*;
+import ch.unibe.scg.team3.gameui.*;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
 /**
@@ -38,7 +27,7 @@ public class GameActivity extends Activity implements IGameObserver {
 	private FoundWordsView found;
 	private ScoreView scoreView;
 	private WordCounterView wordCounter;
-	private TextView countDownView;
+	private CountDownView countDownView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,28 +40,32 @@ public class GameActivity extends Activity implements IGameObserver {
 		found = (FoundWordsView) findViewById(R.id.foundWordsField);
 		scoreView = (ScoreView) findViewById(R.id.score_view);
 		wordCounter = (WordCounterView) findViewById(R.id.foundCounter);
-		countDownView = (TextView) findViewById(R.id.timer_field);
+		countDownView = (CountDownView) findViewById(R.id.timer_field);
 		boardUI = (BoardUI) findViewById(R.id.tableboardUI);
 
-		makeLoadPreview();
+		loadGame();
 
-		new LoadGameTask(this).execute();
+		boardUI.setOnTouchListener(new BoardOnTouchListener(this, game));
 
-	}
+//		Timer timer = new Timer(Game.TIME_LIMIT, countDownView, this) {
+//
+//			@Override
+//			public void onFinish() {
+//				finishGameSession();
+//			}
+//		};
+//
+//		game.setTimer(timer);
 
-	private void makeLoadPreview() {
+		game.addObserver(boardUI);
+		game.addObserver(found);
+		game.addObserver(scoreView);
+		game.addObserver(wordCounter);
+		game.addObserver(countDownView);
+		game.addObserver(this);
+		
+		game.notifyObservers(new Event(Event.BOARD_UPDATED));
 
-		Game empty = new Game(new Board(), wordlistHandler, 1);
-
-		countDownView.setText("00:00");
-
-		empty.addObserver(boardUI);
-		empty.addObserver(scoreView);
-		empty.addObserver(wordCounter);
-		empty.addObserver(wordCounter);
-		empty.addObserver(boardUI);
-
-		empty.notifyObservers();
 	}
 
 	private void loadGame() {
@@ -81,21 +74,11 @@ public class GameActivity extends Activity implements IGameObserver {
 
 		if (savedGame != null) {
 			game = new Game(savedGame, wordlistHandler);
-
+//			update(game, new Event(Event.BOARD_CREATED));
 		} else {
 			int wordlistId = getSelectedWordlistId();
 			game = new Game(wordlistHandler, wordlistId);
-
 		}
-	}
-
-	private int getSelectedWordlistId() {
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-		String selectedWordlist = preferences.getString("choose_wordlist", null);
-
-		int id = Integer.parseInt(selectedWordlist);
-		return id;
 	}
 
 	public void quit(View view) {
@@ -114,59 +97,38 @@ public class GameActivity extends Activity implements IGameObserver {
 	}
 
 	@Override
-	public void update(AbstractGame game) {
-		if (game.isOver()) {
+	public void update(AbstractGame game, Event event) {
+
+		switch (event.getAction()) {
+
+		case Event.BOARD_CREATED:
+			hideProgressBar();
+			enableQuitButton();
+			this.game.startTime();
+			break;
+		case Event.GAME_OVER:
 			finishGameSession();
+			break;
 		}
 	}
 
-	private class LoadGameTask extends AsyncTask<String, Void, Game> {
-
-		private final Activity context;
-
-		public LoadGameTask(Activity activity) {
-			context = activity;
-		}
-
-		/**
-		 * The board for the game gets generated in the background
-		 */
-		protected Game doInBackground(String... urls) {
-			loadGame();
-			return game;
-		}
-
-		/**
-		 * Will be executed after the loading of the game is done
-		 */
-		protected void onPostExecute(Game result) {
-
-			ProgressBar progress = (ProgressBar) findViewById(R.id.loadingGameBar);
-			progress.setVisibility(View.GONE);
-
-			boardUI.setOnTouchListener(new BoardOnTouchListener(context, game));
-
-			Timer timer = new Timer(Game.TIME_LIMIT, countDownView, context) {
-
-				@Override
-				public void onFinish() {
-					finishGameSession();
-				}
-			};
-
-			game.setTimer(timer);
-
-			game.addObserver(boardUI);
-			game.addObserver(found);
-			game.addObserver(scoreView);
-			game.addObserver(wordCounter);
-			game.addObserver(GameActivity.this);
-
-			Button quit = (Button) context.findViewById(R.id.quit_button);
-			quit.setEnabled(true);
-
-			game.notifyObservers();
-			game.startTime();
-		}
+	private void enableQuitButton() {
+		Button quit = (Button) findViewById(R.id.quit_button);
+		quit.setEnabled(true);
 	}
+
+	private void hideProgressBar() {
+		ProgressBar progress = (ProgressBar) findViewById(R.id.loadingGameBar);
+		progress.setVisibility(View.GONE);
+	}
+	
+	private int getSelectedWordlistId() {
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+		String selectedWordlist = preferences.getString("choose_wordlist", null);
+
+		int id = Integer.parseInt(selectedWordlist);
+		return id;
+	}
+
 }

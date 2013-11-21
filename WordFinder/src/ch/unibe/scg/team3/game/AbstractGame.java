@@ -19,10 +19,11 @@ public abstract class AbstractGame implements IObservable {
 	protected int guesses;
 	protected int wordlistId;
 	protected int timesPlayed;
-	protected ArrayList<IGameObserver> observers;
-	protected ArrayList<WordSelection> found;
 	protected boolean isPersonal;
 
+	protected ArrayList<IGameObserver> observers;
+	protected ArrayList<WordSelection> found;
+	
 	protected AbstractGame() {
 		score = 0;
 		guesses = 0;
@@ -31,8 +32,8 @@ public abstract class AbstractGame implements IObservable {
 		observers = new ArrayList<IGameObserver>();
 		found = new ArrayList<WordSelection>();
 	}
-	
-	protected AbstractGame(final SavedGame game){
+
+	protected AbstractGame(final SavedGame game) {
 		this();
 		wordlistId = game.getWordlistId();
 		timesPlayed = game.getTimesPlayed();
@@ -54,19 +55,20 @@ public abstract class AbstractGame implements IObservable {
 
 	@Override
 	public void addObserver(IGameObserver observer) {
-		observers.add(observer);
+		if (!observers.contains(observer)) {
+			observers.add(observer);
+		}
 	}
 
 	@Override
 	public void removeObserver(IGameObserver observer) {
 		observers.remove(observer);
-
 	}
 
 	@Override
-	public void notifyObservers() {
+	public void notifyObservers(Event event) {
 		for (IGameObserver observer : observers) {
-			observer.update(this);
+			observer.update(this, event);
 		}
 	}
 

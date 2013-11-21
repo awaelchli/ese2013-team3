@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 import ch.unibe.scg.team3.board.WordSelection;
 import ch.unibe.scg.team3.game.AbstractGame;
+import ch.unibe.scg.team3.game.Event;
 import ch.unibe.scg.team3.game.IGameObserver;
 
 /**
@@ -30,21 +31,25 @@ public class FoundWordsView extends TextView implements IGameObserver {
 	}
 
 	@Override
-	public void update(AbstractGame game) {
-		ArrayList<WordSelection> list = game.getFoundWords();
+	public void update(AbstractGame game, Event event) {
 
-		StringBuilder builder = new StringBuilder();
+		if (event.getAction() == Event.WORD_FOUND) {
+			
+			ArrayList<WordSelection> list = game.getFoundWords();
 
-		for (WordSelection word : list) {
-			builder.append(word);
-			builder.append(" (");
-			builder.append(word.getScore());
-			builder.append(")");
-			builder.append("\n");
+			StringBuilder builder = new StringBuilder();
+
+			for (WordSelection word : list) {
+				builder.append(word);
+				builder.append(" (");
+				builder.append(word.getScore());
+				builder.append(")");
+				builder.append("\n");
+			}
+
+			String text = builder.toString();
+			setText(text.toUpperCase());
 		}
-
-		String text = builder.toString();
-		setText(text.toUpperCase());
 	}
 
 }

@@ -9,5 +9,5 @@ public interface IObservable {
 	
 	public void removeObserver(IGameObserver observer);
 	
-	public void notifyObservers();
+	public void notifyObservers(Event event);
 }

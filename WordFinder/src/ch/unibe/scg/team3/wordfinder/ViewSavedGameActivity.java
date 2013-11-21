@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import ch.unibe.scg.team3.game.Event;
 import ch.unibe.scg.team3.game.SavedGame;
 import ch.unibe.scg.team3.gameui.BoardUI;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
@@ -22,7 +23,7 @@ public class ViewSavedGameActivity extends Activity {
 		savedGame = (SavedGame) intent.getSerializableExtra("saved_game");
 		WordlistHandler wh = new WordlistHandler(this);
 		BoardUI boardUI = (BoardUI) findViewById(R.id.tableboardUI);
-		boardUI.update(savedGame);
+		boardUI.update(savedGame, new Event(Event.BOARD_UPDATED));
 
 		String labels = "Title: %s\nLast played: %s\nFound words: %s\nAttempts: %s\nElapsed time: %s\nScore: %s\nWordlist: %s";
 		
