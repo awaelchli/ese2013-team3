@@ -47,14 +47,14 @@ public class EndGameActivity extends Activity {
 	}
 
 	public void newGame(View view) {
-		GameActivity.activity.finish();
+		GameActivity.instance.finish();
 		Intent intent = new Intent(this, GameActivity.class);
 		startActivity(intent);
 		finish();
 	}
 
 	public void replayGame(View view) {
-		GameActivity.activity.finish();
+		GameActivity.instance.finish();
 		Intent intent = new Intent(this, GameActivity.class);
 		intent.putExtra("saved_game", game);
 		startActivity(intent);
@@ -69,7 +69,7 @@ public class EndGameActivity extends Activity {
 	}
 
 	public void goHome(View view) {
-		GameActivity.activity.finish();
+		GameActivity.instance.finish();
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
 		finish();

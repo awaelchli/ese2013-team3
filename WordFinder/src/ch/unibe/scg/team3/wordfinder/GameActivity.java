@@ -17,7 +17,6 @@ import ch.unibe.scg.team3.localDatabase.WordlistHandler;
  * @author adrian
  * @author nils
  */
-
 public class GameActivity extends Activity implements IGameObserver {
 
 	private Game game;
@@ -28,16 +27,21 @@ public class GameActivity extends Activity implements IGameObserver {
 	private ScoreView scoreView;
 	private WordCounterView wordCounter;
 	private CountDownView countDownView;
-	
-	public static Activity activity;
+
+	/**
+	 * Used to access the GameActivity from another activity. There is only one
+	 * single instance of GameActivity
+	 */
+	public static Activity instance;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
-		
-		activity = this;
+
+		instance = this;
+
 		wordlistHandler = new WordlistHandler(this);
 
 		found = (FoundWordsView) findViewById(R.id.foundWordsField);
@@ -61,7 +65,7 @@ public class GameActivity extends Activity implements IGameObserver {
 			game.addObserver(wordCounter);
 			game.addObserver(countDownView);
 			game.addObserver(this);
-			
+
 			boardUI.setOnTouchListener(new BoardOnTouchListener(this, game));
 
 			game.notifyObservers(new Event(Event.BOARD_UPDATED));
@@ -69,33 +73,12 @@ public class GameActivity extends Activity implements IGameObserver {
 		} else {
 			game.startTime();
 		}
+	}
 
-
-		// Timer timer = new Timer(Game.TIME_LIMIT, countDownView, this) {
-		//
-		// @Override
-		// public void onFinish() {
-		// finishGameSession();
-		// }
-		// };
-		//
-		// game.setTimer(timer);
-
-		//
-		// if(game!= null){
-		// if(game.remainigTime != Game.TIME_LIMIT){
-		// Timer timer = new Timer(game.remainigTime, countDownView, this) {
-		// @Override
-		// public void onFinish() {
-		// finishGameSession();
-		// }
-		// };
-		// game.setTimer(timer);
-		// game.startTime();
-		// }
-		//
-		// }
-
+	@Override
+	protected void onPause() {
+		super.onPause();
+		pauseGameSession();
 	}
 
 	private void loadGame() {
@@ -105,7 +88,6 @@ public class GameActivity extends Activity implements IGameObserver {
 		if (savedGame != null) {
 			game = new Game(savedGame, wordlistHandler);
 			update(game, new Event(Event.BOARD_CREATED));
-//			game.startTime();
 		} else {
 			int wordlistId = getSelectedWordlistId();
 			game = new Game(wordlistHandler, wordlistId);
@@ -176,11 +158,4 @@ public class GameActivity extends Activity implements IGameObserver {
 		int id = Integer.parseInt(selectedWordlist);
 		return id;
 	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		game.pauseTime();
-	}
-
 }
