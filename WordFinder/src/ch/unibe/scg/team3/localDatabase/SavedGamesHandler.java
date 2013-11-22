@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -57,6 +58,45 @@ public class SavedGamesHandler extends DataHandler {
 			return false;
 		}
 
+	}
+	public long saveGameGetId(SavedGame game) {
+		String name = game.getName();
+		String board = game.getStringBoard();
+		int words = game.getNumberOfFoundWords();
+		String time = game.getTime();
+		int score = game.getScore();
+		boolean isPrivate = game.isPrivate();
+		int guesses = game.getNumberOfAttempts();
+		int wordlist = game.getWordlistId();
+		int timesPlayed = 1;
+		String date = (Long.toString(new Date().getTime()));
+		
+		if ((!gameInDatabase(name)) | (name == null)) {
+			SQLiteDatabase db = helper.getReadableDatabase();
+			try {
+				
+				ContentValues c = new ContentValues();
+				c.put("(Name",name);
+				c.put("Board", board);
+				c.put("Words", words);
+				c.put("Time", time);
+				c.put("Date", date);
+				c.put("Dictionary", wordlist);
+				c.put("Score", score);
+				c.put("IsPersonal", isPrivate);
+				c.put("TimesPlayed", timesPlayed);
+				c.put("Guesses", guesses);
+				db.close();
+				return db.insert("Games", null ,c);
+			} catch (Exception e) {
+				db.close();
+				e.printStackTrace();
+				return -1;
+				
+			}
+		}
+		return -1;
+		
 	}
 
 	/**
