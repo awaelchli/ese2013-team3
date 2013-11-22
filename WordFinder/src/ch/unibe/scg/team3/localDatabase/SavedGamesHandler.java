@@ -141,10 +141,30 @@ public class SavedGamesHandler extends DataHandler {
 	 * @return a SavedGame which can be empty when ther was no entry with this
 	 *         name in the Database.
 	 */
-	public SavedGame getSavedGameByName(String name) {
+	public SavedGame getSavedGame(String name) {
 		SQLiteDatabase db = helper.getReadableDatabase();
 		String[] query = { name };
 		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = ? ", query);
+		SavedGame game = new SavedGame();
+		if (c != null && c.getCount() != 0) {
+			c.moveToFirst();
+
+			writeDataentryToGame(c, game);
+
+			c.close();
+			db.close();
+
+			return game;
+		} else {
+			c.close();
+			db.close();
+			return game;
+		}
+	}
+	
+	public SavedGame getSavedGame(int id) {
+		SQLiteDatabase db = helper.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT * FROM Games WHERE _id ="+id , null);
 		SavedGame game = new SavedGame();
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
