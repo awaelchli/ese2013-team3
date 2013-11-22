@@ -61,10 +61,10 @@ public class EndGameActivity extends Activity {
 		finish();
 	}
 	public void resumeGame(View view){
-//		
-//		Intent intent = new Intent(this, GameActivity.class);
-//    	startActivity(intent);
-//    	finish();
+		
+		Intent intent = new Intent(this, GameActivity.class);
+    	startActivity(intent);
+
 		finish();
 	}
 
@@ -132,11 +132,11 @@ public class EndGameActivity extends Activity {
 
 		alert.show();
 	}
-//	@Override
-//    public void onBackPressed() {
-//		super.onBackPressed();
-//		Intent intent = new Intent(this, GameActivity.class);
-//    	startActivity(intent);   
-//    }
+	@Override
+    public void onBackPressed() {
+		super.onBackPressed();
+		Intent intent = new Intent(this, GameActivity.class);
+    	startActivity(intent);   
+    }
 
 }
