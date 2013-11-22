@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import ch.unibe.scg.team3.game.SavedGame;
@@ -34,32 +35,32 @@ public class SavedGamesHandler extends DataHandler {
 	 *            takes a Saved game not Null
 	 * @return Boolean value which indicates that saving was successfull or not.
 	 */
-	public boolean saveGame(SavedGame game) {
-		String name = game.getName();
-		String board = game.getStringBoard();
-		int words = game.getNumberOfFoundWords();
-		String time = game.getTime();
-		int score = game.getScore();
-		boolean isPrivate = game.isPrivate();
-		int guesses = game.getNumberOfAttempts();
-		int wordlist = game.getWordlistId();
-		int timesPlayed = 1;
-		String date = (Long.toString(new Date().getTime()));
-		if ((!gameInDatabase(name)) | (name == null)) {
-			String sql = "INSERT INTO Games VALUES(NULL, ?, ? , " + words
-					+ ", '" + time + "', '" + date + "', " + wordlist + ", "
-					+ score + ", '" + isPrivate + "', " + timesPlayed + ", "
-					+ guesses + ")";
-			SQLiteDatabase db = helper.getReadableDatabase();
-			db.execSQL(sql, new String[] { name, board });
-			db.close();
-			return true;
-		} else {
-			return false;
-		}
-
-	}
-	public long saveGameGetId(SavedGame game) {
+//	public boolean saveGame(SavedGame game) {
+//		String name = game.getName();
+//		String board = game.getStringBoard();
+//		int words = game.getNumberOfFoundWords();
+//		String time = game.getTime();
+//		int score = game.getScore();
+//		boolean isPrivate = game.isPrivate();
+//		int guesses = game.getNumberOfAttempts();
+//		int wordlist = game.getWordlistId();
+//		int timesPlayed = 1;
+//		String date = (Long.toString(new Date().getTime()));
+//		if ((!gameInDatabase(name)) | (name == null)) {
+//			String sql = "INSERT INTO Games VALUES(NULL, ?, ? , " + words
+//					+ ", '" + time + "', '" + date + "', " + wordlist + ", "
+//					+ score + ", '" + isPrivate + "', " + timesPlayed + ", "
+//					+ guesses + ")";
+//			SQLiteDatabase db = helper.getReadableDatabase();
+//			db.execSQL(sql, new String[] { name, board });
+//			db.close();
+//			return true;
+//		} else {
+//			return false;
+//		}
+//
+//	}
+	public long saveGame(SavedGame game) {
 		String name = game.getName();
 		String board = game.getStringBoard();
 		int words = game.getNumberOfFoundWords();
@@ -236,6 +237,41 @@ public class SavedGamesHandler extends DataHandler {
 			String[] query = { name };
 			db.execSQL("DELETE FROM Games WHERE Name = ?", query);
 			db.close();
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public boolean setIsPrivate(long id, boolean isPrivate){
+		if (id >= 0) {
+			SQLiteDatabase db = helper.getReadableDatabase();
+			try {
+				db.execSQL("UPDATE Games SET IsPersonal = "+isPrivate+" WHERE _id = " + id);
+				db.close();
+			} catch (SQLException e) {
+				db.close();
+				e.printStackTrace();
+				return false;
+				
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public boolean setName(long id, String name){
+		if (id >= 0) {
+			SQLiteDatabase db = helper.getReadableDatabase();
+			try {
+				String[] query = { name };
+				db.execSQL("UPDATE Games SET Name = ? WHERE _id = " + id, query);
+				db.close();
+			} catch (SQLException e) {
+				db.close();
+				e.printStackTrace();
+				return false;
+				
+			}
 			return true;
 		} else {
 			return false;
