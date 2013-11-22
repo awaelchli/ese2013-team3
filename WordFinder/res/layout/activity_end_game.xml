@@ -41,12 +41,12 @@
                 android:text="@string/quit_button" />
 
             <Button
-                android:id="@+id/save_button"
+                android:id="@+id/new_game_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="enterTitle"
-                android:text="@string/save_Game" />
+                android:onClick="newGame"
+                android:text="@string/new_game_button" />
         </LinearLayout>
 
         <LinearLayout
@@ -56,12 +56,13 @@
             android:weightSum="2" >
 
             <Button
-                android:id="@+id/new_game_button"
+                android:id="@+id/save_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="newGame"
-                android:text="@string/new_game_button" />
+                android:onClick="enterTitle"
+                android:text="@string/save_Game"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/play_again_button"
@@ -69,17 +70,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="replayGame"
-                android:text="@string/replay_button" />
+                android:text="@string/replay_button"
+                android:visibility="gone" />
         </LinearLayout>
 
         <Button
             android:id="@+id/resume_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/resume_button_string" 
             android:onClick="resumeGame"
-            />
-
+            android:text="@string/resume_button_string"
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>

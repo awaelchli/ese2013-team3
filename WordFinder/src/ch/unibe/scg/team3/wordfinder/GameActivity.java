@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import ch.unibe.scg.team3.game.*;
 import ch.unibe.scg.team3.gameui.*;
+import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
 /**
@@ -91,7 +92,6 @@ public class GameActivity extends Activity implements IGameObserver {
 		} else {
 			int wordlistId = getSelectedWordlistId();
 			game = new Game(wordlistHandler, wordlistId);
-
 		}
 	}
 
@@ -107,8 +107,11 @@ public class GameActivity extends Activity implements IGameObserver {
 		game.stopTime();
 
 		SavedGame savedGame = game.save();
+		SavedGamesHandler handler = new SavedGamesHandler(this);
+		long id = handler.saveGame(savedGame);
+
 		Intent intent = new Intent(this, EndGameActivity.class);
-		intent.putExtra("saved_game", savedGame);
+		intent.putExtra("saved_game_id", id);
 
 		startActivity(intent);
 		finish();
@@ -116,9 +119,9 @@ public class GameActivity extends Activity implements IGameObserver {
 
 	public void pauseGameSession() {
 		game.pauseTime();
-		SavedGame savedGame = game.save();
+		// SavedGame savedGame = game.save();
 		Intent intent = new Intent(this, EndGameActivity.class);
-		intent.putExtra("saved_game", savedGame);
+		// intent.putExtra("saved_game", savedGame);
 		startActivity(intent);
 	}
 

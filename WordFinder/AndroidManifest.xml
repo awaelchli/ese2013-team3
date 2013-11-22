@@ -9,29 +9,31 @@
         android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
-        android:launchMode= "singleInstance"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:launchMode="singleInstance"
         android:theme="@style/AppBaseTheme" >
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.HomeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" 
-            android:launchMode= "singleInstance">
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.GameActivity"
             android:label="@string/title_activity_game"
-            android:screenOrientation="portrait" 
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -41,35 +43,38 @@
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.EndGameActivity"
             android:label="@string/title_activity_end_game"
-            android:screenOrientation="portrait" 
-            android:launchMode= "singleInstance"
-            android:parentActivityName="ch.unibe.scg.team3.wordfinder.GameActivity" >
+            android:launchMode="singleInstance"
+            android:parentActivityName="ch.unibe.scg.team3.wordfinder.GameActivity"
+            android:screenOrientation="portrait" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ch.unibe.scg.team3.wordfinder.GameActivity" 
-                />
+                android:value="ch.unibe.scg.team3.wordfinder.GameActivity" />
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.PreferencesActivity"
             android:label="@string/title_activity_preferences"
-            android:screenOrientation="portrait" 
-            android:launchMode= "singleInstance">
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.SavedGamesActivity"
             android:label="@string/title_activity_saved_games"
-            android:parentActivityName="ch.unibe.scg.team3.wordfinder.HomeActivity" 
-            android:launchMode= "singleInstance">
+            android:launchMode="singleInstance"
+            android:parentActivityName="ch.unibe.scg.team3.wordfinder.HomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.unibe.scg.team3.wordfinder.HomeActivity" />
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.ViewSavedGameActivity"
-            android:label="@string/title_activity_view_saved_game" 
-            android:launchMode= "singleInstance">
+            android:label="@string/title_activity_view_saved_game"
+            android:launchMode="singleInstance" >
+        </activity>
+        <activity
+            android:name="ch.unibe.scg.team3.wordfinder.PausedGameActivity"
+            android:label="@string/title_activity_paused_game" >
         </activity>
     </application>
 
