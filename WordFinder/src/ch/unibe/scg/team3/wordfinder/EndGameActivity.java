@@ -103,7 +103,7 @@ public class EndGameActivity extends Activity {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String value = input.getText().toString();
 				game.setName(value);
-				if (handler.saveGame(game)) {
+				if (handler.saveGame(game) >= 0) {
 					goHome(null);
 				} else
 					reenterTitle(view);
@@ -132,7 +132,7 @@ public class EndGameActivity extends Activity {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String value = input.getText().toString();
 				game.setName(value);
-				if (handler.saveGame(game)) {
+				if (handler.saveGame(game)>= 0) {
 					goHome(null);
 				} else
 					enterTitle(view);

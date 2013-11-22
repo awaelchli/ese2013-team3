@@ -15,7 +15,7 @@ import ch.unibe.scg.team3.wordfinder.R;
 
 public class Game extends AbstractGame {
 
-	public static final int DEFAULT_MIN_WORDS_TO_FIND = 30;
+	public static final int DEFAULT_MIN_WORDS_TO_FIND = 1;
 	public static final long TIME_LIMIT = 5 * 60000;
 
 	private final WordlistHandler wordlistHandler;
