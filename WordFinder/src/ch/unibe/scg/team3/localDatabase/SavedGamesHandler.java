@@ -78,11 +78,10 @@ public class SavedGamesHandler extends DataHandler {
 			try {
 				
 				ContentValues c = new ContentValues();
-				c.put("_id", "NULL");
+				//c.put("_id", "NULL");
 				if(name != null){
-					
 						c.put("Name",name);
-			}
+				}
 				c.put("Board", board);
 				c.put("Words", words);
 				c.put("Time", remainingTime);
@@ -92,8 +91,9 @@ public class SavedGamesHandler extends DataHandler {
 				c.put("IsPersonal", isPrivate);
 				c.put("TimesPlayed", timesPlayed);
 				c.put("Guesses", guesses);
+				long id = db.insert("Games", null, c);
 				db.close();
-				return db.insert("Games", null, c);
+				return id;
 			} catch (Exception e) {
 				db.close();
 				e.printStackTrace();
@@ -209,11 +209,23 @@ public class SavedGamesHandler extends DataHandler {
 			return false;
 		}
 	}
-
-	private boolean writeDataentryToGame(Cursor c, SavedGame game) {
-		if (c.getString(1) == null) {
+	public boolean gameInDatabase(long id) {
+		
+		SQLiteDatabase db = helper.getReadableDatabase();
+		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = "+id,null);
+		if (c != null && c.getCount() != 0) {
+			c.close();
+			db.close();
+			return true;
+		} else {
+			c.close();
+			db.close();
 			return false;
 		}
+	}
+
+	private boolean writeDataentryToGame(Cursor c, SavedGame game) {
+		
 		game.setId(c.getInt(0));
 		game.setName(c.getString(1));
 		game.setStringBoard(c.getString(2));
@@ -234,7 +246,7 @@ public class SavedGamesHandler extends DataHandler {
 	 *            of the Database to remove from Database.
 	 * @return whether the deletion was successful.
 	 */
-	public boolean removeGameByName(String name) {
+	public boolean removeGame(String name) {
 		if (gameInDatabase(name)) {
 			SQLiteDatabase db = helper.getReadableDatabase();
 			String[] query = { name };
@@ -245,6 +257,19 @@ public class SavedGamesHandler extends DataHandler {
 			return false;
 		}
 	}
+	public boolean removeGame(long id) {
+		if (gameInDatabase(id)) {
+			SQLiteDatabase db = helper.getReadableDatabase();
+			db.execSQL("DELETE FROM Games WHERE Name = "+id);
+			db.close();
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	
+
 	public boolean setIsPrivate(long id, boolean isPrivate){
 		if (id >= 0) {
 			SQLiteDatabase db = helper.getReadableDatabase();

@@ -36,7 +36,7 @@ public class GameTest extends AndroidTestCase {
 		SavedGame saved = new SavedGame();
 
 		saved.setAttempts(3);
-		saved.setRemainingTime("2:01");
+		saved.setRemainingTime(1001);
 		saved.setTimesPlayed(4);
 		saved.setScore(100);
 		saved.setWordlistId(2);

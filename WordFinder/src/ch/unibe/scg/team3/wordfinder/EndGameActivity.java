@@ -45,7 +45,7 @@ public class EndGameActivity extends Activity {
 		if (id >= 0) {
 			game = handler.getSavedGame(id);
 			displayGameStats();
-			Button replay = (Button) findViewById(R.id.replay_button);
+			Button replay = (Button) findViewById(R.id.play_again_button);
 			Button save = (Button) findViewById(R.id.save_button);
 			
 			replay.setVisibility(View.VISIBLE);

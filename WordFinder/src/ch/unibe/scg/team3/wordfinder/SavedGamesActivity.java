@@ -92,7 +92,7 @@ public class SavedGamesActivity extends Activity {
 	@SuppressLint("NewApi")
 	private void removeGame(View view) {
 		SavedGame savedGame = games.get(view.getId());
-		handler.removeGameByName(savedGame.getName());
+		handler.removeGame(savedGame.getName());
 		recreate();
 		
 	}

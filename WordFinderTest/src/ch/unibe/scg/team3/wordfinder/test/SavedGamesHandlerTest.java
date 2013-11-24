@@ -31,12 +31,12 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements IDataHandl
 		SavedGame saved2 = new SavedGame();
 		saved = initSavedGame(saved, "Test1");
 		savedGamesHandler.saveGame(saved);
-		saved2 = savedGamesHandler.getSavedGameByName("Test1");
+		saved2 = savedGamesHandler.getSavedGame("Test1");
 		assertEquals(saved2.getName(), "Test1");
 		assertEquals(saved2.getStringBoard(), defaultBoard);
 		assertEquals(saved2.isPrivate(), true);
 		assertEquals(saved2.getScore(), 914356341);
-		assertEquals(saved2.getTime(),"now");
+		assertEquals(saved2.getRemainingTime(),"now");
 		assertEquals(saved2.getNumberOfAttempts(), 1332434);
 		assertEquals(saved2.getWordlistId(), 1);
 	}
@@ -51,9 +51,9 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements IDataHandl
 		saved = initSavedGame(saved, "Test1");
 		savedGamesHandler.saveGame(saved);
 		assertTrue(savedGamesHandler.gameInDatabase("Test1"));
-		assertTrue(savedGamesHandler.removeGameByName("Test1"));
+		assertTrue(savedGamesHandler.removeGame("Test1"));
 		assertFalse(savedGamesHandler.gameInDatabase("Test1"));
-		assertFalse(savedGamesHandler.removeGameByName("Test1"));
+		assertFalse(savedGamesHandler.removeGame("Test1"));
 	}
 	
 	private SavedGame initSavedGame(SavedGame saved, String name) {
