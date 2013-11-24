@@ -25,8 +25,6 @@ public class SavedGame extends AbstractGame implements Serializable {
 	private String name;
 	private long remainingTime;
 	private String date;
-
-	private boolean isPrivate;
 	private String board;
 	private int foundWords;
 
@@ -111,12 +109,12 @@ public class SavedGame extends AbstractGame implements Serializable {
 	 * 
 	 * @return True, if the game is private, false otherwise
 	 */
-	public boolean isPrivate() {
-		return isPrivate;
+	public boolean isPersonal() {
+		return isPersonal;
 	}
 
-	public void setPrivate(boolean isPrivate) {
-		this.isPrivate = isPrivate;
+	public void setPersonal(boolean isPersonal) {
+		this.isPersonal = isPersonal;
 	}
 
 	public void setTimesPlayed(int timesPlayed) {
@@ -154,7 +152,7 @@ public class SavedGame extends AbstractGame implements Serializable {
 		wordlistId = (Integer) aStream.readObject();
 		timesPlayed = (Integer) aStream.readObject();
 		observers = (ArrayList<IGameObserver>) aStream.readObject();
-		isPrivate = (Boolean) aStream.readObject();
+		isPersonal = (Boolean) aStream.readObject();
 	}
 
 	/**
@@ -167,6 +165,6 @@ public class SavedGame extends AbstractGame implements Serializable {
 		aStream.writeObject(wordlistId);
 		aStream.writeObject(timesPlayed);
 		aStream.writeObject(observers);
-		aStream.writeObject(isPrivate);
+		aStream.writeObject(isPersonal);
 	}
 }

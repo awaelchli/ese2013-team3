@@ -34,40 +34,17 @@ public class SavedGamesHandler extends DataHandler {
 	 * 
 	 * @param game
 	 *            takes a Saved game not Null
-	 * @return Boolean value which indicates that saving was successfull or not.
+	 * @return Long value which indicates the id of the saved game in Database.
+	 * 			Returns -1 when something went wrong 
 	 */
-//	public boolean saveGame(SavedGame game) {
-//		String name = game.getName();
-//		String board = game.getStringBoard();
-//		int words = game.getNumberOfFoundWords();
-//		String time = game.getTime();
-//		int score = game.getScore();
-//		boolean isPrivate = game.isPrivate();
-//		int guesses = game.getNumberOfAttempts();
-//		int wordlist = game.getWordlistId();
-//		int timesPlayed = 1;
-//		String date = (Long.toString(new Date().getTime()));
-//		if ((!gameInDatabase(name)) | (name == null)) {
-//			String sql = "INSERT INTO Games VALUES(NULL, ?, ? , " + words
-//					+ ", '" + time + "', '" + date + "', " + wordlist + ", "
-//					+ score + ", '" + isPrivate + "', " + timesPlayed + ", "
-//					+ guesses + ")";
-//			SQLiteDatabase db = helper.getReadableDatabase();
-//			db.execSQL(sql, new String[] { name, board });
-//			db.close();
-//			return true;
-//		} else {
-//			return false;
-//		}
-//
-//	}
+
 	public long saveGame(SavedGame game) {
 		String name = game.getName();
 		String board = game.getStringBoard();
 		int words = game.getNumberOfFoundWords();
 		long remainingTime = game.getRemainingTime();
 		int score = game.getScore();
-		boolean isPrivate = game.isPrivate();
+		boolean isPersonal = game.isPersonal();
 		int guesses = game.getNumberOfAttempts();
 		int wordlist = game.getWordlistId();
 		int timesPlayed = 1;
@@ -75,10 +52,8 @@ public class SavedGamesHandler extends DataHandler {
 		
 			
 			SQLiteDatabase db = helper.getReadableDatabase();
-			try {
-				
+			try {				
 				ContentValues c = new ContentValues();
-				//c.put("_id", "NULL");
 				if(name != null){
 						c.put("Name",name);
 				}
@@ -88,7 +63,7 @@ public class SavedGamesHandler extends DataHandler {
 				c.put("Date", date);
 				c.put("Dictionary", wordlist);
 				c.put("Score", score);
-				c.put("IsPersonal", isPrivate);
+				c.put("IsPersonal", Boolean.toString(isPersonal));
 				c.put("TimesPlayed", timesPlayed);
 				c.put("Guesses", guesses);
 				long id = db.insert("Games", null, c);
@@ -165,7 +140,13 @@ public class SavedGamesHandler extends DataHandler {
 			return game;
 		}
 	}
-	
+	/**
+	 * 
+	 * @param id
+	 *            the name of the Wordlist which is saved in the DataBase
+	 * @return a SavedGame which can be empty when there was no entry with this
+	 *         id in the Database.
+	 */
 	public SavedGame getSavedGame(long id) {
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT * FROM Games WHERE _id = " + id , null);
@@ -209,10 +190,17 @@ public class SavedGamesHandler extends DataHandler {
 			return false;
 		}
 	}
+	
+	/**
+	 * 
+	 * @param gameId
+	 * @return Boolean value which indicates whether a Game by the Id is in
+	 *         the Database.
+	 */
 	public boolean gameInDatabase(long id) {
 		
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = "+id,null);
+		Cursor c = db.rawQuery("SELECT * FROM Games WHERE _id = "+id,null);
 		if (c != null && c.getCount() != 0) {
 			c.close();
 			db.close();
@@ -223,6 +211,12 @@ public class SavedGamesHandler extends DataHandler {
 			return false;
 		}
 	}
+	/**
+	 * 
+	 * @param c cursor which holds the information of a saved game from database.
+	 * @param game which should be the object
+	 * @return whether the object creation from database was successful.
+	 */
 
 	private boolean writeDataentryToGame(Cursor c, SavedGame game) {
 		
@@ -234,7 +228,7 @@ public class SavedGamesHandler extends DataHandler {
 		game.setDate(sdf.format(new Date(Long.parseLong(c.getString(5)))));
 		game.setWordlistId(c.getInt(6));
 		game.setScore(c.getInt(7));
-		game.setPrivate(Boolean.parseBoolean(c.getString(8)));
+		game.setPersonal(Boolean.parseBoolean(c.getString(8)));
 		game.setTimesPlayed(c.getInt(9));
 		game.setAttempts(c.getInt(10));
 		return true;
@@ -257,10 +251,16 @@ public class SavedGamesHandler extends DataHandler {
 			return false;
 		}
 	}
+	/**
+	 * 
+	 * @param id
+	 *            of the Database to remove from Database.
+	 * @return whether the deletion was successful.
+	 */
 	public boolean removeGame(long id) {
 		if (gameInDatabase(id)) {
 			SQLiteDatabase db = helper.getReadableDatabase();
-			db.execSQL("DELETE FROM Games WHERE Name = "+id);
+			db.execSQL("DELETE FROM Games WHERE _id = "+id);
 			db.close();
 			return true;
 		} else {
@@ -268,13 +268,19 @@ public class SavedGamesHandler extends DataHandler {
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param id from the game which has to be edited
+	 * @param isPrivate boolean variable to set in the database game.
+	 * 
+	 * @return whether the action was successful.
+	 */
 
 	public boolean setIsPrivate(long id, boolean isPrivate){
 		if (id >= 0) {
 			SQLiteDatabase db = helper.getReadableDatabase();
 			try {
-				db.execSQL("UPDATE Games SET IsPersonal = "+isPrivate+" WHERE _id = " + id);
+				db.execSQL("UPDATE Games SET IsPersonal = '"+isPrivate+"' WHERE _id = " + id);
 				db.close();
 			} catch (SQLException e) {
 				db.close();
@@ -287,6 +293,13 @@ public class SavedGamesHandler extends DataHandler {
 			return false;
 		}
 	}
+	
+	/**
+	 * 
+	 * @param id from the game to be renamed.
+	 * @param name String which should be the new game title.
+	 * @return whether renaming was successful.
+	 */
 	public boolean setName(long id, String name){
 		if (id >= 0) {
 			SQLiteDatabase db = helper.getReadableDatabase();
