@@ -1,9 +1,10 @@
 package ch.unibe.scg.team3.localDatabase;
 
 import ch.unibe.scg.team3.user.AbstractUser;
+import ch.unibe.scg.team3.user.Friend;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.SQLException;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class MainUserHandler extends UserHandler {
@@ -12,49 +13,25 @@ public class MainUserHandler extends UserHandler {
 		super(context);
 	}
 
-	public boolean setName(String name) {
-		SQLiteDatabase db = helper.getReadableDatabase();
-		try {
-
-			String[] args = { name };
-			db.execSQL("UPDATE User SET Name = ? WHERE _id = 1", args);
-		} catch (SQLException e) {
-			db.close();
-			e.printStackTrace();
-			return false;
-		}
-		db.close();
-		return true;
-	}
+	public AbstractUser getUserByEmail(String email) {
+		
+			SQLiteDatabase db = helper.getReadableDatabase();
+			String[] query = { email };
+			Cursor c = db.rawQuery("SELECT * FROM User WHERE Email = ? ", query);
+			Friend friend = new Friend();
+			if (c != null && c.getCount() != 0) {
+				c.moveToFirst();
 	
-	public boolean setEmail(String email) {
-		SQLiteDatabase db = helper.getReadableDatabase();
-		try {
-
-			String[] args = { email };
-			db.execSQL("UPDATE User SET Email = ? WHERE _id = 1", args);
-		} catch (SQLException e) {
-			db.close();
-			e.printStackTrace();
-			return false;
-		}
-		db.close();
-		return true;
-	}
+				c.close();
+				db.close();
 	
-	public boolean setUserId(String userid) {
-		SQLiteDatabase db = helper.getReadableDatabase();
-		try {
-
-			String[] args = { userid };
-			db.execSQL("UPDATE User SET user_id = ? WHERE _id = 1", args);
-		} catch (SQLException e) {
-			db.close();
-			e.printStackTrace();
-			return false;
+				return friend;
+			} else {
+				c.close();
+				db.close();
+				return friend;
+			
 		}
-		db.close();
-		return true;
 	}
 
 }
