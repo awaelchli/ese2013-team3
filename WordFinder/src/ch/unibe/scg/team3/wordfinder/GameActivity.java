@@ -79,7 +79,9 @@ public class GameActivity extends Activity implements IGameObserver {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		pauseGameSession();
+		if (!isFinishing()) {
+			pauseGameSession();
+		}
 	}
 
 	private void loadGame() {
