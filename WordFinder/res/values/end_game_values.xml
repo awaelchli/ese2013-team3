@@ -6,4 +6,10 @@
     <dimen name="end_game_title_textsize">35sp</dimen>
     <dimen name="stats_text_size">30sp</dimen>
 
+    <string name="save_button">Save</string>
+    <string name="quit_button">Quit</string>
+    <string name="new_game_button">New</string>
+    <string name="replay_button">Replay</string>
+    <string name="resume_button">Resume</string>
+
 </resources>

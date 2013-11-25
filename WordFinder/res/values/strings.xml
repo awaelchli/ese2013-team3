@@ -7,11 +7,7 @@
     <string name="title_activity_preferences">PreferencesActivity</string>
     <string name="title_activity_saved_games">SavedGamesActivity</string>
     <string name="title_activity_view_saved_game">ViewSavedGameActivity</string>
-    <string name="app_quit_button">Quit</string>
-    <string name="pause_button_text">Pause</string>
-    <string name="resume_button_string">Resume</string>
     <string name="title_activity_paused_game">PausedGameActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_friends">FriendsActivity</string>
 
 </resources>

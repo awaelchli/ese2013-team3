@@ -87,6 +87,15 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name="ch.unibe.scg.team3.wordfinder.FriendsActivity"
+            android:label="@string/title_activity_friends"
+            android:parentActivityName="ch.unibe.scg.team3.wordfinder.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.unibe.scg.team3.wordfinder.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

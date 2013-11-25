@@ -84,6 +84,13 @@ public class GameActivity extends Activity implements IGameObserver {
 		}
 	}
 
+	@Override
+	protected void onStop() {
+		super.onStop();
+		// Do not let the timer thread run in the background
+		game.stopTime();
+	}
+
 	private void loadGame() {
 		Intent intent = getIntent();
 		SavedGame savedGame = (SavedGame) intent.getSerializableExtra("saved_game");
@@ -98,7 +105,7 @@ public class GameActivity extends Activity implements IGameObserver {
 	}
 
 	public void quit(View view) {
-		finishGameSession();
+		finish();
 	}
 
 	public void pause(View view) {
@@ -121,9 +128,7 @@ public class GameActivity extends Activity implements IGameObserver {
 
 	public void pauseGameSession() {
 		game.pauseTime();
-		// SavedGame savedGame = game.save();
 		Intent intent = new Intent(this, EndGameActivity.class);
-		// intent.putExtra("saved_game", savedGame);
 		startActivity(intent);
 	}
 

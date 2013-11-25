@@ -20,45 +20,53 @@ import ch.unibe.scg.team3.localDatabase.WordlistHandler;
  */
 public class HomeActivity extends Activity {
 	WordlistHandler wordlistHandler;;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);  
-        Parse.initialize(this, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK", "FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
-        ParseAnalytics.trackAppOpened(getIntent());
-    }
-    
-    public void startGame(View view){
-    	Intent intent = new Intent(this, GameActivity.class);
-    	startActivity(intent);
-    	
-    }
-    
-    public void startPreferences(View view){
-    	Intent intent = new Intent(this, PreferencesActivity.class);
-    	startActivity(intent);
-    	
-    }
-    
-    public void startSavedGames(View view){
-    	Intent intent = new Intent(this, SavedGamesActivity.class);
-    	startActivity(intent);
-    }
-    public void quitApp(View view){
-    	finish();
-    }
-    
 
 	@Override
-    protected void onResume() {
-        super.onResume();
-       
-        wordlistHandler = new WordlistHandler(this);
-        File database = new File("/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
-        
-        if(!database.exists()){
-	        try {
-	        	
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_home);
+		Parse.initialize(this, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK",
+				"FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
+		ParseAnalytics.trackAppOpened(getIntent());
+	}
+
+	public void startGame(View view) {
+		Intent intent = new Intent(this, GameActivity.class);
+		startActivity(intent);
+
+	}
+
+	public void startPreferences(View view) {
+		Intent intent = new Intent(this, PreferencesActivity.class);
+		startActivity(intent);
+
+	}
+
+	public void startSavedGames(View view) {
+		Intent intent = new Intent(this, SavedGamesActivity.class);
+		startActivity(intent);
+	}
+	
+	public void openFriends(View view){
+		Intent intent = new Intent(this, FriendsActivity.class);
+		startActivity(intent);
+	}
+
+	public void quitApp(View view) {
+		finish();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		wordlistHandler = new WordlistHandler(this);
+		File database = new File(
+				"/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
+
+		if (!database.exists()) {
+			try {
+
 				wordlistHandler.copyDB();
 				wordlistHandler = new WordlistHandler(this);
 
@@ -66,9 +74,8 @@ public class HomeActivity extends Activity {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-        }
-        
-    }
-    
-    
+		}
+
+	}
+
 }

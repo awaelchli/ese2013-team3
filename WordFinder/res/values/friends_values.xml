@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="friend_list_title">My Friends</string>
+    <dimen name="friends_list_title_textsize">35sp</dimen>
+</resources>

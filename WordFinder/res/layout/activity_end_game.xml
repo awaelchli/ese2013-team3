@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="enterTitle"
-                android:text="@string/save_Game"
+                android:text="@string/save_button"
                 android:visibility="gone" />
 
             <Button
@@ -79,7 +79,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="resumeGame"
-            android:text="@string/resume_button_string"
+            android:text="@string/resume_button"
             android:visibility="gone" />
     </LinearLayout>
 

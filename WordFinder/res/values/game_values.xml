@@ -19,11 +19,7 @@
 
     <color name="color_border">#000</color>
 
-    <string name="quit_button">Quit</string>
-    <string name="save_Game">Save</string>
-    <string name="cancel_button">Cancel</string>
-    <string name="new_game_button">New</string>
-    <string name="replay_button">Replay</string>
-    <string name="timer_time">00:00</string>
+    <string name="quit_game_button">Quit</string>
+    <string name="pause_game_button">Pause</string>
 
 </resources>

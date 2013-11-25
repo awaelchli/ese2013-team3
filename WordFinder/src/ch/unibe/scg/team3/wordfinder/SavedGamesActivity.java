@@ -22,6 +22,7 @@ import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 public class SavedGamesActivity extends Activity {
 	private ArrayList<SavedGame> games;
 	private SavedGamesHandler handler;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,15 +38,15 @@ public class SavedGamesActivity extends Activity {
 			public View getView(int position, View convertView, ViewGroup parent) {
 
 				LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				
+
 				View element = inflater.inflate(R.layout.saved_games_list_item, parent, false);
-				
+
 				TextView name = (TextView) element.findViewById(R.id.saved_game_name);
 				TextView score = (TextView) element.findViewById(R.id.saved_game_score);
 				TextView date = (TextView) element.findViewById(R.id.saved_game_date);
-				
+
 				SavedGame game = getItem(position);
-				
+
 				name.setText(game.getName());
 				score.setText("Score: " + game.getScore());
 				date.setText("Date: " + game.getDate());
@@ -69,8 +70,7 @@ public class SavedGamesActivity extends Activity {
 		finish();
 	}
 
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		menu.setHeaderTitle("Options");
 		menu.add(0, v.getId(), 0, "Share");
@@ -80,7 +80,7 @@ public class SavedGamesActivity extends Activity {
 	@SuppressLint("NewApi")
 	public boolean onContextItemSelected(MenuItem item) {
 		if (item.getTitle() == "Share") {
-			
+
 		} else if (item.getTitle() == "Delete") {
 			removeGame(findViewById(item.getItemId()));
 		} else {
@@ -94,7 +94,6 @@ public class SavedGamesActivity extends Activity {
 		SavedGame savedGame = games.get(view.getId());
 		handler.removeGame(savedGame.getName());
 		recreate();
-		
 	}
 
 }

@@ -24,11 +24,6 @@ public class EndGameActivity extends Activity {
 	private SavedGame game;
 	protected String board;
 
-	// protected int score;
-	// protected String time;
-	// protected int guesses;
-	// protected int found;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,8 +32,6 @@ public class EndGameActivity extends Activity {
 		handler = new SavedGamesHandler(this.getApplicationContext());
 
 		Intent intent = getIntent();
-		// game = (SavedGame) intent.getSerializableExtra("saved_game");
-		// handler.saveGame(game);
 
 		long id = intent.getLongExtra("saved_game_id", -1);
 
@@ -76,10 +69,6 @@ public class EndGameActivity extends Activity {
 	}
 
 	public void resumeGame(View view) {
-
-		// Intent intent = new Intent(this, GameActivity.class);
-		// startActivity(intent);
-
 		finish();
 	}
 
@@ -157,11 +146,4 @@ public class EndGameActivity extends Activity {
 		TextView stats = (TextView) findViewById(R.id.display_Stats);
 		stats.setText(text);
 	}
-	// @Override
-	// public void onBackPressed() {
-	// super.onBackPressed();
-	// Intent intent = new Intent(this, GameActivity.class);
-	// startActivity(intent);
-	// }
-
 }
