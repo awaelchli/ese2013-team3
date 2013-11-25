@@ -14,7 +14,7 @@ public class MainUserHandler extends UserHandler {
 		super(context);
 	}
 
-	public AbstractUser getMainUser() {
+	public MainUser getMainUser() {
 		
 			SQLiteDatabase db = helper.getReadableDatabase();
 			

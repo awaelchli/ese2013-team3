@@ -87,6 +87,11 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name="ch.unibe.scg.team3.wordfinder.SharePrefsActivity"
+            android:label="@string/title_activity_share_prefs" >
+        </activity>
     </application>
 
 </manifest>

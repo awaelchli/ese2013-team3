@@ -13,5 +13,6 @@
     <string name="title_activity_paused_game">PausedGameActivity</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_share_prefs">SharePrefsActivity</string>
 
 </resources>
