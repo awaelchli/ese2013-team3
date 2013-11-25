@@ -14,7 +14,7 @@ public class MainUserHandler extends UserHandler {
 		super(context);
 	}
 
-	public AbstractUser getMainUserByEmail() {
+	public AbstractUser getMainUser() {
 		
 			SQLiteDatabase db = helper.getReadableDatabase();
 			
