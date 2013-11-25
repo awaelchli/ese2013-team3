@@ -19,6 +19,10 @@ public class MainUser extends AbstractUser {
 		friends = new ArrayList<Friend>();
 	}
 	
+	public MainUser() {
+		super();
+	}
+
 	@Override
 	public ParseObject getAsParseObject(){//not yet usable
 		ParseObject parse=super.getAsParseObject();

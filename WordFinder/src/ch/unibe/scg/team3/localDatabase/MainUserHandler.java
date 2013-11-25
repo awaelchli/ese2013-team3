@@ -2,6 +2,7 @@ package ch.unibe.scg.team3.localDatabase;
 
 import ch.unibe.scg.team3.user.AbstractUser;
 import ch.unibe.scg.team3.user.Friend;
+import ch.unibe.scg.team3.user.MainUser;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,23 +14,25 @@ public class MainUserHandler extends UserHandler {
 		super(context);
 	}
 
-	public AbstractUser getUserByEmail(String email) {
+	public AbstractUser getMainUserByEmail() {
 		
 			SQLiteDatabase db = helper.getReadableDatabase();
-			String[] query = { email };
-			Cursor c = db.rawQuery("SELECT * FROM User WHERE Email = ? ", query);
-			Friend friend = new Friend();
+			
+			Cursor c = db.rawQuery("SELECT * FROM User WHERE _id = 1 ",null);
+			MainUser user = new MainUser();
 			if (c != null && c.getCount() != 0) {
 				c.moveToFirst();
-	
+				user.setUserName(c.getString(1));
+				user.setEmail(c.getString(2));
+				user.setUserId(c.getString(3));
 				c.close();
 				db.close();
-	
-				return friend;
+				
+				return user;
 			} else {
 				c.close();
 				db.close();
-				return friend;
+				return user;
 			
 		}
 	}
