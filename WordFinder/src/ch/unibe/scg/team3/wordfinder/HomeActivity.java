@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,7 +24,8 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);  
-        //Parse.initialize(this, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK", "FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
+        Parse.initialize(this, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK", "FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
+        ParseAnalytics.trackAppOpened(getIntent());
     }
     
     public void startGame(View view){

@@ -28,10 +28,9 @@ public class WordlistHandler extends DataHandler {
 	public static final String SHORT_WORD_TABLE_SUFFIX = "short";
 	public static final String LONG_WORD_TABLE_SUFFIX = "long";
 	private static final int MINIMUM_WORD_LENGTH = 1;
-
+	
 	private String selectedWordlist;
-
-	// TODO: check for injections
+	
 	public WordlistHandler(Context context) {
 		super(context);
 
