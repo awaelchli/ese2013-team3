@@ -26,8 +26,10 @@ public class FriendsHandler extends UserHandler {
 			db.insert("User", null, c);
 		} catch (Exception e) {
 			e.printStackTrace();
+			db.close();
 			return false;
 		}
+		db.close();
 		return true;
 	}
 
