@@ -11,5 +11,8 @@
  	<string name="title_activity_friends">FriendsActivity</string>
     <string name="title_activity_share_prefs">SharePrefsActivity</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="emailHint">foo@example.com</string>
+    <string name="requests_field">Requests</string>
+    <string name="friends_field">Friends</string>
 
 </resources>
