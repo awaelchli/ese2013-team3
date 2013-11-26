@@ -23,8 +23,9 @@
         android:title="Sharing"
         android:key="sharingService">
 		<Preference 
-		    android:title="User"
-		    android:key="user"/>			
+		    android:title="Sign Up"
+		    android:key="signUp"/>
+		<Preference android:key="login" android:title="Login"/>			
         
     </PreferenceCategory>
     

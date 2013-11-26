@@ -25,7 +25,8 @@ public class PreferencesActivity extends PreferenceActivity {
 
 		addPreferencesFromResource(R.xml.preferences);
 		final ListPreference wordlistPref = (ListPreference) findPreference("choose_wordlist");
-		final Preference mainUserPref = (Preference) findPreference("user");
+		final Preference signUp = (Preference) findPreference("signUp");
+		final Preference login = (Preference) findPreference("login");
 		wm = new WordlistHandler(this);
 		muh = new MainUserHandler(this);
 		setListPreferenceData(wordlistPref);
@@ -38,10 +39,18 @@ public class PreferencesActivity extends PreferenceActivity {
 						return true;
 					}
 				});
-		mainUserPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		signUp.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			public boolean onPreferenceClick(Preference preference) {
 				shareActivity();
+				return true;
+			}
+		});
+		
+		login.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			public boolean onPreferenceClick(Preference preference) {
+				loginActivity();
 				return true;
 			}
 		});
@@ -57,7 +66,12 @@ public class PreferencesActivity extends PreferenceActivity {
 		lp.setEntryValues(entryValues);
 	}
 	protected void shareActivity(){
-		Intent intent = new Intent(this,SharePrefsActivity.class);
+		Intent intent = new Intent(this,SignUpActivity.class);
+		startActivity(intent);
+		finish();
+	}
+	protected void loginActivity(){
+		Intent intent = new Intent(this,LoginActivity.class);
 		startActivity(intent);
 		finish();
 	}

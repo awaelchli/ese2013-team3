@@ -9,14 +9,16 @@ import com.parse.ParseObject;
 */
 public abstract class AbstractUser {
 	
-	private String email;
-	private String userName;
-	private String userID;
+	protected String email;
+	protected String userName;
+	protected String userID;
+	protected boolean registered;
 
 	public AbstractUser(String email, String userName) {
 		//TODO set the user ID
 		this.email=email;
 		this.userName=userName;
+		this.registered=false;
 	}
 
 	public AbstractUser() {
@@ -47,13 +49,5 @@ public abstract class AbstractUser {
 		this.userID = userId;
 	}
 
-	public ParseObject getAsParseObject(){
-		ParseObject parse= new ParseObject("User");
-		parse.put("ID", userID);
-		parse.put("userName", userName);
-		parse.put("email", email);
-		parse.saveInBackground();
-		return parse;
-		
-	}
+	public abstract void register();
 }

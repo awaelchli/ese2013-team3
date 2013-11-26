@@ -13,6 +13,11 @@ public class Friend extends AbstractUser {
 
 	public void setFriendId(String friendid) {
 		setUserId(friendid);
+	}
+
+	@Override
+	public void register() {
+		// TODO Auto-generated method stub
 		
 	}
 
