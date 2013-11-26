@@ -15,8 +15,9 @@ import ch.unibe.scg.team3.board.WordSelection;
  */
 public abstract class AbstractGame implements IObservable {
 
+	protected long id;
 	protected int score;
-	protected int guesses;
+	protected int attempts;
 	protected int wordlistId;
 	protected int timesPlayed;
 	protected boolean isPersonal;
@@ -25,8 +26,9 @@ public abstract class AbstractGame implements IObservable {
 	protected ArrayList<WordSelection> found;
 	
 	protected AbstractGame() {
+		id = -1;
 		score = 0;
-		guesses = 0;
+		attempts = 0;
 		wordlistId = 0;
 		timesPlayed = 0;
 		observers = new ArrayList<IGameObserver>();
@@ -81,10 +83,10 @@ public abstract class AbstractGame implements IObservable {
 	}
 
 	/**
-	 * @return The total guesses the player made, positive
+	 * @return The total attempts the player made, positive
 	 */
 	public int getNumberOfAttempts() {
-		return guesses;
+		return attempts;
 	}
 
 	/**

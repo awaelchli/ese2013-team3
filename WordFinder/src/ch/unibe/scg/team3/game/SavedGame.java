@@ -20,8 +20,7 @@ import ch.unibe.scg.team3.board.WordSelection;
 public class SavedGame extends AbstractGame implements Serializable {
 
 	private static final long serialVersionUID = -269683003596675103L;
-
-	private int id;
+	
 	private String name;
 	private long remainingTime;
 	private String date;
@@ -61,11 +60,11 @@ public class SavedGame extends AbstractGame implements Serializable {
 		}
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -122,7 +121,7 @@ public class SavedGame extends AbstractGame implements Serializable {
 	}
 
 	public void setAttempts(int guesses) {
-		this.guesses = guesses;
+		this.attempts = guesses;
 	}
 
 	@Override
@@ -148,7 +147,7 @@ public class SavedGame extends AbstractGame implements Serializable {
 	private void readObject(ObjectInputStream aStream) throws IOException, ClassNotFoundException {
 		aStream.defaultReadObject();
 		score = (Integer) aStream.readObject();
-		guesses = (Integer) aStream.readObject();
+		attempts = (Integer) aStream.readObject();
 		wordlistId = (Integer) aStream.readObject();
 		timesPlayed = (Integer) aStream.readObject();
 		observers = (ArrayList<IGameObserver>) aStream.readObject();
@@ -161,7 +160,7 @@ public class SavedGame extends AbstractGame implements Serializable {
 	private void writeObject(ObjectOutputStream aStream) throws IOException {
 		aStream.defaultWriteObject();
 		aStream.writeObject(score);
-		aStream.writeObject(guesses);
+		aStream.writeObject(attempts);
 		aStream.writeObject(wordlistId);
 		aStream.writeObject(timesPlayed);
 		aStream.writeObject(observers);

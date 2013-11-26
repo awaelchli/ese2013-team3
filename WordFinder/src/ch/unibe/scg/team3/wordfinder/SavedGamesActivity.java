@@ -65,7 +65,7 @@ public class SavedGamesActivity extends Activity {
 		SavedGame savedGame = games.get(view.getId());
 		Intent intent = new Intent(this, ViewSavedGameActivity.class);
 
-		intent.putExtra("saved_game", savedGame);
+		intent.putExtra("saved_game_id", savedGame.getId());
 		startActivity(intent);
 		finish();
 	}

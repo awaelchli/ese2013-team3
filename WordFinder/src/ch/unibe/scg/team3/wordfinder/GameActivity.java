@@ -93,7 +93,10 @@ public class GameActivity extends Activity implements IGameObserver {
 
 	private void loadGame() {
 		Intent intent = getIntent();
-		SavedGame savedGame = (SavedGame) intent.getSerializableExtra("saved_game");
+//		SavedGame savedGame = (SavedGame) intent.getSerializableExtra("saved_game");
+		SavedGamesHandler handler = new SavedGamesHandler(this);
+		long id = intent.getLongExtra("saved_game_id", -1);
+		SavedGame savedGame = handler.getSavedGame(id);
 
 		if (savedGame != null) {
 			game = new Game(savedGame, wordlistHandler);

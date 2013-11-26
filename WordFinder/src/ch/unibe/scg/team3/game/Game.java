@@ -17,7 +17,7 @@ import ch.unibe.scg.team3.wordfinder.R;
 
 public class Game extends AbstractGame {
 
-	public static final int DEFAULT_MIN_WORDS_TO_FIND = 30;
+	public static final int DEFAULT_MIN_WORDS_TO_FIND = 1;
 	public static final long TIME_LIMIT = 5 * 60000;
 
 	private final WordlistHandler wordlistHandler;
@@ -83,6 +83,7 @@ public class Game extends AbstractGame {
 	public Game(final SavedGame game, WordlistHandler handler) {
 		super(game);
 		wordlistHandler = handler;
+		id = game.getId();
 		board = game.getBoard();
 		initTimer(TIME_LIMIT);
 	}
@@ -113,7 +114,7 @@ public class Game extends AbstractGame {
 	 */
 	public void submitPath(ColoredPath<? extends IElement> path) {
 		assert path != null;
-		guesses++;
+		attempts++;
 		WordSelection selection = makeSelection(path);
 
 		String word = selection.toString();
@@ -244,12 +245,13 @@ public class Game extends AbstractGame {
 	 */
 	public SavedGame save() {
 		SavedGame saved = new SavedGame();
+		saved.setId(this.id);
 		saved.setScore(getScore());
 		saved.setStringBoard(board.toString());
 		saved.setRemainingTime(timer.getRemainingTime());
 		saved.setAttempts(getNumberOfAttempts());
 		saved.setWordlistId(getWordlistId());
-		saved.setTimesPlayed(getTimesPlayed());
+		saved.setTimesPlayed(getTimesPlayed() + 1);
 		saved.setFoundWords(found);
 		saved.setNumberOfFoundWords(found.size());
 		saved.setRemainingTime(timer.getElapsedTime());

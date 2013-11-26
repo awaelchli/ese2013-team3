@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 import ch.unibe.scg.team3.game.*;
 import ch.unibe.scg.team3.gameui.BoardUI;
+import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
 public class ViewSavedGameActivity extends Activity {
@@ -18,8 +19,13 @@ public class ViewSavedGameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_saved_game);
 
+		SavedGamesHandler handler = new SavedGamesHandler(this);
 		Intent intent = getIntent();
-		savedGame = (SavedGame) intent.getSerializableExtra("saved_game");
+		
+//		savedGame = (SavedGame) intent.getSerializableExtra("saved_game");
+		long id = intent.getLongExtra("saved_game_id", -1);
+		savedGame = handler.getSavedGame(id);
+		
 		WordlistHandler wh = new WordlistHandler(this);
 		BoardUI boardUI = (BoardUI) findViewById(R.id.tableboardUI);
 		boardUI.update(savedGame, new Event(Event.BOARD_UPDATED));
@@ -38,6 +44,7 @@ public class ViewSavedGameActivity extends Activity {
 	public void replaySavedGame(View view) {
 		Intent intent = getIntent();
 		intent.setClass(this, GameActivity.class);
+		intent.putExtra("saved_game_id", savedGame.getId());
 		startActivity(intent);
 		finish();
 	}

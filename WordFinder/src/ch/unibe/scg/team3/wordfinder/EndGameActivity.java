@@ -91,8 +91,8 @@ public class EndGameActivity extends Activity {
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String value = input.getText().toString();
-				game.setName(value);
-				if (handler.saveGame(game) >= 0) {
+//				game.setName(value);
+				if (handler.tagSavedGame(value, game.getId())) {
 					goHome(null);
 				} else
 					reenterTitle(view);
@@ -120,8 +120,8 @@ public class EndGameActivity extends Activity {
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String value = input.getText().toString();
-				game.setName(value);
-				if (handler.saveGame(game)>= 0) {
+//				game.setName(value);
+				if (handler.tagSavedGame(value, game.getId())) {
 					goHome(null);
 				} else
 					enterTitle(view);
