@@ -6,4 +6,10 @@ public class Friend extends AbstractUser {
 		super(email, userName);
 	}
 
+	@Override
+	public void register() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
