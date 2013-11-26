@@ -25,6 +25,10 @@ public class MainUser extends AbstractUser {
 		this.passWord=passWord;
 	}
 	
+	public MainUser() {
+		super();
+	}
+
 	@Override
 	public void register(){//not yet usable
 		if(registered==false){

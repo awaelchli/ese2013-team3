@@ -35,7 +35,8 @@
             android:name="ch.unibe.scg.team3.wordfinder.GameActivity"
             android:label="@string/title_activity_game"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:parentActivityName="ch.unibe.scg.team3.wordfinder.HomeActivity" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -78,7 +79,13 @@
             android:name="ch.unibe.scg.team3.wordfinder.PausedGameActivity"
             android:label="@string/title_activity_paused_game" >
         </activity>
-
+	
+        <activity
+            android:name="ch.unibe.scg.team3.wordfinder.SharePrefsActivity"
+            android:label="@string/title_activity_share_prefs" 
+            android:launchMode="singleInstance" >
+        </activity>
+        
         <service android:name="com.parse.PushService" />
 
         <receiver android:name="com.parse.ParseBroadcastReceiver" >
@@ -87,6 +94,8 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
+
+        
     </application>
 
 </manifest>

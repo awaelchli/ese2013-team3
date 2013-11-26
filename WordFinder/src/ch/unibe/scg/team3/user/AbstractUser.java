@@ -11,7 +11,7 @@ public abstract class AbstractUser {
 	
 	protected String email;
 	protected String userName;
-	protected int UserID;
+	protected String userID;
 	protected boolean registered;
 
 	public AbstractUser(String email, String userName) {
@@ -19,6 +19,9 @@ public abstract class AbstractUser {
 		this.email=email;
 		this.userName=userName;
 		this.registered=false;
+	}
+
+	public AbstractUser() {
 	}
 
 	public String getEmail() {
@@ -38,8 +41,12 @@ public abstract class AbstractUser {
 		this.userName = userName;
 	}
 
-	public int getUserID() {
-		return UserID;
+	public String getUserID() {
+		return userID;
+	}
+	
+	public void setUserId(String userId){
+		this.userID = userId;
 	}
 
 	public abstract void register();

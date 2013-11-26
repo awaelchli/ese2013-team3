@@ -20,14 +20,11 @@
     </PreferenceCategory>
 	 
 	<PreferenceCategory 
-        android:title="User Data"
-        android:key="userdata">
-		<EditTextPreference 
-		    android:title="Username"
-		    android:key="username"/>
-		<EditTextPreference 
-		    android:title="Email"
-		    android:key="email"/>
+        android:title="Sharing"
+        android:key="sharingService">
+		<Preference 
+		    android:title="User"
+		    android:key="user"/>			
         
     </PreferenceCategory>
     
