@@ -6,4 +6,14 @@ public class Friend extends AbstractUser {
 		super(email, userName);
 	}
 
+	public Friend() {
+		super();
+	}
+
+
+	public void setFriendId(String friendid) {
+		setUserId(friendid);
+		
+	}
+
 }

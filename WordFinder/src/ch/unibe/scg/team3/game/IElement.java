@@ -1,6 +1,7 @@
 package ch.unibe.scg.team3.game;
 
 import ch.unibe.scg.team3.board.Point;
+import ch.unibe.scg.team3.path.Path;
 
 /**
  * An IElement represents an element in the board. This interface is mainly used

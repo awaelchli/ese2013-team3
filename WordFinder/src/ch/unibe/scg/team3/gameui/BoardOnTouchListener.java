@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.TableRow;
 import ch.unibe.scg.team3.game.Game;
-import ch.unibe.scg.team3.game.Path;
+import ch.unibe.scg.team3.path.ColoredPath;
 import ch.unibe.scg.team3.wordfinder.R;
 
 /**
@@ -24,7 +24,7 @@ public class BoardOnTouchListener implements OnTouchListener {
 
 	public static final int FINGER_PADDING = 20;
 
-	private final Path<BoardButton> path;
+	private final ColoredPath<BoardButton> path;
 	private final Context context;
 	private final Game game;
 
@@ -32,7 +32,7 @@ public class BoardOnTouchListener implements OnTouchListener {
 		this.context = context;
 		this.game = game;
 
-		path = new Path<BoardButton>();
+		path = new ColoredPath<BoardButton>();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -107,7 +107,7 @@ public class BoardOnTouchListener implements OnTouchListener {
 	}
 
 	@SuppressWarnings("deprecation")
-	private void makePathAnimation(Path<BoardButton> path) {
+	private void makePathAnimation(ColoredPath<BoardButton> path) {
 
 		for (BoardButton b : path) {
 

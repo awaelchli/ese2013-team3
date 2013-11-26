@@ -8,6 +8,7 @@
     <string name="title_activity_saved_games">SavedGamesActivity</string>
     <string name="title_activity_view_saved_game">ViewSavedGameActivity</string>
     <string name="title_activity_paused_game">PausedGameActivity</string>
-    <string name="title_activity_friends">FriendsActivity</string>
+ 	<string name="title_activity_friends">FriendsActivity</string>
+    <string name="title_activity_share_prefs">SharePrefsActivity</string>
 
 </resources>

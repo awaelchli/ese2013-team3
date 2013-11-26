@@ -122,7 +122,7 @@ public class PrimitiveDBBoardGenerator extends AbstractBoardGenerator {
 		
 
 		
-		//put the word in the matrix, if a valid path has been found
+		//put the word in the matrix, if a valid ch.unibe.scg.team3.path has been found
 		if(!failed){
 			for(int i=0; i<letters.length;i++){
 				boardMatrix[pCoord.get(i).getX()][pCoord.get(i).getY()]=letters[i];

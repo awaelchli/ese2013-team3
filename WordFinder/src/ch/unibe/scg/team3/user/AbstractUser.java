@@ -11,12 +11,15 @@ public abstract class AbstractUser {
 	
 	private String email;
 	private String userName;
-	private int UserID;
+	private String userID;
 
 	public AbstractUser(String email, String userName) {
 		//TODO set the user ID
 		this.email=email;
 		this.userName=userName;
+	}
+
+	public AbstractUser() {
 	}
 
 	public String getEmail() {
@@ -36,13 +39,17 @@ public abstract class AbstractUser {
 		this.userName = userName;
 	}
 
-	public int getUserID() {
-		return UserID;
+	public String getUserID() {
+		return userID;
+	}
+	
+	public void setUserId(String userId){
+		this.userID = userId;
 	}
 
 	public ParseObject getAsParseObject(){
 		ParseObject parse= new ParseObject("User");
-		parse.put("ID", UserID);
+		parse.put("ID", userID);
 		parse.put("userName", userName);
 		parse.put("email", email);
 		parse.saveInBackground();

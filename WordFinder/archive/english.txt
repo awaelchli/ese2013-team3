@@ -2791,7 +2791,7 @@ paso
 pass
 past
 pate
-path
+ch.unibe.scg.team3.path
 pats
 paul
 pave

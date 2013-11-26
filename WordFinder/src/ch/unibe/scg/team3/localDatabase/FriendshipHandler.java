@@ -12,7 +12,7 @@ public class FriendshipHandler extends DataHandler {
 	}
 	
 	public boolean setFriend(Friend friend, int friend_id){
-			
+		
 		ContentValues c = new ContentValues();
 		c.put("user_id", 1);
 		c.put("friend_id", friend.getUserID());
@@ -22,10 +22,11 @@ public class FriendshipHandler extends DataHandler {
 			db.insert("Friendship", null, c);
 		} catch (Exception e) {
 			e.printStackTrace();
+			db.close();
 			return false;
 		}
+		db.close();
 		return true;
-		 
 	}
 
 }

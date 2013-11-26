@@ -1,13 +1,14 @@
-package ch.unibe.scg.team3.game;
+package ch.unibe.scg.team3.path;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import ch.unibe.scg.team3.board.Point;
+import ch.unibe.scg.team3.game.IElement;
 
 /**
- * The responsibility of the path is to know if he is valid or not. A valid path
- * is a path where its elements are adjacent. This class partly wraps the {@link LinkedList}.
+ * The responsibility of the ch.unibe.scg.team3.path is to know if he is valid or not. A valid ch.unibe.scg.team3.path
+ * is a ch.unibe.scg.team3.path where its elements are adjacent. This class partly wraps the {@link LinkedList}.
  * 
  * @author adrian
  */
@@ -15,8 +16,6 @@ import ch.unibe.scg.team3.board.Point;
 public class Path<E extends IElement> implements Iterable<E> {
 
 	private LinkedList<E> path;
-	private int color;
-
 	public Path() {
 		path = new LinkedList<E>();
 	}
@@ -24,7 +23,7 @@ public class Path<E extends IElement> implements Iterable<E> {
 	/**
 	 * @param element
 	 *            The element to be added, not null
-	 * @return True, if the element is not already in the path and adjacent to
+	 * @return True, if the element is not already in the ch.unibe.scg.team3.path and adjacent to
 	 *         the last added element, false otherwise
 	 */
 	public boolean add(E element) {
@@ -44,7 +43,7 @@ public class Path<E extends IElement> implements Iterable<E> {
 	}
 
 	/**
-	 * @return The length of the path is greater or equal to zero.
+	 * @return The length of the ch.unibe.scg.team3.path is greater or equal to zero.
 	 */
 	public int length() {
 		return path.size();
@@ -53,20 +52,6 @@ public class Path<E extends IElement> implements Iterable<E> {
 	@Override
 	public Iterator<E> iterator() {
 		return path.iterator();
-	}
-
-	/**
-	 * Set the color of the path to mark its state.
-	 * 
-	 * @param color
-	 *            The color
-	 */
-	public void setColor(int color) {
-		this.color = color;
-	}
-
-	public int getColor() {
-		return color;
 	}
 
 	private boolean isAdjacent(E e1, E e2) {
@@ -87,7 +72,7 @@ public class Path<E extends IElement> implements Iterable<E> {
 	}
 
 	/**
-	 * @return True, if there exists an element in the path with the same coordinates and false otherwise.
+	 * @return True, if there exists an element in the ch.unibe.scg.team3.path with the same coordinates and false otherwise.
 	 */
 	public boolean contains(E element) {
 
@@ -101,18 +86,18 @@ public class Path<E extends IElement> implements Iterable<E> {
 	}
 
 	/**
-	 * Returns the last path element that was added
+	 * Returns the last ch.unibe.scg.team3.path element that was added
 	 * 
-	 * @return The last element if the path is not empty
+	 * @return The last element if the ch.unibe.scg.team3.path is not empty
 	 */
 	public E getLast() {
 		return path.getLast();
 	}
 
 	/**
-	 * Removes and returns the last path element that was added
+	 * Removes and returns the last ch.unibe.scg.team3.path element that was added
 	 * 
-	 * @return The returned element if the path is not empty
+	 * @return The returned element if the ch.unibe.scg.team3.path is not empty
 	 */
 	public E removeLast() {
 		return path.removeLast();

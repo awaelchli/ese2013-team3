@@ -100,7 +100,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="12" language="java" name="ch.unibe.scg.team3.game.Path" project="WordFinder" 
+  <class id="12" language="java" name="ch.unibe.scg.team3.path.Path" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/game/Path.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2618" y="2191"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -434,7 +434,7 @@
   </association>  
   <association id="53">    
     <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="54" name="path"/>      
+      <attribute id="54" name="ch.unibe.scg.team3.path"/>      
       <multiplicity id="55" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
@@ -518,7 +518,7 @@
   </generalization>  
   <association id="82">    
     <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="83" name="path"/>      
+      <attribute id="83" name="ch.unibe.scg.team3.path"/>      
       <multiplicity id="84" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="39" navigable="true"/>    

@@ -3,7 +3,8 @@ package ch.unibe.scg.team3.board;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import ch.unibe.scg.team3.game.Path;
+
+import ch.unibe.scg.team3.path.Path;
 import ch.unibe.scg.team3.token.IToken;
 import ch.unibe.scg.team3.token.NullToken;
 
@@ -85,10 +86,10 @@ public class Board implements Iterable<IToken>{
 	}
 	
 	/**
-	 * Places the tokens of a path on the board according to the coordinates of the tokens.
+	 * Places the tokens of a ch.unibe.scg.team3.path on the board according to the coordinates of the tokens.
 	 * 
-	 * @param path The path containing the tokens to place
-	 * @return true if the path fits on the board and false otherwise.
+	 * @param ch.unibe.scg.team3.path The ch.unibe.scg.team3.path containing the tokens to place
+	 * @return true if the ch.unibe.scg.team3.path fits on the board and false otherwise.
 	 */
 	public boolean setPath(Path<IToken> path){
 		

@@ -2,6 +2,8 @@ package ch.unibe.scg.team3.game;
 
 import ch.unibe.scg.team3.board.*;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
+import ch.unibe.scg.team3.path.ColoredPath;
+import ch.unibe.scg.team3.path.Path;
 import ch.unibe.scg.team3.token.*;
 import ch.unibe.scg.team3.wordfinder.R;
 
@@ -103,13 +105,13 @@ public class Game extends AbstractGame {
 	}
 
 	/**
-	 * The method reads the path and selects the tokens on the board. It creates
-	 * the word according to the path and validates this word.
+	 * The method reads the ch.unibe.scg.team3.path and selects the tokens on the board. It creates
+	 * the word according to the ch.unibe.scg.team3.path and validates this word.
 	 * 
-	 * @param path
-	 *            The path to be checked, not null.
+	 * @param ch.unibe.scg.team3.path
+	 *            The ch.unibe.scg.team3.path to be checked, not null.
 	 */
-	public void submitPath(Path<? extends IElement> path) {
+	public void submitPath(ColoredPath<? extends IElement> path) {
 		assert path != null;
 		guesses++;
 		WordSelection selection = makeSelection(path);
@@ -143,10 +145,10 @@ public class Game extends AbstractGame {
 	/**
 	 * Creates a selection based on the paths coordinate points.
 	 * 
-	 * @param path
-	 *            A path which is not null
+	 * @param ch.unibe.scg.team3.path
+	 *            A ch.unibe.scg.team3.path which is not null
 	 * @return The word selection with, with token from the board according to
-	 *         the path.
+	 *         the ch.unibe.scg.team3.path.
 	 */
 	private WordSelection makeSelection(Path<? extends IElement> path) {
 
