@@ -15,5 +15,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_share_prefs">SharePrefsActivity</string>
     <string name="ok_button">Ok</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>
