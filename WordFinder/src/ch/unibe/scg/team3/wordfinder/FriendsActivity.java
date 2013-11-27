@@ -18,7 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 
 public class FriendsActivity extends Activity {
 
@@ -98,13 +100,31 @@ public class FriendsActivity extends Activity {
 					try {
 						userId = (String) user.getFirst().getObjectId();
 					} catch (ParseException e1) {
-						e1.printStackTrace();
+						
+						int code = e1.getCode();
+				    	String message="someting is wrong";
+				    	if(code==ParseException.OBJECT_NOT_FOUND){message="could not find user";}
+				    	if(code==ParseException.CONNECTION_FAILED){message="Unable to connect to the internet";}
+				    	
+				    	System.out.println(code);
+				    	
+				    	AlertDialog.Builder alert = new AlertDialog.Builder(FriendsActivity.this);
+
+						alert.setTitle("Error");
+						alert.setMessage(message);
+
+						alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int whichButton) {
+							}
+						});
+
+						alert.show();
 
 					}
 					if (userId == null) {
-						Toast.makeText(getApplicationContext(),
-								"Couldn't send Request", Toast.LENGTH_LONG)
-								.show();
+//						Toast.makeText(getApplicationContext(),
+//								"Couldn't send Request", Toast.LENGTH_LONG)
+//								.show();
 						return;
 					}
 					ParseObject request = new ParseObject("Request");
@@ -113,13 +133,33 @@ public class FriendsActivity extends Activity {
 					request.saveInBackground();
 					email_view.setText("");
 					email_view.clearFocus();
-					Toast.makeText(getApplicationContext(), "Request is send",
+					Toast.makeText(getApplicationContext(), "Request has been sent",
 							Toast.LENGTH_LONG).show();
 
 				} else {
-					Toast.makeText(getApplicationContext(),
-							"Couldn't send Request", Toast.LENGTH_LONG).show();
-					e.printStackTrace();
+					int code = e.getCode();
+			    	String message="someting is wrong";
+			    	if(code==ParseException.OBJECT_NOT_FOUND){message="Could not find user";}
+			    	if(code==ParseException.CONNECTION_FAILED){message="Unable to connect to the internet";}
+			    	
+			    	System.out.println(code);
+			    	
+			    	AlertDialog.Builder alert = new AlertDialog.Builder(FriendsActivity.this);
+
+					alert.setTitle("Error");
+					alert.setMessage(message);
+
+					alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+						}
+					});
+
+					alert.show();
+					
+					
+//					Toast.makeText(getApplicationContext(),
+//							"Couldn't send Request", Toast.LENGTH_LONG).show();
+//					e.printStackTrace();
 				}
 			}
 		});
