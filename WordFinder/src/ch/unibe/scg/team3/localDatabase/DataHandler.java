@@ -1,7 +1,6 @@
 package ch.unibe.scg.team3.localDatabase;
 
 import android.content.Context;
-import com.parse.*;
 
 /**
  * This class provides the connection between the SQLite database and the
