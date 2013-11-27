@@ -16,14 +16,16 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements
 	protected WordlistHandler wordlistHandler;
 	protected SavedGamesHandler savedGamesHandler;
 
-	public void testGetSavedGames() {
+	public void testGetTaggedGames() {
 		SavedGame saved = new SavedGame();
 		SavedGame saved2 = new SavedGame();
 		saved = initSavedGame(saved, "Test1");
 		saved2 = initSavedGame(saved2, "Test2");
 		savedGamesHandler.saveGame(saved);
+		savedGamesHandler.tagSavedGame("Test1", saved.getId());
 		savedGamesHandler.saveGame(saved2);
-		assertEquals(savedGamesHandler.getSavedGames().size(), 2);
+		savedGamesHandler.tagSavedGame("Test2", saved2.getId());
+		assertEquals(savedGamesHandler.getTaggedGames().size(), 2);
 	}
 
 	public void testGetSavedGameAndSaveGame() {
@@ -65,46 +67,19 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements
 		SavedGame saved2 = new SavedGame();
 		saved = initSavedGame(saved, "Test1");
 		saved2 = initSavedGame(saved2, "Test2");
-		savedGamesHandler.saveGame(saved);
+		long id = savedGamesHandler.saveGame(saved);
 		long temp = savedGamesHandler.saveGame(saved2);
 		assertTrue(savedGamesHandler.gameInDatabase("Test1"));
 		assertTrue(savedGamesHandler.gameInDatabase(temp));
-		assertTrue(savedGamesHandler.removeGame("Test1"));
+		assertTrue(savedGamesHandler.removeGame(saved));
 		assertTrue(savedGamesHandler.removeGame(temp));
 		assertFalse(savedGamesHandler.gameInDatabase("Test1"));
-		assertFalse(savedGamesHandler.removeGame("Test1"));
+		assertFalse(savedGamesHandler.removeGame(saved));
 		assertFalse(savedGamesHandler.gameInDatabase(temp));
 		assertFalse(savedGamesHandler.removeGame(temp));
 	}
 	
 
-	public void testSetIsPrivate() {
-		SavedGame saved = new SavedGame();
-		SavedGame saved2 = new SavedGame();
-		initSavedGame(saved, "Test1");
-		long temp = savedGamesHandler.saveGame(saved);
-		saved2 = savedGamesHandler.getSavedGame(temp);
-		assertEquals(saved2.isPersonal(),true);
-		savedGamesHandler.setIsPrivate(temp, false);
-		saved2 = savedGamesHandler.getSavedGame(temp);
-		assertEquals(saved2.isPersonal(),false);
-		savedGamesHandler.setIsPrivate(temp, true);
-		saved2 = savedGamesHandler.getSavedGame(temp);
-		assertEquals(saved2.isPersonal(),true);
-	}
-
-	public void testSetName() {
-		SavedGame saved = new SavedGame();
-		SavedGame saved2 = new SavedGame();
-		initSavedGame(saved, "Test1");
-		long temp = savedGamesHandler.saveGame(saved);
-		saved2 = savedGamesHandler.getSavedGame(temp);
-		assertEquals(saved2.getName(),"Test1");
-		savedGamesHandler.setName(temp, "foo");
-		saved2 = savedGamesHandler.getSavedGame(temp);
-		assertEquals(saved2.getName(),"foo");
-
-	}
 	private SavedGame initSavedGame(SavedGame saved, String name) {
 		String board = defaultBoard;
 		saved.setName(name);

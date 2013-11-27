@@ -105,6 +105,7 @@ public class SavedGamesHandler extends DataHandler {
 			values.put("TimesPlayed", timesPlayed);
 			values.put("Guesses", guesses);
 			long id = db.insert("Games", null, values);
+			game.setId(id);
 			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -306,6 +307,10 @@ public class SavedGamesHandler extends DataHandler {
 		} else {
 			return false;
 		}
+	}
+	public boolean removeGame(SavedGame game){
+		return removeGame(game.getId());
+		
 	}
 
 	/**

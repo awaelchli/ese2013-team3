@@ -56,15 +56,15 @@ public class BoardTest extends AndroidTestCase {
 		AbstractToken tok5 = new Token('5', 1, 3, 0);
 		AbstractToken badTok = new Token('b', 1, 4, 0);
 		
-		Path<IToken> ch.unibe.scg.team3.path = new Path<IToken>();
+		Path<IToken> path = new Path<IToken>();
 		
 		
-		ch.unibe.scg.team3.path.add(tok1);
-		ch.unibe.scg.team3.path.add(tok3);
-		ch.unibe.scg.team3.path.add(tok2);
-		ch.unibe.scg.team3.path.add(tok4);
+		path.add(tok1);
+		path.add(tok3);
+		path.add(tok2);
+		path.add(tok4);
 		
-		board.setPath(ch.unibe.scg.team3.path);
+		board.setPath(path);
 		
 		assertEquals(board.getToken(0, 0), tok1);
 		assertEquals(board.getToken(1, 0), tok2);
