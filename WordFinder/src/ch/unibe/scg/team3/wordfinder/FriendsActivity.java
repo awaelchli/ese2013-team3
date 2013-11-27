@@ -3,6 +3,9 @@ package ch.unibe.scg.team3.wordfinder;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.unibe.scg.team3.parseQueryAdapter.FriendRequestsAdapter;
+import ch.unibe.scg.team3.parseQueryAdapter.FriendsAdapter;
+
 import com.parse.*;
 
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.app.Activity;
 import android.content.Context;
 
@@ -32,8 +36,7 @@ public class FriendsActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
-		ParseQueryAdapter<ParseObject> adapter = new CustomParseQueryAdapter(this,
+		ParseQueryAdapter<ParseObject> friendAdapter = new FriendsAdapter(this,
 				new ParseQueryAdapter.QueryFactory<ParseObject>() {
 
 					@Override
@@ -52,13 +55,33 @@ public class FriendsActivity extends Activity {
 
 				});
 
-		ListView list = (ListView) findViewById(R.id.friends_list);
-		list.setAdapter(adapter);
+		ParseQueryAdapter<ParseObject> requestAdapter = new FriendRequestsAdapter(
+				this, new ParseQueryAdapter.QueryFactory<ParseObject>() {
+
+					@Override
+					public ParseQuery<ParseObject> create() {
+						ParseUser me = ParseUser.getCurrentUser();
+						if (me != null) {
+							String id = me.getObjectId();
+
+							ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+									"Request");
+							query.whereEqualTo("subject_id", id);
+							return query;
+						}
+						return null;
+					}
+
+				});
+
+		ListView friendList = (ListView) findViewById(R.id.friends_list);
+		ListView requestList = (ListView) findViewById(R.id.request_list);
+		friendList.setAdapter(friendAdapter);
+		requestList.setAdapter(requestAdapter);
 	}
 
-	
 	public void addFriend(View view) {
-		EditText email_view = (EditText) findViewById(R.id.emailToAdd);
+		final EditText email_view = (EditText) findViewById(R.id.emailToAdd);
 		String email = email_view.getText().toString();
 
 		ParseUser me = ParseUser.getCurrentUser();
@@ -71,20 +94,31 @@ public class FriendsActivity extends Activity {
 		user.findInBackground(new FindCallback<ParseUser>() {
 			public void done(List<ParseUser> requests, ParseException e) {
 				if (e == null) {
-					String userId = "";
-						try {
-							userId = (String) user.getFirst().getObjectId();
-						} catch (ParseException e1) {
-							e1.printStackTrace();
-						}
-					
+					String userId = null;
+					try {
+						userId = (String) user.getFirst().getObjectId();
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+
+					}
+					if (userId == null) {
+						Toast.makeText(getApplicationContext(),
+								"Couldn't send Request", Toast.LENGTH_LONG)
+								.show();
+						return;
+					}
 					ParseObject request = new ParseObject("Request");
 					request.put("initiator_id", myId);
 					request.put("subject_id", userId);
 					request.saveInBackground();
+					email_view.setText("");
+					email_view.clearFocus();
+					Toast.makeText(getApplicationContext(), "Request is send",
+							Toast.LENGTH_LONG).show();
 
 				} else {
-					// TODO: handle this, prompt user
+					Toast.makeText(getApplicationContext(),
+							"Couldn't send Request", Toast.LENGTH_LONG).show();
 					e.printStackTrace();
 				}
 			}
@@ -92,35 +126,3 @@ public class FriendsActivity extends Activity {
 	}
 
 }
-class CustomParseQueryAdapter extends ParseQueryAdapter<ParseObject> {
-
-	public CustomParseQueryAdapter(Context context,
-			com.parse.ParseQueryAdapter.QueryFactory<ParseObject> queryFactory) {
-		super(context, queryFactory);
-	}
-
-	@Override
-	public View getItemView(ParseObject friendship, View v, ViewGroup parent) {
-		if (v == null) {
-			v = View.inflate(getContext(), R.layout.friend_list_item, null);
-		}
-		super.getItemView(friendship, v, parent);
-
-		TextView name = (TextView) v.findViewById(R.id.friend_username);
-
-		String friendId = friendship.getString("friend_id");
-		ParseQuery<ParseUser> query = ParseUser.getQuery();
-
-		try {
-			ParseUser friend = query.get(friendId);
-
-			name.setText(friend.getUsername());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		return v;
-	}
-
-}
-
