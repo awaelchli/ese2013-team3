@@ -6,7 +6,7 @@
     android:layout_centerVertical="true"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".EndGameActivity" >
+    tools:context=".GameInterruptActivity" >
 
     <TextView
         android:id="@+id/end_of_game_title"

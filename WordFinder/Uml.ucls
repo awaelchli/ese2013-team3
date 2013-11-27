@@ -227,7 +227,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="26" language="java" name="ch.unibe.scg.team3.wordfinder.EndGameActivity" project="WordFinder" 
+  <class id="26" language="java" name="ch.unibe.scg.team3.wordfinder.GameInterruptActivity" project="WordFinder" 
     file="/WordFinder/src/ch/unibe/scg/team3/wordfinder/EndGameActivity.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2814" y="1144"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 

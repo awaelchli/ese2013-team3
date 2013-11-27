@@ -44,7 +44,7 @@
                 android:value="ch.unibe.scg.team3.wordfinder.HomeActivity" />
         </activity>
         <activity
-            android:name="ch.unibe.scg.team3.wordfinder.EndGameActivity"
+            android:name="ch.unibe.scg.team3.wordfinder.GameInterruptActivity"
             android:label="@string/title_activity_end_game"
             android:launchMode="singleInstance"
             android:parentActivityName="ch.unibe.scg.team3.wordfinder.GameActivity"

@@ -122,7 +122,7 @@ public class GameActivity extends Activity implements IGameObserver {
 		SavedGamesHandler handler = new SavedGamesHandler(this);
 		long id = handler.saveGame(savedGame);
 
-		Intent intent = new Intent(this, EndGameActivity.class);
+		Intent intent = new Intent(this, GameInterruptActivity.class);
 		intent.putExtra("saved_game_id", id);
 
 		startActivity(intent);
@@ -131,7 +131,7 @@ public class GameActivity extends Activity implements IGameObserver {
 
 	public void pauseGameSession() {
 		game.pauseTime();
-		Intent intent = new Intent(this, EndGameActivity.class);
+		Intent intent = new Intent(this, GameInterruptActivity.class);
 		startActivity(intent);
 	}
 
