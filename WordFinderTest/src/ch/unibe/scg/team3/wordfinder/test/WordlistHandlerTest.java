@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 
+import com.parse.Parse;
+
 import android.test.AndroidTestCase;
 
 import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
@@ -116,6 +118,8 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 		 wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
 		android.preference.PreferenceManager.setDefaultValues(
 				mContext.getApplicationContext(), R.xml.preferences, false);
+		Parse.initialize(mContext, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK",
+				"FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
 		try {
 			wordlistHandler.copyDB();
 		} catch (IOException e) {
