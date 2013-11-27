@@ -3,6 +3,7 @@ package ch.unibe.scg.team3.wordfinder;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import ch.unibe.scg.team3.parseQueryAdapter.FriendRequestsAdapter;
 import ch.unibe.scg.team3.parseQueryAdapter.FriendsAdapter;
 
@@ -36,48 +37,114 @@ public class FriendsActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		ParseQueryAdapter<ParseObject> friendAdapter = new FriendsAdapter(this,
-				new ParseQueryAdapter.QueryFactory<ParseObject>() {
+		
+//		ParseQueryAdapter<ParseObject> friendAdapter = new FriendsAdapter(this,
+//				new ParseQueryAdapter.QueryFactory<ParseObject>() {
+//
+//					@Override
+//					public ParseQuery<ParseObject> create() {
+//						ParseUser me = ParseUser.getCurrentUser();
+//						if (me != null) {
+//							String id = me.getObjectId();
+//
+//							ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+//									"Friendship");
+//							query.whereEqualTo("user_id", id);
+//							return query;
+//						}
+//						return null;
+//					}
+//
+//				});
+		
+		
 
-					@Override
-					public ParseQuery<ParseObject> create() {
-						ParseUser me = ParseUser.getCurrentUser();
-						if (me != null) {
-							String id = me.getObjectId();
-
-							ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-									"Friendship");
-							query.whereEqualTo("user_id", id);
-							return query;
-						}
-						return null;
-					}
-
-				});
-
-		ParseQueryAdapter<ParseObject> requestAdapter = new FriendRequestsAdapter(
-				this, new ParseQueryAdapter.QueryFactory<ParseObject>() {
-
-					@Override
-					public ParseQuery<ParseObject> create() {
-						ParseUser me = ParseUser.getCurrentUser();
-						if (me != null) {
-							String id = me.getObjectId();
-
-							ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-									"Request");
-							query.whereEqualTo("subject_id", id);
-							return query;
-						}
-						return null;
-					}
-
-				});
+		getFriendRequests();
+		FriendRequestsAdapter requestAdapter = new FriendRequestsAdapter(this, R.id.request_list, requests);
+//				this, new ParseQueryAdapter.QueryFactory<ParseUser>() {
+//
+//					@Override
+//					public ParseQuery<ParseUser> create() {
+//						ParseUser me = ParseUser.getCurrentUser();
+//						if (me != null) {
+//							String id = me.getObjectId();
+//
+//							ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+//									"Request");
+//							query.whereEqualTo("subject_id", id);
+//							return query;
+//						}
+//						return null;
+//					}
+//
+//				});
+		getFriends();
+		FriendsAdapter friendsAdapter = new FriendsAdapter(this, R.id.friends_list, friends);
 
 		ListView friendList = (ListView) findViewById(R.id.friends_list);
 		ListView requestList = (ListView) findViewById(R.id.request_list);
-		friendList.setAdapter(friendAdapter);
+		friendList.setAdapter(friendsAdapter);
 		requestList.setAdapter(requestAdapter);
+	}
+
+	private void getFriends() {
+		ParseUser me = ParseUser.getCurrentUser();
+		if (me != null) {
+			String id = me.getObjectId();
+
+			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+					"Friendship");
+			query.whereEqualTo("user_id", id);
+			
+			query.findInBackground(new FindCallback<ParseObject>(){
+
+				@Override
+				public void done(List<ParseObject> friendships, ParseException arg1) {
+					for(ParseObject friendship : friendships){
+						
+						String friend_id = friendship.getString("friend_id");
+						ParseQuery<ParseUser> query = ParseUser.getQuery();
+						
+						try {
+							query.get(friend_id);
+							friends.add(query.getFirst());
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			});
+		}
+		
+	}
+
+	private void getFriendRequests() {
+		ParseUser me = ParseUser.getCurrentUser();
+		if (me != null) {
+			String id = me.getObjectId();
+
+			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+					"Request");
+			query.whereEqualTo("subject_id", id);
+			query.findInBackground(new FindCallback<ParseObject>(){
+
+				@Override
+				public void done(List<ParseObject> requestList, ParseException arg1) {
+					for(ParseObject request : requestList){
+						
+						String initiatorId = request.getString("initiator_id");
+						ParseQuery<ParseUser> query = ParseUser.getQuery();
+						
+						try {
+							query.get(initiatorId);
+							requests.add(query.getFirst());
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			});
+		}
 	}
 
 	public void addFriend(View view) {
@@ -103,7 +170,7 @@ public class FriendsActivity extends Activity {
 					}
 					if (userId == null) {
 						Toast.makeText(getApplicationContext(),
-								"Couldn't send Request", Toast.LENGTH_LONG)
+								"Could not send the request", Toast.LENGTH_LONG)
 								.show();
 						return;
 					}
@@ -113,12 +180,12 @@ public class FriendsActivity extends Activity {
 					request.saveInBackground();
 					email_view.setText("");
 					email_view.clearFocus();
-					Toast.makeText(getApplicationContext(), "Request is send",
+					Toast.makeText(getApplicationContext(), "Request sent",
 							Toast.LENGTH_LONG).show();
 
 				} else {
 					Toast.makeText(getApplicationContext(),
-							"Couldn't send Request", Toast.LENGTH_LONG).show();
+							"Could not send the request", Toast.LENGTH_LONG).show();
 					e.printStackTrace();
 				}
 			}
@@ -126,3 +193,4 @@ public class FriendsActivity extends Activity {
 	}
 
 }
+

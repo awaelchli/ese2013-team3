@@ -20,6 +20,12 @@
         android:layout_height="wrap_content"
         android:text="@string/title_home"
         android:textSize="@dimen/home_title_textSize" />
+    
+    <TextView
+        android:id="@+id/welcome_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp" />
 
     <Button
         android:id="@+id/start_game_button"
@@ -67,5 +73,6 @@
         android:layout_marginTop="20dp"
         android:onClick="quitApp"
         android:text="@string/home_quit_button" />
+    
 
 </LinearLayout>

@@ -12,8 +12,12 @@ public class RawBoardBuilder extends AbstractBoardGenerator {
 
 	private String raw;
 
+	/**
+	 * @param board
+	 *            The length of this string should be a square number.
+	 */
 	public RawBoardBuilder(String board) {
-		super((int)Math.sqrt(board.length()));
+		super((int) Math.sqrt(board.length()));
 		raw = board;
 	}
 
@@ -27,18 +31,18 @@ public class RawBoardBuilder extends AbstractBoardGenerator {
 	}
 
 	private void fillBoard(int size) {
-		
+
 		int index = 0;
-		
+
 		for (int i = 0; i < size; i++) {
-			for(int j = 0; j < size; j++){
-				
+			for (int j = 0; j < size; j++) {
+
 				char letter = raw.charAt(index);
 				int value = meter.getValue(letter);
-				
+
 				AbstractToken tok = new Token(letter, value, i, j);
 				board.setToken(tok);
-				
+
 				index++;
 			}
 		}
