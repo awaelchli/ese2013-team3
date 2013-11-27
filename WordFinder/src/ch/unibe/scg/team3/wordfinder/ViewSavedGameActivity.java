@@ -22,7 +22,6 @@ public class ViewSavedGameActivity extends Activity {
 		SavedGamesHandler handler = new SavedGamesHandler(this);
 		Intent intent = getIntent();
 
-		// savedGame = (SavedGame) intent.getSerializableExtra("saved_game");
 		long id = intent.getLongExtra("saved_game_id", -1);
 		savedGame = handler.getSavedGame(id);
 

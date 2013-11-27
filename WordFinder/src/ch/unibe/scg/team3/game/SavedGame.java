@@ -15,8 +15,6 @@ import ch.unibe.scg.team3.board.WordSelection;
  */
 public class SavedGame extends AbstractGame {
 
-	// private static final long serialVersionUID = -269683003596675103L;
-
 	private String name;
 	private long remainingTime;
 	private String date;
@@ -140,32 +138,4 @@ public class SavedGame extends AbstractGame {
 	public int getBoardSize() {
 		return (int) Math.sqrt(board.length());
 	}
-	//
-	// /**
-	// * Custom deserialization is needed for superclass fields.
-	// */
-	// @SuppressWarnings("unchecked")
-	// private void readObject(ObjectInputStream aStream) throws IOException,
-	// ClassNotFoundException {
-	// aStream.defaultReadObject();
-	// score = (Integer) aStream.readObject();
-	// attempts = (Integer) aStream.readObject();
-	// wordlistId = (Integer) aStream.readObject();
-	// timesPlayed = (Integer) aStream.readObject();
-	// observers = (ArrayList<IGameObserver>) aStream.readObject();
-	// isPersonal = (Boolean) aStream.readObject();
-	// }
-	//
-	// /**
-	// * Custom serialization is needed for superclass fields.
-	// */
-	// private void writeObject(ObjectOutputStream aStream) throws IOException {
-	// aStream.defaultWriteObject();
-	// aStream.writeObject(score);
-	// aStream.writeObject(attempts);
-	// aStream.writeObject(wordlistId);
-	// aStream.writeObject(timesPlayed);
-	// aStream.writeObject(observers);
-	// aStream.writeObject(isPersonal);
-	// }
 }

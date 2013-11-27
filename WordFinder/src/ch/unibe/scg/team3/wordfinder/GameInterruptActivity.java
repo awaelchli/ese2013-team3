@@ -17,7 +17,6 @@ import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
  * @author lukas
  * @author nils
  */
-
 public class GameInterruptActivity extends Activity {
 
 	protected SavedGamesHandler handler;
