@@ -203,6 +203,10 @@ public class Game extends AbstractGame {
 		return timer.getRemainingTime();
 	}
 
+	public void setTimeOver(boolean timeOver) {
+		this.timeOver = timeOver;
+	}
+
 	/**
 	 * Pauses the timer.
 	 * 

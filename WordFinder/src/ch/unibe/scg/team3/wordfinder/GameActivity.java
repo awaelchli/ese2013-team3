@@ -73,6 +73,7 @@ public class GameActivity extends Activity implements IGameObserver {
 
 		} else {
 			game.startTime();
+			game.setTimeOver(false);
 		}
 	}
 
