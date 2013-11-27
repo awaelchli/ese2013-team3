@@ -3,23 +3,19 @@ package ch.unibe.scg.team3.wordfinder;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import ch.unibe.scg.team3.parseQueryAdapter.FriendRequestsAdapter;
 import ch.unibe.scg.team3.parseQueryAdapter.FriendsAdapter;
 
 import com.parse.*;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 
 public class FriendsActivity extends Activity {
 
@@ -32,52 +28,17 @@ public class FriendsActivity extends Activity {
 		setContentView(R.layout.activity_friends);
 		friends = new ArrayList<ParseUser>();
 		requests = new ArrayList<ParseUser>();
+		
+		EditText editText = (EditText) findViewById(R.id.email_edit);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
-//		ParseQueryAdapter<ParseObject> friendAdapter = new FriendsAdapter(this,
-//				new ParseQueryAdapter.QueryFactory<ParseObject>() {
-//
-//					@Override
-//					public ParseQuery<ParseObject> create() {
-//						ParseUser me = ParseUser.getCurrentUser();
-//						if (me != null) {
-//							String id = me.getObjectId();
-//
-//							ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-//									"Friendship");
-//							query.whereEqualTo("user_id", id);
-//							return query;
-//						}
-//						return null;
-//					}
-//
-//				});
-		
-		
 
 		getFriendRequests();
 		FriendRequestsAdapter requestAdapter = new FriendRequestsAdapter(this, R.id.request_list, requests);
-//				this, new ParseQueryAdapter.QueryFactory<ParseUser>() {
-//
-//					@Override
-//					public ParseQuery<ParseUser> create() {
-//						ParseUser me = ParseUser.getCurrentUser();
-//						if (me != null) {
-//							String id = me.getObjectId();
-//
-//							ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-//									"Request");
-//							query.whereEqualTo("subject_id", id);
-//							return query;
-//						}
-//						return null;
-//					}
-//
-//				});
+		
 		getFriends();
 		FriendsAdapter friendsAdapter = new FriendsAdapter(this, R.id.friends_list, friends);
 
@@ -165,7 +126,25 @@ public class FriendsActivity extends Activity {
 					try {
 						userId = (String) user.getFirst().getObjectId();
 					} catch (ParseException e1) {
-						e1.printStackTrace();
+						
+						int code = e1.getCode();
+				    	String message="someting is wrong";
+				    	if(code==ParseException.OBJECT_NOT_FOUND){message="could not find user";}
+				    	if(code==ParseException.CONNECTION_FAILED){message="Unable to connect to the internet";}
+				    	
+				    	System.out.println(code);
+				    	
+				    	AlertDialog.Builder alert = new AlertDialog.Builder(FriendsActivity.this);
+
+						alert.setTitle("Error");
+						alert.setMessage(message);
+
+						alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int whichButton) {
+							}
+						});
+
+						alert.show();
 
 					}
 					if (userId == null) {
@@ -193,4 +172,3 @@ public class FriendsActivity extends Activity {
 	}
 
 }
-

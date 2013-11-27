@@ -10,6 +10,8 @@ import com.parse.SignUpCallback;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +46,24 @@ public class LoginActivity extends Activity {
 			    if (user != null) {
 			      finish();
 			    } else {
-			      
+			    	int code = e.getCode();
+			    	String message="someting is wrong";
+			    	if(code==ParseException.OBJECT_NOT_FOUND){message="Invalid username, password combination";}
+			    	if(code==ParseException.CONNECTION_FAILED){message="Unable to connect to the internet";}
+			    	
+			    	System.out.println(code);
+			    	
+			    	AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+
+					alert.setTitle("Error");
+					alert.setMessage(message);
+
+					alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+						}
+					});
+
+					alert.show();
 			    }
 			  }
 			});

@@ -54,7 +54,7 @@ public class SignUpActivity extends Activity {
 		     uh.setUser(muser);
 		     finish();
 		    } else {
-		    	//TODO error handling
+		    	
 		    	int code = e.getCode();
 		    	String message="someting is wrong";
 		    	if(code==ParseException.CONNECTION_FAILED){message="You need internet connection to sign up";}
