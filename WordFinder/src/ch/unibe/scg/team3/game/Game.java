@@ -218,6 +218,11 @@ public class Game extends AbstractGame {
 	public long getRemainingTime() {
 		return timer.getRemainingTime();
 	}
+	
+	@Override
+	public long getElapsedTime() {
+		return timer.getElapsedTime();
+	}
 
 	/**
 	 * The game is over when enough words were found or the time runs out.
@@ -254,7 +259,7 @@ public class Game extends AbstractGame {
 		saved.setTimesPlayed(getTimesPlayed() + 1);
 		saved.setFoundWords(found);
 		saved.setNumberOfFoundWords(found.size());
-		saved.setRemainingTime(timer.getElapsedTime());
+		saved.setRemainingTime(getRemainingTime());
 
 		return saved;
 	}

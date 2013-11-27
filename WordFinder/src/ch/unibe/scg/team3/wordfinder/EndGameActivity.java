@@ -29,28 +29,46 @@ public class EndGameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_end_game);
 
-		handler = new SavedGamesHandler(this.getApplicationContext());
-
+		handler = new SavedGamesHandler(this);
 		Intent intent = getIntent();
 
 		long id = intent.getLongExtra("saved_game_id", -1);
 
-		if (id >= 0) {
-			game = handler.getSavedGame(id);
-			displayGameStats();
-			Button replay = (Button) findViewById(R.id.replay_button);
-			Button save = (Button) findViewById(R.id.save_button);
-			
-			replay.setVisibility(View.VISIBLE);
-			save.setVisibility(View.VISIBLE);
+		if (id == -1) {
+			makePauseInterface();
 			
 		} else {
-			TextView header = (TextView) findViewById(R.id.end_of_game_title);
-			Button resume = (Button) findViewById(R.id.resume_button);
-			
-			header.setText("Pause");
-			resume.setVisibility(View.VISIBLE);
+			game = handler.getSavedGame(id);
+			makeEndGameInterface();
 		}
+	}
+
+	private void makePauseInterface() {
+		TextView header = (TextView) findViewById(R.id.end_of_game_title);
+		Button resume = (Button) findViewById(R.id.resume_button);
+
+		header.setText("Pause");
+		resume.setVisibility(View.VISIBLE);
+	}
+
+	private void makeEndGameInterface() {
+
+		displayGameStats();
+		Button replay = (Button) findViewById(R.id.replay_button);
+		Button save = (Button) findViewById(R.id.save_button);
+
+		replay.setVisibility(View.VISIBLE);
+		save.setVisibility(View.VISIBLE);
+	}
+	
+	private void displayGameStats() {
+		String labels = "Your Score: %s\nFound Words: %s\nAttempted Words: %s\nElapsed Time: %s\n";
+
+		String text = String.format(labels, game.getScore(), game.getNumberOfFoundWords(),
+				game.getNumberOfAttempts(), Timer.format(game.getElapsedTime()));
+
+		TextView stats = (TextView) findViewById(R.id.display_Stats);
+		stats.setText(text);
 	}
 
 	public void newGame(View view) {
@@ -63,7 +81,7 @@ public class EndGameActivity extends Activity {
 	public void replayGame(View view) {
 		GameActivity.instance.finish();
 		Intent intent = new Intent(this, GameActivity.class);
-		intent.putExtra("saved_game", game);
+		intent.putExtra("saved_game_id", game.getId());
 		startActivity(intent);
 		finish();
 	}
@@ -91,7 +109,7 @@ public class EndGameActivity extends Activity {
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String value = input.getText().toString();
-//				game.setName(value);
+				// game.setName(value);
 				if (handler.tagSavedGame(value, game.getId())) {
 					goHome(null);
 				} else
@@ -120,7 +138,7 @@ public class EndGameActivity extends Activity {
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String value = input.getText().toString();
-//				game.setName(value);
+				// game.setName(value);
 				if (handler.tagSavedGame(value, game.getId())) {
 					goHome(null);
 				} else
@@ -135,15 +153,5 @@ public class EndGameActivity extends Activity {
 		});
 
 		alert.show();
-	}
-
-	private void displayGameStats() {
-		String labels = "Your Score: %s\nFound Words: %s\nAttempts Words: %s\nElapsed Time: %s\n";
-
-		String text = String.format(labels, game.getScore(), game.getNumberOfFoundWords(),
-				game.getNumberOfAttempts(), Timer.format(game.getRemainingTime()));
-
-		TextView stats = (TextView) findViewById(R.id.display_Stats);
-		stats.setText(text);
 	}
 }

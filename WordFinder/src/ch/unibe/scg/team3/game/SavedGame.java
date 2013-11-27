@@ -1,9 +1,5 @@
 package ch.unibe.scg.team3.game;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import ch.unibe.scg.team3.board.Board;
@@ -17,10 +13,10 @@ import ch.unibe.scg.team3.board.WordSelection;
  * @author nils
  * @see AbstractGame
  */
-public class SavedGame extends AbstractGame implements Serializable {
+public class SavedGame extends AbstractGame {
 
-	private static final long serialVersionUID = -269683003596675103L;
-	
+	// private static final long serialVersionUID = -269683003596675103L;
+
 	private String name;
 	private long remainingTime;
 	private String date;
@@ -85,6 +81,11 @@ public class SavedGame extends AbstractGame implements Serializable {
 		remainingTime = remaining;
 	}
 
+	@Override
+	public long getElapsedTime() {
+		return Game.TIME_LIMIT - getRemainingTime();
+	}
+
 	public String getDate() {
 		return date;
 	}
@@ -139,31 +140,32 @@ public class SavedGame extends AbstractGame implements Serializable {
 	public int getBoardSize() {
 		return (int) Math.sqrt(board.length());
 	}
-
-	/**
-	 * Custom deserialization is needed for superclass fields.
-	 */
-	@SuppressWarnings("unchecked")
-	private void readObject(ObjectInputStream aStream) throws IOException, ClassNotFoundException {
-		aStream.defaultReadObject();
-		score = (Integer) aStream.readObject();
-		attempts = (Integer) aStream.readObject();
-		wordlistId = (Integer) aStream.readObject();
-		timesPlayed = (Integer) aStream.readObject();
-		observers = (ArrayList<IGameObserver>) aStream.readObject();
-		isPersonal = (Boolean) aStream.readObject();
-	}
-
-	/**
-	 * Custom serialization is needed for superclass fields.
-	 */
-	private void writeObject(ObjectOutputStream aStream) throws IOException {
-		aStream.defaultWriteObject();
-		aStream.writeObject(score);
-		aStream.writeObject(attempts);
-		aStream.writeObject(wordlistId);
-		aStream.writeObject(timesPlayed);
-		aStream.writeObject(observers);
-		aStream.writeObject(isPersonal);
-	}
+	//
+	// /**
+	// * Custom deserialization is needed for superclass fields.
+	// */
+	// @SuppressWarnings("unchecked")
+	// private void readObject(ObjectInputStream aStream) throws IOException,
+	// ClassNotFoundException {
+	// aStream.defaultReadObject();
+	// score = (Integer) aStream.readObject();
+	// attempts = (Integer) aStream.readObject();
+	// wordlistId = (Integer) aStream.readObject();
+	// timesPlayed = (Integer) aStream.readObject();
+	// observers = (ArrayList<IGameObserver>) aStream.readObject();
+	// isPersonal = (Boolean) aStream.readObject();
+	// }
+	//
+	// /**
+	// * Custom serialization is needed for superclass fields.
+	// */
+	// private void writeObject(ObjectOutputStream aStream) throws IOException {
+	// aStream.defaultWriteObject();
+	// aStream.writeObject(score);
+	// aStream.writeObject(attempts);
+	// aStream.writeObject(wordlistId);
+	// aStream.writeObject(timesPlayed);
+	// aStream.writeObject(observers);
+	// aStream.writeObject(isPersonal);
+	// }
 }

@@ -21,21 +21,21 @@ public class ViewSavedGameActivity extends Activity {
 
 		SavedGamesHandler handler = new SavedGamesHandler(this);
 		Intent intent = getIntent();
-		
-//		savedGame = (SavedGame) intent.getSerializableExtra("saved_game");
+
+		// savedGame = (SavedGame) intent.getSerializableExtra("saved_game");
 		long id = intent.getLongExtra("saved_game_id", -1);
 		savedGame = handler.getSavedGame(id);
-		
+
 		WordlistHandler wh = new WordlistHandler(this);
 		BoardUI boardUI = (BoardUI) findViewById(R.id.tableboardUI);
 		boardUI.update(savedGame, new Event(Event.BOARD_UPDATED));
 
-		String labels = "Title: %s\nLast played: %s\nFound words: %s\nAttempts: %s\nElapsed time: %s\nScore: %s\nWordlist: %s";
+		String labels = "Title: %s\nLast played: %s\nTimes played: %s\nFound words: %s\nAttempted words: %s\nElapsed time: %s\nScore: %s\nWordlist: %s";
 
 		String text = String.format(labels, savedGame.getName(), savedGame.getDate(),
-				savedGame.getNumberOfFoundWords(), savedGame.getNumberOfAttempts(),
-				Timer.format(savedGame.getRemainingTime()), savedGame.getScore(),
-				wh.getWordlistNameById(savedGame.getWordlistId()));
+				savedGame.getTimesPlayed(), savedGame.getNumberOfFoundWords(),
+				savedGame.getNumberOfAttempts(), Timer.format(savedGame.getElapsedTime()),
+				savedGame.getScore(), wh.getWordlistNameById(savedGame.getWordlistId()));
 
 		TextView gameOverview = (TextView) findViewById(R.id.game_overview_text);
 		gameOverview.setText(text);

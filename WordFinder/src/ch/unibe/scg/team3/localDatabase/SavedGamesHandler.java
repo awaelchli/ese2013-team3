@@ -6,13 +6,10 @@ import java.util.Date;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.preference.PreferenceManager;
 import ch.unibe.scg.team3.game.SavedGame;
-import ch.unibe.scg.team3.game.Timer;
 
 /**
  * This class give the options to save games to the main database. It also
@@ -56,29 +53,30 @@ public class SavedGamesHandler extends DataHandler {
 		long id = game.getId();
 
 		SavedGame old = getSavedGame(id);
-
+		
+		SQLiteDatabase db = helper.getReadableDatabase();
+		ContentValues values = new ContentValues();
+		values.put("TimesPlayed", game.getTimesPlayed());
+		
 		if (old.getScore() < game.getScore()) {
-
-			SQLiteDatabase db = helper.getReadableDatabase();
-			ContentValues values = new ContentValues();
+			
 			values.put("Words", game.getNumberOfFoundWords());
 			values.put("Time", game.getRemainingTime());
 			String date = (Long.toString(new Date().getTime()));
 			values.put("Date", date);
 			values.put("Score", game.getScore());
-
-			values.put("TimesPlayed", game.getTimesPlayed());
 			values.put("Guesses", game.getNumberOfAttempts());
-
-			String whereClause = "_id = ?";
-			String[] whereArgs = { String.valueOf(id) };
-
-			db.update("Games", values, whereClause, whereArgs);
-			db.close();
 		}
+		
+		String whereClause = "_id = ?";
+		String[] whereArgs = { String.valueOf(id) };
+		
+		db.update("Games", values, whereClause, whereArgs);
+		db.close();
 	}
 
 	private long saveAsNewGame(SavedGame game) {
+		
 		String name = game.getName();
 		String board = game.getStringBoard();
 		int words = game.getNumberOfFoundWords();
@@ -91,66 +89,65 @@ public class SavedGamesHandler extends DataHandler {
 		String date = (Long.toString(new Date().getTime()));
 
 		SQLiteDatabase db = helper.getReadableDatabase();
+		
 		try {
-			ContentValues c = new ContentValues();
+			ContentValues values = new ContentValues();
 			if (name != null) {
-				c.put("Name", name);
+				values.put("Name", name);
 			}
-			c.put("Board", board);
-			c.put("Words", words);
-			c.put("Time", remainingTime);
-			c.put("Date", date);
-			c.put("Dictionary", wordlist);
-			c.put("Score", score);
-			c.put("IsPersonal", Boolean.toString(isPersonal));
-			c.put("TimesPlayed", timesPlayed);
-			c.put("Guesses", guesses);
-			long id = db.insert("Games", null, c);
-			db.close();
+			values.put("Board", board);
+			values.put("Words", words);
+			values.put("Time", remainingTime);
+			values.put("Date", date);
+			values.put("Dictionary", wordlist);
+			values.put("Score", score);
+			values.put("IsPersonal", Boolean.toString(isPersonal));
+			values.put("TimesPlayed", timesPlayed);
+			values.put("Guesses", guesses);
+			long id = db.insert("Games", null, values);
 			return id;
 		} catch (Exception e) {
-			db.close();
 			e.printStackTrace();
-			return -1;
-
 		}
-
+		
+		db.close();
+		return -1;
 	}
 
-	/**
-	 * 
-	 * @return an ArrayList of SavedGames which contains all Games that are
-	 *         saved in the Database. If there are no Games in the Database the
-	 *         return is an empty ArrayList.
-	 */
-
-	public ArrayList<SavedGame> getSavedGames() {
-
-		ArrayList<SavedGame> list = new ArrayList<SavedGame>();
-
-		SQLiteDatabase db = helper.getReadableDatabase();
-
-		Cursor c = db.rawQuery("SELECT * FROM Games ORDER BY Date DESC", null);
-
-		if (c != null && c.getCount() != 0) {
-
-			while (c.moveToNext()) {
-				SavedGame game = new SavedGame();
-				if (writeDataentryToGame(c, game)) {
-					list.add(game);
-				}
-			}
-			c.close();
-			db.close();
-
-			return list;
-		} else {
-			c.close();
-			db.close();
-			return list;
-		}
-
-	}
+	// /**
+	// *
+	// * @return an ArrayList of SavedGames which contains all Games that are
+	// * saved in the Database. If there are no Games in the Database the
+	// * return is an empty ArrayList.
+	// */
+	//
+	// public ArrayList<SavedGame> getSavedGames() {
+	//
+	// ArrayList<SavedGame> list = new ArrayList<SavedGame>();
+	//
+	// SQLiteDatabase db = helper.getReadableDatabase();
+	//
+	// Cursor c = db.rawQuery("SELECT * FROM Games ORDER BY Date DESC", null);
+	//
+	// if (c != null && c.getCount() != 0) {
+	//
+	// while (c.moveToNext()) {
+	// SavedGame game = new SavedGame();
+	// if (writeDataentryToGame(c, game)) {
+	// list.add(game);
+	// }
+	// }
+	// c.close();
+	// db.close();
+	//
+	// return list;
+	// } else {
+	// c.close();
+	// db.close();
+	// return list;
+	// }
+	//
+	// }
 
 	/**
 	 * 
@@ -277,29 +274,28 @@ public class SavedGamesHandler extends DataHandler {
 		return true;
 	}
 
-	/**
-	 * 
-	 * @param name
-	 *            of the Database to remove from Database.
-	 * @return whether the deletion was successful.
-	 */
-	public boolean removeGame(String name) {
-		if (gameInDatabase(name)) {
-			SQLiteDatabase db = helper.getReadableDatabase();
-			String[] query = { name };
-			db.execSQL("DELETE FROM Games WHERE Name = ?", query);
-			db.close();
-			return true;
-		} else {
-			return false;
-		}
-	}
+//	/**
+//	 * 
+//	 * @param name
+//	 *            of the Database to remove from Database.
+//	 * @return whether the deletion was successful.
+//	 */
+//	public boolean removeGame(String name) {
+//		if (gameInDatabase(name)) {
+//			SQLiteDatabase db = helper.getReadableDatabase();
+//			String[] query = { name };
+//			db.execSQL("DELETE FROM Games WHERE Name = ?", query);
+//			db.close();
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
 
 	/**
-	 * 
 	 * @param id
-	 *            of the Database to remove from Database.
-	 * @return whether the deletion was successful.
+	 *            The id of the game to remove from the database.
+	 * @return True if the deletion was successful and false otherwise. 
 	 */
 	public boolean removeGame(long id) {
 		if (gameInDatabase(id)) {
@@ -378,22 +374,52 @@ public class SavedGamesHandler extends DataHandler {
 	 *         successfully, false otherwise.
 	 */
 	public boolean tagSavedGame(String name, long id) {
-		
+
 		SQLiteDatabase db = helper.getReadableDatabase();
-		
+
 		ContentValues values = new ContentValues();
 		values.put("IsPersonal", true);
 		values.put("Name", name);
-		
+
 		String whereClause = "_id = ?";
-		String[] whereArgs = { String.valueOf(id)};
-		
+		String[] whereArgs = { String.valueOf(id) };
+
 		int affected = db.update("Games", values, whereClause, whereArgs);
-		
-		if(affected == 0){
+
+		if (affected == 0) {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * @return A list of all saved games that have a tag, thus all the games the
+	 *         user explicitly saved.
+	 */
+	public ArrayList<SavedGame> getTaggedGames() {
+		ArrayList<SavedGame> list = new ArrayList<SavedGame>();
+
+		SQLiteDatabase db = helper.getReadableDatabase();
+
+		String[] columns = { "_id" };
+		String selection = "IsPersonal = ?";
+		String[] selectionArgs = { "1" }; // 1 means true
+		String orderBy = "Date DESC";
+
+		Cursor cursor = db.query("Games", columns, selection, selectionArgs, null, null, orderBy);
+
+		if (cursor != null && cursor.getCount() != 0) {
+
+			while (cursor.moveToNext()) {
+				long id = cursor.getLong(0);
+				SavedGame game = getSavedGame(id);
+				list.add(game);
+			}
+			cursor.close();
+		}
+
+		db.close();
+		return list;
 	}
 
 }

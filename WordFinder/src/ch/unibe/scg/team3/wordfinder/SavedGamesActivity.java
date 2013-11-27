@@ -29,7 +29,7 @@ public class SavedGamesActivity extends Activity {
 		setContentView(R.layout.activity_saved_games);
 
 		handler = new SavedGamesHandler(this);
-		games = handler.getSavedGames();
+		games = handler.getTaggedGames();
 
 		ArrayAdapter<SavedGame> adapter = new ArrayAdapter<SavedGame>(this,
 				R.layout.saved_games_list_item, games) {
@@ -92,7 +92,7 @@ public class SavedGamesActivity extends Activity {
 	@SuppressLint("NewApi")
 	private void removeGame(View view) {
 		SavedGame savedGame = games.get(view.getId());
-		handler.removeGame(savedGame.getName());
+		handler.removeGame(savedGame.getId());
 		recreate();
 	}
 
