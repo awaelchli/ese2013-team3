@@ -191,6 +191,7 @@ public class Game extends AbstractGame {
 	 */
 	public void startTime() {
 		timer.start();
+		timeOver = false;
 	}
 
 	/**
@@ -204,9 +205,6 @@ public class Game extends AbstractGame {
 		return timer.getRemainingTime();
 	}
 
-	public void setTimeOver(boolean timeOver) {
-		this.timeOver = timeOver;
-	}
 
 	/**
 	 * Pauses the timer.

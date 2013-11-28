@@ -37,22 +37,15 @@ public class GameTest extends AndroidTestCase implements IGameObserver{
 		
 	}
 
-	public void testInitGameOfDefaultSize() {
-
-		Game game = new Game(wordlistHandler, 1);
-		game.addObserver(this);
-		while(!boardGenerated){
-			try {
-				wait(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		boardGenerated = false;
-		assertEquals(game.getBoardSize(), 6);
-		game.stopTime();
-		
-	}
+//	public void testInitGameOfDefaultSize() {
+//
+//		Game game = new Game(wordlistHandler, 1);
+//		game.addObserver(this);
+//		boardGenerated = false;
+//		assertEquals(game.getBoardSize(), 6);
+//		game.stopTime();
+//		
+//	}
 	
 
 	public void testInitGameFromSavedGame() {

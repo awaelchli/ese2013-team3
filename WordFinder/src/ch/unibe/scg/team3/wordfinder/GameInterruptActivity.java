@@ -86,6 +86,8 @@ public class GameInterruptActivity extends Activity {
 	}
 
 	public void resumeGame(View view) {
+		Intent intent = new Intent(this, GameActivity.class);
+		startActivity(intent);
 		finish();
 	}
 
