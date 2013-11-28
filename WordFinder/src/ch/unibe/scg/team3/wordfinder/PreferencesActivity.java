@@ -1,11 +1,14 @@
 package ch.unibe.scg.team3.wordfinder;
 
+import com.parse.ParseUser;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.widget.Toast;
 import ch.unibe.scg.team3.localDatabase.MainUserHandler;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
@@ -17,6 +20,8 @@ import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 public class PreferencesActivity extends PreferenceActivity {
 	WordlistHandler wm;
 	MainUserHandler muh;
+	private Preference login;
+	private Preference logout;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -26,10 +31,16 @@ public class PreferencesActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.preferences);
 		final ListPreference wordlistPref = (ListPreference) findPreference("choose_wordlist");
 		final Preference signUp = (Preference) findPreference("signUp");
-		final Preference login = (Preference) findPreference("login");
+		login = (Preference) findPreference("login");
+		logout = (Preference) findPreference("logout");
 		wm = new WordlistHandler(this);
 		muh = new MainUserHandler(this);
 		setListPreferenceData(wordlistPref);
+		if(ParseUser.getCurrentUser() == null){
+			login.setEnabled(true);
+		}else{
+			logout.setEnabled(true);
+		}
 
 		wordlistPref
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -54,6 +65,25 @@ public class PreferencesActivity extends PreferenceActivity {
 				return true;
 			}
 		});
+		
+		logout.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			public boolean onPreferenceClick(Preference preference) {
+				try {
+					ParseUser.logOut();
+					login.setEnabled(true);
+					logout.setEnabled(false);
+					Toast toast = Toast.makeText(getApplicationContext(), "You are logged out now ", Toast.LENGTH_LONG);
+					toast.show();
+				} catch (Exception e) {
+					Toast toast = Toast.makeText(getApplicationContext(), "Logout not successful ", Toast.LENGTH_LONG);
+					toast.show();
+					e.printStackTrace();
+					return false;
+				}
+				return true;
+			}
+		});
 
 	}
 
@@ -68,12 +98,28 @@ public class PreferencesActivity extends PreferenceActivity {
 	protected void shareActivity(){
 		Intent intent = new Intent(this,SignUpActivity.class);
 		startActivity(intent);
-		finish();
+		//finish();
 	}
 	protected void loginActivity(){
 		Intent intent = new Intent(this,LoginActivity.class);
 		startActivity(intent);
-		finish();
+		//finish();
 	}
+
+	@Override
+	protected void onResume() {
+		
+		super.onResume();
+		if(ParseUser.getCurrentUser() == null){
+			login.setEnabled(true);
+			logout.setEnabled(false);
+		}else{
+			logout.setEnabled(true);
+			login.setEnabled(false);
+		}
+	}
+
+	
+	
 
 }

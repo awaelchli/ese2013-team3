@@ -14,5 +14,6 @@
     <string name="emailHint">foo@example.com</string>
     <string name="requests_field">Requests</string>
     <string name="friends_field">Friends</string>
+   
 
 </resources>

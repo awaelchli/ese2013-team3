@@ -107,7 +107,8 @@
 
        <activity
             android:name="ch.unibe.scg.team3.wordfinder.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:launchMode="singleInstance" >
         </activity>
     </application>
 

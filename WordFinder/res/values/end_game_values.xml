@@ -11,5 +11,6 @@
     <string name="new_game_button">New</string>
     <string name="replay_button">Replay</string>
     <string name="resume_button">Resume</string>
+     <string name="update_button">Update</string>
 
 </resources>

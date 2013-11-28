@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="signUp">Sign Up</string>
+    <string name="signUp">Create new Account</string>
 
     <dimen name="signUp_title_textsize">35sp</dimen>
     <dimen name="credentials_text_size">20sp</dimen>

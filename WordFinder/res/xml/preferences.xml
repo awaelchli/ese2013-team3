@@ -20,12 +20,13 @@
     </PreferenceCategory>
 	 
 	<PreferenceCategory 
-        android:title="Sharing"
+        android:title="User Settings"
         android:key="sharingService">
 		<Preference 
-		    android:title="Sign Up"
+		    android:title="Create new Account"
 		    android:key="signUp"/>
-		<Preference android:key="login" android:title="Login"/>			
+		<Preference android:key="login" android:title="Login with existing Account" android:enabled="false"/>
+		<Preference android:title="Logout" android:key="logout" android:enabled="false"/>			
         
     </PreferenceCategory>
     
