@@ -25,6 +25,7 @@ public class Game extends AbstractGame {
 	private Timer timer;
 	private boolean timeOver;
 	private Board board;
+	
 
 	/**
 	 * Creates a game for a given board

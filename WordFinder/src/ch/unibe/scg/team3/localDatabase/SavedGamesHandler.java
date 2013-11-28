@@ -186,17 +186,14 @@ public class SavedGamesHandler extends DataHandler {
 	 *         id in the Database.
 	 */
 	public SavedGame getSavedGame(long id) {
+		SavedGame game = new SavedGame();
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor c = db.rawQuery("SELECT * FROM Games WHERE _id = " + id, null);
-		SavedGame game = new SavedGame();
-		if (c != null && c.getCount() != 0) {
+			if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
-
 			writeDataentryToGame(c, game);
-
 			c.close();
 			db.close();
-
 			return game;
 		} else {
 			c.close();

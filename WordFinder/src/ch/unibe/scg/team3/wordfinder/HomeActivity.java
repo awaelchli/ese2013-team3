@@ -15,6 +15,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import ch.unibe.scg.team3.localDatabase.DataHandler;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
 /**
@@ -22,7 +23,7 @@ import ch.unibe.scg.team3.localDatabase.WordlistHandler;
  * @author adrian
  */
 public class HomeActivity extends Activity {
-	WordlistHandler wordlistHandler;;
+	DataHandler wordlistHandler;;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

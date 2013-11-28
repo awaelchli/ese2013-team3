@@ -1,6 +1,9 @@
 package ch.unibe.scg.team3.localDatabase;
 
+import java.io.IOException;
+
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 /**
  * This class provides the connection between the SQLite database and the
@@ -17,6 +20,12 @@ public class DataHandler {
 	public DataHandler(Context context) {
 		this.context = context;
 		this.helper = MySQLiteHelper.getInstance(context);
+	}
+
+	public void copyDB() throws IOException {
+		SQLiteDatabase db = helper.getWritableDatabase();
+		helper.importDatabase();
+		db.close();
 	}
 
 	

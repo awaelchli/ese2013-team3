@@ -1,6 +1,5 @@
 package ch.unibe.scg.team3.localDatabase;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -216,9 +215,12 @@ public class WordlistHandler extends DataHandler {
 			cursor.close();
 			db.close();
 			return true;
-		}
+		}else
+		{
+		cursor.close();
 		db.close();
 		return false;
+		}
 
 	}
 
@@ -233,9 +235,11 @@ public class WordlistHandler extends DataHandler {
 			c.close();
 			db.close();
 			return id;
-		}
+		}else{
+		c.close();
 		db.close();
 		return 0;
+		}
 
 	}
 
@@ -254,9 +258,12 @@ public class WordlistHandler extends DataHandler {
 			c.close();
 			db.close();
 			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
-		}
+		}else
+		{
+		c.close();
 		db.close();
 		return lists;
+		}
 
 	}
 
@@ -274,16 +281,12 @@ public class WordlistHandler extends DataHandler {
 			c.close();
 			db.close();
 			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
-		}
+		}else{
+		c.close();
 		db.close();
 		return lists;
+		}
 
-	}
-
-	public void copyDB() throws IOException {
-		SQLiteDatabase db = helper.getWritableDatabase();
-		helper.importDatabase();
-		db.close();
 	}
 
 	public String getRandomWordFromWordlist() {
@@ -357,7 +360,7 @@ public class WordlistHandler extends DataHandler {
 		while(c != null && c.moveToNext()){
 			list.add(c.getString(0));
 		}
-		
+		c.close();
 		return list;
 	}
 
@@ -373,6 +376,7 @@ public class WordlistHandler extends DataHandler {
 			db.close();
 			return name;
 		}
+		c.close();
 		db.close();
 		return name;
 	}

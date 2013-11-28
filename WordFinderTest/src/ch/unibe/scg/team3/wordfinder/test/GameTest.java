@@ -6,36 +6,54 @@ import com.parse.Parse;
 import com.parse.ParseAnalytics;
 
 import ch.unibe.scg.team3.board.Board;
+import ch.unibe.scg.team3.game.AbstractGame;
+import ch.unibe.scg.team3.game.Event;
 import ch.unibe.scg.team3.game.Game;
+import ch.unibe.scg.team3.game.IGameObserver;
 import ch.unibe.scg.team3.game.SavedGame;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import ch.unibe.scg.team3.wordfinder.R;
 import android.test.AndroidTestCase;
 
-public class GameTest extends AndroidTestCase {
+public class GameTest extends AndroidTestCase implements IGameObserver{
 
 	private WordlistHandler wordlistHandler;
+	private boolean boardGenerated;
 
 	public void setUp() {
-		android.preference.PreferenceManager.setDefaultValues(mContext.getApplicationContext(),
-				R.xml.preferences, false);
 		wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
-		Parse.initialize(mContext, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK",
-				"FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
-		
-
 		try {
 			wordlistHandler.copyDB();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		android.preference.PreferenceManager.setDefaultValues(mContext.getApplicationContext(),
+				R.xml.preferences, false);
+		
+		Parse.initialize(mContext, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK",
+				"FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
+		
+
+		
 	}
 
 	public void testInitGameOfDefaultSize() {
 
 		Game game = new Game(wordlistHandler, 1);
+		game.addObserver(this);
+		while(!boardGenerated){
+			try {
+				wait(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		boardGenerated = false;
 		assertEquals(game.getBoardSize(), 6);
+		game.stopTime();
+		
 	}
+	
 
 	public void testInitGameFromSavedGame() {
 
@@ -61,6 +79,8 @@ public class GameTest extends AndroidTestCase {
 		Board board = game.getBoard();
 
 		assertEquals(board.toString(), stringBoard);
+		game.stopTime();
+		
 	}
 
 	public void testStartStopTime(){
@@ -75,5 +95,12 @@ public class GameTest extends AndroidTestCase {
 //		
 //		game.stopTime();
 //		assertTrue(game.isOver());
+	}
+
+	@Override
+	public void update(AbstractGame game, Event event) {
+		if(event.getAction() == event.BOARD_CREATED){
+			boardGenerated = true;
+		}
 	}
 }

@@ -116,14 +116,15 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 	}
 	public void setUp() {
 		 wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
-		android.preference.PreferenceManager.setDefaultValues(
-				mContext.getApplicationContext(), R.xml.preferences, false);
-		Parse.initialize(mContext, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK",
-				"FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
-		try {
+		 try {
 			wordlistHandler.copyDB();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		android.preference.PreferenceManager.setDefaultValues(
+				mContext.getApplicationContext(), R.xml.preferences, false);
+		Parse.initialize(mContext, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK",
+				"FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
+		
 	}
 }

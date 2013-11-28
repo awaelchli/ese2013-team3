@@ -7,15 +7,15 @@ import com.parse.Parse;
 import android.test.AndroidTestCase;
 
 import ch.unibe.scg.team3.game.SavedGame;
+import ch.unibe.scg.team3.localDatabase.DataHandler;
 import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
-import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import ch.unibe.scg.team3.wordfinder.R;
 
 public class SavedGamesHandlerTest extends AndroidTestCase implements
 		IDataHandlerTest {
 
 	protected String defaultBoard = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-	protected WordlistHandler wordlistHandler;
+	protected DataHandler wordlistHandler;
 	protected SavedGamesHandler savedGamesHandler;
 
 	public void testGetTaggedGames() {
@@ -97,20 +97,22 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements
 	}
 	
 	public void setUp() {
-		wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
+		//wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
 		savedGamesHandler = new SavedGamesHandler(
 				mContext.getApplicationContext());
+		try {
+			savedGamesHandler.copyDB();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		android.preference.PreferenceManager.setDefaultValues(
 				mContext.getApplicationContext(), R.xml.preferences, false);
 		Parse.initialize(mContext, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK",
 						"FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
 		
 		
-		try {
-			wordlistHandler.copyDB();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	
 	}
 
 
