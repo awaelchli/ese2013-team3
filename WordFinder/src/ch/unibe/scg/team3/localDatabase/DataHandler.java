@@ -23,9 +23,10 @@ public class DataHandler {
 	}
 
 	public synchronized void copyDB() throws IOException {
-		SQLiteDatabase db = helper.getWritableDatabase();
-		helper.importDatabase();
-		db.close();
+		helper.copyDB();
+	}
+	public synchronized void closeDB(){
+		helper.close();
 	}
 
 	

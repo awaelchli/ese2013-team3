@@ -54,7 +54,6 @@ public class SavedGamesHandler extends DataHandler {
 
 		SavedGame old = getSavedGame(id);
 		
-		SQLiteDatabase db = helper.getReadableDatabase();
 		ContentValues values = new ContentValues();
 		values.put("TimesPlayed", game.getTimesPlayed());
 		
@@ -71,8 +70,7 @@ public class SavedGamesHandler extends DataHandler {
 		String whereClause = "_id = ?";
 		String[] whereArgs = { String.valueOf(id) };
 		
-		db.update("Games", values, whereClause, whereArgs);
-		db.close();
+		helper.update("Games", values, whereClause, whereArgs);
 	}
 
 	private long saveAsNewGame(SavedGame game) {
@@ -87,8 +85,6 @@ public class SavedGamesHandler extends DataHandler {
 		int wordlist = game.getWordlistId();
 		int timesPlayed = 1;
 		String date = (Long.toString(new Date().getTime()));
-
-		SQLiteDatabase db = helper.getReadableDatabase();
 		
 		try {
 			ContentValues values = new ContentValues();
@@ -104,14 +100,12 @@ public class SavedGamesHandler extends DataHandler {
 			values.put("IsPersonal", Boolean.toString(isPersonal));
 			values.put("TimesPlayed", timesPlayed);
 			values.put("Guesses", guesses);
-			long id = db.insert("Games", null, values);
+			long id = helper.insert("Games", null, values);
 			game.setId(id);
 			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		db.close();
 		return -1;
 	}
 
@@ -158,22 +152,16 @@ public class SavedGamesHandler extends DataHandler {
 	 *         name in the Database.
 	 */
 	public SavedGame getSavedGame(String name) {
-		SQLiteDatabase db = helper.getReadableDatabase();
 		String[] query = { name };
-		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = ? ", query);
+		Cursor c = helper.rawQuery("SELECT * FROM Games WHERE Name = ? ", query);
 		SavedGame game = new SavedGame();
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
-
 			writeDataentryToGame(c, game);
-
 			c.close();
-			db.close();
-
 			return game;
 		} else {
 			c.close();
-			db.close();
 			return game;
 		}
 	}
@@ -187,17 +175,14 @@ public class SavedGamesHandler extends DataHandler {
 	 */
 	public SavedGame getSavedGame(long id) {
 		SavedGame game = new SavedGame();
-		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT * FROM Games WHERE _id = " + id, null);
+		Cursor c = helper.rawQuery("SELECT * FROM Games WHERE _id = " + id, null);
 			if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
 			writeDataentryToGame(c, game);
 			c.close();
-			db.close();
 			return game;
 		} else {
 			c.close();
-			db.close();
 			return null;
 		}
 	}
@@ -212,15 +197,12 @@ public class SavedGamesHandler extends DataHandler {
 		if (gameName == null) {
 			return false;
 		}
-		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT * FROM Games WHERE Name = ?", new String[] { gameName });
+		Cursor c = helper.rawQuery("SELECT * FROM Games WHERE Name = ?", new String[] { gameName });
 		if (c != null && c.getCount() != 0) {
 			c.close();
-			db.close();
 			return true;
 		} else {
 			c.close();
-			db.close();
 			return false;
 		}
 	}
@@ -233,15 +215,12 @@ public class SavedGamesHandler extends DataHandler {
 	 */
 	public boolean gameInDatabase(long id) {
 
-		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor c = db.rawQuery("SELECT * FROM Games WHERE _id = " + id, null);
+		Cursor c = helper.rawQuery("SELECT * FROM Games WHERE _id = " + id, null);
 		if (c != null && c.getCount() != 0) {
 			c.close();
-			db.close();
 			return true;
 		} else {
 			c.close();
-			db.close();
 			return false;
 		}
 	}
@@ -297,10 +276,7 @@ public class SavedGamesHandler extends DataHandler {
 	 */
 	public boolean removeGame(long id) {
 		if (gameInDatabase(id)) {
-			SQLiteDatabase db = helper.getReadableDatabase();
-			//db.execSQL("DELETE FROM Games WHERE _id = " + id);
-			db.delete("Games", "_id = " + id, null);
-			db.close();
+			helper.delete("Games", "_id = " + id, null);
 			return true;
 		} else {
 			return false;
@@ -323,12 +299,11 @@ public class SavedGamesHandler extends DataHandler {
 
 	private boolean setIsPrivate(long id, boolean isPrivate) {
 		if (id >= 0) {
-			SQLiteDatabase db = helper.getReadableDatabase();
+			ContentValues c = new ContentValues();
+			c.put("IsPersonal", isPrivate);
 			try {
-				db.execSQL("UPDATE Games SET IsPersonal = '" + isPrivate + "' WHERE _id = " + id);
-				db.close();
+				helper.update("Games", c, "_id = " + id, null);
 			} catch (SQLException e) {
-				db.close();
 				e.printStackTrace();
 				return false;
 
@@ -349,19 +324,18 @@ public class SavedGamesHandler extends DataHandler {
 	 */
 	private boolean setName(long id, String name) {
 		if (id >= 0) {
-			SQLiteDatabase db = helper.getReadableDatabase();
+			ContentValues c = new ContentValues();
+			c.put("Name", name);
 			try {
-				String[] query = { name };
-				db.execSQL("UPDATE Games SET Name = ? WHERE _id = " + id, query);
-				db.close();
+				helper.update("Games", c, "_id = " + id, null);
 			} catch (SQLException e) {
-				db.close();
 				e.printStackTrace();
 				return false;
-
 			}
 			return true;
-		} else {
+		} 
+		else 
+		{
 			return false;
 		}
 	}
@@ -378,7 +352,6 @@ public class SavedGamesHandler extends DataHandler {
 	 */
 	public boolean tagSavedGame(String name, long id) {
 
-		SQLiteDatabase db = helper.getReadableDatabase();
 
 		ContentValues values = new ContentValues();
 		values.put("IsPersonal", true);
@@ -387,7 +360,7 @@ public class SavedGamesHandler extends DataHandler {
 		String whereClause = "_id = ?";
 		String[] whereArgs = { String.valueOf(id) };
 
-		int affected = db.update("Games", values, whereClause, whereArgs);
+		int affected = helper.update("Games", values, whereClause, whereArgs);
 
 		if (affected == 0) {
 			return false;
@@ -402,14 +375,12 @@ public class SavedGamesHandler extends DataHandler {
 	public ArrayList<SavedGame> getTaggedGames() {
 		ArrayList<SavedGame> list = new ArrayList<SavedGame>();
 
-		SQLiteDatabase db = helper.getReadableDatabase();
-
 		String[] columns = { "_id" };
 		String selection = "IsPersonal = ?";
 		String[] selectionArgs = { "1" }; // 1 means true
 		String orderBy = "Date DESC";
 
-		Cursor cursor = db.query("Games", columns, selection, selectionArgs, null, null, orderBy);
+		Cursor cursor = helper.query("Games", columns, selection, selectionArgs, null, null, orderBy);
 
 		if (cursor != null && cursor.getCount() != 0) {
 
@@ -420,8 +391,6 @@ public class SavedGamesHandler extends DataHandler {
 			}
 			cursor.close();
 		}
-
-		db.close();
 		return list;
 	}
 

@@ -16,47 +16,39 @@ public class UserHandler extends DataHandler {
 	}
 
 	public boolean setUserName(String name) {
-		SQLiteDatabase db = helper.getReadableDatabase();
 		try {
 	
 			String[] args = { name };
-			db.execSQL("UPDATE User SET Name = ? WHERE _id = 1", args);
+			helper.execSQL("UPDATE User SET Name = ? WHERE _id = 1", args);
 		} catch (SQLException e) {
-			db.close();
 			e.printStackTrace();
 			return false;
 		}
-		db.close();
 		return true;
 	}
 
 	public boolean setUserEmail(String email) {
-		SQLiteDatabase db = helper.getReadableDatabase();
 		try {
 	
 			String[] args = { email };
-			db.execSQL("UPDATE User SET Email = ? WHERE _id = 1", args);
+			helper.execSQL("UPDATE User SET Email = ? WHERE _id = 1", args);
 		} catch (SQLException e) {
-			db.close();
 			e.printStackTrace();
 			return false;
 		}
-		db.close();
 		return true;
 	}
 
 	public boolean setUserId(String userid, int id) {
-		SQLiteDatabase db = helper.getReadableDatabase();
+		
+		ContentValues c= new ContentValues();
+		c.put("user_id", userid);
 		try {
-	
-			String[] args = { userid };
-			db.execSQL("UPDATE User SET user_id = ? WHERE _id =" + id, args);
+			helper.update("User", c, "_id =" + id,null);
 		} catch (SQLException e) {
-			db.close();
 			e.printStackTrace();
 			return false;
 		}
-		db.close();
 		return true;
 	}
 
@@ -64,24 +56,19 @@ public class UserHandler extends DataHandler {
 		ContentValues c = new ContentValues();
 		c.put("Name", muser.getUserName());
 		c.put("Email", muser.getEmail());
-		SQLiteDatabase db = helper.getReadableDatabase();
 		try {
-			db.insert("User", null, c);
+			helper.insert("User", null, c);
 		} catch (Exception e) {
 			e.printStackTrace();
-			db.close();
 			return false;
 		}
-		db.close();
 		return true;
 	}
 
 
 	public Friend getFriendByEmail(String email) {
-		
-			SQLiteDatabase db = helper.getReadableDatabase();
 			String[] query = { email };
-			Cursor c = db.rawQuery("SELECT * FROM User WHERE Email = ? ", query);
+			Cursor c = helper.rawQuery("SELECT * FROM User WHERE Email = ? ", query);
 			Friend friend = new Friend();
 			if (c != null && c.getCount() != 0) {
 				c.moveToFirst();
@@ -89,12 +76,10 @@ public class UserHandler extends DataHandler {
 				friend.setEmail(c.getString(2));
 				friend.setFriendId(c.getString(3));
 				c.close();
-				db.close();
 	
 				return friend;
 			} else {
 				c.close();
-				db.close();
 				return friend;
 			
 		}

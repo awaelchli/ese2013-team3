@@ -21,8 +21,8 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements
 	public void testGetTaggedGames() {
 		SavedGame saved = new SavedGame();
 		SavedGame saved2 = new SavedGame();
-		saved = initSavedGame(saved, "Test1");
-		saved2 = initSavedGame(saved2, "Test2");
+		saved = initSavedGame(saved, "Test0");
+		saved2 = initSavedGame(saved2, "Test0");
 		savedGamesHandler.saveGame(saved);
 		savedGamesHandler.tagSavedGame("Test1", saved.getId());
 		savedGamesHandler.saveGame(saved2);

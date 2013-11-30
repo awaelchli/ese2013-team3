@@ -15,17 +15,14 @@ public class FriendshipHandler extends DataHandler {
 		
 		ContentValues c = new ContentValues();
 		c.put("user_id", 1);
-		c.put("friend_id", friend.getUserID());
-		SQLiteDatabase db = helper.getReadableDatabase();
-		
+		c.put("friend_id", friend.getUserID());		
 		try {
-			db.insert("Friendship", null, c);
+			helper.insert("Friendship", null, c);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-			db.close();
 			return false;
 		}
-		db.close();
 		return true;
 	}
 

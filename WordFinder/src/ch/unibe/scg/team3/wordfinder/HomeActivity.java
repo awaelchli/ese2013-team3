@@ -96,4 +96,11 @@ public class HomeActivity extends Activity {
 	public void quitApp(View view) {
 		finish();
 	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		wordlistHandler.closeDB();
+	}
+	
 }

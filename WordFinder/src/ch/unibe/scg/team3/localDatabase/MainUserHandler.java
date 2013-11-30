@@ -14,27 +14,5 @@ public class MainUserHandler extends UserHandler {
 		super(context);
 	}
 
-	public MainUser getMainUser() {
-		
-			SQLiteDatabase db = helper.getReadableDatabase();
-			
-			Cursor c = db.rawQuery("SELECT * FROM User WHERE _id = 1 ",null);
-			MainUser user = new MainUser();
-			if (c != null && c.getCount() != 0) {
-				c.moveToFirst();
-				user.setUserName(c.getString(1));
-				user.setEmail(c.getString(2));
-				user.setUserId(c.getString(3));
-				c.close();
-				db.close();
-				
-				return user;
-			} else {
-				c.close();
-				db.close();
-				return user;
-			
-		}
-	}
 
 }

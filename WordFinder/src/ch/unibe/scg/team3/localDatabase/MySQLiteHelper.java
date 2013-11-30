@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import ch.unibe.scg.team3.wordfinder.R;
@@ -39,6 +41,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.context = context;
 	}
+	
 
 	// TODO: check if needed
 	@Override
@@ -64,8 +67,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		}
 	}
 	
-	public void importDatabase() throws IOException {
-		
+	public synchronized void importDatabase() throws IOException {
 		InputStream input = context.getResources().openRawResource(
 				R.raw.localdatabase);
 		String outFileName = DB_FILEPATH + DATABASE_NAME;
@@ -89,11 +91,46 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		}
 		return instance;
 	}
-
-	@Override
-	public synchronized SQLiteDatabase getWritableDatabase() {
-		return super.getWritableDatabase();
+	
+	public synchronized long insert(String table, String nullColumnHack, ContentValues values){
+		return getWritableDatabase().insert(table, nullColumnHack, values);
 	}
+	
+	public synchronized void delete(String table, String whereClause, String[] whereArgs){
+		getWritableDatabase().delete(table, whereClause, whereArgs);
+	}
+	public synchronized int update(String table, ContentValues values, String whereClause, String[] whereArgs){
+		return getWritableDatabase().update(table, values, whereClause, whereArgs);
+	}
+	
+	public synchronized void execSQL(String sql, String[] bindArgs){
+		getWritableDatabase().execSQL(sql, bindArgs);
+	}
+	public synchronized void execSQL(String sql){
+		getWritableDatabase().execSQL(sql);
+	}
+	
+	public synchronized void copyDB() throws IOException {
+		importDatabase();
+		
+	}
+
+	public synchronized Cursor rawQuery(String sql, String[] selectionArgs) {
+		return getWritableDatabase().rawQuery(sql, selectionArgs);
+	}
+	public void close(){
+		getWritableDatabase().close();
+	}
+
+
+	public synchronized Cursor query(String sql, String[] columns, String selection,
+			String[] selectionArgs, String groupBy, String having,
+			String orderBy) {
+		return getWritableDatabase().query(sql, columns, selection, selectionArgs, groupBy, having, orderBy);
+		
+	}
+	
+	
 	
 	
 
