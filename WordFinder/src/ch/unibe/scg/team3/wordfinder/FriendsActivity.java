@@ -16,36 +16,33 @@ import android.widget.Toast;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 
 public class FriendsActivity extends Activity {
 
 	private List<ParseUser> friends;
-	private List<ParseUser> requests;
+	ListView friendList;
+	FriendsAdapter friendsAdapter;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_friends);
 		friends = new ArrayList<ParseUser>();
-		requests = new ArrayList<ParseUser>();
 		
-		EditText editText = (EditText) findViewById(R.id.email_edit);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-
-		getFriendRequests();
-		FriendRequestsAdapter requestAdapter = new FriendRequestsAdapter(this, R.id.request_list, requests);
 		
 		getFriends();
-		FriendsAdapter friendsAdapter = new FriendsAdapter(this, R.id.friends_list, friends);
+		friendsAdapter = new FriendsAdapter(this, R.id.friends_list, friends);
 
-		ListView friendList = (ListView) findViewById(R.id.friends_list);
-		ListView requestList = (ListView) findViewById(R.id.request_list);
+		friendList = (ListView) findViewById(R.id.friends_list);
 		friendList.setAdapter(friendsAdapter);
-		requestList.setAdapter(requestAdapter);
+		
 	}
 
 	private void getFriends() {
@@ -69,6 +66,7 @@ public class FriendsActivity extends Activity {
 						try {
 							query.get(friend_id);
 							friends.add(query.getFirst());
+							friendList.setAdapter(friendsAdapter);
 						} catch (ParseException e) {
 							e.printStackTrace();
 						}
@@ -79,96 +77,99 @@ public class FriendsActivity extends Activity {
 		
 	}
 
-	private void getFriendRequests() {
-		ParseUser me = ParseUser.getCurrentUser();
-		if (me != null) {
-			String id = me.getObjectId();
-
-			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-					"Request");
-			query.whereEqualTo("subject_id", id);
-			query.findInBackground(new FindCallback<ParseObject>(){
-
-				@Override
-				public void done(List<ParseObject> requestList, ParseException arg1) {
-					for(ParseObject request : requestList){
-						
-						String initiatorId = request.getString("initiator_id");
-						ParseQuery<ParseUser> query = ParseUser.getQuery();
-						
-						try {
-							query.get(initiatorId);
-							requests.add(query.getFirst());
-						} catch (ParseException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			});
-		}
-	}
+	
 
 	public void addFriend(View view) {
-		final EditText email_view = (EditText) findViewById(R.id.emailToAdd);
-		String email = email_view.getText().toString();
+			
 
-		ParseUser me = ParseUser.getCurrentUser();
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-		final String myId = me.getObjectId();
+			alert.setTitle("Send a Friendrequest");
+			alert.setMessage("Please enter the emailadress of your friend.");
 
-		final ParseQuery<ParseUser> user = ParseQuery.getUserQuery();
-		user.whereEqualTo("email", email);
+			final EditText input = new EditText(this);
+			
+			alert.setView(input);
 
-		user.findInBackground(new FindCallback<ParseUser>() {
-			public void done(List<ParseUser> requests, ParseException e) {
-				if (e == null) {
-					String userId = null;
-					try {
-						userId = (String) user.getFirst().getObjectId();
-					} catch (ParseException e1) {
-						
-						int code = e1.getCode();
-				    	String message="someting is wrong";
-				    	if(code==ParseException.OBJECT_NOT_FOUND){message="could not find user";}
-				    	if(code==ParseException.CONNECTION_FAILED){message="Unable to connect to the internet";}
-				    	
-				    	System.out.println(code);
-				    	
-				    	AlertDialog.Builder alert = new AlertDialog.Builder(FriendsActivity.this);
+			alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					String email = input.getText().toString();
+					ParseUser me = ParseUser.getCurrentUser();
 
-						alert.setTitle("Error");
-						alert.setMessage(message);
+					final String myId = me.getObjectId();
 
-						alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int whichButton) {
+					final ParseQuery<ParseUser> user = ParseQuery.getUserQuery();
+					user.whereEqualTo("email", email);
+
+					user.findInBackground(new FindCallback<ParseUser>() {
+						public void done(List<ParseUser> requests, ParseException e) {
+							if (e == null) {
+								String userId = null;
+								try {
+									userId = (String) user.getFirst().getObjectId();
+								} catch (ParseException e1) {
+									
+									int code = e1.getCode();
+							    	String message="someting is wrong";
+							    	if(code==ParseException.OBJECT_NOT_FOUND){message="could not find user";}
+							    	if(code==ParseException.CONNECTION_FAILED){message="Unable to connect to the internet";}
+							    	
+							    	System.out.println(code);
+							    	
+							    	AlertDialog.Builder alert = new AlertDialog.Builder(FriendsActivity.this);
+
+									alert.setTitle("Error");
+									alert.setMessage(message);
+
+									alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+										public void onClick(DialogInterface dialog, int whichButton) {
+										}
+									});
+
+									alert.show();
+
+								}
+								if (userId == null) {
+									Toast.makeText(getApplicationContext(),
+											"Could not send the request", Toast.LENGTH_LONG)
+											.show();
+									return;
+								}
+								ParseObject request = new ParseObject("Request");
+								request.put("initiator_id", myId);
+								request.put("subject_id", userId);
+								request.saveInBackground();
+								Toast.makeText(getApplicationContext(), "Request sent",
+										Toast.LENGTH_LONG).show();
+
+							} else {
+								Toast.makeText(getApplicationContext(),
+										"Could not send the request", Toast.LENGTH_LONG).show();
+								e.printStackTrace();
 							}
-						});
-
-						alert.show();
-
-					}
-					if (userId == null) {
-						Toast.makeText(getApplicationContext(),
-								"Could not send the request", Toast.LENGTH_LONG)
-								.show();
-						return;
-					}
-					ParseObject request = new ParseObject("Request");
-					request.put("initiator_id", myId);
-					request.put("subject_id", userId);
-					request.saveInBackground();
-					email_view.setText("");
-					email_view.clearFocus();
-					Toast.makeText(getApplicationContext(), "Request sent",
-							Toast.LENGTH_LONG).show();
-
-				} else {
-					Toast.makeText(getApplicationContext(),
-							"Could not send the request", Toast.LENGTH_LONG).show();
-					e.printStackTrace();
+						}
+					});
 				}
-			}
-		});
+			});
+
+			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					// Canceled.
+				}
+			});
+
+			alert.show();
+		
+		
+		
+	}
+	public void sentRequests(View view){
+		Intent intent = new Intent(this, SentRequestActivity.class);
+		startActivity(intent);
+	}
+	public void receivedRequests(View view){
+		Intent intent = new Intent(this, ReceivedRequestsActivity.class);
+		startActivity(intent);
 	}
 
 }

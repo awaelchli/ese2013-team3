@@ -43,6 +43,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	// TODO: check if needed
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		
 	}
 
 	@Override
@@ -82,11 +83,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		input.close();
 	}
 
-	public static MySQLiteHelper getInstance(Context context) {
+	public static synchronized MySQLiteHelper getInstance(Context context) {
 		if (instance == null) {
 			instance = new MySQLiteHelper(context.getApplicationContext());
 		}
 		return instance;
 	}
+
+	@Override
+	public synchronized SQLiteDatabase getWritableDatabase() {
+		return super.getWritableDatabase();
+	}
+	
+	
 
 }

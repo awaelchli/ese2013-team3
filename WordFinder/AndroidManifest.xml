@@ -35,8 +35,8 @@
             android:name="ch.unibe.scg.team3.wordfinder.GameActivity"
             android:label="@string/title_activity_game"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            android:parentActivityName="ch.unibe.scg.team3.wordfinder.HomeActivity" >
+            android:parentActivityName="ch.unibe.scg.team3.wordfinder.HomeActivity"
+            android:screenOrientation="portrait" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -79,13 +79,12 @@
             android:name="ch.unibe.scg.team3.wordfinder.PausedGameActivity"
             android:label="@string/title_activity_paused_game" >
         </activity>
-	
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.SignUpActivity"
             android:label="@string/title_activity_share_prefs"
             android:launchMode="singleInstance" >
         </activity>
-        
+
         <service android:name="com.parse.PushService" />
 
         <receiver android:name="com.parse.ParseBroadcastReceiver" >
@@ -104,11 +103,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.unibe.scg.team3.wordfinder.HomeActivity" />
         </activity>
-
-       <activity
+        <activity
             android:name="ch.unibe.scg.team3.wordfinder.LoginActivity"
             android:label="@string/title_activity_login"
             android:launchMode="singleInstance" >
+        </activity>
+        <activity
+            android:name="ch.unibe.scg.team3.wordfinder.MyFriendsActivity"
+            android:label="@string/title_activity_my_friends" >
+        </activity>
+        <activity
+            android:name="ch.unibe.scg.team3.wordfinder.SentRequests"
+            android:label="@string/title_activity_sent_requests" >
+        </activity>
+        <activity
+            android:name="ch.unibe.scg.team3.wordfinder.ReceivedRequestsActivity"
+            android:label="@string/title_activity_received_requests" >
+        </activity>
+        <activity
+            android:name="ch.unibe.scg.team3.wordfinder.SentRequestActivity"
+            android:label="@string/title_activity_sent_request" >
         </activity>
     </application>
 

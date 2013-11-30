@@ -298,7 +298,8 @@ public class SavedGamesHandler extends DataHandler {
 	public boolean removeGame(long id) {
 		if (gameInDatabase(id)) {
 			SQLiteDatabase db = helper.getReadableDatabase();
-			db.execSQL("DELETE FROM Games WHERE _id = " + id);
+			//db.execSQL("DELETE FROM Games WHERE _id = " + id);
+			db.delete("Games", "_id = " + id, null);
 			db.close();
 			return true;
 		} else {

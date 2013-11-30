@@ -22,7 +22,7 @@ public class DataHandler {
 		this.helper = MySQLiteHelper.getInstance(context);
 	}
 
-	public void copyDB() throws IOException {
+	public synchronized void copyDB() throws IOException {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		helper.importDatabase();
 		db.close();
