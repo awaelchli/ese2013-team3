@@ -10,7 +10,6 @@ public class RequestHandler extends DataHandler {
 
 	public RequestHandler(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 	}
 
 	public boolean isRequestinDb(String objectId) {

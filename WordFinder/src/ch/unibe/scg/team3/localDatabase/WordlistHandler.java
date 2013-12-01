@@ -343,9 +343,10 @@ public class WordlistHandler extends DataHandler {
 			name = c.getString(0);
 			c.close();
 			return name;
-		}
+		}else{
 		c.close();
 		return name;
+		}
 	}
 
 }
