@@ -6,7 +6,7 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 import ch.unibe.scg.team3.localDatabase.MainUserHandler;
-import ch.unibe.scg.team3.user.MainUser;
+import ch.unibe.scg.team3.user.User;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;

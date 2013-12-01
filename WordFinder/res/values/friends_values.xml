@@ -8,4 +8,6 @@
     <string name="add_friends_button">Add Friend</string>
     <string name="sent_request_button">My Sent Requests</string>
     <string name="received_requests_button">Received Requests</string>
+    <string name="received_requests_list_title">Received Requests</string>
+    <string name="sen_request_list_title">Sent Requests</string>
 </resources>

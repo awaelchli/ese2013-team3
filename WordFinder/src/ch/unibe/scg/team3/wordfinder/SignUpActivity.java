@@ -5,10 +5,7 @@ import com.parse.ParseException;
 import com.parse.ParseFacebookUtils.Permissions.User;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
-
-import ch.unibe.scg.team3.localDatabase.MainUserHandler;
 import ch.unibe.scg.team3.localDatabase.UserHandler;
-import ch.unibe.scg.team3.user.MainUser;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,7 +18,7 @@ import android.widget.TextView;
 
 public class SignUpActivity extends Activity {
 	protected UserHandler uh;
-	protected MainUser muser = new MainUser();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,11 +44,7 @@ public class SignUpActivity extends Activity {
 		user.signUpInBackground(new SignUpCallback() {
 		 public void done(ParseException e) {
 		    if (e == null) {
-		    
-		     muser.setUserName(username);
-		     muser.setEmail(email);
-		     muser.setUserId(user.getObjectId().toString());
-		     uh.setUser(muser);
+
 		     finish();
 		    } else {
 		    	

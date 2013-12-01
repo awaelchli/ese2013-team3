@@ -9,7 +9,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.widget.Toast;
-import ch.unibe.scg.team3.localDatabase.MainUserHandler;
+import ch.unibe.scg.team3.localDatabase.UserHandler;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
 /**
@@ -19,7 +19,7 @@ import ch.unibe.scg.team3.localDatabase.WordlistHandler;
  */
 public class PreferencesActivity extends PreferenceActivity {
 	WordlistHandler wm;
-	MainUserHandler muh;
+	UserHandler uh;
 	private Preference login;
 	private Preference logout;
 
@@ -34,7 +34,7 @@ public class PreferencesActivity extends PreferenceActivity {
 		login = (Preference) findPreference("login");
 		logout = (Preference) findPreference("logout");
 		wm = new WordlistHandler(this);
-		muh = new MainUserHandler(this);
+		uh = new UserHandler(this);
 		setListPreferenceData(wordlistPref);
 		if(ParseUser.getCurrentUser() == null){
 			login.setEnabled(true);

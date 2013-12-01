@@ -12,13 +12,11 @@ public abstract class AbstractUser {
 	protected String email;
 	protected String userName;
 	protected String userID;
-	protected boolean registered;
 
-	public AbstractUser(String email, String userName) {
-		//TODO set the user ID
+	public AbstractUser(String email, String userName, String userID) {
 		this.email=email;
 		this.userName=userName;
-		this.registered=false;
+		this.userID = userID;
 	}
 
 	public AbstractUser() {
@@ -48,6 +46,4 @@ public abstract class AbstractUser {
 	public void setUserId(String userId){
 		this.userID = userId;
 	}
-
-	public abstract void register();
 }

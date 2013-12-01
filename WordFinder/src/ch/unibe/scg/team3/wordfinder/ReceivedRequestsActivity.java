@@ -32,9 +32,9 @@ public class ReceivedRequestsActivity extends Activity {
 		super.onResume();
 
 		getFriendRequests();
-		requestAdapter = new FriendRequestsAdapter(this, R.id.request_list, requests);
+		requestAdapter = new FriendRequestsAdapter(this, R.id.received_requests_list, requests);
 		
-		requestListView = (ListView) findViewById(R.id.request_list);	
+		requestListView = (ListView) findViewById(R.id.received_requests_list);	
 		requestListView.setAdapter(requestAdapter);
 	}
 

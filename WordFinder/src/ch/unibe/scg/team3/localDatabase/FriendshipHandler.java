@@ -1,6 +1,9 @@
 package ch.unibe.scg.team3.localDatabase;
 
-import ch.unibe.scg.team3.user.Friend;
+import java.util.List;
+
+import ch.unibe.scg.team3.sharingService.Friendship;
+import ch.unibe.scg.team3.user.User;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,7 +14,7 @@ public class FriendshipHandler extends DataHandler {
 		super(context);
 	}
 	
-	public boolean setFriend(Friend friend, int friend_id){
+	public boolean setFriend(User friend, int friend_id){
 		
 		ContentValues c = new ContentValues();
 		c.put("user_id", 1);
@@ -24,6 +27,26 @@ public class FriendshipHandler extends DataHandler {
 			return false;
 		}
 		return true;
+	}
+
+	public boolean isFriendshipinDb(String objectId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void setFriendship(Friendship dbfriendship) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List<Friendship> getFriendships() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void remove(Friendship deletedfriendship) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,7 +1,7 @@
 package ch.unibe.scg.team3.wordfinder;
 
-import ch.unibe.scg.team3.localDatabase.MainUserHandler;
-import ch.unibe.scg.team3.user.MainUser;
+import ch.unibe.scg.team3.localDatabase.UserHandler;
+import ch.unibe.scg.team3.user.User;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -19,14 +19,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity {
-	MainUser mainuser;
-	MainUserHandler muh;
+	User mainuser;
+	UserHandler uh;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		muh = new MainUserHandler(this);
-		//mainuser = muh.getMainUser();
+		uh = new UserHandler(this);
+		//mainuser = uh.getMainUser();
 		
 		
 	}
