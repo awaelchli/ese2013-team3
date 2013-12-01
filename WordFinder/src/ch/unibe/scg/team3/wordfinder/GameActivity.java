@@ -79,9 +79,10 @@ public class GameActivity extends Activity implements IGameObserver {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (!isFinishing()) {
-			pauseGameSession();
-		}
+		game.pauseTime();
+//		if (!isFinishing()) {
+//			pauseGameSession();
+//		}
 	}
 
 	@Override
@@ -120,8 +121,10 @@ public class GameActivity extends Activity implements IGameObserver {
 		SavedGame savedGame = game.save();
 		SavedGamesHandler handler = new SavedGamesHandler(this);
 		long id = handler.saveGame(savedGame);
-
+		long old_id = this.getIntent().getLongExtra("saved_game_id", -1);
+		
 		Intent intent = new Intent(this, GameInterruptActivity.class);
+		intent.putExtra("old_saved_game_id", old_id);
 		intent.putExtra("saved_game_id", id);
 
 		startActivity(intent);

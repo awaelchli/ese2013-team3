@@ -138,4 +138,14 @@ public class SavedGame extends AbstractGame {
 	public int getBoardSize() {
 		return (int) Math.sqrt(board.length());
 	}
+
+	@Override
+	public String toString() {
+		String labels = "Score: %s\nFound Words: %s\nAttempted Words: %s\nElapsed Time: %s\n";
+
+		String text = String.format(labels, getScore(), getNumberOfFoundWords(),
+				getNumberOfAttempts(), Timer.format(getElapsedTime()));
+
+		return text;
+	}
 }

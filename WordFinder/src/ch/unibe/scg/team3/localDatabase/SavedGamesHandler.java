@@ -3,16 +3,15 @@ package ch.unibe.scg.team3.localDatabase;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import ch.unibe.scg.team3.game.SavedGame;
 
 /**
- * This class give the options to save games to the main database. It also
+ * This class gives the options to save games to the main database. It also
  * allows also to edit these games in different ways.
  * 
  * @author nils
@@ -20,7 +19,8 @@ import ch.unibe.scg.team3.game.SavedGame;
  * 
  */
 public class SavedGamesHandler extends DataHandler {
-	private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM, yyyy HH:mm");
+	
+	private final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy, HH:mm", Locale.ENGLISH);
 
 	public SavedGamesHandler(Context context) {
 		super(context);
@@ -28,53 +28,14 @@ public class SavedGamesHandler extends DataHandler {
 
 	/**
 	 * Stores a game in the database. If the id of this game already exists in
-	 * the database, the changed values get updated if the score is higher than
-	 * the old one.
+	 * the database, the game will be saved under a new id.
 	 * 
 	 * @param game
-	 *            a game to be saved or updated
-	 * @return The id of the game. If the game was updated, the id is the same
-	 *         and otherwise the id of the new entry will be returned.
+	 *            a game to be saved.
+	 * @return The id of the newly saved game.
 	 */
 	public long saveGame(SavedGame game) {
 
-		if (game.getId() == -1) {
-			return saveAsNewGame(game);
-		} else {
-			updateGame(game);
-			return game.getId();
-		}
-	}
-
-	/**
-	 * Update only if score increased.
-	 */
-	private void updateGame(SavedGame game) {
-		long id = game.getId();
-
-		SavedGame old = getSavedGame(id);
-		
-		ContentValues values = new ContentValues();
-		values.put("TimesPlayed", game.getTimesPlayed());
-		
-		if (old.getScore() < game.getScore()) {
-			
-			values.put("Words", game.getNumberOfFoundWords());
-			values.put("Time", game.getRemainingTime());
-			String date = (Long.toString(new Date().getTime()));
-			values.put("Date", date);
-			values.put("Score", game.getScore());
-			values.put("Guesses", game.getNumberOfAttempts());
-		}
-		
-		String whereClause = "_id = ?";
-		String[] whereArgs = { String.valueOf(id) };
-		
-		helper.update("Games", values, whereClause, whereArgs);
-	}
-
-	private long saveAsNewGame(SavedGame game) {
-		
 		String name = game.getName();
 		String board = game.getStringBoard();
 		int words = game.getNumberOfFoundWords();
@@ -85,7 +46,7 @@ public class SavedGamesHandler extends DataHandler {
 		int wordlist = game.getWordlistId();
 		int timesPlayed = 1;
 		String date = (Long.toString(new Date().getTime()));
-		
+
 		try {
 			ContentValues values = new ContentValues();
 			if (name != null) {
@@ -107,6 +68,35 @@ public class SavedGamesHandler extends DataHandler {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+
+	/**
+	 * @param game
+	 *            The game to be updated. If the id of the game does not exist
+	 *            in the database, nothing will happen.
+	 */
+	public void updateGame(SavedGame game) {
+
+		if (!isGameInDatabase(game)) {
+			return;
+		}
+
+		long id = game.getId();
+
+		ContentValues values = new ContentValues();
+
+		values.put("Words", game.getNumberOfFoundWords());
+		values.put("Time", game.getRemainingTime());
+		String date = (Long.toString(new Date().getTime()));
+		values.put("Date", date);
+		values.put("Score", game.getScore());
+		values.put("Guesses", game.getNumberOfAttempts());
+		values.put("TimesPlayed", game.getTimesPlayed());
+
+		String whereClause = "_id = ?";
+		String[] whereArgs = { String.valueOf(id) };
+
+		helper.update("Games", values, whereClause, whereArgs);
 	}
 
 	// /**
@@ -144,41 +134,41 @@ public class SavedGamesHandler extends DataHandler {
 	//
 	// }
 
-	/**
-	 * 
-	 * @param name
-	 *            the name of the Wordlist which is saved in the DataBase
-	 * @return a SavedGame which can be empty when ther was no entry with this
-	 *         name in the Database.
-	 */
-	public SavedGame getSavedGame(String name) {
-		String[] query = { name };
-		Cursor c = helper.rawQuery("SELECT * FROM Games WHERE Name = ? ", query);
-		SavedGame game = new SavedGame();
-		if (c != null && c.getCount() != 0) {
-			c.moveToFirst();
-			writeDataentryToGame(c, game);
-			c.close();
-			return game;
-		} else {
-			c.close();
-			return game;
-		}
-	}
+	// /**
+	// *
+	// * @param name
+	// * the name of the Wordlist which is saved in the DataBase
+	// * @return a SavedGame which can be empty when ther was no entry with this
+	// * name in the Database.
+	// */
+	// public SavedGame getSavedGame(String name) {
+	// String[] query = { name };
+	// Cursor c = helper.rawQuery("SELECT * FROM Games WHERE Name = ? ", query);
+	// SavedGame game = new SavedGame();
+	// if (c != null && c.getCount() != 0) {
+	// c.moveToFirst();
+	// writeDataToObject(c, game);
+	// c.close();
+	// return game;
+	// } else {
+	// c.close();
+	// return game;
+	// }
+	// }
 
 	/**
 	 * 
 	 * @param id
-	 *            the name of the Wordlist which is saved in the DataBase
-	 * @return a SavedGame which can be null when there was no entry with this
-	 *         id in the Database.
+	 *            The id of the game to be extracted from the database.
+	 * @return A SavedGame which can be null when there was no entry with this
+	 *         id in the dsatabase.
 	 */
 	public SavedGame getSavedGame(long id) {
 		SavedGame game = new SavedGame();
 		Cursor c = helper.rawQuery("SELECT * FROM Games WHERE _id = " + id, null);
-			if (c != null && c.getCount() != 0) {
+		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
-			writeDataentryToGame(c, game);
+			writeDataToObject(c, game);
 			c.close();
 			return game;
 		} else {
@@ -187,33 +177,33 @@ public class SavedGamesHandler extends DataHandler {
 		}
 	}
 
-	/**
-	 * 
-	 * @param gameName
-	 * @return Boolean value which indicates whether a Game by the Name is in
-	 *         the Database.
-	 */
-	public boolean gameInDatabase(String gameName) {
-		if (gameName == null) {
-			return false;
-		}
-		Cursor c = helper.rawQuery("SELECT * FROM Games WHERE Name = ?", new String[] { gameName });
-		if (c != null && c.getCount() != 0) {
-			c.close();
-			return true;
-		} else {
-			c.close();
-			return false;
-		}
-	}
+	// /**
+	// *
+	// * @param gameName
+	// * @return Boolean value which indicates whether a Game by the Name is in
+	// * the Database.
+	// */
+	// public boolean gameInDatabase(String gameName) {
+	// if (gameName == null) {
+	// return false;
+	// }
+	// Cursor c = helper.rawQuery("SELECT * FROM Games WHERE Name = ?", new
+	// String[] { gameName });
+	// if (c != null && c.getCount() != 0) {
+	// c.close();
+	// return true;
+	// } else {
+	// c.close();
+	// return false;
+	// }
+	// }
 
 	/**
-	 * 
-	 * @param gameId
-	 * @return Boolean value which indicates whether a Game by the Id is in the
-	 *         Database.
+	 * @param id
+	 *            The id of the game
+	 * @return True if the game is in the database and false otherwise.
 	 */
-	public boolean gameInDatabase(long id) {
+	public boolean isGameInDatabase(long id) {
 
 		Cursor c = helper.rawQuery("SELECT * FROM Games WHERE _id = " + id, null);
 		if (c != null && c.getCount() != 0) {
@@ -225,119 +215,53 @@ public class SavedGamesHandler extends DataHandler {
 		}
 	}
 
-	/**
-	 * 
-	 * @param c
-	 *            cursor which holds the information of a saved game from
-	 *            database.
-	 * @param game
-	 *            which should be the object
-	 * @return whether the object creation from database was successful.
-	 */
-
-	private boolean writeDataentryToGame(Cursor c, SavedGame game) {
-
-		game.setId(c.getInt(0));
-		game.setName(c.getString(1));
-		game.setStringBoard(c.getString(2));
-		game.setNumberOfFoundWords(c.getInt(3));
-		game.setRemainingTime(c.getLong(4));
-		game.setDate(sdf.format(new Date(Long.parseLong(c.getString(5)))));
-		game.setWordlistId(c.getInt(6));
-		game.setScore(c.getInt(7));
-		game.setPersonal(Boolean.parseBoolean(c.getString(8)));
-		game.setTimesPlayed(c.getInt(9));
-		game.setAttempts(c.getInt(10));
-		return true;
+	public boolean isGameInDatabase(SavedGame game) {
+		return isGameInDatabase(game.getId());
 	}
 
-//	/**
-//	 * 
-//	 * @param name
-//	 *            of the Database to remove from Database.
-//	 * @return whether the deletion was successful.
-//	 */
-//	public boolean removeGame(String name) {
-//		if (gameInDatabase(name)) {
-//			SQLiteDatabase db = helper.getReadableDatabase();
-//			String[] query = { name };
-//			db.execSQL("DELETE FROM Games WHERE Name = ?", query);
-//			db.close();
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
+	/**
+	 * @param cursor
+	 *            The cursor which holds the information of a {@link SavedGame}
+	 *            from the database.
+	 * @param game
+	 *            The SavedGame object in whicht the data should be written.
+	 * @return True, if the creation of the SavedGame object was successful and
+	 *         false otherwise.
+	 */
+
+	private boolean writeDataToObject(Cursor cursor, SavedGame game) {
+
+		game.setId(cursor.getInt(0));
+		game.setName(cursor.getString(1));
+		game.setStringBoard(cursor.getString(2));
+		game.setNumberOfFoundWords(cursor.getInt(3));
+		game.setRemainingTime(cursor.getLong(4));
+		game.setDate(sdf.format(new Date(Long.parseLong(cursor.getString(5)))));
+		game.setWordlistId(cursor.getInt(6));
+		game.setScore(cursor.getInt(7));
+		game.setPersonal(Boolean.parseBoolean(cursor.getString(8)));
+		game.setTimesPlayed(cursor.getInt(9));
+		game.setAttempts(cursor.getInt(10));
+
+		return true;
+	}
 
 	/**
 	 * @param id
 	 *            The id of the game to remove from the database.
-	 * @return True if the deletion was successful and false otherwise. 
+	 * @return True if the deletion was successful and false otherwise.
 	 */
 	public boolean removeGame(long id) {
-		if (gameInDatabase(id)) {
+		if (isGameInDatabase(id)) {
 			helper.delete("Games", "_id = " + id, null);
 			return true;
 		} else {
 			return false;
 		}
 	}
-	public boolean removeGame(SavedGame game){
+
+	public boolean removeGame(SavedGame game) {
 		return removeGame(game.getId());
-		
-	}
-
-	/**
-	 * 
-	 * @param id
-	 *            from the game which has to be edited
-	 * @param isPrivate
-	 *            boolean variable to set in the database game.
-	 * 
-	 * @return whether the action was successful.
-	 */
-
-	private boolean setIsPrivate(long id, boolean isPrivate) {
-		if (id >= 0) {
-			ContentValues c = new ContentValues();
-			c.put("IsPersonal", isPrivate);
-			try {
-				helper.update("Games", c, "_id = " + id, null);
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return false;
-
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * 
-	 * @param id
-	 *            from the game to be renamed.
-	 * @param name
-	 *            String which should be the new game title.
-	 * @return whether renaming was successful.
-	 */
-	private boolean setName(long id, String name) {
-		if (id >= 0) {
-			ContentValues c = new ContentValues();
-			c.put("Name", name);
-			try {
-				helper.update("Games", c, "_id = " + id, null);
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return false;
-			}
-			return true;
-		} 
-		else 
-		{
-			return false;
-		}
 	}
 
 	/**
@@ -351,7 +275,6 @@ public class SavedGamesHandler extends DataHandler {
 	 *         successfully, false otherwise.
 	 */
 	public boolean tagSavedGame(String name, long id) {
-
 
 		ContentValues values = new ContentValues();
 		values.put("IsPersonal", true);
@@ -380,7 +303,8 @@ public class SavedGamesHandler extends DataHandler {
 		String[] selectionArgs = { "1" }; // 1 means true
 		String orderBy = "Date DESC";
 
-		Cursor cursor = helper.query("Games", columns, selection, selectionArgs, null, null, orderBy);
+		Cursor cursor = helper.query("Games", columns, selection, selectionArgs, null, null,
+				orderBy);
 
 		if (cursor != null && cursor.getCount() != 0) {
 

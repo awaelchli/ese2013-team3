@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.unibe.scg.team3.game.SavedGame;
 import ch.unibe.scg.team3.game.Timer;
 import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
@@ -21,6 +22,7 @@ public class GameInterruptActivity extends Activity {
 
 	protected SavedGamesHandler handler;
 	private SavedGame game;
+	private SavedGame oldGame;
 	protected String board;
 
 	@Override
@@ -31,14 +33,19 @@ public class GameInterruptActivity extends Activity {
 		handler = new SavedGamesHandler(this);
 		Intent intent = getIntent();
 
+		long old_id = intent.getLongExtra("old_saved_game_id",-1);
 		long id = intent.getLongExtra("saved_game_id", -1);
 
-		if (id == -1) {
+		if (!handler.isGameInDatabase(id)) {
 			makePauseInterface();
 			
-		} else {
+		} else if(!handler.isGameInDatabase(old_id)) {
 			game = handler.getSavedGame(id);
 			makeEndGameInterface();
+		} else {
+			game = handler.getSavedGame(id);
+			oldGame = handler.getSavedGame(old_id);
+			makeCompareInterface();
 		}
 	}
 
@@ -52,7 +59,7 @@ public class GameInterruptActivity extends Activity {
 
 	private void makeEndGameInterface() {
 
-		displayGameStats();
+		displayGameStats(game);
 		Button replay = (Button) findViewById(R.id.replay_button);
 		Button save = (Button) findViewById(R.id.save_button);
 
@@ -60,15 +67,32 @@ public class GameInterruptActivity extends Activity {
 		save.setVisibility(View.VISIBLE);
 	}
 	
-	private void displayGameStats() {
-		String labels = "Your Score: %s\nFound Words: %s\nAttempted Words: %s\nElapsed Time: %s\n";
-
-		String text = String.format(labels, game.getScore(), game.getNumberOfFoundWords(),
-				game.getNumberOfAttempts(), Timer.format(game.getElapsedTime()));
-
-		TextView stats = (TextView) findViewById(R.id.display_Stats);
-		stats.setText(text);
+	private void makeCompareInterface() {
+		
+		displayComparedStats(game, oldGame);
+		
+		Button replay = (Button) findViewById(R.id.replay_button);
+		Button update = (Button) findViewById(R.id.update_button);
+		
+		update.setVisibility(View.VISIBLE);
+		replay.setVisibility(View.VISIBLE);
+		
 	}
+
+	private void displayGameStats(SavedGame game) {
+		TextView stats = (TextView) findViewById(R.id.display_Stats);
+		stats.append(game.toString());
+	}
+	
+	private void displayComparedStats(SavedGame game, SavedGame oldGame) {
+		displayGameStats(game);
+		
+		TextView stats = (TextView) findViewById(R.id.display_Stats);
+		stats.append("\n\nYour old stats on this board:\n\n");
+		
+		displayGameStats(oldGame);
+	}
+
 
 	public void newGame(View view) {
 		GameActivity.instance.finish();
@@ -83,6 +107,12 @@ public class GameInterruptActivity extends Activity {
 		intent.putExtra("saved_game_id", game.getId());
 		startActivity(intent);
 		finish();
+	}
+	
+	public void updateGame(View view){
+		handler.updateGame(oldGame);
+		Toast msg =Toast.makeText(this, "Game updated." , Toast.LENGTH_SHORT);
+		msg.show();
 	}
 
 	public void resumeGame(View view) {
