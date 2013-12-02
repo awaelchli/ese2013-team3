@@ -177,26 +177,26 @@ public class SavedGamesHandler extends DataHandler {
 		}
 	}
 
-	// /**
-	// *
-	// * @param gameName
-	// * @return Boolean value which indicates whether a Game by the Name is in
-	// * the Database.
-	// */
-	// public boolean gameInDatabase(String gameName) {
-	// if (gameName == null) {
-	// return false;
-	// }
-	// Cursor c = helper.rawQuery("SELECT * FROM Games WHERE Name = ?", new
-	// String[] { gameName });
-	// if (c != null && c.getCount() != 0) {
-	// c.close();
-	// return true;
-	// } else {
-	// c.close();
-	// return false;
-	// }
-	// }
+	 /**
+	 *
+	 * @param gameName
+	 * @return Boolean value which indicates whether a Game by the Name is in
+	 * the Database.
+	 */
+	 public boolean gameInDatabase(String gameName) {
+	 if (gameName == null) {
+	 return false;
+	 }
+	 Cursor c = helper.rawQuery("SELECT * FROM Games WHERE Name = ?", new
+	 String[] { gameName });
+	 if (c != null && c.getCount() != 0) {
+	 c.close();
+	 return true;
+	 } else {
+	 c.close();
+	 return false;
+	 }
+	 }
 
 	/**
 	 * @param id

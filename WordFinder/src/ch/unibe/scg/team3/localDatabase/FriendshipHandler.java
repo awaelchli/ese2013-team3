@@ -1,11 +1,14 @@
 package ch.unibe.scg.team3.localDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.unibe.scg.team3.sharingService.Friendship;
+import ch.unibe.scg.team3.sharingService.Request;
 import ch.unibe.scg.team3.user.User;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class FriendshipHandler extends DataHandler {
@@ -13,40 +16,90 @@ public class FriendshipHandler extends DataHandler {
 	public FriendshipHandler(Context context) {
 		super(context);
 	}
-	
-	public boolean setFriend(User friend, int friend_id){
-		
-		ContentValues c = new ContentValues();
-		c.put("user_id", 1);
-		c.put("friend_id", friend.getUserID());		
-		try {
-			helper.insert("Friendship", null, c);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
 
 	public boolean isFriendshipinDb(String objectId) {
-		// TODO Auto-generated method stub
-		return false;
+		Cursor c = helper.rawQuery(
+				"SELECT * FROM Friendship WHERE friendship_id = '" + objectId
+						+ "'", null);
+		if (c != null && c.getCount() != 0) {
+			c.close();
+			return true;
+		} else {
+			c.close();
+			return false;
+		}
 	}
 
 	public void setFriendship(Friendship dbfriendship) {
-		// TODO Auto-generated method stub
-		
+		ContentValues c = new ContentValues();
+		c.put("friendship_id", dbfriendship.getObjectId());
+		c.put("user_id", dbfriendship.getUserId());
+		c.put("friend_id", dbfriendship.getFriendId());
+		if (!isFriendshipinDb(dbfriendship.getObjectId())) {
+			helper.insert("Friendship", null, c);
+
+		}
 	}
 
 	public List<Friendship> getFriendships() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Friendship> friendships = new ArrayList<Friendship>();
+		Cursor c = helper.rawQuery("SELECT * FROM Friendship", null);
+		if (c != null && c.getCount() != 0) {
+			c.moveToFirst();
+			while (c.moveToNext()) {
+				friendships.add(new Friendship(c.getString(0), c.getString(1),
+						c.getString(2)));
+			}
+			c.close();
+		} else {
+			c.close();
+		}
+		return friendships;
 	}
 
 	public void remove(Friendship deletedfriendship) {
-		// TODO Auto-generated method stub
-		
+		helper.delete("Friendship", "friendship_id = ?",
+				new String[] { deletedfriendship.getObjectId() });
+
+	}
+
+	public List<String> getFriendshipsOfUser(String userid) {
+		List<String> list = new ArrayList<String>();
+		Cursor c = helper.rawQuery(
+				"SELECT user_id, friend_id FROM Friendship WHERE user_id = ? "
+						+ "OR friend_id =?", new String[] { userid, userid });
+		if (c != null && c.getCount() != 0) {
+			c.moveToFirst();
+			while (!c.isAfterLast()) {
+				if (c.getString(0).equals(userid)) {
+					list.add(c.getString(1));
+				} else {
+					list.add(c.getString(0));
+				}
+				c.moveToNext();
+			}
+		} else {
+			c.close();
+		}
+		return list;
+	}
+
+	public String getFriendship(String userId, String friendId) {
+		String friendshipId = null;
+		Cursor c = helper.rawQuery(
+				"SELECT friendship_id FROM Friendship WHERE (user_id = ? "
+						+ "AND friend_id =?) OR (user_id = ? "
+						+ "AND friend_id =?)", new String[] { userId, friendId,
+						friendId, userId });
+		if (c != null && c.getCount() != 0) {
+			c.moveToFirst();
+			friendshipId = c.getString(0);
+
+		} else {
+			c.close();
+		}
+		return friendshipId;
+
 	}
 
 }

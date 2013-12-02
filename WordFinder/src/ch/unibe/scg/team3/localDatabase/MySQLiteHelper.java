@@ -26,7 +26,7 @@ import ch.unibe.scg.team3.wordfinder.R;
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "localDatabase.db";
-	private static int DATABASE_VERSION = 9;
+	private static int DATABASE_VERSION = 14;
 
 	// TODO: read about this hint
 	public static String DB_FILEPATH = "/data/data/ch.unibe.scg.team3.wordfinder/databases/";
@@ -40,6 +40,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	private MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.context = context;
+		
 	}
 	
 
@@ -127,6 +128,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			String[] selectionArgs, String groupBy, String having,
 			String orderBy) {
 		return getWritableDatabase().query(sql, columns, selection, selectionArgs, groupBy, having, orderBy);
+		
+	}
+
+
+	public void open() {
+		getWritableDatabase ();
 		
 	}
 	
