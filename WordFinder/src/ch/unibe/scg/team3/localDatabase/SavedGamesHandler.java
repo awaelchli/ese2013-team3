@@ -19,7 +19,8 @@ import ch.unibe.scg.team3.game.SavedGame;
  * 
  */
 public class SavedGamesHandler extends DataHandler {
-	
+
+	public static final String TABLE_GAMES = "Games";
 	private final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy, HH:mm", Locale.ENGLISH);
 
 	public SavedGamesHandler(Context context) {
@@ -61,7 +62,7 @@ public class SavedGamesHandler extends DataHandler {
 			values.put("IsPersonal", Boolean.toString(isPersonal));
 			values.put("TimesPlayed", timesPlayed);
 			values.put("Guesses", guesses);
-			long id = helper.insert("Games", null, values);
+			long id = helper.insert(TABLE_GAMES, null, values);
 			game.setId(id);
 			return id;
 		} catch (Exception e) {
@@ -96,65 +97,8 @@ public class SavedGamesHandler extends DataHandler {
 		String whereClause = "_id = ?";
 		String[] whereArgs = { String.valueOf(id) };
 
-		helper.update("Games", values, whereClause, whereArgs);
+		helper.update(TABLE_GAMES, values, whereClause, whereArgs);
 	}
-
-	// /**
-	// *
-	// * @return an ArrayList of SavedGames which contains all Games that are
-	// * saved in the Database. If there are no Games in the Database the
-	// * return is an empty ArrayList.
-	// */
-	//
-	// public ArrayList<SavedGame> getSavedGames() {
-	//
-	// ArrayList<SavedGame> list = new ArrayList<SavedGame>();
-	//
-	// SQLiteDatabase db = helper.getReadableDatabase();
-	//
-	// Cursor c = db.rawQuery("SELECT * FROM Games ORDER BY Date DESC", null);
-	//
-	// if (c != null && c.getCount() != 0) {
-	//
-	// while (c.moveToNext()) {
-	// SavedGame game = new SavedGame();
-	// if (writeDataentryToGame(c, game)) {
-	// list.add(game);
-	// }
-	// }
-	// c.close();
-	// db.close();
-	//
-	// return list;
-	// } else {
-	// c.close();
-	// db.close();
-	// return list;
-	// }
-	//
-	// }
-
-	// /**
-	// *
-	// * @param name
-	// * the name of the Wordlist which is saved in the DataBase
-	// * @return a SavedGame which can be empty when ther was no entry with this
-	// * name in the Database.
-	// */
-	// public SavedGame getSavedGame(String name) {
-	// String[] query = { name };
-	// Cursor c = helper.rawQuery("SELECT * FROM Games WHERE Name = ? ", query);
-	// SavedGame game = new SavedGame();
-	// if (c != null && c.getCount() != 0) {
-	// c.moveToFirst();
-	// writeDataToObject(c, game);
-	// c.close();
-	// return game;
-	// } else {
-	// c.close();
-	// return game;
-	// }
-	// }
 
 	/**
 	 * 
@@ -177,27 +121,6 @@ public class SavedGamesHandler extends DataHandler {
 		}
 	}
 
-	 /**
-	 *
-	 * @param gameName
-	 * @return Boolean value which indicates whether a Game by the Name is in
-	 * the Database.
-	 */
-	 public boolean gameInDatabase(String gameName) {
-	 if (gameName == null) {
-	 return false;
-	 }
-	 Cursor c = helper.rawQuery("SELECT * FROM Games WHERE Name = ?", new
-	 String[] { gameName });
-	 if (c != null && c.getCount() != 0) {
-	 c.close();
-	 return true;
-	 } else {
-	 c.close();
-	 return false;
-	 }
-	 }
-
 	/**
 	 * @param id
 	 *            The id of the game
@@ -205,14 +128,14 @@ public class SavedGamesHandler extends DataHandler {
 	 */
 	public boolean isGameInDatabase(long id) {
 
-		Cursor c = helper.rawQuery("SELECT * FROM Games WHERE _id = " + id, null);
-		if (c != null && c.getCount() != 0) {
-			c.close();
-			return true;
-		} else {
-			c.close();
-			return false;
-		}
+		String[] columns = { "_id" };
+		String selection = "_id = ?";
+		String[] selectionArgs = { String.valueOf(id) };
+
+		Cursor cursor = helper.query(TABLE_GAMES, columns, selection, selectionArgs, null, null,
+				null);
+
+		return cursor != null && cursor.getCount() > 0;
 	}
 
 	public boolean isGameInDatabase(SavedGame game) {
@@ -239,7 +162,8 @@ public class SavedGamesHandler extends DataHandler {
 		game.setDate(sdf.format(new Date(Long.parseLong(cursor.getString(5)))));
 		game.setWordlistId(cursor.getInt(6));
 		game.setScore(cursor.getInt(7));
-		game.setPersonal(Boolean.parseBoolean(cursor.getString(8)));
+		boolean personal = cursor.getInt(8) == 1 ? true : false;
+		game.setPersonal(personal);
 		game.setTimesPlayed(cursor.getInt(9));
 		game.setAttempts(cursor.getInt(10));
 
@@ -253,7 +177,7 @@ public class SavedGamesHandler extends DataHandler {
 	 */
 	public boolean removeGame(long id) {
 		if (isGameInDatabase(id)) {
-			helper.delete("Games", "_id = " + id, null);
+			helper.delete(TABLE_GAMES, "_id = " + id, null);
 			return true;
 		} else {
 			return false;
@@ -283,7 +207,7 @@ public class SavedGamesHandler extends DataHandler {
 		String whereClause = "_id = ?";
 		String[] whereArgs = { String.valueOf(id) };
 
-		int affected = helper.update("Games", values, whereClause, whereArgs);
+		int affected = helper.update(TABLE_GAMES, values, whereClause, whereArgs);
 
 		if (affected == 0) {
 			return false;
@@ -303,7 +227,7 @@ public class SavedGamesHandler extends DataHandler {
 		String[] selectionArgs = { "1" }; // 1 means true
 		String orderBy = "Date DESC";
 
-		Cursor cursor = helper.query("Games", columns, selection, selectionArgs, null, null,
+		Cursor cursor = helper.query(TABLE_GAMES, columns, selection, selectionArgs, null, null,
 				orderBy);
 
 		if (cursor != null && cursor.getCount() != 0) {
@@ -316,6 +240,25 @@ public class SavedGamesHandler extends DataHandler {
 			cursor.close();
 		}
 		return list;
+	}
+
+	/**
+	 * @param id
+	 *            The id of the game
+	 * @return True if the game has been tagged by the user and false if the
+	 *         game is not tagged or the id is not in the database.
+	 */
+	public boolean isTaggedGame(long id) {
+		SavedGame saved = getSavedGame(id);
+
+		if (saved == null || !saved.isPersonal()) {
+			return false;
+		}
+		return true;
+	}
+
+	public boolean isTaggedGame(SavedGame game) {
+		return isTaggedGame(game.getId());
 	}
 
 }
