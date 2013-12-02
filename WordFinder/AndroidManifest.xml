@@ -124,6 +124,7 @@
             android:name="ch.unibe.scg.team3.wordfinder.SentRequestActivity"
             android:label="@string/title_activity_sent_request" >
         </activity>
+        
     </application>
 
 </manifest>
