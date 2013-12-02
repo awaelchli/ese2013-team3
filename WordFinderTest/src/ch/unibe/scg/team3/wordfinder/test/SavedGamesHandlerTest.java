@@ -60,8 +60,8 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements
 		SavedGame saved = new SavedGame();
 		saved = initSavedGame(saved, "Test1");
 		long temp = savedGamesHandler.saveGame(saved);
-		assertTrue(savedGamesHandler.gameInDatabase("Test1"));
-		//assertTrue(savedGamesHandler.gameInDatabase(temp));
+		assertTrue(savedGamesHandler.isGameInDatabase(temp));
+		//assertTrue(savedGamesHandler.isGameInDatabase(temp));
 	}
 
 	public void testRemove() {
@@ -71,13 +71,13 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements
 		saved2 = initSavedGame(saved2, "Test2");
 		long id = savedGamesHandler.saveGame(saved);
 		long temp = savedGamesHandler.saveGame(saved2);
-		assertTrue(savedGamesHandler.gameInDatabase("Test1"));
-		//assertTrue(savedGamesHandler.gameInDatabase(temp));
+		assertTrue(savedGamesHandler.isGameInDatabase(id));
+		//assertTrue(savedGamesHandler.isGameInDatabase(temp));
 		assertTrue(savedGamesHandler.removeGame(saved));
 		assertTrue(savedGamesHandler.removeGame(temp));
-		assertFalse(savedGamesHandler.gameInDatabase("Test1"));
+		assertFalse(savedGamesHandler.isGameInDatabase(id));
 		assertFalse(savedGamesHandler.removeGame(saved));
-		//assertFalse(savedGamesHandler.gameInDatabase(temp));
+		//assertFalse(savedGamesHandler.isGameInDatabase(temp));
 		assertFalse(savedGamesHandler.removeGame(temp));
 	}
 	

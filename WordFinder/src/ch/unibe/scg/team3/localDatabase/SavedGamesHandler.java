@@ -59,7 +59,7 @@ public class SavedGamesHandler extends DataHandler {
 			values.put("Date", date);
 			values.put("Dictionary", wordlist);
 			values.put("Score", score);
-			values.put("IsPersonal", Boolean.toString(isPersonal));
+			values.put("IsPersonal", isPersonal);
 			values.put("TimesPlayed", timesPlayed);
 			values.put("Guesses", guesses);
 			long id = helper.insert(TABLE_GAMES, null, values);
