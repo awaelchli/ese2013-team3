@@ -173,10 +173,10 @@ public class WordlistHandler extends DataHandler {
 		}
 
 
-		String[] contents = { word.toLowerCase() };
+		String[] contents = {word.toLowerCase() };
 
-		Cursor cursor = helper.rawQuery("SELECT Dictionary, Content FROM " + table
-				+ " WHERE Dictionary = '" + wordlistId + "' AND Content = ? ",
+		Cursor cursor = helper.rawQuery("SELECT Dictionary, Content FROM '" + table
+				+ "' WHERE Dictionary = '" + wordlistId + "' AND Content = ? ",
 				contents);
 
 		if (cursor.getCount() != 0) {

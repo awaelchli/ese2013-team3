@@ -3,7 +3,9 @@ package ch.unibe.scg.team3.wordfinder;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.unibe.scg.team3.localDatabase.RequestHandler;
 import ch.unibe.scg.team3.parseQueryAdapter.FriendRequestsAdapter;
+import ch.unibe.scg.team3.user.User;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -18,24 +20,28 @@ import android.widget.ListView;
 
 public class SentRequestActivity extends Activity {
 
-	private ArrayList<ParseUser> requests;
-	ListView requestListView;
-	FriendRequestsAdapter requestAdapter;
+	private ArrayList<User> requests;
+	private ListView requestListView;
+	private FriendRequestsAdapter requestAdapter;
+	private RequestHandler requestHandler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sent_request);
-		requests = new ArrayList<ParseUser>();
+		requests = new ArrayList<User>();
+		requestHandler = new RequestHandler(this.getApplicationContext());
 	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 
 		getFriendRequests();
-		requestAdapter = new FriendRequestsAdapter(this, R.id.sent_requests_list, requests);
-		
-		requestListView = (ListView) findViewById(R.id.sent_requests_list);	
+		requestAdapter = new FriendRequestsAdapter(this,
+				R.id.sent_requests_list, requests);
+
+		requestListView = (ListView) findViewById(R.id.sent_requests_list);
 		requestListView.setAdapter(requestAdapter);
 	}
 
@@ -43,31 +49,11 @@ public class SentRequestActivity extends Activity {
 		ParseUser me = ParseUser.getCurrentUser();
 		if (me != null) {
 			String id = me.getObjectId();
-
-			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-					"Request");
-			query.whereEqualTo("initiator_id", id);
-			query.findInBackground(new FindCallback<ParseObject>(){
-
-				@Override
-				public void done(List<ParseObject> requestList, ParseException arg1) {
-					requests.clear();
-					for(ParseObject request : requestList){
-						
-						String initiatorId = request.getString("subject_id");
-						ParseQuery<ParseUser> query = ParseUser.getQuery();
-						
-						try {
-							query.get(initiatorId);
-							requests.add(query.getFirst());
-							
-							requestListView.setAdapter(requestAdapter);
-						} catch (ParseException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			});
+			requests = requestHandler.getRequestsFromMe(id);
 		}
+		else{
+			requests.clear();
+		}
+		
 	}
 }

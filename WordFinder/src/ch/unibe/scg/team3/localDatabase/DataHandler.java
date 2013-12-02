@@ -20,6 +20,7 @@ public class DataHandler {
 	public DataHandler(Context context) {
 		this.context = context;
 		this.helper = MySQLiteHelper.getInstance(context);
+		helper.open();
 	}
 
 	public synchronized void copyDB() throws IOException {

@@ -1,5 +1,6 @@
 package ch.unibe.scg.team3.parseQueryAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import ch.unibe.scg.team3.user.User;
 import ch.unibe.scg.team3.wordfinder.R;
 
 import com.parse.ParseException;
@@ -15,10 +17,10 @@ import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
-public class FriendRequestsAdapter extends ArrayAdapter<ParseUser> {
+public class FriendRequestsAdapter extends ArrayAdapter<User> {
 
-	public FriendRequestsAdapter(Context context, int resource, List<ParseUser> objects) {
-		super(context, resource, objects);
+	public FriendRequestsAdapter(Context context, int resource, List<User> requests) {
+		super(context, resource, requests);
 	}
 
 	// public FriendRequestsAdapter(Context context,
@@ -36,8 +38,8 @@ public class FriendRequestsAdapter extends ArrayAdapter<ParseUser> {
 		}
 		
 		TextView name = (TextView) convertView.findViewById(R.id.friend_username);
-		ParseUser friend = getItem(position);
-		name.setText(friend.getUsername());
+		User friend = getItem(position);
+		name.setText(friend.getUserName());
 		return convertView;
 	}
 
