@@ -104,4 +104,11 @@ public class HomeActivity extends Activity {
 		//dataHandler.closeDB();
 	}
 	
+	/**
+	 * BugFixing : Deactivates Button.
+	 */
+	@Override
+	public void onBackPressed() {
+	}
+	
 }

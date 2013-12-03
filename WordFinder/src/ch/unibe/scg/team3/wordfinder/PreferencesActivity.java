@@ -31,14 +31,15 @@ public class PreferencesActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.preferences);
 		final ListPreference wordlistPref = (ListPreference) findPreference("choose_wordlist");
 		final Preference signUp = (Preference) findPreference("signUp");
+		final Preference back = (Preference) findPreference("back");
 		login = (Preference) findPreference("login");
 		logout = (Preference) findPreference("logout");
 		wm = new WordlistHandler(this);
 		uh = new UserHandler(this);
 		setListPreferenceData(wordlistPref);
-		if(ParseUser.getCurrentUser() == null){
+		if (ParseUser.getCurrentUser() == null) {
 			login.setEnabled(true);
-		}else{
+		} else {
 			logout.setEnabled(true);
 		}
 
@@ -57,7 +58,16 @@ public class PreferencesActivity extends PreferenceActivity {
 				return true;
 			}
 		});
-		
+		back.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			public boolean onPreferenceClick(Preference preference) {
+			Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+			startActivity(intent);
+			finish();
+			return true;
+			}
+		});
+
 		login.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			public boolean onPreferenceClick(Preference preference) {
@@ -65,7 +75,7 @@ public class PreferencesActivity extends PreferenceActivity {
 				return true;
 			}
 		});
-		
+
 		logout.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			public boolean onPreferenceClick(Preference preference) {
@@ -73,10 +83,12 @@ public class PreferencesActivity extends PreferenceActivity {
 					ParseUser.logOut();
 					login.setEnabled(true);
 					logout.setEnabled(false);
-					Toast toast = Toast.makeText(getApplicationContext(), "You are logged out now ", Toast.LENGTH_LONG);
+					Toast toast = Toast.makeText(getApplicationContext(),
+							"You are logged out now ", Toast.LENGTH_LONG);
 					toast.show();
 				} catch (Exception e) {
-					Toast toast = Toast.makeText(getApplicationContext(), "Logout not successful ", Toast.LENGTH_LONG);
+					Toast toast = Toast.makeText(getApplicationContext(),
+							"Logout not successful ", Toast.LENGTH_LONG);
 					toast.show();
 					e.printStackTrace();
 					return false;
@@ -95,31 +107,37 @@ public class PreferencesActivity extends PreferenceActivity {
 		lp.setEntries(entries);
 		lp.setEntryValues(entryValues);
 	}
-	protected void shareActivity(){
-		Intent intent = new Intent(this,SignUpActivity.class);
+
+	protected void shareActivity() {
+		Intent intent = new Intent(this, SignUpActivity.class);
 		startActivity(intent);
-		//finish();
+		// finish();
 	}
-	protected void loginActivity(){
-		Intent intent = new Intent(this,LoginActivity.class);
+
+	protected void loginActivity() {
+		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
-		//finish();
+		// finish();
 	}
 
 	@Override
 	protected void onResume() {
-		
+
 		super.onResume();
-		if(ParseUser.getCurrentUser() == null){
+		if (ParseUser.getCurrentUser() == null) {
 			login.setEnabled(true);
 			logout.setEnabled(false);
-		}else{
+		} else {
 			logout.setEnabled(true);
 			login.setEnabled(false);
 		}
 	}
 
-	
-	
+	/**
+	 * BugFixing : Deactivates Button.
+	 */
+	@Override
+	public void onBackPressed() {
+	}
 
 }

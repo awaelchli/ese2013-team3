@@ -7,8 +7,8 @@ import ch.unibe.scg.team3.game.SavedGame;
 import ch.unibe.scg.team3.localDatabase.FriendsHandler;
 import ch.unibe.scg.team3.localDatabase.FriendshipHandler;
 import ch.unibe.scg.team3.localDatabase.UserHandler;
-import ch.unibe.scg.team3.parseQueryAdapter.FriendRequestsAdapter;
-import ch.unibe.scg.team3.parseQueryAdapter.FriendsAdapter;
+import ch.unibe.scg.team3.parseQueryAdapter.ReceivedRequestsAdapter;
+import ch.unibe.scg.team3.parseQueryAdapter.SentRequestsAdapter;
 import ch.unibe.scg.team3.sharingService.SyncDatabase;
 import ch.unibe.scg.team3.user.User;
 
@@ -36,12 +36,9 @@ import android.content.Intent;
 public class FriendsActivity extends Activity {
 
 	private ArrayList<User> friends;
-	private ListView friendList;
-	private FriendsAdapter friendsAdapter;
 	private SyncDatabase sync;
 	private FriendsHandler friendsHandler;
 	private FriendshipHandler friendshipHandler;
-	private UserHandler userHandler;
 	private ArrayAdapter<User> adapter;
 
 	@Override
@@ -61,7 +58,6 @@ public class FriendsActivity extends Activity {
 		};
 		friendsHandler = new FriendsHandler(this.getApplicationContext());
 		friendshipHandler = new FriendshipHandler(this.getApplicationContext());
-		userHandler = new UserHandler(this.getApplicationContext());
 
 	}
 
@@ -71,11 +67,11 @@ public class FriendsActivity extends Activity {
 		friends = new ArrayList<User>();
 		sync.sync();
 
-		// friendsAdapter = new FriendsAdapter(this, R.id.friends_list,
+		// sentRequestsAdapter = new SentRequestsAdapter(this, R.id.friends_list,
 		// friends);
 		//
 		// friendList = (ListView) findViewById(R.id.friends_list);
-		// friendList.setAdapter(friendsAdapter);
+		// friendList.setAdapter(sentRequestsAdapter);
 
 		adapter = new ArrayAdapter<User>(this, R.layout.friend_list_item,
 				friends) {
@@ -269,5 +265,16 @@ public class FriendsActivity extends Activity {
 					}
 				});
 
+	}
+	/**
+	 * BugFixing : Deactivates Button.
+	 */
+	@Override
+	public void onBackPressed() {
+	}
+	public void onBack(View view){
+		Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+		startActivity(intent);
+		finish();
 	}
 }

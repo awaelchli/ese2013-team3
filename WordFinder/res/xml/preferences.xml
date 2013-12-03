@@ -12,11 +12,11 @@
             android:key="choose_wordlist"
             android:entries="@array/wordlist_entries"
             android:entryValues="@array/wordlist_entryValues"
-            android:defaultValue="1"/>
-        <Preference 
-            android:title="Edit Wordlists"
-            android:key="edit_wordlists" >
-            </Preference>
+            android:defaultValue="1" android:negativeButtonText="Cancel"/>
+<!--         <Preference  -->
+<!--             android:title="Edit Wordlists" -->
+<!--             android:key="edit_wordlists" > -->
+<!--             </Preference> -->
     </PreferenceCategory>
 	 
 	<PreferenceCategory 
@@ -29,5 +29,7 @@
 		<Preference android:title="Logout" android:key="logout" android:enabled="false"/>			
         
     </PreferenceCategory>
+	<Preference android:title="Go Back" android:key="back"/>
+	
     
 </PreferenceScreen>

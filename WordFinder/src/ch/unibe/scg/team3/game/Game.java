@@ -17,7 +17,7 @@ import ch.unibe.scg.team3.wordfinder.R;
 
 public class Game extends AbstractGame {
 
-	public static final int DEFAULT_MIN_WORDS_TO_FIND = 1;
+	public static final int DEFAULT_MIN_WORDS_TO_FIND = 5;
 	public static final long TIME_LIMIT = 2 * 60000;
 
 	private final WordlistHandler wordlistHandler;
@@ -174,6 +174,7 @@ public class Game extends AbstractGame {
 
 			@Override
 			public void onFinish() {
+				remainingTime = 0;
 				notifyObservers(new Event(Event.GAME_OVER));
 				timeOver = true;
 			}

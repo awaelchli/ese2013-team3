@@ -73,6 +73,12 @@ public class SignUpActivity extends Activity {
 		  }
 		});
 	}
+	/**
+	 * BugFixing : Deactivates Button.
+	 */
+	@Override
+	public void onBackPressed() {
+	}
 	
 
 }

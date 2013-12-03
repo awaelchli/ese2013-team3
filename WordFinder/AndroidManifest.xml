@@ -59,7 +59,8 @@
             android:name="ch.unibe.scg.team3.wordfinder.PreferencesActivity"
             android:label="@string/title_activity_preferences"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait" 
+            android:parentActivityName="ch.unibe.scg.team3.wordfinder.HomeActivity">
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.SavedGamesActivity"
@@ -114,15 +115,18 @@
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.SentRequests"
-            android:label="@string/title_activity_sent_requests" >
+            android:label="@string/title_activity_sent_requests" 
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.ReceivedRequestsActivity"
-            android:label="@string/title_activity_received_requests" >
+            android:label="@string/title_activity_received_requests" 
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.SentRequestActivity"
-            android:label="@string/title_activity_sent_request" >
+            android:label="@string/title_activity_sent_request" 
+            android:screenOrientation="portrait">
         </activity>
         
     </application>

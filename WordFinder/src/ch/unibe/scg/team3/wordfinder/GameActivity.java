@@ -173,4 +173,11 @@ public class GameActivity extends Activity implements IGameObserver {
 		int id = Integer.parseInt(selectedWordlist);
 		return id;
 	}
+	/**
+	 * BugFixing : Deactivates Button.
+	 */
+	@Override
+	public void onBackPressed() {
+	}
+	
 }

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.unibe.scg.team3.localDatabase.RequestHandler;
-import ch.unibe.scg.team3.parseQueryAdapter.FriendRequestsAdapter;
-import ch.unibe.scg.team3.parseQueryAdapter.FriendsAdapter;
+import ch.unibe.scg.team3.parseQueryAdapter.ReceivedRequestsAdapter;
+import ch.unibe.scg.team3.parseQueryAdapter.SentRequestsAdapter;
 import ch.unibe.scg.team3.sharingService.Request;
 import ch.unibe.scg.team3.user.User;
 
@@ -17,13 +17,15 @@ import com.parse.ParseUser;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ListView;
 
 public class ReceivedRequestsActivity extends Activity {
 	private ArrayList<User> requests;
 	private ListView requestListView;
-	private FriendRequestsAdapter requestAdapter;
+	private ReceivedRequestsAdapter requestAdapter;
 	private RequestHandler requestHandler;
 
 	@Override
@@ -39,7 +41,7 @@ public class ReceivedRequestsActivity extends Activity {
 		super.onResume();
 
 		getFriendRequests();
-		requestAdapter = new FriendRequestsAdapter(this,R.id.received_requests_list, requests);
+		requestAdapter = new ReceivedRequestsAdapter(this,R.id.received_requests_list, requests);
 
 		requestListView = (ListView) findViewById(R.id.received_requests_list);
 		requestListView.setAdapter(requestAdapter);
@@ -54,5 +56,16 @@ public class ReceivedRequestsActivity extends Activity {
 		else{
 			requests.clear();
 		}
+	}
+	/**
+	 * BugFixing : Deactivates Button.
+	 */
+	@Override
+	public void onBackPressed() {
+	}
+	public void onBack(View view){
+		Intent intent = new Intent(getApplicationContext(),FriendsActivity.class);
+		startActivity(intent);
+		finish();
 	}
 }

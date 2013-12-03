@@ -14,9 +14,9 @@ import ch.unibe.scg.team3.wordfinder.R;
 
 import com.parse.*;
 
-public class FriendRequestsAdapter extends ArrayAdapter<User> {
+public class ReceivedRequestsAdapter extends ArrayAdapter<User> {
 
-	public FriendRequestsAdapter(Context context, int resource, List<User> requests) {
+	public ReceivedRequestsAdapter(Context context, int resource, List<User> requests) {
 		super(context, resource, requests);
 	}
 

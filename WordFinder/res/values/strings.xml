@@ -20,5 +20,6 @@
     <string name="title_activity_sent_requests">SentRequests</string>
     <string name="title_activity_received_requests">ReceivedRequestsActivity</string>
     <string name="title_activity_sent_request">SentRequestActivity</string>
+    <string name="back_button">Back</string>
 
 </resources>
