@@ -6,26 +6,34 @@ public class Friendship {
 	private String friendshipId;
 	private String userId;
 	private String friendId;
+
 	public Friendship(String objectId, String userId, String friendId) {
 		this.friendshipId = objectId;
 		this.userId = userId;
 		this.friendId = friendId;
 	}
+
+    
 	public String getFriendshipId() {
 		return friendshipId;
 	}
 	public void setFriendshipId(String objectId) {
 		this.friendshipId = objectId;
+
 	}
+
 	public String getUserId() {
 		return userId;
 	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
 	public String getFriendId() {
 		return friendId;
 	}
+
 	public void setFriendId(String friendId) {
 		this.friendId = friendId;
 	}

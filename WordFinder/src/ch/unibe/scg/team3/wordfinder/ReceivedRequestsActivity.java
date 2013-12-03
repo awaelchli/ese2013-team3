@@ -31,7 +31,7 @@ public class ReceivedRequestsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_received_requests);
 		requests = new ArrayList<User>();
-		requestHandler = new RequestHandler(this.getApplicationContext());
+		requestHandler = new RequestHandler(this);
 	}
 
 	@Override
