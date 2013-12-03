@@ -2,20 +2,19 @@ package ch.unibe.scg.team3.user;
 
 import com.parse.ParseObject;
 
-
-/** 
-* 
-* @author viviane
-*/
+/**
+ * 
+ * @author viviane
+ */
 public abstract class AbstractUser {
-	
+
 	protected String email;
 	protected String userName;
 	protected String userID;
 
 	public AbstractUser(String userID, String userName, String email) {
-		this.email=email;
-		this.userName=userName;
+		this.email = email;
+		this.userName = userName;
 		this.userID = userID;
 	}
 
@@ -27,7 +26,7 @@ public abstract class AbstractUser {
 	}
 
 	public void setEmail(String email) {
-		//TODO assert email is an mail address
+		// TODO assert email is an mail address
 		this.email = email;
 	}
 
@@ -42,19 +41,18 @@ public abstract class AbstractUser {
 	public String getUserID() {
 		return userID;
 	}
-	
-	public void setUserId(String userId){
+
+	public void setUserId(String userId) {
 		this.userID = userId;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
-		if(!(o instanceof User ))
-		{
+		if (!(o instanceof User)) {
 			return false;
 		}
 		User other = (User) o;
-		if(!other.getUserID().equals(this.getUserID())){
+		if (!other.getUserID().equals(this.getUserID())) {
 			return false;
 		}
 		return true;

@@ -32,23 +32,23 @@ public class FriendshipHandler extends DataHandler {
 
 	public void setFriendship(Friendship dbfriendship) {
 		ContentValues c = new ContentValues();
-		c.put("friendship_id", dbfriendship.getObjectId());
+		c.put("friendship_id", dbfriendship.getFriendshipId());
 		c.put("user_id", dbfriendship.getUserId());
 		c.put("friend_id", dbfriendship.getFriendId());
-		if (!isFriendshipinDb(dbfriendship.getObjectId())) {
+		if (!isFriendshipinDb(dbfriendship.getFriendshipId())) {
 			helper.insert("Friendship", null, c);
 
 		}
 	}
 
-	public List<Friendship> getFriendships() {
-		List<Friendship> friendships = new ArrayList<Friendship>();
+	public ArrayList<Friendship> getFriendships() {
+		ArrayList<Friendship> friendships = new ArrayList<Friendship>();
 		Cursor c = helper.rawQuery("SELECT * FROM Friendship", null);
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
 			while (c.moveToNext()) {
-				friendships.add(new Friendship(c.getString(0), c.getString(1),
-						c.getString(2)));
+				friendships.add(new Friendship(c.getString(2), c.getString(0),
+						c.getString(1)));
 			}
 			c.close();
 		} else {
@@ -58,16 +58,17 @@ public class FriendshipHandler extends DataHandler {
 	}
 
 	public void remove(Friendship deletedfriendship) {
-		helper.delete("Friendship", "friendship_id = ?",
-				new String[] { deletedfriendship.getObjectId() });
+		int test;
+		test = helper.delete("Friendship", "friendship_id = ?",
+				new String[] { deletedfriendship.getFriendshipId() });
 
 	}
 
-	public List<String> getFriendshipsOfUser(String userid) {
-		List<String> list = new ArrayList<String>();
+	public ArrayList<String> getFriendshipsOfUser(String userid) {
+		ArrayList<String> list = new ArrayList<String>();
 		Cursor c = helper.rawQuery(
-				"SELECT user_id, friend_id FROM Friendship WHERE user_id = ? "
-						+ "OR friend_id =?", new String[] { userid, userid });
+				"SELECT user_id, friend_id FROM Friendship WHERE (user_id = ? "
+						+ "OR friend_id = ? )", new String[] { userid, userid });
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
 			while (!c.isAfterLast()) {
