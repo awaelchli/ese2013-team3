@@ -13,7 +13,7 @@ public abstract class AbstractUser {
 	protected String userName;
 	protected String userID;
 
-	public AbstractUser(String email, String userName, String userID) {
+	public AbstractUser(String userID, String userName, String email) {
 		this.email=email;
 		this.userName=userName;
 		this.userID = userID;
@@ -45,5 +45,18 @@ public abstract class AbstractUser {
 	
 	public void setUserId(String userId){
 		this.userID = userId;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(!(o instanceof User ))
+		{
+			return false;
+		}
+		User other = (User) o;
+		if(!other.getUserID().equals(this.getUserID())){
+			return false;
+		}
+		return true;
 	}
 }

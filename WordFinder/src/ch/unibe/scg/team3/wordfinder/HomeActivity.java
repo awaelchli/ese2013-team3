@@ -23,7 +23,7 @@ import ch.unibe.scg.team3.localDatabase.WordlistHandler;
  * @author adrian
  */
 public class HomeActivity extends Activity {
-	DataHandler wordlistHandler;;
+	DataHandler dataHandler;;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class HomeActivity extends Activity {
 		Parse.initialize(this, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK",
 				"FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
 		ParseAnalytics.trackAppOpened(getIntent());
-		
+	
 		
 	}
 	
@@ -40,20 +40,21 @@ public class HomeActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 
-		wordlistHandler = new WordlistHandler(this);
+		
 		File database = new File(
 				"/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
 
 		if (!database.exists()) {
 			try {
-
-				wordlistHandler.copyDB();
-				wordlistHandler = new WordlistHandler(this);
+				dataHandler = new DataHandler(this);
+				dataHandler.copyDB();
+				
 
 				PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			dataHandler = new DataHandler(this);
 		}
 		
 		ParseUser me = ParseUser.getCurrentUser();
@@ -98,9 +99,9 @@ public class HomeActivity extends Activity {
 	}
 
 	@Override
-	protected void onStop() {
+	protected void onDestroy() {
 		super.onStop();
-		wordlistHandler.closeDB();
+		//dataHandler.closeDB();
 	}
 	
 }

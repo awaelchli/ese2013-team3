@@ -16,14 +16,15 @@ import com.parse.SignUpCallback;
  */
 public class User extends AbstractUser {
 
-	public User(String email, String userName, String userid) {
-		super(email, userName, userid);
+	public User(String userid, String userName,String email) {
+		super(userid, userName, email);
 		
 	}
 	
 	public User() {
 		super();
 	}
+
 
 
 }

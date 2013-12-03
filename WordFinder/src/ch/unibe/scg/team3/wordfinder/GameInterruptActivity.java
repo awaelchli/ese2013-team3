@@ -11,12 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.unibe.scg.team3.game.SavedGame;
-import ch.unibe.scg.team3.game.Timer;
 import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 
 /**
  * @author lukas
  * @author nils
+ * @author adrian
  */
 public class GameInterruptActivity extends Activity {
 
@@ -33,14 +33,15 @@ public class GameInterruptActivity extends Activity {
 		handler = new SavedGamesHandler(this);
 		Intent intent = getIntent();
 
-		long old_id = intent.getLongExtra("old_saved_game_id",-1);
+		long old_id = intent.getLongExtra("old_saved_game_id", -1);
 		long id = intent.getLongExtra("saved_game_id", -1);
 
 		if (!handler.isGameInDatabase(id)) {
 			makePauseInterface();
-			
-		} else if(!handler.isGameInDatabase(old_id)) {
+
+		} else if (!handler.isGameInDatabase(old_id)) {
 			game = handler.getSavedGame(id);
+			oldGame = game;
 			makeEndGameInterface();
 		} else {
 			game = handler.getSavedGame(id);
@@ -66,33 +67,38 @@ public class GameInterruptActivity extends Activity {
 		replay.setVisibility(View.VISIBLE);
 		save.setVisibility(View.VISIBLE);
 	}
-	
+
 	private void makeCompareInterface() {
-		
+
 		displayComparedStats(game, oldGame);
-		
+
 		Button replay = (Button) findViewById(R.id.replay_button);
-		Button update = (Button) findViewById(R.id.update_button);
-		
-		update.setVisibility(View.VISIBLE);
+		Button update_save;
+
+		if (handler.isTaggedGame(oldGame)) {
+			update_save = (Button) findViewById(R.id.update_button);
+		} else {
+			update_save = (Button) findViewById(R.id.save_button);
+		}
+
+		update_save.setVisibility(View.VISIBLE);
 		replay.setVisibility(View.VISIBLE);
-		
+
 	}
 
 	private void displayGameStats(SavedGame game) {
 		TextView stats = (TextView) findViewById(R.id.display_Stats);
 		stats.append(game.toString());
 	}
-	
+
 	private void displayComparedStats(SavedGame game, SavedGame oldGame) {
 		displayGameStats(game);
-		
+
 		TextView stats = (TextView) findViewById(R.id.display_Stats);
 		stats.append("\n\nYour old stats on this board:\n\n");
-		
+
 		displayGameStats(oldGame);
 	}
-
 
 	public void newGame(View view) {
 		GameActivity.instance.finish();
@@ -104,14 +110,17 @@ public class GameInterruptActivity extends Activity {
 	public void replayGame(View view) {
 		GameActivity.instance.finish();
 		Intent intent = new Intent(this, GameActivity.class);
-		intent.putExtra("saved_game_id", game.getId());
+		intent.putExtra("saved_game_id", oldGame.getId());
 		startActivity(intent);
 		finish();
 	}
-	
-	public void updateGame(View view){
-		handler.updateGame(oldGame);
-		Toast msg =Toast.makeText(this, "Game updated." , Toast.LENGTH_SHORT);
+
+	public void updateGame(View view) {
+		long tmp = game.getId();
+		game.setId(oldGame.getId());
+		handler.updateGame(game);
+		game.setId(tmp);
+		Toast msg = Toast.makeText(this, "Game updated.", Toast.LENGTH_SHORT);
 		msg.show();
 	}
 
@@ -129,6 +138,7 @@ public class GameInterruptActivity extends Activity {
 	}
 
 	public void enterTitle(final View view) {
+		
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 		alert.setTitle("Save Game");
@@ -137,52 +147,44 @@ public class GameInterruptActivity extends Activity {
 		final EditText input = new EditText(this);
 		alert.setView(input);
 
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
+				
 				String value = input.getText().toString();
-				// game.setName(value);
+				
 				if (handler.tagSavedGame(value, game.getId())) {
 					goHome(null);
-				} else
-					reenterTitle(view);
+				} 
 			}
 		});
 
-		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				// Canceled.
-			}
-		});
+		alert.setNegativeButton("Cancel", null);
 
 		alert.show();
 	}
 
-	public void reenterTitle(final View view) {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-		alert.setTitle("Game already in Database");
-		alert.setMessage("Please choose another Title for your game.");
-
-		final EditText input = new EditText(this);
-		alert.setView(input);
-
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				String value = input.getText().toString();
-				// game.setName(value);
-				if (handler.tagSavedGame(value, game.getId())) {
-					goHome(null);
-				} else
-					enterTitle(view);
-			}
-		});
-
-		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				// Canceled.
-			}
-		});
-
-		alert.show();
-	}
+//	public void reenterTitle(final View view) {
+//		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+//
+//		alert.setTitle("Game already in Database");
+//		alert.setMessage("Please choose another Title for your game.");
+//
+//		final EditText input = new EditText(this);
+//		alert.setView(input);
+//
+//		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//			public void onClick(DialogInterface dialog, int whichButton) {
+//				String value = input.getText().toString();
+//				// game.setName(value);
+//				if (handler.tagSavedGame(value, game.getId())) {
+//					goHome(null);
+//				} else
+//					enterTitle(view);
+//			}
+//		});
+//
+//		alert.setNegativeButton("Cancel", null);
+//
+//		alert.show();
+//	}
 }
