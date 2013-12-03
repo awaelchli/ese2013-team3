@@ -1,5 +1,7 @@
 package ch.unibe.scg.team3.sharingService;
 
+import ch.unibe.scg.team3.user.User;
+
 public class Request {
 	protected String requestid;
 	protected String initiator;
@@ -26,5 +28,18 @@ public class Request {
 	}
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(!(o instanceof Request ))
+		{
+			return false;
+		}
+		Request other = (Request) o;
+		if(!other.getRequestid().equals(this.getRequestid())){
+			return false;
+		}
+		return true;
 	}
 }

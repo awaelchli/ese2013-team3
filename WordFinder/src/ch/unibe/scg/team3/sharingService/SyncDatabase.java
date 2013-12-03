@@ -48,10 +48,10 @@ public class SyncDatabase {
 
 					}
 				}
-				boolean teste;
+				
 				ArrayList<User> usersindb = userHandler.getUsers();
 				for(User dbUser:usersonparse){
-				teste = usersindb.remove(dbUser);
+				usersindb.remove(dbUser);
 				}
 
 				for (User deleteduser : usersindb) {
@@ -101,7 +101,7 @@ public class SyncDatabase {
 			@Override
 			public void done(List<ParseObject> friendshipList,
 					ParseException arg1) {
-				List<Friendship> friendshipsonparse = new ArrayList<Friendship>();
+				ArrayList<Friendship> friendshipsonparse = new ArrayList<Friendship>();
 				for (ParseObject friendship : friendshipList) {
 					String userId = friendship.getString("user_id");
 					String friendId = friendship.getString("friend_id");
@@ -114,15 +114,17 @@ public class SyncDatabase {
 
 					}
 				}
-				List<Friendship> friendshipsindb = friendshipHandler
-						.getFriendships();
-				friendshipsindb.removeAll(friendshipsonparse);
+				ArrayList<Friendship> friendshipsindb = friendshipHandler.getFriendships();
+				for(Friendship friendshiponparse:friendshipsonparse){
+					friendshipsindb.remove(friendshiponparse);
+					}
 
 				for (Friendship deletedfriendship : friendshipsindb) {
 					friendshipHandler.remove(deletedfriendship);
 
 				}
 				syncRequests();
+				
 
 			}
 		});
