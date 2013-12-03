@@ -16,7 +16,7 @@ import ch.unibe.scg.team3.localDatabase.RequestHandler;
 import ch.unibe.scg.team3.localDatabase.UserHandler;
 import ch.unibe.scg.team3.user.User;
 
-public class SyncDatabase {
+public abstract class SyncDatabase {
 	private UserHandler userHandler;
 	private FriendshipHandler friendshipHandler;
 	private RequestHandler requestHandler;
@@ -34,7 +34,7 @@ public class SyncDatabase {
 
 			@Override
 			public void done(List<ParseUser> users, ParseException arg1) {
-				ArrayList<User> usersonparse = new ArrayList<User>();
+				ArrayList<User> usersOnParse = new ArrayList<User>();
 				for (ParseUser user : users) {
 
 					String user_id = user.getObjectId();
@@ -42,22 +42,23 @@ public class SyncDatabase {
 					String email = user.getString("email");
 
 					User dbuser = new User(user_id, username, email);
-					usersonparse.add(dbuser);
+					usersOnParse.add(dbuser);
 					if (!userHandler.isUserinDb(user_id)) {
 						userHandler.setUser(dbuser);
 
 					}
 				}
-				
+
 				ArrayList<User> usersindb = userHandler.getUsers();
-				for(User dbUser:usersonparse){
-				usersindb.remove(dbUser);
+				for (User dbUser : usersOnParse) {
+					usersindb.remove(dbUser);
 				}
 
 				for (User deleteduser : usersindb) {
 					userHandler.remove(deleteduser);
 				}
 				syncFriendships();
+
 			}
 		});
 	}
@@ -88,6 +89,7 @@ public class SyncDatabase {
 					requestHandler.remove(deletedrequest);
 
 				}
+				finished();
 			}
 		});
 
@@ -101,34 +103,43 @@ public class SyncDatabase {
 			@Override
 			public void done(List<ParseObject> friendshipList,
 					ParseException arg1) {
+				
 				ArrayList<Friendship> friendshipsonparse = new ArrayList<Friendship>();
+				
 				for (ParseObject friendship : friendshipList) {
 					String userId = friendship.getString("user_id");
 					String friendId = friendship.getString("friend_id");
 					String objectId = friendship.getObjectId();
+					
 					Friendship dbfriendship = new Friendship(objectId, userId,
 							friendId);
+					
 					friendshipsonparse.add(dbfriendship);
+					
 					if (!friendshipHandler.isFriendshipinDb(objectId)) {
 						friendshipHandler.setFriendship(dbfriendship);
 
 					}
 				}
-				ArrayList<Friendship> friendshipsindb = friendshipHandler.getFriendships();
-				for(Friendship friendshiponparse:friendshipsonparse){
+				
+				ArrayList<Friendship> friendshipsindb = friendshipHandler
+						.getFriendships();
+				
+				for (Friendship friendshiponparse : friendshipsonparse) {
 					friendshipsindb.remove(friendshiponparse);
-					}
+				}
 
 				for (Friendship deletedfriendship : friendshipsindb) {
 					friendshipHandler.remove(deletedfriendship);
 
 				}
 				syncRequests();
-				
 
 			}
 		});
 
 	}
+
+	public abstract void finished();
 
 }

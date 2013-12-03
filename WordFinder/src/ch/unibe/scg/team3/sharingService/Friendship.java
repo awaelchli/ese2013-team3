@@ -45,7 +45,7 @@ public class Friendship {
 			return false;
 		}
 		Friendship other = (Friendship) o;
-		if(!other.getFriendshipId().equals(this.getFriendshipId())){
+		if(!other.getFriendshipId().equals(getFriendshipId())){
 			return false;
 		}
 		return true;

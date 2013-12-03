@@ -42,14 +42,23 @@ public class FriendsActivity extends Activity {
 	private FriendsHandler friendsHandler;
 	private FriendshipHandler friendshipHandler;
 	private UserHandler userHandler;
-	private ArrayAdapter<User>adapter;
+	private ArrayAdapter<User> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_friends);
-		
-		sync = new SyncDatabase(this);
+
+		sync = new SyncDatabase(this) {
+
+			@Override
+			public void finished() {
+				if (adapter != null) {
+					getFriends();
+				}
+			}
+
+		};
 		friendsHandler = new FriendsHandler(this.getApplicationContext());
 		friendshipHandler = new FriendshipHandler(this.getApplicationContext());
 		userHandler = new UserHandler(this.getApplicationContext());
@@ -61,15 +70,15 @@ public class FriendsActivity extends Activity {
 		super.onResume();
 		friends = new ArrayList<User>();
 		sync.sync();
-		
+
 		// friendsAdapter = new FriendsAdapter(this, R.id.friends_list,
 		// friends);
 		//
 		// friendList = (ListView) findViewById(R.id.friends_list);
 		// friendList.setAdapter(friendsAdapter);
 
-		adapter = new ArrayAdapter<User>(this,
-				R.layout.friend_list_item, friends) {
+		adapter = new ArrayAdapter<User>(this, R.layout.friend_list_item,
+				friends) {
 
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
@@ -92,21 +101,22 @@ public class FriendsActivity extends Activity {
 
 		};
 		getFriends();
-		adapter.notifyDataSetChanged();
 		ListView list = (ListView) findViewById(R.id.friends_list);
 		list.setAdapter(adapter);
-		
 
 	}
 
+	@SuppressLint("NewApi")
 	private void getFriends() {
 		ParseUser me = ParseUser.getCurrentUser();
 		if (me != null) {
 			String id = me.getObjectId();
 			friends = friendsHandler.getFriends(id);
+			adapter.clear();
+			adapter.addAll(friends);
 			adapter.notifyDataSetChanged();
 		} else {
-			friends.clear();
+			adapter.clear();
 			adapter.notifyDataSetChanged();
 		}
 
@@ -240,22 +250,24 @@ public class FriendsActivity extends Activity {
 		String friendshipId = friendshipHandler.getFriendship(me,
 				user.getUserID());
 
-		final ParseQuery<ParseObject> friendships = ParseQuery.getQuery("Friendship");
+		final ParseQuery<ParseObject> friendships = ParseQuery
+				.getQuery("Friendship");
 		friendships.whereEqualTo("objectId", friendshipId);
 
-		friendships.getInBackground(friendshipId, new GetCallback<ParseObject>() {
-			@Override
-			public void done(ParseObject object, ParseException e) {
-				if (e == null) {
-					try {
-						friendships.getFirst().deleteInBackground();
-					} catch (ParseException e1) {
-						
+		friendships.getInBackground(friendshipId,
+				new GetCallback<ParseObject>() {
+					@Override
+					public void done(ParseObject object, ParseException e) {
+						if (e == null) {
+							try {
+								friendships.getFirst().deleteInBackground();
+							} catch (ParseException e1) {
+
+							}
+						}
+
 					}
-				}
-				
-			}
-		});
+				});
 
 	}
 }

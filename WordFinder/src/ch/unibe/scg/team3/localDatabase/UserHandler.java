@@ -41,7 +41,6 @@ public class UserHandler extends DataHandler {
 			helper.insert("User", null, c);
 		} catch (Exception e) {
 			e.printStackTrace();
-		
 			return false;
 		}
 		
