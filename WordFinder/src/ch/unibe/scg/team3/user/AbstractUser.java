@@ -54,7 +54,7 @@ public abstract class AbstractUser {
 			return false;
 		}
 		User other = (User) o;
-		if(other.getUserID() != this.getUserID()){
+		if(!other.getUserID().equals(this.getUserID())){
 			return false;
 		}
 		return true;

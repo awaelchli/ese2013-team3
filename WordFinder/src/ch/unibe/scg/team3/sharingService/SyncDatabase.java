@@ -34,7 +34,7 @@ public class SyncDatabase {
 
 			@Override
 			public void done(List<ParseUser> users, ParseException arg1) {
-				List<User> usersonparse = new ArrayList<User>();
+				ArrayList<User> usersonparse = new ArrayList<User>();
 				for (ParseUser user : users) {
 
 					String user_id = user.getObjectId();
@@ -48,12 +48,15 @@ public class SyncDatabase {
 
 					}
 				}
-//				List<User> usersindb = userHandler.getUsers();
-//				usersindb.removeAll(usersonparse);
-//
-//				for (User deleteduser : usersindb) {
-//					userHandler.remove(deleteduser);
-//				}
+				boolean teste;
+				ArrayList<User> usersindb = userHandler.getUsers();
+				for(User dbUser:usersonparse){
+				teste = usersindb.remove(dbUser);
+				}
+
+				for (User deleteduser : usersindb) {
+					userHandler.remove(deleteduser);
+				}
 				syncFriendships();
 			}
 		});

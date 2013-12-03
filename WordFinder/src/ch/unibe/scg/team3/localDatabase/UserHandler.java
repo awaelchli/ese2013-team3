@@ -62,8 +62,8 @@ public class UserHandler extends DataHandler {
 		}
 	}
 
-	public List<User> getUsers() {
-		List<User> users = new ArrayList<User>();
+	public ArrayList<User> getUsers() {
+		ArrayList<User> users = new ArrayList<User>();
 		Cursor c = helper.rawQuery("SELECT * FROM User", null);
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();

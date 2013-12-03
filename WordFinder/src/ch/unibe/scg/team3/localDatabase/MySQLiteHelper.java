@@ -26,7 +26,7 @@ import ch.unibe.scg.team3.wordfinder.R;
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "localDatabase.db";
-	private static int DATABASE_VERSION = 14;
+	private static int DATABASE_VERSION = 15;
 
 	// TODO: read about this hint
 	public static String DB_FILEPATH = "/data/data/ch.unibe.scg.team3.wordfinder/databases/";
