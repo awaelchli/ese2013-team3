@@ -35,8 +35,9 @@ public class FriendshipHandler extends DataHandler {
 		c.put("friendship_id", dbfriendship.getFriendshipId());
 		c.put("user_id", dbfriendship.getUserId());
 		c.put("friend_id", dbfriendship.getFriendId());
+		long test;
 		if (!isFriendshipinDb(dbfriendship.getFriendshipId())) {
-			helper.insert("Friendship", null, c);
+			test = helper.insert("Friendship", null, c);
 
 		}
 	}

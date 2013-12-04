@@ -60,7 +60,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	}
 
 	@Override
-	public void onOpen(SQLiteDatabase db) {
+	public synchronized void onOpen(SQLiteDatabase db) {
 		super.onOpen(db);
 		if (!db.isReadOnly()) {
 			// Enable foreign key constraints

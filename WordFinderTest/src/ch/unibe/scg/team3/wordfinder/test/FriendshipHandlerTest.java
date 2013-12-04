@@ -19,18 +19,21 @@ public class FriendshipHandlerTest extends AndroidTestCase implements
 	protected FriendshipHandler friendshipHandler;
 
 	public void testTestAddRemoveFriend() {
-		Friendship friendship = new Friendship("objectId", "userId",
-				"friendId");
+		String friendId="uRUAvXdqpb";
+		String userId="dF3mG5wK9k";
+		String objectId="YPl0S2DWmz";
+		Friendship friendship = new Friendship(objectId, userId, friendId);
 		friendshipHandler.setFriendship(friendship);
-		assertTrue(friendshipHandler.isFriendshipinDb("objectID"));
+		assertTrue(friendshipHandler.isFriendshipinDb(objectId));
+		
 		List<Friendship> friendships = friendshipHandler.getFriendships();
 		assertEquals(friendships.size(), 1);
-		assertEquals(friendships.get(0).getObjectId(), "objectId");
-		assertEquals(friendships.get(0).getFriendId(), "friendId");
-		assertEquals(friendships.get(0).getUserId(), "userId");
+		assertEquals(friendships.get(0).getFriendId(), friendId);
+		assertEquals(friendships.get(0).getUserId(), userId);
+		
 		friendshipHandler.remove(friendship);
 		friendships = friendshipHandler.getFriendships();
-		assertFalse(friendshipHandler.isFriendshipinDb("objectID"));
+		assertFalse(friendshipHandler.isFriendshipinDb(objectId));
 		assertEquals(friendships.size(), 0);
 		
 	}
