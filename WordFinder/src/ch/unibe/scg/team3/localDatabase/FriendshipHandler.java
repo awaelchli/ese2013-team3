@@ -47,10 +47,12 @@ public class FriendshipHandler extends DataHandler {
 		Cursor c = helper.rawQuery("SELECT * FROM Friendship", null);
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
-			while (c.moveToNext()) {
+			while (!c.isAfterLast()) {
 				friendships.add(new Friendship(c.getString(2), c.getString(0),
 						c.getString(1)));
+				c.moveToNext();
 			}
+			
 			c.close();
 		} else {
 			c.close();
@@ -61,7 +63,7 @@ public class FriendshipHandler extends DataHandler {
 	public void remove(Friendship deletedfriendship) {
 		int test;
 		test = helper.delete("Friendship", "friendship_id = ?",
-				new String[] { deletedfriendship.getFriendshipId() });
+				new String[] {deletedfriendship.getFriendshipId()});
 
 	}
 

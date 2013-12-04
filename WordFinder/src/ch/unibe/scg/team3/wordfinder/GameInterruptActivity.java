@@ -70,15 +70,18 @@ public class GameInterruptActivity extends Activity {
 
 	private void makeCompareInterface() {
 
-		displayComparedStats(game, oldGame);
+//		displayComparedStats(game, oldGame);
 
 		Button replay = (Button) findViewById(R.id.replay_button);
 		Button update_save;
 
 		if (handler.isTaggedGame(oldGame)) {
 			update_save = (Button) findViewById(R.id.update_button);
+			displayComparedStats(game, oldGame);
+
 		} else {
 			update_save = (Button) findViewById(R.id.save_button);
+			displayGameStats(game);
 		}
 
 		update_save.setVisibility(View.VISIBLE);
@@ -187,4 +190,11 @@ public class GameInterruptActivity extends Activity {
 //
 //		alert.show();
 //	}
+	
+	/**
+	 * BugFixing : Deactivates Button.
+	 */
+	@Override
+	public void onBackPressed() {
+	}
 }

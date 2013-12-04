@@ -21,5 +21,6 @@
 
     <string name="quit_game_button">Quit</string>
     <string name="pause_game_button">Pause</string>
+    <string name="active_wordlist_string">"Wordlist : "</string>
 
 </resources>

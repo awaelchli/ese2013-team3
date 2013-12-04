@@ -69,5 +69,11 @@ public class LoginActivity extends Activity {
 			});
 		
 	}
+	/**
+	 * BugFixing : Deactivates Button.
+	 */
+	@Override
+	public void onBackPressed() {
+	}
 
 }

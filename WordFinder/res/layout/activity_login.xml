@@ -32,8 +32,9 @@
             android:id="@+id/username_edit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:ems="10" 
-            android:layout_weight="0.33"/>
+            android:layout_weight="0.33"
+            android:ems="10"
+            android:inputType="textPersonName" />
        
     </LinearLayout>
 
@@ -59,11 +60,11 @@
     </LinearLayout>
 
     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_gravity="bottom"
-         android:gravity="bottom"
-         android:weightSum="2" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:weightSum="2" >
 
         <Button
             android:id="@+id/login_ok_button"
