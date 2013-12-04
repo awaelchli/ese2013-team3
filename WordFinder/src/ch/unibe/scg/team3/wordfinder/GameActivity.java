@@ -62,7 +62,8 @@ public class GameActivity extends Activity implements IGameObserver {
 
 		if (game == null) {
 			loadGame();
-
+			String wordlistnameOfSavedGame = wordlistHandler.getWordlistNameById(game.getWordlistId());
+			activeWordlist.setText("Wordlist: "+ wordlistnameOfSavedGame);
 			game.addObserver(boardUI);
 			game.addObserver(found);
 			game.addObserver(scoreView);
@@ -113,6 +114,7 @@ public class GameActivity extends Activity implements IGameObserver {
 	public void quit(View view) {
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
+		finish();
 	}
 
 	public void pause(View view) {

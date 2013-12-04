@@ -53,5 +53,10 @@ public class ViewSavedGameActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 	}
+	public void onBack(View view){
+		Intent intent = new Intent(getApplicationContext(), SavedGamesActivity.class);
+		startActivity(intent);
+		finish();
+	}
 
 }

@@ -47,15 +47,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:orientation="horizontal"
-        android:weightSum="1">
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/viewSavedGame_backButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onBack"
+            android:text="@string/back_button" />
 
         <Button
             android:id="@+id/replay_button"
-            android:layout_width="0dip"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/replay_button" 
+            android:layout_weight="1"
             android:onClick="replaySavedGame"
-            android:layout_weight="1"/>
+            android:text="@string/replay_button" />
 
     </LinearLayout>
 
