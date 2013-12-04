@@ -3,7 +3,9 @@ package ch.unibe.scg.team3.sharingService;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -20,8 +22,10 @@ public abstract class SyncDatabase {
 	private UserHandler userHandler;
 	private FriendshipHandler friendshipHandler;
 	private RequestHandler requestHandler;
+	private final Context context;
 
 	public SyncDatabase(Context context) {
+		this.context = context;
 		userHandler = new UserHandler(context);
 		friendshipHandler = new FriendshipHandler(context);
 		requestHandler = new RequestHandler(context);
@@ -33,7 +37,14 @@ public abstract class SyncDatabase {
 		query.findInBackground(new FindCallback<ParseUser>() {
 
 			@Override
-			public void done(List<ParseUser> users, ParseException arg1) {
+			public void done(List<ParseUser> users, ParseException ex) {
+				
+				if(ex != null){
+					Toast msg = Toast.makeText(context, "No internet connection available.", Toast.LENGTH_SHORT);
+					msg.show();
+					return;
+				}
+				
 				ArrayList<User> usersOnParse = new ArrayList<User>();
 				for (ParseUser user : users) {
 

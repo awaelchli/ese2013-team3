@@ -57,7 +57,7 @@ public class SentRequestsAdapter extends ArrayAdapter<User> {
 		ParseUser me = ParseUser.getCurrentUser();
 
 		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Request");
-		query.whereEqualTo("subject_id", me.getObjectId());
+		query.whereEqualTo("initiator_id", me.getObjectId());
 
 		query.findInBackground(new FindCallback<ParseObject>() {
 
