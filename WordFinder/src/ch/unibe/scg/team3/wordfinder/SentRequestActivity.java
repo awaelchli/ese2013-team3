@@ -1,22 +1,26 @@
 package ch.unibe.scg.team3.wordfinder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ch.unibe.scg.team3.localDatabase.RequestHandler;
-import ch.unibe.scg.team3.parseQueryAdapter.FriendRequestsAdapter;
+import ch.unibe.scg.team3.parseQueryAdapter.SentRequestsAdapter;
 import ch.unibe.scg.team3.user.User;
 
 import com.parse.*;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.view.Menu;
+import android.view.View;
 import android.widget.ListView;
 
 public class SentRequestActivity extends Activity {
 
 	private ArrayList<User> requests;
 	private ListView requestListView;
-	private FriendRequestsAdapter requestAdapter;
+	private SentRequestsAdapter requestAdapter;
 	private RequestHandler requestHandler;
 
 	@Override
@@ -32,7 +36,7 @@ public class SentRequestActivity extends Activity {
 		super.onResume();
 
 		getFriendRequests();
-		requestAdapter = new FriendRequestsAdapter(this,
+		requestAdapter = new SentRequestsAdapter(this,
 				R.id.sent_requests_list, requests);
 
 		requestListView = (ListView) findViewById(R.id.sent_requests_list);
@@ -49,5 +53,16 @@ public class SentRequestActivity extends Activity {
 			requests.clear();
 		}
 		
+	}
+	/**
+	 * BugFixing : Deactivates Button.
+	 */
+	@Override
+	public void onBackPressed() {
+	}
+	public void onBack(View view){
+		Intent intent = new Intent(getApplicationContext(),FriendsActivity.class);
+		startActivity(intent);
+		finish();
 	}
 }

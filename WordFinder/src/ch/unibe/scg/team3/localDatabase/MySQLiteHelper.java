@@ -97,8 +97,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		return getWritableDatabase().insert(table, nullColumnHack, values);
 	}
 	
-	public synchronized void delete(String table, String whereClause, String[] whereArgs){
-		getWritableDatabase().delete(table, whereClause, whereArgs);
+	public synchronized int delete(String table, String whereClause, String[] whereArgs){
+		return getWritableDatabase().delete(table, whereClause, whereArgs);
 	}
 	public synchronized int update(String table, ContentValues values, String whereClause, String[] whereArgs){
 		return getWritableDatabase().update(table, values, whereClause, whereArgs);

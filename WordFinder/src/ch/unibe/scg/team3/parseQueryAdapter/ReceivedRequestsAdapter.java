@@ -2,7 +2,9 @@ package ch.unibe.scg.team3.parseQueryAdapter;
 
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -14,9 +16,9 @@ import ch.unibe.scg.team3.wordfinder.R;
 
 import com.parse.*;
 
-public class FriendRequestsAdapter extends ArrayAdapter<User> {
+public class ReceivedRequestsAdapter extends ArrayAdapter<User> {
 
-	public FriendRequestsAdapter(Context context, int resource, List<User> requests) {
+	public ReceivedRequestsAdapter(Context context, int resource, List<User> requests) {
 		super(context, resource, requests);
 	}
 
@@ -71,9 +73,9 @@ public class FriendRequestsAdapter extends ArrayAdapter<User> {
 				ParseObject friendship = new ParseObject("Friendship");
 				ParseObject request = friendrequests.get(0);
 				friendship.put("user_id", me.getObjectId());
-				
+
 				friendship.put("friend_id", request.get("initiator_id"));
-				friendship.saveEventually();
+				friendship.saveInBackground();
 
 				removeRequestsFromFriend(friendrequests);
 
@@ -92,15 +94,46 @@ public class FriendRequestsAdapter extends ArrayAdapter<User> {
 
 			@Override
 			public void done(List<ParseObject> friendrequests, ParseException ex) {
-				
+
 				removeRequestsFromFriend(friendrequests);
 			}
 		});
 	}
-	
+
 	private void removeRequestsFromFriend(List<ParseObject> friendrequests) {
 		for (ParseObject request : friendrequests) {
-			request.deleteEventually();
+			request.deleteInBackground(new DeleteCallback() {
+
+				@Override
+				public void done(ParseException e) {
+
+					if (e == null) {
+						return;
+					}
+
+					int code = e.getCode();
+					String message = new String();
+					if (code == ParseException.CONNECTION_FAILED) {
+						message = "You need an internet connection to reject a request";
+					}
+
+					AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+
+					alert.setTitle("Error");
+					alert.setMessage(message);
+
+					alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+						}
+					});
+
+					alert.show();
+
+				}
+
+			});
+
 		}
 	}
+
 }

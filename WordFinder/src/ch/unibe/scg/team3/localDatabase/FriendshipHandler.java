@@ -1,15 +1,11 @@
 package ch.unibe.scg.team3.localDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ch.unibe.scg.team3.sharingService.Friendship;
-import ch.unibe.scg.team3.sharingService.Request;
-import ch.unibe.scg.team3.user.User;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 public class FriendshipHandler extends DataHandler {
 
@@ -32,24 +28,26 @@ public class FriendshipHandler extends DataHandler {
 
 	public void setFriendship(Friendship dbfriendship) {
 		ContentValues c = new ContentValues();
-		c.put("friendship_id", dbfriendship.getObjectId());
+		c.put("friendship_id", dbfriendship.getFriendshipId());
 		c.put("user_id", dbfriendship.getUserId());
 		c.put("friend_id", dbfriendship.getFriendId());
-		if (!isFriendshipinDb(dbfriendship.getObjectId())) {
+		if (!isFriendshipinDb(dbfriendship.getFriendshipId())) {
 			helper.insert("Friendship", null, c);
 
 		}
 	}
 
-	public List<Friendship> getFriendships() {
-		List<Friendship> friendships = new ArrayList<Friendship>();
+	public ArrayList<Friendship> getFriendships() {
+		ArrayList<Friendship> friendships = new ArrayList<Friendship>();
 		Cursor c = helper.rawQuery("SELECT * FROM Friendship", null);
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
-			while (c.moveToNext()) {
-				friendships.add(new Friendship(c.getString(0), c.getString(1),
-						c.getString(2)));
+			while (!c.isAfterLast()) {
+				friendships.add(new Friendship(c.getString(2), c.getString(0),
+						c.getString(1)));
+				c.moveToNext();
 			}
+			
 			c.close();
 		} else {
 			c.close();
@@ -58,16 +56,17 @@ public class FriendshipHandler extends DataHandler {
 	}
 
 	public void remove(Friendship deletedfriendship) {
-		helper.delete("Friendship", "friendship_id = ?",
-				new String[] { deletedfriendship.getObjectId() });
+		int test;
+		test = helper.delete("Friendship", "friendship_id = ?",
+				new String[] {deletedfriendship.getFriendshipId()});
 
 	}
 
-	public List<String> getFriendshipsOfUser(String userid) {
-		List<String> list = new ArrayList<String>();
+	public ArrayList<String> getFriendshipsOfUser(String userid) {
+		ArrayList<String> list = new ArrayList<String>();
 		Cursor c = helper.rawQuery(
-				"SELECT user_id, friend_id FROM Friendship WHERE user_id = ? "
-						+ "OR friend_id =?", new String[] { userid, userid });
+				"SELECT user_id, friend_id FROM Friendship WHERE (user_id = ? "
+						+ "OR friend_id = ? )", new String[] { userid, userid });
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
 			while (!c.isAfterLast()) {

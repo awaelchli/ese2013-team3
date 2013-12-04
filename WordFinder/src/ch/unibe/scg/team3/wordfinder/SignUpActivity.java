@@ -41,37 +41,59 @@ public class SignUpActivity extends Activity {
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setEmail(email);
-		user.signUpInBackground(new SignUpCallback() {
-		 public void done(ParseException e) {
-		    if (e == null) {
+		try {
+			user.signUpInBackground(new SignUpCallback() {
+			 public void done(ParseException e) {
+			    if (e == null) {
 
-		     finish();
-		    } else {
-		    	
-		    	int code = e.getCode();
-		    	String message="someting is wrong";
-		    	if(code==ParseException.CONNECTION_FAILED){message="You need internet connection to sign up";}
-		    	if(code==ParseException.USERNAME_MISSING){message="You need to provide a username";}
-		    	if(code==ParseException.USERNAME_TAKEN){message="This username is allready taken";}
-		    	if(code==ParseException.EMAIL_MISSING || code==ParseException.EMAIL_TAKEN || code==ParseException.INVALID_EMAIL_ADDRESS){
-		    		message="This email address is either allready assigned to an account or is not a valid address";
-		    	}
-		    	
-		    	AlertDialog.Builder alert = new AlertDialog.Builder(SignUpActivity.this);
+			     finish();
+			    } else {
+			    	
+			    	int code = e.getCode();
+			    	String message="someting is wrong";
+			    	if(code==ParseException.CONNECTION_FAILED){message="You need internet connection to sign up";}
+			    	if(code==ParseException.USERNAME_MISSING){message="You need to provide a username";}
+			    	if(code==ParseException.USERNAME_TAKEN){message="This username is allready taken";}
+			    	if(code==ParseException.EMAIL_MISSING || code==ParseException.EMAIL_TAKEN || code==ParseException.INVALID_EMAIL_ADDRESS){
+			    		message="This email address is either allready assigned to an account or is not a valid address";
+			    	}
+			    	
+			    	AlertDialog.Builder alert = new AlertDialog.Builder(SignUpActivity.this);
 
-				alert.setTitle("Error");
-				alert.setMessage(message);
+					alert.setTitle("Error");
+					alert.setMessage(message);
 
-				alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-					}
-				});
+					alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+						}
+					});
 
-				alert.show();
-		      
-		    }
-		  }
-		});
+					alert.show();
+			      
+			    }
+			  }
+			});
+		} catch (Exception e) {
+			String message = "Username seems to be empty. Please fill in before.";
+		  	AlertDialog.Builder alert = new AlertDialog.Builder(SignUpActivity.this);
+
+			alert.setTitle("Error");
+			alert.setMessage(message);
+
+			alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+				}
+			});
+
+			alert.show();
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * BugFixing : Deactivates Button.
+	 */
+	@Override
+	public void onBackPressed() {
 	}
 	
 

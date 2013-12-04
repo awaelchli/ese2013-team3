@@ -32,15 +32,13 @@ public class HomeActivity extends Activity {
 		Parse.initialize(this, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK",
 				"FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
 		ParseAnalytics.trackAppOpened(getIntent());
-	
-		
+
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 
-		
 		File database = new File(
 				"/data/data/ch.unibe.scg.team3.wordfinder/databases/localDatabase.db");
 
@@ -48,19 +46,22 @@ public class HomeActivity extends Activity {
 			try {
 				dataHandler = new DataHandler(this);
 				dataHandler.copyDB();
-				
 
-				PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+				PreferenceManager.setDefaultValues(this, R.xml.preferences,
+						false);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			dataHandler = new DataHandler(this);
 		}
-		
+
 		ParseUser me = ParseUser.getCurrentUser();
-		if(me != null){
+		if (me != null) {
 			TextView welcomeText = (TextView) findViewById(R.id.welcome_user);
 			welcomeText.setText("Welcome " + me.getUsername());
+		} else {
+			TextView welcomeText = (TextView) findViewById(R.id.welcome_user);
+			welcomeText.setText("");
 		}
 
 	}
@@ -81,15 +82,17 @@ public class HomeActivity extends Activity {
 		Intent intent = new Intent(this, SavedGamesActivity.class);
 		startActivity(intent);
 	}
-	
-	public void openFriends(View view){
+
+	public void openFriends(View view) {
 		ParseUser me = ParseUser.getCurrentUser();
-		
-		if(me != null){
+
+		if (me != null) {
 			Intent intent = new Intent(this, FriendsActivity.class);
 			startActivity(intent);
 		} else {
-			Toast toast = Toast.makeText(this, "You are not logged in. Please sign up or log in.", Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(this,
+					"You are not logged in. Please sign up or log in.",
+					Toast.LENGTH_LONG);
 			toast.show();
 		}
 	}
@@ -101,7 +104,14 @@ public class HomeActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onStop();
-		//dataHandler.closeDB();
+		// dataHandler.closeDB();
 	}
-	
+
+	/**
+	 * BugFixing : Deactivates Button.
+	 */
+	@Override
+	public void onBackPressed() {
+	}
+
 }

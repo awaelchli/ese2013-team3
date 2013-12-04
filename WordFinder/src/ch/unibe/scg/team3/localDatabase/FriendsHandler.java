@@ -22,7 +22,7 @@ public class FriendsHandler extends DataHandler{
 	
 	public ArrayList<User> getFriends(String userid){
 		ArrayList<User> friends = new ArrayList<User>();
-		List<String> list = friendshipHandler.getFriendshipsOfUser(userid);
+		ArrayList<String> list = friendshipHandler.getFriendshipsOfUser(userid);
 		for(String listitem:list){
 			friends.add(userHandler.getUser(listitem));
 		}

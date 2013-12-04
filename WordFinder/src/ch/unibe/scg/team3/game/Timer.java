@@ -11,7 +11,7 @@ import android.os.CountDownTimer;
 public abstract class Timer extends CountDownTimer {
 
 	private final long initialTime;
-	private long remainingTime;
+	protected long remainingTime;
 
 	/**
 	 * @param millisInFuture

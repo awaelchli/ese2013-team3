@@ -334,7 +334,7 @@ public class WordlistHandler extends DataHandler {
 		return list;
 	}
 
-	public Object getWordlistNameById(int wordlistId) {
+	public String getWordlistNameById(int wordlistId) {
 		String name = "";
 		Cursor c = helper.rawQuery("SELECT Name FROM Dictionary WHERE _id ='"
 				+ wordlistId + "'", null);

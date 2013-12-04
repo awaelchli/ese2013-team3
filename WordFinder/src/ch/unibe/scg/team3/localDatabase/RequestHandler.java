@@ -44,14 +44,13 @@ public class RequestHandler extends DataHandler {
 		Cursor c = helper.rawQuery("SELECT * FROM Request", null);
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
-			while (c.moveToNext()) {
-				requests.add(new Request(c.getString(0), c.getString(1), c
-						.getString(2)));
+			while (!c.isAfterLast()) {
+				requests.add(new Request(c.getString(2), c.getString(0), c
+						.getString(1)));
+				c.moveToNext();
 			}
-			c.close();
-		} else {
-			c.close();
 		}
+		c.close();
 		return requests;
 	}
 
@@ -70,10 +69,9 @@ public class RequestHandler extends DataHandler {
 				requests.add(c.getString(0));
 				c.moveToNext();
 			}
-			c.close();
-		} else {
-			c.close();
+			
 		}
+		c.close();
 		for(String request:requests){
 			users.add(userHandler.getUser(request));
 		}

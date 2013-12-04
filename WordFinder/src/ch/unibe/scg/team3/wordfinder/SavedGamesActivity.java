@@ -73,7 +73,7 @@ public class SavedGamesActivity extends Activity {
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		menu.setHeaderTitle("Options");
-		menu.add(0, v.getId(), 0, "Share");
+		//menu.add(0, v.getId(), 0, "Share");
 		menu.add(0, v.getId(), 0, "Delete");
 	}
 
@@ -94,6 +94,17 @@ public class SavedGamesActivity extends Activity {
 		SavedGame savedGame = games.get(view.getId());
 		handler.removeGame(savedGame.getId());
 		recreate();
+	}
+	/**
+	 * BugFixing : Deactivates Button.
+	 */
+	@Override
+	public void onBackPressed() {
+	}
+	public void onBack(View view){
+		Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+		startActivity(intent);
+		finish();
 	}
 
 }
