@@ -1,21 +1,15 @@
 package ch.unibe.scg.team3.wordfinder;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ch.unibe.scg.team3.localDatabase.RequestHandler;
 import ch.unibe.scg.team3.parseQueryAdapter.FriendRequestsAdapter;
 import ch.unibe.scg.team3.user.User;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
+import com.parse.*;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
 import android.widget.ListView;
 
 public class SentRequestActivity extends Activity {
@@ -30,7 +24,7 @@ public class SentRequestActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sent_request);
 		requests = new ArrayList<User>();
-		requestHandler = new RequestHandler(this.getApplicationContext());
+		requestHandler = new RequestHandler(this);
 	}
 
 	@Override
