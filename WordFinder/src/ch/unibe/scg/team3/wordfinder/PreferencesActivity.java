@@ -93,6 +93,7 @@ public class PreferencesActivity extends PreferenceActivity {
 					e.printStackTrace();
 					return false;
 				}
+				
 				return true;
 			}
 		});

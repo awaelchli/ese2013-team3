@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen 
-    android:title="Preferences"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <PreferenceCategory 
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout="@string/action_settings"><PreferenceCategory 
         android:title="Wordlists"
         android:key="wordlists">
         <ListPreference 
@@ -29,7 +26,8 @@
 		<Preference android:title="Logout" android:key="logout" android:enabled="false"/>			
         
     </PreferenceCategory>
-	<Preference android:title="Go Back" android:key="back"/>
+	<PreferenceCategory><Preference android:title="Go Back" android:key="back"/></PreferenceCategory>
+	
 	
     
 </PreferenceScreen>

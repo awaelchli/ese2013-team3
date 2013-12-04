@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import ch.unibe.scg.team3.game.*;
 import ch.unibe.scg.team3.gameui.*;
 import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
@@ -28,7 +29,7 @@ public class GameActivity extends Activity implements IGameObserver {
 	private ScoreView scoreView;
 	private WordCounterView wordCounter;
 	private CountDownView countDownView;
-
+	private TextView activeWordlist;
 	/**
 	 * Used to access the GameActivity from another activity. There is only one
 	 * single instance of GameActivity
@@ -50,7 +51,9 @@ public class GameActivity extends Activity implements IGameObserver {
 		wordCounter = (WordCounterView) findViewById(R.id.foundCounter);
 		countDownView = (CountDownView) findViewById(R.id.timer_field);
 		boardUI = (BoardUI) findViewById(R.id.tableboardUI);
-
+		String wordlistname = wordlistHandler.getWordlistNameById(getSelectedWordlistId());
+		activeWordlist = (TextView) findViewById(R.id.active_wordlist);
+		activeWordlist.setText("Wordlist: "+ wordlistname);
 	}
 
 	@Override

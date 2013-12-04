@@ -2,7 +2,9 @@ package ch.unibe.scg.team3.parseQueryAdapter;
 
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -16,8 +18,10 @@ import com.parse.*;
 
 public class ReceivedRequestsAdapter extends ArrayAdapter<User> {
 
+	private List<User> requests;
 	public ReceivedRequestsAdapter(Context context, int resource, List<User> requests) {
 		super(context, resource, requests);
+		this.requests=requests;
 	}
 
 	@Override
@@ -73,7 +77,7 @@ public class ReceivedRequestsAdapter extends ArrayAdapter<User> {
 				friendship.put("user_id", me.getObjectId());
 				
 				friendship.put("friend_id", request.get("initiator_id"));
-				friendship.saveEventually();
+				friendship.saveInBackground();
 
 				removeRequestsFromFriend(friendrequests);
 
@@ -100,7 +104,37 @@ public class ReceivedRequestsAdapter extends ArrayAdapter<User> {
 	
 	private void removeRequestsFromFriend(List<ParseObject> friendrequests) {
 		for (ParseObject request : friendrequests) {
-			request.deleteEventually();
+			request.deleteInBackground(new DeleteCallback(){
+
+				@Override
+				public void done(ParseException e) {
+					 if (e == null) {
+					    } else {
+					    	
+					    	int code = e.getCode();
+					    	String message="someting is wrong";
+					    	if(code==ParseException.CONNECTION_FAILED){message="You need internet connection to reject a request";}
+					    	
+					    	AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+
+							alert.setTitle("Error");
+							alert.setMessage(message);
+
+							alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int whichButton) {
+								}
+							});
+
+							alert.show();
+							
+					    }
+				}
+
+				
+				
+			});
+			
 		}
 	}
+	
 }

@@ -25,6 +25,7 @@
             android:id="@+id/sentRequest_quit_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/back_button" />
+            android:text="@string/back_button" 
+            android:onClick="onBack"/>
 
 </LinearLayout>

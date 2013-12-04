@@ -52,6 +52,7 @@ public class FriendsActivity extends Activity {
 			public void finished() {
 				if (adapter != null) {
 					getFriends();
+					onResume();
 				}
 			}
 

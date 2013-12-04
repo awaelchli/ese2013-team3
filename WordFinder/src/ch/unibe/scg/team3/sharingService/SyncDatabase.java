@@ -69,21 +69,22 @@ public abstract class SyncDatabase {
 
 			@Override
 			public void done(List<ParseObject> requestList, ParseException arg1) {
-				List<Request> requestsonparse = new ArrayList<Request>();
+				List<Request> requestsOnParse = new ArrayList<Request>();
 				for (ParseObject request : requestList) {
 					String initiatorId = request.getString("initiator_id");
 					String subjectId = request.getString("subject_id");
 					String objectId = request.getObjectId();
 					Request dbrequest = new Request(objectId, initiatorId,
 							subjectId);
-					requestsonparse.add(dbrequest);
+					requestsOnParse.add(dbrequest);
 					if (!requestHandler.isRequestinDb(objectId)) {
 						requestHandler.setRequest(dbrequest);
 
 					}
 				}
 				List<Request> requestsindb = requestHandler.getRequests();
-				requestsindb.removeAll(requestsonparse);
+				for(Request requestOnParse : requestsOnParse ){
+				requestsindb.remove(requestOnParse);}
 
 				for (Request deletedrequest : requestsindb) {
 					requestHandler.remove(deletedrequest);

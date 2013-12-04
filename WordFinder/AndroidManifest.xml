@@ -78,7 +78,8 @@
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.PausedGameActivity"
-            android:label="@string/title_activity_paused_game" >
+            android:label="@string/title_activity_paused_game" 
+            android:launchMode="singleInstance">
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.SignUpActivity"
@@ -99,7 +100,8 @@
             android:name="ch.unibe.scg.team3.wordfinder.FriendsActivity"
             android:label="@string/title_activity_friends"
             android:parentActivityName="ch.unibe.scg.team3.wordfinder.HomeActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.unibe.scg.team3.wordfinder.HomeActivity" />
@@ -111,22 +113,26 @@
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.MyFriendsActivity"
-            android:label="@string/title_activity_my_friends" >
+            android:label="@string/title_activity_my_friends" 
+            android:launchMode="singleInstance">
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.SentRequests"
             android:label="@string/title_activity_sent_requests" 
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance">
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.ReceivedRequestsActivity"
             android:label="@string/title_activity_received_requests" 
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance">
         </activity>
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.SentRequestActivity"
             android:label="@string/title_activity_sent_request" 
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance">
         </activity>
         
     </application>

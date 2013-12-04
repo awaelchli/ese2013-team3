@@ -2,7 +2,9 @@ package ch.unibe.scg.team3.parseQueryAdapter;
 
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -11,7 +13,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import ch.unibe.scg.team3.user.User;
 import ch.unibe.scg.team3.wordfinder.R;
+import ch.unibe.scg.team3.wordfinder.SentRequestActivity;
+import ch.unibe.scg.team3.wordfinder.SignUpActivity;
 
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -73,7 +78,32 @@ public class SentRequestsAdapter extends ArrayAdapter<User> {
 
 	private void removeRequestsFromFriend(List<ParseObject> sentRequests) {
 		for (ParseObject request : sentRequests) {
-			request.deleteEventually();
+			request.deleteInBackground(new DeleteCallback(){
+
+				@Override
+				public void done(ParseException e) {
+					 if (e == null) {
+					    } else {
+					    	
+					    	int code = e.getCode();
+					    	String message="someting is wrong";
+					    	if(code==ParseException.CONNECTION_FAILED){message="You need internet connection to delete a request";}
+					    	
+					    	AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+
+							alert.setTitle("Error");
+							alert.setMessage(message);
+
+							alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int whichButton) {
+								}
+							});
+
+							alert.show();
+					    }
+				}
+				
+			});
 		}
 	}
 
