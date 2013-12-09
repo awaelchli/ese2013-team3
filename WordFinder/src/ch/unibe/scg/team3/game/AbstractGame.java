@@ -24,7 +24,7 @@ public abstract class AbstractGame implements IObservable {
 
 	protected ArrayList<IGameObserver> observers;
 	protected ArrayList<WordSelection> found;
-	
+
 	protected AbstractGame() {
 		id = -1;
 		score = 0;
@@ -42,17 +42,25 @@ public abstract class AbstractGame implements IObservable {
 	}
 
 	/**
-	 * @return A clone of the board
+	 * @return A clone of the board.
 	 */
 	public abstract Board getBoard();
 
 	/**
-	 * @return The size of the board on which the game operates
+	 * @return The size of the board on which the game operates.
 	 */
 	public abstract int getBoardSize();
 
+	/**
+	 * @return The time remaining to play, a positive long value in
+	 *         milliseconds.
+	 */
 	public abstract long getRemainingTime();
-	
+
+	/**
+	 * @return The time elapsed since the game started, a positive long value in
+	 *         milliseconds.
+	 */
 	public abstract long getElapsedTime();
 
 	public abstract boolean isOver();
@@ -88,6 +96,7 @@ public abstract class AbstractGame implements IObservable {
 	 * @return The total attempts the player made, positive
 	 */
 	public int getNumberOfAttempts() {
+		assert attempts >= 0;
 		return attempts;
 	}
 
@@ -116,6 +125,7 @@ public abstract class AbstractGame implements IObservable {
 	}
 
 	public int getTimesPlayed() {
+		assert timesPlayed >= 0;
 		return timesPlayed;
 	}
 

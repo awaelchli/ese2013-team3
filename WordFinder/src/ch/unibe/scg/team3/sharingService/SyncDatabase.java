@@ -55,7 +55,7 @@ public abstract class SyncDatabase {
 					User dbuser = new User(user_id, username, email);
 					usersOnParse.add(dbuser);
 					if (!userHandler.isUserinDb(user_id)) {
-						userHandler.setUser(dbuser);
+						userHandler.insertUser(dbuser);
 
 					}
 				}

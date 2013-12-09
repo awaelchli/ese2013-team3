@@ -14,9 +14,8 @@ public class FriendshipHandler extends DataHandler {
 	}
 
 	public boolean isFriendshipinDb(String objectId) {
-		Cursor c = helper.rawQuery(
-				"SELECT * FROM Friendship WHERE friendship_id = '" + objectId
-						+ "'", null);
+		Cursor c = helper.rawQuery("SELECT * FROM Friendship WHERE friendship_id = '" + objectId
+				+ "'", null);
 		if (c != null && c.getCount() != 0) {
 			c.close();
 			return true;
@@ -44,11 +43,10 @@ public class FriendshipHandler extends DataHandler {
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
 			while (!c.isAfterLast()) {
-				friendships.add(new Friendship(c.getString(2), c.getString(0),
-						c.getString(1)));
+				friendships.add(new Friendship(c.getString(2), c.getString(0), c.getString(1)));
 				c.moveToNext();
 			}
-			
+
 			c.close();
 		} else {
 			c.close();
@@ -59,15 +57,14 @@ public class FriendshipHandler extends DataHandler {
 	public void remove(Friendship deletedfriendship) {
 		int test;
 		test = helper.delete("Friendship", "friendship_id = ?",
-				new String[] {deletedfriendship.getFriendshipId()});
+				new String[] { deletedfriendship.getFriendshipId() });
 
 	}
 
 	public ArrayList<String> getFriendshipsOfUser(String userid) {
 		ArrayList<String> list = new ArrayList<String>();
-		Cursor c = helper.rawQuery(
-				"SELECT user_id, friend_id FROM Friendship WHERE (user_id = ? "
-						+ "OR friend_id = ? )", new String[] { userid, userid });
+		Cursor c = helper.rawQuery("SELECT user_id, friend_id FROM Friendship WHERE (user_id = ? "
+				+ "OR friend_id = ? )", new String[] { userid, userid });
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
 			while (!c.isAfterLast()) {
@@ -86,11 +83,9 @@ public class FriendshipHandler extends DataHandler {
 
 	public String getFriendship(String userId, String friendId) {
 		String friendshipId = null;
-		Cursor c = helper.rawQuery(
-				"SELECT friendship_id FROM Friendship WHERE (user_id = ? "
-						+ "AND friend_id =?) OR (user_id = ? "
-						+ "AND friend_id =?)", new String[] { userId, friendId,
-						friendId, userId });
+		Cursor c = helper.rawQuery("SELECT friendship_id FROM Friendship WHERE (user_id = ? "
+				+ "AND friend_id =?) OR (user_id = ? " + "AND friend_id =?)", new String[] {
+				userId, friendId, friendId, userId });
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
 			friendshipId = c.getString(0);

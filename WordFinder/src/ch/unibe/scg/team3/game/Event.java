@@ -1,5 +1,12 @@
 package ch.unibe.scg.team3.game;
 
+/**
+ * This event class is needed for communication when observers get notified.
+ * This way, the board does not update everytime the timer ticks or a word is
+ * found.
+ * 
+ * @author adrian
+ */
 public class Event {
 
 	public static final int BOARD_CREATED = 0;

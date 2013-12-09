@@ -34,7 +34,7 @@ public class ReceivedRequestsAdapter extends ArrayAdapter<User> {
 		ImageButton reject = (ImageButton) convertView.findViewById(R.id.reject_button);
 
 		final User friend = getItem(position);
-		name.setText(friend.getUserName());
+		name.setText(friend.getUsername());
 
 		accept.setOnClickListener(new OnClickListener() {
 

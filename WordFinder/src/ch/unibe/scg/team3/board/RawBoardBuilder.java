@@ -10,7 +10,7 @@ import ch.unibe.scg.team3.token.Token;
  */
 public class RawBoardBuilder extends AbstractBoardGenerator {
 
-	private String raw;
+	private final String raw;
 
 	/**
 	 * @param board

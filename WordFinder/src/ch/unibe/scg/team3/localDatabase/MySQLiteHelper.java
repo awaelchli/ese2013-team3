@@ -13,16 +13,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import ch.unibe.scg.team3.wordfinder.R;
 
 /**
- * 
- * This class is responsible for creating, opening and importing the database. It holds the name of the
- * database, provides methods for creating and updating of databases. Its the main
- * access to perform SQLite statements on the database. 
+ * This class is responsible for creating, opening and importing the database.
+ * It holds the name of the database, provides methods for creating and updating
+ * the database. It is the main access to perform SQLite statements on the
+ * database.
  * 
  * @author nils
  * @author adrian
- * 
  */
-
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "localDatabase.db";
@@ -35,19 +33,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
 	private final Context context;
-	private static MySQLiteHelper instance = null;
+	private static MySQLiteHelper instance;
 
 	private MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.context = context;
-		
-	}
-	
 
-	// TODO: check if needed
+	}
+
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		
 	}
 
 	@Override
@@ -67,10 +62,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			db.execSQL("PRAGMA foreign_keys=ON;");
 		}
 	}
-	
+
 	public synchronized void importDatabase() throws IOException {
-		InputStream input = context.getResources().openRawResource(
-				R.raw.localdatabase);
+		InputStream input = context.getResources().openRawResource(R.raw.localdatabase);
 		String outFileName = DB_FILEPATH + DATABASE_NAME;
 		OutputStream output = new FileOutputStream(outFileName);
 
@@ -88,53 +82,52 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	public static synchronized MySQLiteHelper getInstance(Context context) {
 		if (instance == null) {
-			instance = new MySQLiteHelper(context.getApplicationContext());
+			instance = new MySQLiteHelper(context);
 		}
 		return instance;
 	}
-	
-	public synchronized long insert(String table, String nullColumnHack, ContentValues values){
+
+	public synchronized long insert(String table, String nullColumnHack, ContentValues values) {
 		return getWritableDatabase().insert(table, nullColumnHack, values);
 	}
-	
-	public synchronized int delete(String table, String whereClause, String[] whereArgs){
+
+	public synchronized int delete(String table, String whereClause, String[] whereArgs) {
 		return getWritableDatabase().delete(table, whereClause, whereArgs);
 	}
-	public synchronized int update(String table, ContentValues values, String whereClause, String[] whereArgs){
+
+	public synchronized int update(String table, ContentValues values, String whereClause,
+			String[] whereArgs) {
 		return getWritableDatabase().update(table, values, whereClause, whereArgs);
 	}
-	
-	public synchronized void execSQL(String sql, String[] bindArgs){
+
+	public synchronized void execSQL(String sql, String[] bindArgs) {
 		getWritableDatabase().execSQL(sql, bindArgs);
 	}
-	public synchronized void execSQL(String sql){
+
+	public synchronized void execSQL(String sql) {
 		getWritableDatabase().execSQL(sql);
 	}
-	
+
 	public synchronized void copyDB() throws IOException {
 		importDatabase();
-		
 	}
 
 	public synchronized Cursor rawQuery(String sql, String[] selectionArgs) {
 		return getWritableDatabase().rawQuery(sql, selectionArgs);
 	}
-	public void close(){
-		getWritableDatabase().close();
-	}
-
 
 	public synchronized Cursor query(String sql, String[] columns, String selection,
-			String[] selectionArgs, String groupBy, String having,
-			String orderBy) {
-		return getWritableDatabase().query(sql, columns, selection, selectionArgs, groupBy, having, orderBy);
-		
+			String[] selectionArgs, String groupBy, String having, String orderBy) {
+		return getWritableDatabase().query(sql, columns, selection, selectionArgs, groupBy, having,
+				orderBy);
 	}
 
-
 	public void open() {
-		getWritableDatabase ();
-		
+		getWritableDatabase();
+	}
+	
+	public void close() {
+		getWritableDatabase().close();
 	}
 
 }

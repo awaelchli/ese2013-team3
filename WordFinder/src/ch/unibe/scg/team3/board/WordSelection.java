@@ -2,7 +2,6 @@ package ch.unibe.scg.team3.board;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import ch.unibe.scg.team3.token.IToken;
 
 /**
@@ -21,7 +20,8 @@ public class WordSelection {
 	}
 
 	/**
-	 * @param tok A token not equal to null
+	 * @param tok
+	 *            A token not equal to null
 	 */
 	public void addToken(IToken tok) {
 		assert tok != null;

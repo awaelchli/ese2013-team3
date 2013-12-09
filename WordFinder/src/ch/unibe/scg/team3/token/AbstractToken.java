@@ -20,6 +20,26 @@ public abstract class AbstractToken implements IToken {
 	public abstract char getLetter();
 
 	@Override
+	public abstract IToken clone();
+
+	@Override
+	public Point getCoordinates() {
+		return coordinates;
+	}
+
+	@Override
+	public void setCoordinates(Point point) {
+		coordinates = point;
+	}
+	
+	public abstract boolean isEmpty();
+
+	@Override
+	public boolean letterEquals(IToken tok) {
+		return getLetter() == tok.getLetter();
+	}
+
+	@Override
 	public String toString() {
 		return "" + getLetter();
 	}
@@ -40,24 +60,4 @@ public abstract class AbstractToken implements IToken {
 
 		return letters && values && coordinates;
 	}
-
-	@Override
-	public abstract IToken clone();
-
-	@Override
-	public Point getCoordinates() {
-		return coordinates;
-	}
-
-	@Override
-	public void setCoordinates(Point point) {
-		coordinates = point;
-	}
-
-	@Override
-	public boolean letterEquals(IToken tok) {
-		return getLetter() == tok.getLetter();
-	}
-
-	public abstract boolean isEmpty();
 }

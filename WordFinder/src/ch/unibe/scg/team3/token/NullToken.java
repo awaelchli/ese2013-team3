@@ -10,7 +10,7 @@ import ch.unibe.scg.team3.board.Point;
  */
 public class NullToken extends AbstractToken {
 
-	public static final char NULL_CHAR = ' ';
+	public static final char EMPTY_CHAR = ' ';
 
 	public NullToken(Point coordinates){
 		setCoordinates(coordinates);
@@ -27,7 +27,7 @@ public class NullToken extends AbstractToken {
 
 	@Override
 	public char getLetter() {
-		return NULL_CHAR;
+		return EMPTY_CHAR;
 	}
 
 	@Override

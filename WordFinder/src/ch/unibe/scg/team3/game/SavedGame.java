@@ -16,13 +16,14 @@ import ch.unibe.scg.team3.board.WordSelection;
 public class SavedGame extends AbstractGame {
 
 	private String name;
-	private long remainingTime;
 	private String date;
 	private String board;
+	
+	private long remainingTime;
 	private int foundWords;
 
 	public ArrayList<WordSelection> getFoundWords() {
-		return this.found;
+		return found;
 	}
 
 	public void setFoundWords(ArrayList<WordSelection> found) {
@@ -38,6 +39,9 @@ public class SavedGame extends AbstractGame {
 		return foundWords;
 	}
 
+	/**
+	 * @return The string representation of the board.
+	 */
 	public String getStringBoard() {
 		return board;
 	}
@@ -103,9 +107,9 @@ public class SavedGame extends AbstractGame {
 	/**
 	 * Returns if the game is private. Private games are games explicitly saved
 	 * by the user. Non-private games are saved automatically and not visible to
-	 * the user
+	 * the user.
 	 * 
-	 * @return True, if the game is private, false otherwise
+	 * @return True, if the game is private, false otherwise.
 	 */
 	public boolean isPersonal() {
 		return isPersonal;
@@ -119,8 +123,8 @@ public class SavedGame extends AbstractGame {
 		this.timesPlayed = timesPlayed;
 	}
 
-	public void setAttempts(int guesses) {
-		this.attempts = guesses;
+	public void setAttempts(int attempts) {
+		this.attempts = attempts;
 	}
 
 	@Override

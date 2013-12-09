@@ -1,7 +1,7 @@
 package ch.unibe.scg.team3.board;
 
 /**
- * This class models just the rudiental properties of a point with integer
+ * This class models just the rudimental properties of a point with integer
  * coordinates. 
  * 
  * @author adrian

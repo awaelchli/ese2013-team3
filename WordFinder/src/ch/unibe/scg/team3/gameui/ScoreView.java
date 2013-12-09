@@ -14,6 +14,8 @@ import ch.unibe.scg.team3.game.IGameObserver;
  */
 public class ScoreView extends TextView implements IGameObserver {
 
+	public static final String INITIAL_SCORE_LABEL = "0";
+
 	public ScoreView(Context context) {
 		super(context);
 		init();
@@ -30,7 +32,7 @@ public class ScoreView extends TextView implements IGameObserver {
 	}
 
 	private void init() {
-		setText("0");
+		setText(INITIAL_SCORE_LABEL);
 	}
 
 	@Override

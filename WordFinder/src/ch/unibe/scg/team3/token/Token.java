@@ -3,7 +3,6 @@ package ch.unibe.scg.team3.token;
 import ch.unibe.scg.team3.board.Point;
 import ch.unibe.scg.team3.game.IElement;
 
-
 /**
  * @author adrian
  */
@@ -12,17 +11,13 @@ public class Token extends AbstractToken implements IElement {
 	private final char letter;
 	private final int value;
 
-//	public Token(char letter, int value) {
-//		
-//	}
-	
-	public Token(char letter, int value, Point coordinates){
+	public Token(char letter, int value, Point coordinates) {
 		this.letter = letter;
 		this.value = value;
 		setCoordinates(coordinates);
 	}
-	
-	public Token(char letter, int value, int x, int y){
+
+	public Token(char letter, int value, int x, int y) {
 		this(letter, value, new Point(x, y));
 	}
 

@@ -27,7 +27,7 @@ public class TokenTest extends AndroidTestCase{
 		IToken ntok2 = new NullToken(1, 0);
 
 		assertFalse(ntok1.equals(ntok2));
-		assertTrue(ntok1.getLetter() == NullToken.NULL_CHAR);
+		assertTrue(ntok1.getLetter() == NullToken.EMPTY_CHAR);
 		assertTrue(ntok2.getValue() == 0);
 	}
 	

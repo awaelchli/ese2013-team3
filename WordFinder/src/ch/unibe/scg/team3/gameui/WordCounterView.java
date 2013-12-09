@@ -17,6 +17,9 @@ import ch.unibe.scg.team3.game.IGameObserver;
  */
 public class WordCounterView extends TextView implements IGameObserver {
 
+	public static final String INITIAL_WORDS_FOUND = "0";
+	public static final String WORD_COUNT_DELIMETER = "/";
+
 	public WordCounterView(Context context) {
 		super(context);
 		init();
@@ -33,14 +36,14 @@ public class WordCounterView extends TextView implements IGameObserver {
 	}
 	
 	private void init() {
-		setText("0/" + Game.DEFAULT_MIN_WORDS_TO_FIND);
+		setText(INITIAL_WORDS_FOUND + WORD_COUNT_DELIMETER + Game.DEFAULT_MIN_WORDS_TO_FIND);
 	}
 
 	@Override
 	public void update(AbstractGame game, Event event) {
 		if (event.getAction() == Event.WORD_FOUND) {
 			int found = game.getFoundWords().size();
-			setText(found + "/" + Game.DEFAULT_MIN_WORDS_TO_FIND);
+			setText(found + WORD_COUNT_DELIMETER + Game.DEFAULT_MIN_WORDS_TO_FIND);
 		}
 	}
 

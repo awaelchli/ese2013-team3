@@ -16,6 +16,9 @@ import ch.unibe.scg.team3.game.*;
  */
 public class FoundWordsView extends TextView implements IGameObserver {
 
+	public static final String RIGHT_SCORE_BRACKET = ")";
+	public static final String LEFT_SCORE_BRACKET = "(";
+
 	public FoundWordsView(Context context) {
 		super(context);
 	}
@@ -39,9 +42,10 @@ public class FoundWordsView extends TextView implements IGameObserver {
 
 			for (WordSelection word : list) {
 				builder.append(word);
-				builder.append(" (");
+				builder.append(" ");
+				builder.append(LEFT_SCORE_BRACKET);
 				builder.append(word.getScore());
-				builder.append(")");
+				builder.append(RIGHT_SCORE_BRACKET);
 				builder.append("\n");
 			}
 

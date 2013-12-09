@@ -16,15 +16,26 @@ import ch.unibe.scg.team3.game.SavedGame;
  * 
  * @author nils
  * @author adrian
- * 
  */
 public class SavedGamesHandler extends DataHandler {
-
+	
+	public static final String COL_PERSONAL = "IsPersonal";
+	public static final String COL_WORDLIST = "Dictionary";
+	public static final String COL_NAME = "Name";
+	public static final String COL_BOARD = "Board";
+	public static final String COL_TIMES_PLAYED = "TimesPlayed";
+	public static final String COL_GUESSES = "Guesses";
+	public static final String COL_SCORE = "Score";
+	public static final String COL_DATE = "Date";
+	public static final String COL_TIME = "Time";
+	public static final String COL_WORDS = "Words";
 	public static final String TABLE_GAMES = "Games";
-	private final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy, HH:mm", Locale.ENGLISH);
+
+	private final SimpleDateFormat sdf;
 
 	public SavedGamesHandler(Context context) {
 		super(context);
+		sdf = new SimpleDateFormat("dd.MM.yyyy, HH:mm", Locale.ENGLISH);
 	}
 
 	/**
@@ -46,29 +57,31 @@ public class SavedGamesHandler extends DataHandler {
 		int guesses = game.getNumberOfAttempts();
 		int wordlist = game.getWordlistId();
 		int timesPlayed = 1;
-		String date = (Long.toString(new Date().getTime()));
+		String date = Long.toString(new Date().getTime());
+
+		long id = -1;
 
 		try {
 			ContentValues values = new ContentValues();
 			if (name != null) {
-				values.put("Name", name);
+				values.put(COL_NAME, name);
 			}
-			values.put("Board", board);
-			values.put("Words", words);
-			values.put("Time", remainingTime);
-			values.put("Date", date);
-			values.put("Dictionary", wordlist);
-			values.put("Score", score);
-			values.put("IsPersonal", isPersonal);
-			values.put("TimesPlayed", timesPlayed);
-			values.put("Guesses", guesses);
-			long id = helper.insert(TABLE_GAMES, null, values);
+			values.put(COL_BOARD, board);
+			values.put(COL_WORDS, words);
+			values.put(COL_TIME, remainingTime);
+			values.put(COL_DATE, date);
+			values.put(COL_WORDLIST, wordlist);
+			values.put(COL_SCORE, score);
+			values.put(COL_PERSONAL, isPersonal);
+			values.put(COL_TIMES_PLAYED, timesPlayed);
+			values.put(COL_GUESSES, guesses);
+			id = helper.insert(TABLE_GAMES, null, values);
 			game.setId(id);
 			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1;
+		return id;
 	}
 
 	/**
@@ -86,15 +99,15 @@ public class SavedGamesHandler extends DataHandler {
 
 		ContentValues values = new ContentValues();
 
-		values.put("Words", game.getNumberOfFoundWords());
-		values.put("Time", game.getRemainingTime());
+		values.put(COL_WORDS, game.getNumberOfFoundWords());
+		values.put(COL_TIME, game.getRemainingTime());
 		String date = (Long.toString(new Date().getTime()));
-		values.put("Date", date);
-		values.put("Score", game.getScore());
-		values.put("Guesses", game.getNumberOfAttempts());
-		values.put("TimesPlayed", game.getTimesPlayed());
+		values.put(COL_DATE, date);
+		values.put(COL_SCORE, game.getScore());
+		values.put(COL_GUESSES, game.getNumberOfAttempts());
+		values.put(COL_TIMES_PLAYED, game.getTimesPlayed());
 
-		String whereClause = "_id = ?";
+		String whereClause = COL_ID + " = ?";
 		String[] whereArgs = { String.valueOf(id) };
 
 		helper.update(TABLE_GAMES, values, whereClause, whereArgs);
@@ -105,11 +118,16 @@ public class SavedGamesHandler extends DataHandler {
 	 * @param id
 	 *            The id of the game to be extracted from the database.
 	 * @return A SavedGame which can be null when there was no entry with this
-	 *         id in the dsatabase.
+	 *         id in the database.
 	 */
 	public SavedGame getSavedGame(long id) {
 		SavedGame game = new SavedGame();
-		Cursor c = helper.rawQuery("SELECT * FROM Games WHERE _id = " + id, null);
+
+		String[] columns = { "*" };
+		String selection = COL_ID + " = ?";
+		String[] selectionArgs = { String.valueOf(id) };
+		Cursor c = helper.query(TABLE_GAMES, columns, selection, selectionArgs, null, null, null);
+
 		if (c != null && c.getCount() != 0) {
 			c.moveToFirst();
 			writeDataToObject(c, game);
@@ -128,8 +146,8 @@ public class SavedGamesHandler extends DataHandler {
 	 */
 	public boolean isGameInDatabase(long id) {
 
-		String[] columns = { "_id" };
-		String selection = "_id = ?";
+		String[] columns = { COL_ID };
+		String selection = COL_ID + " = ?";
 		String[] selectionArgs = { String.valueOf(id) };
 
 		Cursor cursor = helper.query(TABLE_GAMES, columns, selection, selectionArgs, null, null,
@@ -151,7 +169,6 @@ public class SavedGamesHandler extends DataHandler {
 	 * @return True, if the creation of the SavedGame object was successful and
 	 *         false otherwise.
 	 */
-
 	private boolean writeDataToObject(Cursor cursor, SavedGame game) {
 
 		game.setId(cursor.getInt(0));
@@ -177,7 +194,7 @@ public class SavedGamesHandler extends DataHandler {
 	 */
 	public boolean removeGame(long id) {
 		if (isGameInDatabase(id)) {
-			helper.delete(TABLE_GAMES, "_id = " + id, null);
+			helper.delete(TABLE_GAMES, COL_ID + " = " + id, null);
 			return true;
 		} else {
 			return false;
@@ -201,10 +218,10 @@ public class SavedGamesHandler extends DataHandler {
 	public boolean tagSavedGame(String name, long id) {
 
 		ContentValues values = new ContentValues();
-		values.put("IsPersonal", true);
-		values.put("Name", name);
+		values.put(COL_PERSONAL, true);
+		values.put(COL_NAME, name);
 
-		String whereClause = "_id = ?";
+		String whereClause = COL_ID + " = ?";
 		String[] whereArgs = { String.valueOf(id) };
 
 		int affected = helper.update(TABLE_GAMES, values, whereClause, whereArgs);
@@ -222,10 +239,10 @@ public class SavedGamesHandler extends DataHandler {
 	public ArrayList<SavedGame> getTaggedGames() {
 		ArrayList<SavedGame> list = new ArrayList<SavedGame>();
 
-		String[] columns = { "_id" };
-		String selection = "IsPersonal = ?";
-		String[] selectionArgs = { "1" }; // 1 means true
-		String orderBy = "Date DESC";
+		String[] columns = { COL_ID };
+		String selection = COL_PERSONAL + " = ?";
+		String[] selectionArgs = { TRUE }; // 1 means true
+		String orderBy = COL_DATE + " DESC";
 
 		Cursor cursor = helper.query(TABLE_GAMES, columns, selection, selectionArgs, null, null,
 				orderBy);

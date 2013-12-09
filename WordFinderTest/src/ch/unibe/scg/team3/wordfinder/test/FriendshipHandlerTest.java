@@ -87,9 +87,9 @@ public class FriendshipHandlerTest extends AndroidTestCase implements
 
 	private void initUsers() {
 		User friend2 = new User("uRUAvXdqpb", "friend2", "friend2@test.com");
-		userHandler.setUser(friend2);
+		userHandler.insertUser(friend2);
 		User friend1 = new User("dF3mG5wK9k", "friend1", "friend1@test.com");
-		userHandler.setUser(friend1);
+		userHandler.insertUser(friend1);
 	}
 
 

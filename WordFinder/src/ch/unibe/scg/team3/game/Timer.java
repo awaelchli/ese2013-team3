@@ -10,6 +10,7 @@ import android.os.CountDownTimer;
  */
 public abstract class Timer extends CountDownTimer {
 
+	public static final String MIN_SEC_DELIMETER = ":";
 	private final long initialTime;
 	protected long remainingTime;
 
@@ -26,7 +27,7 @@ public abstract class Timer extends CountDownTimer {
 	}
 
 	private boolean invariant() {
-		return initialTime >= 0 && remainingTime >= 0;
+		return initialTime >= 0 && remainingTime >= 0 && remainingTime <= initialTime;
 	}
 
 	/**
@@ -54,6 +55,10 @@ public abstract class Timer extends CountDownTimer {
 		return initialTime - remainingTime;
 	}
 
+	public boolean isFinished() {
+		return remainingTime == 0;
+	}
+
 	/**
 	 * Represents the timer as the remaining time.
 	 * 
@@ -78,6 +83,6 @@ public abstract class Timer extends CountDownTimer {
 		String minText = String.format("%02d", minutes);
 		String secText = String.format("%02d", seconds);
 
-		return minText + ":" + secText;
+		return minText + MIN_SEC_DELIMETER + secText;
 	}
 }

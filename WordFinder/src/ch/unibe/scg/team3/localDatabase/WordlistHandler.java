@@ -3,21 +3,18 @@ package ch.unibe.scg.team3.localDatabase;
 import java.util.ArrayList;
 import java.util.Random;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 
 /**
- * This class gives the possibility to manage wordlists in the database.
+ * This class enables the access to the wordlists stored in the database. Its
+ * responsibility is to mutate and manage them correctly.
  * 
  * @author nils
- * 
  */
-@SuppressLint("DefaultLocale")
 public class WordlistHandler extends DataHandler {
 
 	/**
@@ -27,30 +24,27 @@ public class WordlistHandler extends DataHandler {
 	public static final String SHORT_WORD_TABLE_SUFFIX = "short";
 	public static final String LONG_WORD_TABLE_SUFFIX = "long";
 	private static final int MINIMUM_WORD_LENGTH = 1;
-	
+
 	private String selectedWordlist;
-	
+
 	public WordlistHandler(Context context) {
 		super(context);
 
-		SharedPreferences preferences = PreferenceManager
-				.getDefaultSharedPreferences(context);
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 		selectedWordlist = preferences.getString("choose_wordlist", null);
 
 	}
 
 	/**
-	 * // * Adds a new Wordlistentry in Database
+	 * Adds a new Wordlistentry in Database
 	 * 
 	 * @param name
 	 * @throws WordlistAlreadyInDataBaseException
 	 */
-	public void addEmptyWordlist(String name)
-			throws WordlistAlreadyInDataBaseException {
+	public void addEmptyWordlist(String name) throws WordlistAlreadyInDataBaseException {
 
 		if (!isWordlistInDatabase(name)) {
-			helper.execSQL("INSERT INTO Dictionary VALUES(NULL, ?)",
-					new String[] { name });
+			helper.execSQL("INSERT INTO Dictionary VALUES(NULL, ?)", new String[] { name });
 		} else {
 			throw new WordlistAlreadyInDataBaseException();
 		}
@@ -67,7 +61,6 @@ public class WordlistHandler extends DataHandler {
 	 * @return returns boolean value whether adding entry in database was
 	 *         successful
 	 */
-	@SuppressLint("DefaultLocale")
 	public boolean addWordToWordlist(String word, String wordlistname) {
 		int wordlistId = getWordlistId(wordlistname);
 
@@ -91,21 +84,18 @@ public class WordlistHandler extends DataHandler {
 	 *            should be a valid dataBase
 	 * @throws SQLException
 	 */
-	
-	private void addWordToDb(String word, int wordlistId)
-			throws SQLException {
+
+	private void addWordToDb(String word, int wordlistId) throws SQLException {
 		if (word.length() < SMALL_WORD && word.length() > 0) {
 
-			helper.execSQL("INSERT INTO "
-					+ getFirstLetterFromInputToLowerCase(word)
-					+ SHORT_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
-					+ "', ?)", new String[] { word.toLowerCase() });
+			helper.execSQL("INSERT INTO " + getFirstLetterFromInputToLowerCase(word)
+					+ SHORT_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId + "', ?)",
+					new String[] { word.toLowerCase() });
 
 		} else if (word.length() >= SMALL_WORD) {
-			helper.execSQL("INSERT INTO "
-					+ getFirstLetterFromInputToLowerCase(word)
-					+ LONG_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId
-					+ "', ?)", new String[] { word.toLowerCase() });
+			helper.execSQL("INSERT INTO " + getFirstLetterFromInputToLowerCase(word)
+					+ LONG_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId + "', ?)",
+					new String[] { word.toLowerCase() });
 
 		} else {
 			throw new SQLException();
@@ -124,7 +114,7 @@ public class WordlistHandler extends DataHandler {
 	 *            name of wordlist to be removed from main database
 	 */
 	public void removeWordlist(String name) {
-		
+
 		helper.execSQL("DELETE FROM Dictionary WHERE Name = '" + name + "'");
 	}
 
@@ -143,14 +133,12 @@ public class WordlistHandler extends DataHandler {
 		String table;
 
 		if (word.length() < SMALL_WORD) {
-			table = getFirstLetterFromInputToLowerCase(word)
-					+ SHORT_WORD_TABLE_SUFFIX;
+			table = getFirstLetterFromInputToLowerCase(word) + SHORT_WORD_TABLE_SUFFIX;
 		} else {
-			table = getFirstLetterFromInputToLowerCase(word)
-					+ LONG_WORD_TABLE_SUFFIX;
+			table = getFirstLetterFromInputToLowerCase(word) + LONG_WORD_TABLE_SUFFIX;
 		}
-		helper.execSQL("DELETE FROM " + table + " WHERE Dictionary = '"
-				+ wordlistId + "' AND content = '" + word + "'");
+		helper.execSQL("DELETE FROM " + table + " WHERE Dictionary = '" + wordlistId
+				+ "' AND content = '" + word + "'");
 	}
 
 	/**
@@ -172,12 +160,10 @@ public class WordlistHandler extends DataHandler {
 			table += LONG_WORD_TABLE_SUFFIX;
 		}
 
-
-		String[] contents = {word.toLowerCase() };
+		String[] contents = { word.toLowerCase() };
 
 		Cursor cursor = helper.rawQuery("SELECT Dictionary, Content FROM '" + table
-				+ "' WHERE Dictionary = '" + wordlistId + "' AND Content = ? ",
-				contents);
+				+ "' WHERE Dictionary = '" + wordlistId + "' AND Content = ? ", contents);
 
 		if (cursor.getCount() != 0) {
 			cursor.close();
@@ -194,16 +180,14 @@ public class WordlistHandler extends DataHandler {
 
 		String[] content = { wordlistname };
 
-		Cursor cursor = helper.rawQuery(
-				"SELECT _id FROM Dictionary WHERE Name = ?", content);
+		Cursor cursor = helper.rawQuery("SELECT _id FROM Dictionary WHERE Name = ?", content);
 
 		if (cursor.getCount() != 0) {
 			cursor.close();
 			return true;
-		}else
-		{
-		cursor.close();
-		return false;
+		} else {
+			cursor.close();
+			return false;
 		}
 
 	}
@@ -217,9 +201,9 @@ public class WordlistHandler extends DataHandler {
 			int id = c.getInt(0);
 			c.close();
 			return id;
-		}else{
-		c.close();
-		return 0;
+		} else {
+			c.close();
+			return 0;
 		}
 
 	}
@@ -237,10 +221,9 @@ public class WordlistHandler extends DataHandler {
 
 			c.close();
 			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
-		}else
-		{
-		c.close();
-		return lists;
+		} else {
+			c.close();
+			return lists;
 		}
 
 	}
@@ -257,9 +240,9 @@ public class WordlistHandler extends DataHandler {
 			}
 			c.close();
 			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
-		}else{
-		c.close();
-		return lists;
+		} else {
+			c.close();
+			return lists;
 		}
 
 	}
@@ -267,8 +250,7 @@ public class WordlistHandler extends DataHandler {
 	public String getRandomWordFromWordlist() {
 		Random r = new Random();
 		int randomint = r.nextInt(26);
-		String table = MySQLiteHelper.ALPHABET.substring(randomint,
-				randomint + 1);
+		String table = MySQLiteHelper.ALPHABET.substring(randomint, randomint + 1);
 		return getRandomWordFromWordlistByLetter(table);
 
 	}
@@ -288,8 +270,7 @@ public class WordlistHandler extends DataHandler {
 		return getRandomWordFromDatabaseByLetterAndLength(letter, rboolean);
 	}
 
-	public String getRandomWordFromDatabaseByLetterAndLength(String letter,
-			boolean isShort) {
+	public String getRandomWordFromDatabaseByLetterAndLength(String letter, boolean isShort) {
 		String word = "";
 		String table = "";
 		if (isShort) {
@@ -297,37 +278,37 @@ public class WordlistHandler extends DataHandler {
 		} else {
 			table = letter + LONG_WORD_TABLE_SUFFIX;
 		}
-			Cursor c = helper.rawQuery("SELECT Content FROM " + table
-					+ " WHERE Dictionary = '" + selectedWordlist
-					+ "' ORDER BY RANDOM() LIMIT 1", null);
-			if (c != null && c.getCount() != 0) {
-				c.moveToFirst();
-				word = c.getString(0);
-				c.close();
-			} else {
-				c.close();
-			}
+		Cursor c = helper.rawQuery("SELECT Content FROM " + table + " WHERE Dictionary = '"
+				+ selectedWordlist + "' ORDER BY RANDOM() LIMIT 1", null);
+		if (c != null && c.getCount() != 0) {
+			c.moveToFirst();
+			word = c.getString(0);
+			c.close();
+		} else {
+			c.close();
+		}
 		return word;
 	}
-	
-	public ArrayList<String> getWordsStartingWith(String suffix){
+
+	public ArrayList<String> getWordsStartingWith(String suffix) {
 		ArrayList<String> list = new ArrayList<String>();
-	
-		if(suffix.length() == 0){
+
+		if (suffix.length() == 0) {
 			return list;
 		}
-		
+
 		String letter = String.valueOf(suffix.charAt(0));
 		String table = "";
-		
+
 		if (suffix.length() < SMALL_WORD) {
 			table = letter + SHORT_WORD_TABLE_SUFFIX;
 		} else {
 			table = letter + LONG_WORD_TABLE_SUFFIX;
 		}
-		Cursor c = helper.rawQuery("SELECT Content FROM " + table + " WHERE Dictionary = '" + selectedWordlist +"' AND Content LIKE '" + suffix + "%'", null);
-		
-		while(c != null && c.moveToNext()){
+		Cursor c = helper.rawQuery("SELECT Content FROM " + table + " WHERE Dictionary = '"
+				+ selectedWordlist + "' AND Content LIKE '" + suffix + "%'", null);
+
+		while (c != null && c.moveToNext()) {
 			list.add(c.getString(0));
 		}
 		c.close();
@@ -336,16 +317,16 @@ public class WordlistHandler extends DataHandler {
 
 	public String getWordlistNameById(int wordlistId) {
 		String name = "";
-		Cursor c = helper.rawQuery("SELECT Name FROM Dictionary WHERE _id ='"
-				+ wordlistId + "'", null);
+		Cursor c = helper.rawQuery("SELECT Name FROM Dictionary WHERE _id ='" + wordlistId + "'",
+				null);
 		if (c.getCount() != 0) {
 			c.moveToFirst();
 			name = c.getString(0);
 			c.close();
 			return name;
-		}else{
-		c.close();
-		return name;
+		} else {
+			c.close();
+			return name;
 		}
 	}
 

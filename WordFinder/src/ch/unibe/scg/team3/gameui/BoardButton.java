@@ -30,7 +30,7 @@ public class BoardButton extends RelativeLayout implements IElement {
 		super(context, attrs);
 	}
 
-	/**
+	/*
 	 * Makes the buttons squared
 	 */
 	@Override

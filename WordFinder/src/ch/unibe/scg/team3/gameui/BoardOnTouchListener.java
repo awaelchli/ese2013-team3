@@ -35,7 +35,6 @@ public class BoardOnTouchListener implements OnTouchListener {
 		path = new ColoredPath<BoardButton>();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 
@@ -106,15 +105,14 @@ public class BoardOnTouchListener implements OnTouchListener {
 		makePathAnimation(path);
 	}
 
-	@SuppressWarnings("deprecation")
 	private void makePathAnimation(ColoredPath<BoardButton> path) {
 
-		for (BoardButton b : path) {
+		for (BoardButton button : path) {
 
-			b.setBackgroundDrawable(context.getResources().getDrawable(
+			button.setBackgroundDrawable(context.getResources().getDrawable(
 					path.getColor()));
 
-			AnimationDrawable anim = (AnimationDrawable) b.getBackground();
+			AnimationDrawable anim = (AnimationDrawable) button.getBackground();
 			anim.start();
 		}
 	}

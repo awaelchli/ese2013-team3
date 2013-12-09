@@ -17,14 +17,15 @@ import ch.unibe.scg.team3.wordfinder.R;
 
 public class Game extends AbstractGame {
 
-	public static final int DEFAULT_MIN_WORDS_TO_FIND = 5;
-	public static final long TIME_LIMIT = 2 * 60000;
+	public static final int DEFAULT_MIN_WORDS_TO_FIND = 30;
+	public static final long TIME_LIMIT = 3 * 60000;
 
 	private final WordlistHandler wordlistHandler;
 
 	private Timer timer;
-	private boolean timeOver;
 	private Board board;
+	
+	private boolean timeOver;
 	
 
 	/**
@@ -88,6 +89,10 @@ public class Game extends AbstractGame {
 		board = game.getBoard();
 		initTimer(TIME_LIMIT);
 	}
+	
+	private boolean invariant(){
+		return (!timeOver && !timer.isFinished()) || (timeOver && timer.isFinished()); 
+	}
 
 	private void generateBoard(int boardSize) {
 
@@ -107,11 +112,11 @@ public class Game extends AbstractGame {
 	}
 
 	/**
-	 * The method reads the ch.unibe.scg.team3.path and selects the tokens on the board. It creates
-	 * the word according to the ch.unibe.scg.team3.path and validates this word.
+	 * The method reads the path and selects the tokens on the board. It creates
+	 * the word according to path and validates this word.
 	 * 
-	 * @param ch.unibe.scg.team3.path
-	 *            The ch.unibe.scg.team3.path to be checked, not null.
+	 * @param path
+	 *            The path to be checked, not null.
 	 */
 	public void submitPath(ColoredPath<? extends IElement> path) {
 		assert path != null;
@@ -125,9 +130,11 @@ public class Game extends AbstractGame {
 			path.setColor(R.drawable.not_valid_button_animation);
 
 		} else if (found.contains(selection)) {
+
 			path.setColor(R.drawable.already_button_animation);
 
 		} else {
+
 			found.add(selection);
 			path.setColor(R.drawable.valid_button_animation);
 			updateScore(selection);
@@ -138,6 +145,8 @@ public class Game extends AbstractGame {
 		if (isOver()) {
 			notifyObservers(new Event(Event.GAME_OVER));
 		}
+		
+		assert invariant();
 	}
 
 	private void updateScore(WordSelection selection) {
@@ -147,10 +156,10 @@ public class Game extends AbstractGame {
 	/**
 	 * Creates a selection based on the paths coordinate points.
 	 * 
-	 * @param ch.unibe.scg.team3.path
-	 *            A ch.unibe.scg.team3.path which is not null
+	 * @param path
+	 *            A path which is not null
 	 * @return The word selection with, with token from the board according to
-	 *         the ch.unibe.scg.team3.path.
+	 *         the path.
 	 */
 	private WordSelection makeSelection(Path<? extends IElement> path) {
 
@@ -185,14 +194,17 @@ public class Game extends AbstractGame {
 				notifyObservers(new Event(Event.TIME_TICK));
 			}
 		};
+		
+		assert invariant();
 	}
 
 	/**
-	 * Starts the countdown timer.
+	 * The timer will start to count down.
 	 */
 	public void startTime() {
 		timer.start();
 		timeOver = false;
+		assert invariant();
 	}
 
 	/**
@@ -203,9 +215,9 @@ public class Game extends AbstractGame {
 	public long stopTime() {
 		timer.cancel();
 		timeOver = true;
-		return timer.getRemainingTime();
+		assert invariant();
+		return getRemainingTime();
 	}
-
 
 	/**
 	 * Pauses the timer.
@@ -214,15 +226,16 @@ public class Game extends AbstractGame {
 	 */
 	public long pauseTime() {
 		timer.cancel();
-		initTimer(timer.getRemainingTime());
-		return timer.getRemainingTime();
+		initTimer(getRemainingTime());
+		assert invariant();
+		return getRemainingTime();
 	}
 
 	@Override
 	public long getRemainingTime() {
 		return timer.getRemainingTime();
 	}
-	
+
 	@Override
 	public long getElapsedTime() {
 		return timer.getElapsedTime();
@@ -265,6 +278,7 @@ public class Game extends AbstractGame {
 		saved.setNumberOfFoundWords(found.size());
 		saved.setRemainingTime(getRemainingTime());
 
+		assert invariant();
 		return saved;
 	}
 }

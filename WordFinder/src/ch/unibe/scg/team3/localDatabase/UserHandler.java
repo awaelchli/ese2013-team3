@@ -1,30 +1,38 @@
 package ch.unibe.scg.team3.localDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import ch.unibe.scg.team3.game.SavedGame;
 import ch.unibe.scg.team3.user.User;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * This class provides access to the users in the database.
+ * 
+ * @author nils
+ * @author adrian
+ */
 public class UserHandler extends DataHandler {
+
+	public static final String COL_EMAIL = "Email";
+	public static final String COL_NAME = "Name";
+	public static final String TABLE_USER = "User";
+	public static final String COL_USER_ID = "user_id";
 
 	public UserHandler(Context context) {
 		super(context);
 	}
 
-	
+	public boolean setUserId(String userId, int id) {
 
-	public boolean setUserId(String userid, int id) {
+		ContentValues values = new ContentValues();
+		values.put(COL_USER_ID, userId);
 
-		ContentValues c = new ContentValues();
-		c.put("user_id", userid);
+		String whereClause = COL_ID + " = ?";
+		String[] whereArgs = { String.valueOf(id) };
 		try {
-			helper.update("User", c, "_id =" + id, null);
+			helper.update(TABLE_USER, values, whereClause, whereArgs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -32,27 +40,41 @@ public class UserHandler extends DataHandler {
 		return true;
 	}
 
-	public boolean setUser(User user) {
-		ContentValues c = new ContentValues();
-		c.put("Name", user.getUserName());
-		c.put("Email", user.getEmail());
-		c.put("user_id", user.getUserID());
+	/**
+	 * @param user
+	 *            The user to insert, should not be null.
+	 * @return True, if the user was inserted successfully and false otherwise.
+	 */
+	public boolean insertUser(User user) {
+		ContentValues values = new ContentValues();
+		values.put(COL_NAME, user.getUsername());
+		values.put(COL_EMAIL, user.getEmail());
+		values.put(COL_USER_ID, user.getUserID());
+
 		try {
-			helper.insert("User", null, c);
+			helper.insert(TABLE_USER, null, values);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 		return true;
 	}
 
-	
+	/**
+	 * @param userId
+	 *            The id of the user to find. Note: This is not the id of the
+	 *            row in the database.
+	 * @return True, if the user with the given id is already in the database
+	 *         and false otherwise.
+	 */
+	public boolean isUserinDb(String userId) {
+		String[] columns = { "*" };
+		String selection = COL_USER_ID + " = ?";
+		String[] selectionArgs = { userId };
+		Cursor c = helper.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
 
-	public boolean isUserinDb(String userid) {
-		Cursor c = helper.rawQuery("SELECT * FROM User WHERE user_id = ? ",
-				new String[] { userid });
-		if (c.getCount() > 0) {
+		if (c != null && c.getCount() > 0) {
 			c.close();
 			return true;
 		} else {
@@ -61,41 +83,56 @@ public class UserHandler extends DataHandler {
 		}
 	}
 
+	/**
+	 * @return An ArrayList containing all users stored in the database.
+	 */
 	public ArrayList<User> getUsers() {
 		ArrayList<User> users = new ArrayList<User>();
-		Cursor c = helper.rawQuery("SELECT * FROM User", null);
-		if (c != null && c.getCount() != 0) {
-			c.moveToFirst();
-			while (!c.isAfterLast()) {
-				users.add(new User(c.getString(0), c.getString(1), c
-						.getString(2)));
-				c.moveToNext();
+
+		String[] selection = { "*" };
+		Cursor cursor = helper.query(TABLE_USER, selection, null, null, null, null, null);
+
+		if (cursor != null && cursor.getCount() != 0) {
+			while (cursor.moveToNext()) {
+				users.add(new User(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
 			}
-			c.close();
-		} else {
-			c.close();
 		}
+
+		cursor.close();
 		return users;
 
 	}
-	
-	public User getUser(String userid) {
+
+	/**
+	 * @param userId
+	 *            The id of the user to be searched for.
+	 * @return The user, containing the data that is stored in the database. If
+	 *         the id was not found, the User will be empty.
+	 */
+	public User getUser(String userId) {
 		User user = new User();
-		Cursor c = helper.rawQuery("SELECT * FROM User WHERE user_id = ?", new String[] {userid});
-		if (c != null && c.getCount() != 0) {
-			c.moveToFirst();
-			user = new User(c.getString(0), c.getString(1), c.getString(2));
-			c.close();
-		} else {
-			c.close();
+
+		String[] columns = { "*" };
+		String selection = COL_USER_ID + " = ?";
+		String[] selectionArgs = { userId };
+		Cursor cursor = helper.query(TABLE_USER, columns, selection, selectionArgs, null, null,
+				null);
+
+		if (cursor != null && cursor.getCount() != 0) {
+			cursor.moveToFirst();
+			user = new User(cursor.getString(0), cursor.getString(1), cursor.getString(2));
 		}
+
+		cursor.close();
 		return user;
 
 	}
 
-	public void remove(User deleteduser) {
-		helper.delete("User", "user_id = ?", new String[] {deleteduser.getUserID()});
-		
+	/**
+	 * @param user
+	 *            Removes the given user if his id is in the database.
+	 */
+	public void remove(User user) {
+		helper.delete(TABLE_USER, COL_USER_ID + " = ?", new String[] { user.getUserID() });
 	}
-
 }

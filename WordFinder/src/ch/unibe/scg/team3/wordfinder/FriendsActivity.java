@@ -75,7 +75,7 @@ public class FriendsActivity extends Activity {
 				User friend = getItem(position);
 
 				convertView.setId(position);
-				name.setText(friend.getUserName());
+				name.setText(friend.getUsername());
 				registerForContextMenu(convertView);
 				convertView.setId(position);
 				return convertView;

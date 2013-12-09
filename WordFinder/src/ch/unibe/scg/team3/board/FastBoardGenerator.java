@@ -32,8 +32,6 @@ public class FastBoardGenerator extends AbstractBoardGenerator {
 	@Override
 	protected void generate() {
 
-		// TODO: make a list containing all placed words and check...
-
 		int placedCount = 0;
 
 		while (placedCount < minWords) {
