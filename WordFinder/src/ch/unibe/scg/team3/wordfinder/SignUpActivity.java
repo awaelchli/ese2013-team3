@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,8 @@ public class SignUpActivity extends Activity {
 	}
 	
 	public void onCancel(View view){
+		Intent intent = new Intent(getApplicationContext(),PreferencesActivity.class);
+		startActivity(intent);
 		finish();
 	}
 	public void onSignupOk(View view){
@@ -89,11 +92,9 @@ public class SignUpActivity extends Activity {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * BugFixing : Deactivates Button.
-	 */
 	@Override
 	public void onBackPressed() {
+		onCancel(null);
 	}
 	
 

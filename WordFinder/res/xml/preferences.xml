@@ -26,7 +26,6 @@
 		<Preference android:title="Logout" android:key="logout" android:enabled="false"/>			
         
     </PreferenceCategory>
-	<PreferenceCategory><Preference android:title="Go Back" android:key="back"/></PreferenceCategory>
 	
 	
     

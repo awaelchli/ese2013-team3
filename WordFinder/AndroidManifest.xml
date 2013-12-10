@@ -19,11 +19,14 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:launchMode="singleInstance"
-        android:theme="@style/AppBaseTheme" >
+        android:theme="@style/AppBaseTheme" 
+        >
+        
         <activity
             android:name="ch.unibe.scg.team3.wordfinder.HomeActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
+            
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

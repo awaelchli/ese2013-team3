@@ -95,11 +95,10 @@ public class SavedGamesActivity extends Activity {
 		handler.removeGame(savedGame.getId());
 		recreate();
 	}
-	/**
-	 * BugFixing : Deactivates Button.
-	 */
+	
 	@Override
 	public void onBackPressed() {
+		onBack(null);
 	}
 	public void onBack(View view){
 		Intent intent = new Intent(getApplicationContext(),HomeActivity.class);

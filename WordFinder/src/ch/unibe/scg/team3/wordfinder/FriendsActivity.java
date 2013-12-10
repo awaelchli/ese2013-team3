@@ -266,11 +266,9 @@ public class FriendsActivity extends Activity {
 
 	}
 
-	/**
-	 * BugFixing : Deactivates Button.
-	 */
 	@Override
 	public void onBackPressed() {
+		onBack(null);
 	}
 
 	public void onBack(View view) {
