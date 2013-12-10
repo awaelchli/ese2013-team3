@@ -26,7 +26,7 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		uh = new UserHandler(this);
-		//mainuser = uh.getMainUser();
+		//mainuser = userHandler.getMainUser();
 		
 		
 	}

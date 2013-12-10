@@ -1,5 +1,7 @@
 package ch.unibe.scg.team3.wordfinder;
 
+import java.util.ArrayList;
+
 import com.parse.ParseUser;
 
 import android.content.Intent;
@@ -9,7 +11,6 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.widget.Toast;
-import ch.unibe.scg.team3.localDatabase.UserHandler;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
 /**
@@ -18,12 +19,10 @@ import ch.unibe.scg.team3.localDatabase.WordlistHandler;
  * 
  */
 public class PreferencesActivity extends PreferenceActivity {
-	WordlistHandler wm;
-	UserHandler uh;
+	WordlistHandler wHandler;
 	private Preference login;
 	private Preference logout;
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,8 +33,7 @@ public class PreferencesActivity extends PreferenceActivity {
 		final Preference back = (Preference) findPreference("back");
 		login = (Preference) findPreference("login");
 		logout = (Preference) findPreference("logout");
-		wm = new WordlistHandler(this);
-		uh = new UserHandler(this);
+		wHandler = new WordlistHandler(this);
 		setListPreferenceData(wordlistPref);
 		if (ParseUser.getCurrentUser() == null) {
 			login.setEnabled(true);
@@ -103,8 +101,10 @@ public class PreferencesActivity extends PreferenceActivity {
 	protected void setListPreferenceData(ListPreference lp) {
 		CharSequence[] entries;
 		CharSequence[] entryValues;
-		entries = wm.getWordlists();
-		entryValues = wm.getWordlistIds();
+		ArrayList<String> names = wHandler.getWordlists();
+		entries = (CharSequence[]) names.toArray(new CharSequence[names.size()]);
+		ArrayList<String> ids = wHandler.getWordlistIds();
+		entryValues = (CharSequence[]) ids.toArray(new CharSequence[ids.size()]);
 		lp.setEntries(entries);
 		lp.setEntryValues(entryValues);
 	}

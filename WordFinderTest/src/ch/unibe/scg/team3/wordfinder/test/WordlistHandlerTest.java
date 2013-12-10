@@ -63,7 +63,7 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 		wordlistHandler.addEmptyWordlist("TestRemoveWordFromWordlist");
 		wordlistHandler
 				.addWord("Teste", "TestRemoveWordFromWordlist");
-		wordlistHandler.removeWordFromWordlist("teste",
+		wordlistHandler.removeWord("teste",
 				"TestRemoveWordFromWordlist");
 		assertFalse((wordlistHandler.isWordInWordlist("Teste",
 				wordlistHandler.getWordlistId("TestRemoveWordFromWordlist"))));
@@ -88,26 +88,26 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 	public void testGetWordlistId() {
 		assertTrue(wordlistHandler.getWordlistId("English") == 1);
 		assertTrue(wordlistHandler.getWordlistId("Deutsch") == 2);
-		assertTrue(wordlistHandler.getWordlistId("") == 0);
+		assertTrue(wordlistHandler.getWordlistId("") == -1);
 
 	}
 
 	public void testGetWordlists() {
 		assertNotNull(wordlistHandler.getWordlists());
-		assertTrue(wordlistHandler.getWordlists().length >= 2);
+		assertTrue(wordlistHandler.getWordlists().size() >= 2);
 
 	}
 
 	public void testGetWordlistids() {
 		assertNotNull(wordlistHandler.getWordlistIds());
-		assertTrue(wordlistHandler.getWordlistIds().length >= 2);
+		assertTrue(wordlistHandler.getWordlistIds().size() >= 2);
 	}
 
 	public void testGetRandomWordFromWordlistByLetter() {
 		String a = MySQLiteHelper.ALPHABET;
 		wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
 		for (int i = 0; i < a.length(); i++) {
-			String temp = wordlistHandler.getRandomWordFromWordlistByLetter(a
+			String temp = wordlistHandler.getRandomWordStartingWith(a
 					.substring(i, i + 1));
 			String temp2 = wordlistHandler
 					.firstLetterOf(temp);

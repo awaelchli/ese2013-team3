@@ -69,8 +69,8 @@ public class WordlistHandler extends DataHandler {
 
 	/**
 	 * Adds a word to the given wordlist in the database. Pay attention that the
-	 * database is closed before you invoke this method and that it will be closed after
-	 * execution.
+	 * database is closed before you invoke this method and that it will be
+	 * closed after execution.
 	 * 
 	 * @param word
 	 *            should not be empty or null
@@ -80,35 +80,20 @@ public class WordlistHandler extends DataHandler {
 	 */
 	public boolean addWord(String word, String wordlistname) {
 		int wordlistId = getWordlistId(wordlistname);
-		String table = new String();
-		
-		if (word.length() < SMALL_WORD && word.length() > 0) {
-			table = firstLetterOf(word) + SHORT_WORD_TABLE_SUFFIX;
+		String table = tableOf(word);
 
-		} else if (word.length() >= SMALL_WORD) {
-			table = firstLetterOf(word) + LONG_WORD_TABLE_SUFFIX;
-		}
-		
 		ContentValues values = new ContentValues();
 		values.put(COL_WORDLIST, String.valueOf(wordlistId));
 		values.put(COL_CONTENT, word.toLowerCase());
 		long id = helper.insert(table, null, values);
-		
+
 		return id == -1 ? false : true;
 	}
 
 	/**
-	 * @param word
-	 *            The word should have at least one character.
-	 * @return The first letter of this word in lower case.
-	 */
-	public String firstLetterOf(String word) {
-		return word.substring(0, 1).toLowerCase();
-	}
-
-	/**
 	 * Removes a wordlist given by a name in database. Pay attention that the
-	 * database is closed before you invoke and that it will be closed after execution.
+	 * database is closed before you invoke and that it will be closed after
+	 * execution.
 	 * 
 	 * @param name
 	 *            The name of wordlist to be removed from main database
@@ -117,55 +102,52 @@ public class WordlistHandler extends DataHandler {
 		String whereClause = COL_NAME + " = ?";
 		String[] whereArgs = { name };
 		helper.delete(TABLE_WORDLIST, whereClause, whereArgs);
-//		helper.execSQL("DELETE FROM Dictionary WHERE Name = '" + name + "'");
 	}
 
 	/**
-	 * Removes a word from the given wordlist in main database. Pay attention
-	 * that database is closed before invoke and it will be closed after
-	 * execution.
+	 * Removes a word from the given wordlist in the database. Pay attention
+	 * that database is closed before you invoke it and that it will be closed
+	 * after execution.
 	 * 
 	 * @param word
-	 *            word to be removed from a wordlist given by name
+	 *            The word to be removed from a wordlist given by the name. This
+	 *            method ignores upper case words and converts the word to lower
+	 *            case.
 	 * @param wordlist
-	 *            name of wordlist which contains the word to remove
+	 *            The name of the wordlist which contains the word to remove.
 	 */
-	public void removeWordFromWordlist(String word, String wordlist) {
+	public void removeWord(String word, String wordlist) {
 		int wordlistId = getWordlistId(wordlist);
-		String table;
 
-		if (word.length() < SMALL_WORD) {
-			table = firstLetterOf(word) + SHORT_WORD_TABLE_SUFFIX;
-		} else {
-			table = firstLetterOf(word) + LONG_WORD_TABLE_SUFFIX;
-		}
-		helper.execSQL("DELETE FROM " + table + " WHERE Dictionary = '" + wordlistId
-				+ "' AND content = '" + word + "'");
+		String table = tableOf(word);
+		String whereClause = COL_WORDLIST + " = ? AND " + COL_CONTENT + " = ?";
+		String[] whereArgs = { String.valueOf(wordlistId), word.toLowerCase() };
+
+		helper.delete(table, whereClause, whereArgs);
 	}
 
 	/**
-	 * 
 	 * @param word
+	 *            The word to search in the given wordlist. Upper case
+	 *            characters in this string will get ignored since the database
+	 *            stores only lower case words.
 	 * @param wordlistId
-	 * @return
+	 *            The id of the wordlist to search through.
+	 * @return True, if the word is in the wordlist with the given id. The word
+	 *         will be checked in lower case since the database stores only
+	 *         lower case words.
 	 */
 	public boolean isWordInWordlist(String word, int wordlistId) {
 
 		if (word.length() < MINIMUM_WORD_LENGTH)
 			return false;
 
-		String table = firstLetterOf(word);
+		String table = tableOf(word);
 
-		if (word.length() < SMALL_WORD) {
-			table += SHORT_WORD_TABLE_SUFFIX;
-		} else {
-			table += LONG_WORD_TABLE_SUFFIX;
-		}
-
-		String[] contents = { word.toLowerCase() };
-
-		Cursor cursor = helper.rawQuery("SELECT Dictionary, Content FROM '" + table
-				+ "' WHERE Dictionary = '" + wordlistId + "' AND Content = ? ", contents);
+		String[] columns = { COL_WORDLIST, COL_CONTENT };
+		String selection = COL_WORDLIST + " = ? AND " + COL_CONTENT + " = ?";
+		String[] selectionArgs = { String.valueOf(wordlistId), word.toLowerCase() };
+		Cursor cursor = helper.query(table, columns, selection, selectionArgs, null, null, null);
 
 		if (cursor.getCount() != 0) {
 			cursor.close();
@@ -177,99 +159,89 @@ public class WordlistHandler extends DataHandler {
 
 	}
 
-	// TODO: test, can use in addWordToWordlist
+	/**
+	 * @param wordlistname
+	 *            The name of the wordlist to search for.
+	 * @return True if the wordlist with the specified name is in the database
+	 *         and false otherwise.
+	 */
 	public boolean isWordlistInDatabase(String wordlistname) {
 
-		String[] content = { wordlistname };
-
-		Cursor cursor = helper.rawQuery("SELECT _id FROM Dictionary WHERE Name = ?", content);
-
-		if (cursor.getCount() != 0) {
-			cursor.close();
-			return true;
-		} else {
-			cursor.close();
+		if (getWordlistId(wordlistname) == -1) {
 			return false;
 		}
 
+		return true;
 	}
 
-	// TODO: look at code downwards here
+	/**
+	 * @param wordlistname
+	 *            The name of the wordlist to search for.
+	 * @return The id of the wordlist if it was found and -1 if the wordlist
+	 *         with the given name is not in the database.
+	 */
 	public int getWordlistId(String wordlistname) {
-		Cursor c = helper.rawQuery("SELECT _id FROM Dictionary WHERE Name = ?",
-				new String[] { wordlistname });
-		if (c.getCount() != 0) {
-			c.moveToFirst();
-			int id = c.getInt(0);
-			c.close();
-			return id;
-		} else {
-			c.close();
-			return 0;
+
+		String[] columns = { COL_ID };
+		String selection = COL_NAME + " = ?";
+		String[] selectionArgs = { wordlistname };
+		Cursor cursor = helper.query(TABLE_WORDLIST, columns, selection, selectionArgs, null, null,
+				null);
+
+		int id = -1;
+		if (cursor.moveToFirst()) {
+			id = cursor.getInt(0);
+		}
+		cursor.close();
+		return id;
+	}
+
+	/**
+	 * @return All wordlist names that are stored in the database.
+	 */
+	public ArrayList<String> getWordlists() {
+
+		ArrayList<String> list = new ArrayList<String>();
+
+		String[] columns = { COL_NAME };
+		Cursor cursor = helper.query(TABLE_WORDLIST, columns, null, null, null, null, null);
+
+		while (cursor != null && cursor.moveToNext()) {
+			list.add(cursor.getString(0));
 		}
 
+		cursor.close();
+		return list;
 	}
 
-	public CharSequence[] getWordlists() {
-		CharSequence[] lists = null;
-		ArrayList<String> tmp = new ArrayList<String>();
-		Cursor c = helper.rawQuery("SELECT _id , Name FROM Dictionary", null);
-		if (c.getCount() != 0) {
-			c.moveToFirst();
-			while (!c.isAfterLast()) {
-				tmp.add(c.getString(1));
-				c.moveToNext();
-			}
+	/**
+	 * @return All wordlist ids that are in the database. The ArrayList holds
+	 *         Strings for easier conversion to CharSequence[] in the
+	 *         PreferencesActivity.
+	 * @see PreferencesActivity
+	 */
+	public ArrayList<String> getWordlistIds() {
 
-			c.close();
-			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
-		} else {
-			c.close();
-			return lists;
+		ArrayList<String> list = new ArrayList<String>();
+
+		String[] columns = { COL_ID };
+		Cursor cursor = helper.query(TABLE_WORDLIST, columns, null, null, null, null, null);
+
+		while (cursor != null && cursor.moveToNext()) {
+			list.add(cursor.getString(0));
 		}
 
+		cursor.close();
+		return list;
 	}
 
-	public CharSequence[] getWordlistIds() {
-		CharSequence[] lists = null;
-		ArrayList<String> tmp = new ArrayList<String>();
-		Cursor c = helper.rawQuery("SELECT _id , Name FROM Dictionary", null);
-		if (c.getCount() != 0) {
-			c.moveToFirst();
-			while (!c.isAfterLast()) {
-				tmp.add(Integer.toString(c.getInt(0)));
-				c.moveToNext();
-			}
-			c.close();
-			return (CharSequence[]) tmp.toArray(new CharSequence[tmp.size()]);
-		} else {
-			c.close();
-			return lists;
-		}
-
-	}
-
-	public String getRandomWordFromWordlist() {
-		Random r = new Random();
-		int randomint = r.nextInt(26);
-		String table = MySQLiteHelper.ALPHABET.substring(randomint, randomint + 1);
-		return getRandomWordFromWordlistByLetter(table);
-
-	}
-
-	public String getRandomWordFromWordlistByLetter(String letter) {
+	public String getRandomWordStartingWith(String letter) {
 		Random r = new Random();
 		int random = r.nextInt(2);
-		boolean rboolean;
-		switch (random) {
-		case 0:
-			rboolean = true;
-			break;
-		default:
-			rboolean = false;
-			break;
-		}
-		return getRandomWordFromDatabaseByLetterAndLength(letter, rboolean);
+		
+		boolean shortWords = random == 0 ? true : false;
+			
+		return getRandomWordFromDatabaseByLetterAndLength(letter, shortWords);
 	}
 
 	public String getRandomWordFromDatabaseByLetterAndLength(String letter, boolean isShort) {
@@ -330,6 +302,39 @@ public class WordlistHandler extends DataHandler {
 			c.close();
 			return name;
 		}
+	}
+
+	/**
+	 * Returns the name of the table according to the first letter and the
+	 * length of the word.
+	 */
+	private String tableOf(String word) {
+		String table = new String();
+
+		if (word.length() < SMALL_WORD && word.length() > 0) {
+			table = firstLetterOf(word) + SHORT_WORD_TABLE_SUFFIX;
+
+		} else if (word.length() >= SMALL_WORD) {
+			table = firstLetterOf(word) + LONG_WORD_TABLE_SUFFIX;
+		}
+		return table;
+	}
+
+	/**
+	 * @param word
+	 *            The word should have at least one character.
+	 * @return The first letter of this word in lower case.
+	 */
+	public String firstLetterOf(String word) {
+		return word.substring(0, 1).toLowerCase();
+	}
+	
+	public String getRandomWordFromWordlist() {
+		Random r = new Random();
+		int randomint = r.nextInt(26);
+		String table = MySQLiteHelper.ALPHABET.substring(randomint, randomint + 1);
+		return getRandomWordStartingWith(table);
+
 	}
 
 }
