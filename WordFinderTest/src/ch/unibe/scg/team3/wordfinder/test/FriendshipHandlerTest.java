@@ -3,30 +3,41 @@ package ch.unibe.scg.team3.wordfinder.test;
 import java.io.IOException;
 import java.util.List;
 
-import com.parse.LogInCallback;
-import com.parse.Parse;
-import com.parse.ParseException;
-import com.parse.ParseUser;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.test.AndroidTestCase;
-
-import ch.unibe.scg.team3.localDatabase.DataHandler;
 import ch.unibe.scg.team3.localDatabase.FriendshipHandler;
 import ch.unibe.scg.team3.localDatabase.UserHandler;
 import ch.unibe.scg.team3.sharingService.Friendship;
 import ch.unibe.scg.team3.user.User;
-import ch.unibe.scg.team3.wordfinder.LoginActivity;
 import ch.unibe.scg.team3.wordfinder.R;
 
-public class FriendshipHandlerTest extends AndroidTestCase implements
-		IDataHandlerTest {
+import com.parse.Parse;
+
+public class FriendshipHandlerTest extends AndroidTestCase {
 
 
 	private FriendshipHandler friendshipHandler;
 	private UserHandler userHandler;
 
+	public void setUp() throws Exception {
+		super.setUp();
+		
+		userHandler=new UserHandler(mContext.getApplicationContext());
+		friendshipHandler = new FriendshipHandler(mContext.getApplicationContext());
+		
+		try {
+			friendshipHandler.copyDB();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		android.preference.PreferenceManager.setDefaultValues(
+				mContext.getApplicationContext(), R.xml.preferences, false);
+		Parse.initialize(mContext, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK",
+						"FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
+		
+		initUsers();
+	}
+	
 	public void testTestAddRemoveFriend() {
 		String userId="uRUAvXdqpb";
 		String friendId="dF3mG5wK9k";
@@ -52,24 +63,7 @@ public class FriendshipHandlerTest extends AndroidTestCase implements
 	}
 
 	
-	public void setUp() {
-		friendshipHandler = new FriendshipHandler(mContext.getApplicationContext());
-		userHandler=new UserHandler(mContext.getApplicationContext());
-		try {
-			friendshipHandler.copyDB();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		android.preference.PreferenceManager.setDefaultValues(
-				mContext.getApplicationContext(), R.xml.preferences, false);
-		Parse.initialize(mContext, "ORYli0X0QqbH3Oefe0wvI2TsYa4d4Kw7sYKZFYuK",
-						"FYUWqwq1E0VlFkVUXs6Fus1OZUN6CfqJo81EPbTJ");
-		
-		initUsers();
-		
 	
-	}
 
 
 	private void initUsers() {

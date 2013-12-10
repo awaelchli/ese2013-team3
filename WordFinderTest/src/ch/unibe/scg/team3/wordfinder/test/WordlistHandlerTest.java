@@ -1,27 +1,16 @@
 package ch.unibe.scg.team3.wordfinder.test;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 
-import com.parse.Parse;
-
 import android.test.AndroidTestCase;
-
 import ch.unibe.scg.team3.localDatabase.MySQLiteHelper;
-import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 import ch.unibe.scg.team3.localDatabase.WordlistAlreadyInDataBaseException;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 import ch.unibe.scg.team3.wordfinder.R;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.preference.PreferenceManager;
-import android.test.AndroidTestCase;
 
-public class WordlistHandlerTest extends AndroidTestCase implements IDataHandlerTest {
+import com.parse.Parse;
+
+public class WordlistHandlerTest extends AndroidTestCase  {
 	
 	protected WordlistHandler wordlistHandler;
 	
@@ -114,9 +103,12 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 			assertTrue(a.substring(i, i + 1).equals(temp2));
 		}
 	}
-	public void setUp() {
+	
+	public void setUp() throws Exception {
+		super.setUp();
 		 wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
 		 try {
+			 
 			wordlistHandler.copyDB();
 		} catch (IOException e) {
 			e.printStackTrace();

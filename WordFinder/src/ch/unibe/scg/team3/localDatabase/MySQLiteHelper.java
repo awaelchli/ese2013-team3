@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabaseCorruptException;
 import android.database.sqlite.SQLiteOpenHelper;
 import ch.unibe.scg.team3.wordfinder.R;
 
@@ -113,7 +114,15 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	}
 
 	public synchronized Cursor rawQuery(String sql, String[] selectionArgs) {
-		return getWritableDatabase().rawQuery(sql, selectionArgs);
+		Cursor cursor = null;
+		while (cursor == null) {
+			try {
+				cursor = getWritableDatabase().rawQuery(sql, selectionArgs);
+			} catch (SQLiteDatabaseCorruptException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return cursor;
 	}
 
 	public synchronized Cursor query(String sql, String[] columns, String selection,
@@ -122,11 +131,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				orderBy);
 	}
 
-	public void open() {
+	public synchronized void open() {
 		getWritableDatabase();
 	}
-	
-	public void close() {
+
+	public synchronized void close() {
 		getWritableDatabase().close();
 	}
 

@@ -11,11 +11,9 @@ import ch.unibe.scg.team3.localDatabase.DataHandler;
 import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 import ch.unibe.scg.team3.wordfinder.R;
 
-public class SavedGamesHandlerTest extends AndroidTestCase implements
-		IDataHandlerTest {
+public class SavedGamesHandlerTest extends AndroidTestCase {
 
 	protected String defaultBoard = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-	protected DataHandler wordlistHandler;
 	protected SavedGamesHandler savedGamesHandler;
 
 	public void testGetTaggedGames() {
@@ -96,11 +94,13 @@ public class SavedGamesHandlerTest extends AndroidTestCase implements
 		return saved;
 	}
 	
-	public void setUp() {
-		//wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
+	public void setUp() throws Exception {
+		super.setUp();
+
 		savedGamesHandler = new SavedGamesHandler(
 				mContext.getApplicationContext());
 		try {
+			
 			savedGamesHandler.copyDB();
 		} catch (IOException e) {
 			e.printStackTrace();

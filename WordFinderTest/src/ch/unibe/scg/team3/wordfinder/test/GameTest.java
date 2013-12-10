@@ -19,10 +19,12 @@ public class GameTest extends AndroidTestCase implements IGameObserver{
 
 	private WordlistHandler wordlistHandler;
 	private boolean boardGenerated;
-
-	public void setUp() {
+	
+	public void setUp() throws Exception {
+		super.setUp();
 		wordlistHandler = new WordlistHandler(mContext.getApplicationContext());
 		try {
+			
 			wordlistHandler.copyDB();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -40,6 +42,7 @@ public class GameTest extends AndroidTestCase implements IGameObserver{
 	public void testInitGameOfDefaultSize() {
 
 		Game game = new Game(wordlistHandler, 1);
+		
 		game.addObserver(this);
 		boardGenerated = false;
 		assertEquals(game.getBoardSize(), 6);
@@ -84,7 +87,7 @@ public class GameTest extends AndroidTestCase implements IGameObserver{
 //		long end = System.currentTimeMillis() + 1000;
 //		while(System.currentTimeMillis() < end );
 //		
-//		assertEquals(game.getTime(), "4:59");
+//		assertEquals(game.getRemainingTime(), 5 * 60000 - 1000);
 //		
 //		game.stopTime();
 //		assertTrue(game.isOver());
