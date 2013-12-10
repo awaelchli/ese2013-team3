@@ -57,11 +57,9 @@ public class ReceivedRequestsActivity extends Activity {
 			requests.clear();
 		}
 	}
-	/**
-	 * BugFixing : Deactivates Button.
-	 */
 	@Override
 	public void onBackPressed() {
+		onBack(null);
 	}
 	public void onBack(View view){
 		Intent intent = new Intent(getApplicationContext(),FriendsActivity.class);

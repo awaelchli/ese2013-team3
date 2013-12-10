@@ -24,6 +24,8 @@ public class GameInterruptActivity extends Activity {
 	private SavedGame game;
 	private SavedGame oldGame;
 	protected String board;
+	protected long old_id;
+	protected long id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,8 @@ public class GameInterruptActivity extends Activity {
 		handler = new SavedGamesHandler(this);
 		Intent intent = getIntent();
 
-		long old_id = intent.getLongExtra("old_saved_game_id", -1);
-		long id = intent.getLongExtra("saved_game_id", -1);
+		old_id = intent.getLongExtra("old_saved_game_id", -1);
+		id = intent.getLongExtra("saved_game_id", -1);
 
 		if (!handler.isGameInDatabase(id)) {
 			makePauseInterface();
@@ -134,7 +136,8 @@ public class GameInterruptActivity extends Activity {
 	}
 
 	public void goHome(View view) {
-		GameActivity.instance.finish();
+		if(GameActivity.instance != null){
+		GameActivity.instance.finish();}
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
 		finish();
@@ -166,36 +169,15 @@ public class GameInterruptActivity extends Activity {
 		alert.show();
 	}
 
-//	public void reenterTitle(final View view) {
-//		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-//
-//		alert.setTitle("Game already in Database");
-//		alert.setMessage("Please choose another Title for your game.");
-//
-//		final EditText input = new EditText(this);
-//		alert.setView(input);
-//
-//		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//			public void onClick(DialogInterface dialog, int whichButton) {
-//				String value = input.getText().toString();
-//				// game.setName(value);
-//				if (handler.tagSavedGame(value, game.getId())) {
-//					goHome(null);
-//				} else
-//					enterTitle(view);
-//			}
-//		});
-//
-//		alert.setNegativeButton("Cancel", null);
-//
-//		alert.show();
-//	}
-	
-	/**
-	 * BugFixing : Deactivates Button.
-	 */
+
 	@Override
 	public void onBackPressed() {
+		if (!handler.isGameInDatabase(id)) {
+			resumeGame(null);
+
+		}else {
+			goHome(null);
+		}
 	}
 	
 }

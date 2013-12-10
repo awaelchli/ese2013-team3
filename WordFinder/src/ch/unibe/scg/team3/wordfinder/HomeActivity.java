@@ -68,19 +68,19 @@ public class HomeActivity extends Activity {
 
 	public void startGame(View view) {
 		Intent intent = new Intent(this, GameActivity.class);
-		startActivity(intent);
+		startActivityForResult(intent, 1);
 
 	}
 
 	public void startPreferences(View view) {
 		Intent intent = new Intent(this, PreferencesActivity.class);
-		startActivity(intent);
+		startActivityForResult(intent, 2);
 
 	}
 
 	public void startSavedGames(View view) {
 		Intent intent = new Intent(this, SavedGamesActivity.class);
-		startActivity(intent);
+		startActivityForResult(intent, 3);
 	}
 
 	public void openFriends(View view) {
@@ -88,7 +88,7 @@ public class HomeActivity extends Activity {
 
 		if (me != null) {
 			Intent intent = new Intent(this, FriendsActivity.class);
-			startActivity(intent);
+			startActivityForResult(intent,4);
 		} else {
 			Toast toast = Toast.makeText(this,
 					"You are not logged in. Please sign up or log in.",
@@ -101,17 +101,6 @@ public class HomeActivity extends Activity {
 		finish();
 	}
 
-	@Override
-	protected void onDestroy() {
-		super.onStop();
-		// dataHandler.closeDB();
-	}
 
-	/**
-	 * BugFixing : Deactivates Button.
-	 */
-	@Override
-	public void onBackPressed() {
-	}
 
 }

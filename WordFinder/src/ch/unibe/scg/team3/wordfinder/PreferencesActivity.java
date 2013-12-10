@@ -30,7 +30,6 @@ public class PreferencesActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.preferences);
 		final ListPreference wordlistPref = (ListPreference) findPreference("choose_wordlist");
 		final Preference signUp = (Preference) findPreference("signUp");
-		final Preference back = (Preference) findPreference("back");
 		login = (Preference) findPreference("login");
 		logout = (Preference) findPreference("logout");
 		wHandler = new WordlistHandler(this);
@@ -54,15 +53,6 @@ public class PreferencesActivity extends PreferenceActivity {
 			public boolean onPreferenceClick(Preference preference) {
 				shareActivity();
 				return true;
-			}
-		});
-		back.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			public boolean onPreferenceClick(Preference preference) {
-			Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-			startActivity(intent);
-			finish();
-			return true;
 			}
 		});
 
@@ -134,11 +124,11 @@ public class PreferencesActivity extends PreferenceActivity {
 		}
 	}
 
-	/**
-	 * BugFixing : Deactivates Button.
-	 */
 	@Override
 	public void onBackPressed() {
+		Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+		startActivity(intent);
+		finish();
 	}
 
 }

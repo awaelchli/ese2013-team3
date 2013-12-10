@@ -54,11 +54,10 @@ public class SentRequestActivity extends Activity {
 		}
 		
 	}
-	/**
-	 * BugFixing : Deactivates Button.
-	 */
+
 	@Override
 	public void onBackPressed() {
+		onBack(null);
 	}
 	public void onBack(View view){
 		Intent intent = new Intent(getApplicationContext(),FriendsActivity.class);

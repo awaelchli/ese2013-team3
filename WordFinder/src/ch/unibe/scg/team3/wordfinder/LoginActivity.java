@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -26,12 +27,13 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		uh = new UserHandler(this);
-		//mainuser = userHandler.getMainUser();
 		
 		
 	}
 	
 	public void onCancel(View view){
+		Intent intent = new Intent(this, PreferencesActivity.class);
+		startActivity(intent);
 		finish();
 	}
 	
@@ -74,6 +76,7 @@ public class LoginActivity extends Activity {
 	 */
 	@Override
 	public void onBackPressed() {
+		onCancel(null);
 	}
 
 }

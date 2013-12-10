@@ -47,16 +47,15 @@ public class ViewSavedGameActivity extends Activity {
 		startActivity(intent);
 		finish();
 	}
-	/**
-	 * BugFixing : Deactivates Button.
-	 */
 	@Override
 	public void onBackPressed() {
+		onBack(null);
 	}
 	public void onBack(View view){
 		Intent intent = new Intent(getApplicationContext(), SavedGamesActivity.class);
 		startActivity(intent);
 		finish();
+		
 	}
 
 }

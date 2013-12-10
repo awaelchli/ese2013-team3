@@ -68,19 +68,6 @@ public class FriendshipHandlerTest extends AndroidTestCase implements
 		
 		initUsers();
 		
-		ParseUser.logInInBackground("friend2", "friend2", new LogInCallback() {
-			  public void done(ParseUser user, ParseException e) {
-			    if (user == null) {
-			    	int code = e.getCode();
-			    	String message="someting is wrong";
-			    	if(code==ParseException.OBJECT_NOT_FOUND){message="Invalid username, password combination";}
-			    	if(code==ParseException.CONNECTION_FAILED){message="Unable to connect to the internet";}
-			    	
-			    	System.out.println(message);
-			    }
-			 }
-		});
-		
 	
 	}
 
