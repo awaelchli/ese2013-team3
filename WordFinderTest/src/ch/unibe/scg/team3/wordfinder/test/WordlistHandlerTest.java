@@ -42,12 +42,12 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 
 	public void testAddWordToWordlist() throws WordlistAlreadyInDataBaseException {
 		wordlistHandler.addEmptyWordlist("TestAddWordToWordlist");
-		wordlistHandler.addWordToWordlist("teste", "TestAddWordToWordlist");
-		assertTrue(wordlistHandler.isWordInWordlist("teste",wordlistHandler.getWordlistId("TestAddWordToWordlist")));
+		wordlistHandler.addWord("teste", "TestAddWordToWordlist");
+		assertTrue(wordlistHandler.isWordInWordlist("teste", wordlistHandler.getWordlistId("TestAddWordToWordlist")));
 	}
 
 	public void testGetFirstLetterFromInputToLowerCase() {
-		assertTrue(wordlistHandler.getFirstLetterFromInputToLowerCase("Test").equals("t"));
+		assertTrue(wordlistHandler.firstLetterOf("Test").equals("t"));
 
 	}
 
@@ -62,7 +62,7 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 			throws WordlistAlreadyInDataBaseException {
 		wordlistHandler.addEmptyWordlist("TestRemoveWordFromWordlist");
 		wordlistHandler
-				.addWordToWordlist("Teste", "TestRemoveWordFromWordlist");
+				.addWord("Teste", "TestRemoveWordFromWordlist");
 		wordlistHandler.removeWordFromWordlist("teste",
 				"TestRemoveWordFromWordlist");
 		assertFalse((wordlistHandler.isWordInWordlist("Teste",
@@ -72,7 +72,7 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 	public void testIsWordInWordlist()
 			throws WordlistAlreadyInDataBaseException {
 		wordlistHandler.addEmptyWordlist("TestIsWordInWordlist");
-		wordlistHandler.addWordToWordlist("Teste", "TestIsWordInWordlist");
+		wordlistHandler.addWord("Teste", "TestIsWordInWordlist");
 		assertTrue(wordlistHandler.isWordInWordlist("Teste",
 				wordlistHandler.getWordlistId("TestIsWordInWordlist")));
 
@@ -110,7 +110,7 @@ public class WordlistHandlerTest extends AndroidTestCase implements IDataHandler
 			String temp = wordlistHandler.getRandomWordFromWordlistByLetter(a
 					.substring(i, i + 1));
 			String temp2 = wordlistHandler
-					.getFirstLetterFromInputToLowerCase(temp);
+					.firstLetterOf(temp);
 			assertTrue(a.substring(i, i + 1).equals(temp2));
 		}
 	}

@@ -3,6 +3,7 @@ package ch.unibe.scg.team3.localDatabase;
 import java.util.ArrayList;
 import java.util.Random;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -14,18 +15,28 @@ import android.preference.PreferenceManager;
  * responsibility is to mutate and manage them correctly.
  * 
  * @author nils
+ * @author adrian
  */
 public class WordlistHandler extends DataHandler {
 
-	/**
+	/*
 	 * Words with length smaller than SMALL_WORD are small words
 	 */
 	public static final int SMALL_WORD = 5;
+	/*
+	 * Words in the database are categorized into tables for short and long
+	 * words.
+	 */
 	public static final String SHORT_WORD_TABLE_SUFFIX = "short";
 	public static final String LONG_WORD_TABLE_SUFFIX = "long";
-	private static final int MINIMUM_WORD_LENGTH = 1;
+	private static final int MINIMUM_WORD_LENGTH = 3;
 
-	private String selectedWordlist;
+	private static final String TABLE_WORDLIST = "Dictionary";
+	private static final String COL_NAME = "Name";
+	private static final String COL_CONTENT = "Content";
+	private static final String COL_WORDLIST = "Dictionary";
+
+	private final String selectedWordlist;
 
 	public WordlistHandler(Context context) {
 		super(context);
@@ -36,86 +47,77 @@ public class WordlistHandler extends DataHandler {
 	}
 
 	/**
-	 * Adds a new Wordlistentry in Database
+	 * Adds a new wordlist entry in the database
 	 * 
 	 * @param name
+	 *            The name that the wordlist should be called.
 	 * @throws WordlistAlreadyInDataBaseException
+	 *             if the name is already used by some othe wordlist.
 	 */
 	public void addEmptyWordlist(String name) throws WordlistAlreadyInDataBaseException {
 
 		if (!isWordlistInDatabase(name)) {
-			helper.execSQL("INSERT INTO Dictionary VALUES(NULL, ?)", new String[] { name });
+
+			ContentValues values = new ContentValues();
+			values.put(COL_NAME, name);
+			helper.insert(TABLE_WORDLIST, null, values);
+
 		} else {
 			throw new WordlistAlreadyInDataBaseException();
 		}
 	}
 
 	/**
-	 * Adds a word to the given wordlist in main database. Pay attention that
-	 * database is closed before invoke and it will be closed after execution.
+	 * Adds a word to the given wordlist in the database. Pay attention that the
+	 * database is closed before you invoke this method and that it will be closed after
+	 * execution.
 	 * 
 	 * @param word
 	 *            should not be empty or null
 	 * @param wordlistname
 	 *            should not be empty or null
-	 * @return returns boolean value whether adding entry in database was
-	 *         successful
+	 * @return True, if the word was added successfully and false otherwise.
 	 */
-	public boolean addWordToWordlist(String word, String wordlistname) {
+	public boolean addWord(String word, String wordlistname) {
 		int wordlistId = getWordlistId(wordlistname);
+		String table = new String();
+		
+		if (word.length() < SMALL_WORD && word.length() > 0) {
+			table = firstLetterOf(word) + SHORT_WORD_TABLE_SUFFIX;
 
-		try {
-			addWordToDb(word.toLowerCase(), wordlistId);
-		} catch (SQLException e) {
-			return false;
+		} else if (word.length() >= SMALL_WORD) {
+			table = firstLetterOf(word) + LONG_WORD_TABLE_SUFFIX;
 		}
-		return true;
+		
+		ContentValues values = new ContentValues();
+		values.put(COL_WORDLIST, String.valueOf(wordlistId));
+		values.put(COL_CONTENT, word.toLowerCase());
+		long id = helper.insert(table, null, values);
+		
+		return id == -1 ? false : true;
 	}
 
 	/**
-	 * Adds a word to an OPEN! database. Its important to use this method
-	 * carefully! Database will NOT! be closed after execution!
-	 * 
 	 * @param word
-	 *            should not be empty or null
-	 * @param wordlistId
-	 *            should not be empty or null
-	 * @param db
-	 *            should be a valid dataBase
-	 * @throws SQLException
+	 *            The word should have at least one character.
+	 * @return The first letter of this word in lower case.
 	 */
-
-	private void addWordToDb(String word, int wordlistId) throws SQLException {
-		if (word.length() < SMALL_WORD && word.length() > 0) {
-
-			helper.execSQL("INSERT INTO " + getFirstLetterFromInputToLowerCase(word)
-					+ SHORT_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId + "', ?)",
-					new String[] { word.toLowerCase() });
-
-		} else if (word.length() >= SMALL_WORD) {
-			helper.execSQL("INSERT INTO " + getFirstLetterFromInputToLowerCase(word)
-					+ LONG_WORD_TABLE_SUFFIX + " VALUES(NULL, '" + wordlistId + "', ?)",
-					new String[] { word.toLowerCase() });
-
-		} else {
-			throw new SQLException();
-		}
-	}
-
-	public String getFirstLetterFromInputToLowerCase(String word) {
+	public String firstLetterOf(String word) {
 		return word.substring(0, 1).toLowerCase();
 	}
 
 	/**
-	 * Removes a wordlist given by name in main database. Pay attention that
-	 * database is closed before invoke and it will be closed after execution.
+	 * Removes a wordlist given by a name in database. Pay attention that the
+	 * database is closed before you invoke and that it will be closed after execution.
 	 * 
 	 * @param name
-	 *            name of wordlist to be removed from main database
+	 *            The name of wordlist to be removed from main database
 	 */
 	public void removeWordlist(String name) {
-
-		helper.execSQL("DELETE FROM Dictionary WHERE Name = '" + name + "'");
+		String whereClause = COL_NAME + " = ?";
+		String[] whereArgs = { name };
+		helper.delete(TABLE_WORDLIST, whereClause, whereArgs);
+//		helper.execSQL("DELETE FROM Dictionary WHERE Name = '" + name + "'");
 	}
 
 	/**
@@ -133,9 +135,9 @@ public class WordlistHandler extends DataHandler {
 		String table;
 
 		if (word.length() < SMALL_WORD) {
-			table = getFirstLetterFromInputToLowerCase(word) + SHORT_WORD_TABLE_SUFFIX;
+			table = firstLetterOf(word) + SHORT_WORD_TABLE_SUFFIX;
 		} else {
-			table = getFirstLetterFromInputToLowerCase(word) + LONG_WORD_TABLE_SUFFIX;
+			table = firstLetterOf(word) + LONG_WORD_TABLE_SUFFIX;
 		}
 		helper.execSQL("DELETE FROM " + table + " WHERE Dictionary = '" + wordlistId
 				+ "' AND content = '" + word + "'");
@@ -152,7 +154,7 @@ public class WordlistHandler extends DataHandler {
 		if (word.length() < MINIMUM_WORD_LENGTH)
 			return false;
 
-		String table = getFirstLetterFromInputToLowerCase(word);
+		String table = firstLetterOf(word);
 
 		if (word.length() < SMALL_WORD) {
 			table += SHORT_WORD_TABLE_SUFFIX;
