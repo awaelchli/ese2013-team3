@@ -8,7 +8,11 @@ import android.content.Context;
 import android.database.Cursor;
 import ch.unibe.scg.team3.sharingService.Request;
 import ch.unibe.scg.team3.user.User;
-
+/**
+ * 
+ * @author nils
+ *
+ */
 public class RequestHandler extends DataHandler {
 	private UserHandler userHandler;
 	public RequestHandler(Context context) {

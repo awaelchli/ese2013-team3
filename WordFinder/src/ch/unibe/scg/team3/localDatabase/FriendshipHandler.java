@@ -6,7 +6,9 @@ import ch.unibe.scg.team3.sharingService.Friendship;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-
+/**
+ * @author nils
+ */
 public class FriendshipHandler extends DataHandler {
 
 	public FriendshipHandler(Context context) {
