@@ -16,7 +16,6 @@ import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 /**
  * 
  * @author nils
- * 
  */
 public class PreferencesActivity extends PreferenceActivity {
 	WordlistHandler wHandler;
@@ -40,14 +39,13 @@ public class PreferencesActivity extends PreferenceActivity {
 			logout.setEnabled(true);
 		}
 
-		wordlistPref
-				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		wordlistPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
-					public boolean onPreferenceClick(Preference preference) {
-						setListPreferenceData(wordlistPref);
-						return true;
-					}
-				});
+			public boolean onPreferenceClick(Preference preference) {
+				setListPreferenceData(wordlistPref);
+				return true;
+			}
+		});
 		signUp.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			public boolean onPreferenceClick(Preference preference) {
@@ -75,13 +73,13 @@ public class PreferencesActivity extends PreferenceActivity {
 							"You are logged out now ", Toast.LENGTH_LONG);
 					toast.show();
 				} catch (Exception e) {
-					Toast toast = Toast.makeText(getApplicationContext(),
-							"Logout not successful ", Toast.LENGTH_LONG);
+					Toast toast = Toast.makeText(getApplicationContext(), "Logout not successful ",
+							Toast.LENGTH_LONG);
 					toast.show();
 					e.printStackTrace();
 					return false;
 				}
-				
+
 				return true;
 			}
 		});
@@ -126,7 +124,7 @@ public class PreferencesActivity extends PreferenceActivity {
 
 	@Override
 	public void onBackPressed() {
-		Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+		Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
 		startActivity(intent);
 		finish();
 	}

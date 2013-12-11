@@ -1,21 +1,24 @@
 package ch.unibe.scg.team3.wordfinder;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
 import ch.unibe.scg.team3.localDatabase.RequestHandler;
 import ch.unibe.scg.team3.parseQueryAdapter.SentRequestsAdapter;
 import ch.unibe.scg.team3.user.User;
 
-import com.parse.*;
+import com.parse.ParseUser;
 
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.view.Menu;
-import android.view.View;
-import android.widget.ListView;
-
+/**
+ * This activity displays all the friend requests that the current user sent to
+ * other users.
+ * 
+ * @author nils
+ */
 public class SentRequestActivity extends Activity {
 
 	private ArrayList<User> requests;
@@ -36,8 +39,7 @@ public class SentRequestActivity extends Activity {
 		super.onResume();
 
 		getFriendRequests();
-		requestAdapter = new SentRequestsAdapter(this,
-				R.id.sent_requests_list, requests);
+		requestAdapter = new SentRequestsAdapter(this, R.id.sent_requests_list, requests);
 
 		requestListView = (ListView) findViewById(R.id.sent_requests_list);
 		requestListView.setAdapter(requestAdapter);
@@ -48,19 +50,18 @@ public class SentRequestActivity extends Activity {
 		if (me != null) {
 			String id = me.getObjectId();
 			requests = requestHandler.getRequestsFromMe(id);
-		}
-		else{
+		} else {
 			requests.clear();
 		}
-		
 	}
 
 	@Override
 	public void onBackPressed() {
 		onBack(null);
 	}
-	public void onBack(View view){
-		Intent intent = new Intent(getApplicationContext(),FriendsActivity.class);
+
+	public void onBack(View view) {
+		Intent intent = new Intent(getApplicationContext(), FriendsActivity.class);
 		startActivity(intent);
 		finish();
 	}

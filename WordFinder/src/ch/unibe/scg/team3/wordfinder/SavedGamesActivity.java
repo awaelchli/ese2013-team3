@@ -19,6 +19,13 @@ import android.widget.TextView;
 import ch.unibe.scg.team3.game.SavedGame;
 import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 
+/**
+ * This activity displays the saved games. It uses an adapter which holds the
+ * games stored in the database. Only tagged games are visible.
+ * 
+ * @author adrian
+ * 
+ */
 public class SavedGamesActivity extends Activity {
 	private ArrayList<SavedGame> games;
 	private SavedGamesHandler handler;
@@ -61,6 +68,12 @@ public class SavedGamesActivity extends Activity {
 		list.setAdapter(adapter);
 	}
 
+	/**
+	 * Invoked when the user presses on a game in the list.
+	 * 
+	 * @param view
+	 *            The view the user clicked on.
+	 */
 	public void viewSavedGame(View view) {
 		SavedGame savedGame = games.get(view.getId());
 		Intent intent = new Intent(this, ViewSavedGameActivity.class);
@@ -73,11 +86,10 @@ public class SavedGamesActivity extends Activity {
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		menu.setHeaderTitle("Options");
-		//menu.add(0, v.getId(), 0, "Share");
+
 		menu.add(0, v.getId(), 0, "Delete");
 	}
 
-	@SuppressLint("NewApi")
 	public boolean onContextItemSelected(MenuItem item) {
 		if (item.getTitle() == "Share") {
 
@@ -95,13 +107,14 @@ public class SavedGamesActivity extends Activity {
 		handler.removeGame(savedGame.getId());
 		recreate();
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		onBack(null);
 	}
-	public void onBack(View view){
-		Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+
+	public void onBack(View view) {
+		Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
 		startActivity(intent);
 		finish();
 	}

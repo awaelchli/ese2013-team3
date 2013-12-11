@@ -10,6 +10,13 @@ import ch.unibe.scg.team3.gameui.BoardUI;
 import ch.unibe.scg.team3.localDatabase.SavedGamesHandler;
 import ch.unibe.scg.team3.localDatabase.WordlistHandler;
 
+/**
+ * This activity displays a saved game and its details. The user can replay the
+ * game if he wants.
+ * 
+ * @author adrian
+ * 
+ */
 public class ViewSavedGameActivity extends Activity {
 
 	private SavedGame savedGame;
@@ -40,6 +47,13 @@ public class ViewSavedGameActivity extends Activity {
 		gameOverview.setText(text);
 	}
 
+	/**
+	 * Invoked when the user clicks on the replay button. The GameActivity will
+	 * be launched.
+	 * 
+	 * @param view
+	 *            The replay button
+	 */
 	public void replaySavedGame(View view) {
 		Intent intent = getIntent();
 		intent.setClass(this, GameActivity.class);
@@ -47,15 +61,17 @@ public class ViewSavedGameActivity extends Activity {
 		startActivity(intent);
 		finish();
 	}
+
 	@Override
 	public void onBackPressed() {
 		onBack(null);
 	}
-	public void onBack(View view){
+
+	public void onBack(View view) {
 		Intent intent = new Intent(getApplicationContext(), SavedGamesActivity.class);
 		startActivity(intent);
 		finish();
-		
+
 	}
 
 }

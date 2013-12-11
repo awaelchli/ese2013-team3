@@ -72,8 +72,6 @@ public class GameInterruptActivity extends Activity {
 
 	private void makeCompareInterface() {
 
-//		displayComparedStats(game, oldGame);
-
 		Button replay = (Button) findViewById(R.id.replay_button);
 		Button update_save;
 

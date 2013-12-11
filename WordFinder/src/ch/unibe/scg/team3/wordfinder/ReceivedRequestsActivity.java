@@ -1,27 +1,24 @@
 package ch.unibe.scg.team3.wordfinder;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import ch.unibe.scg.team3.localDatabase.RequestHandler;
-import ch.unibe.scg.team3.parseQueryAdapter.ReceivedRequestsAdapter;
-import ch.unibe.scg.team3.parseQueryAdapter.SentRequestsAdapter;
-import ch.unibe.scg.team3.sharingService.Request;
-import ch.unibe.scg.team3.user.User;
-
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import ch.unibe.scg.team3.localDatabase.RequestHandler;
+import ch.unibe.scg.team3.parseQueryAdapter.ReceivedRequestsAdapter;
+import ch.unibe.scg.team3.user.User;
 
+import com.parse.ParseUser;
+
+/**
+ * This activity displays all the friend requests received from other users.
+ * Accepted requests do not show up here.
+ * 
+ * @author adrian
+ */
 public class ReceivedRequestsActivity extends Activity {
 	private ArrayList<User> requests;
 	private ListView requestListView;
@@ -41,7 +38,7 @@ public class ReceivedRequestsActivity extends Activity {
 		super.onResume();
 
 		getFriendRequests();
-		requestAdapter = new ReceivedRequestsAdapter(this,R.id.received_requests_list, requests);
+		requestAdapter = new ReceivedRequestsAdapter(this, R.id.received_requests_list, requests);
 
 		requestListView = (ListView) findViewById(R.id.received_requests_list);
 		requestListView.setAdapter(requestAdapter);
@@ -52,17 +49,18 @@ public class ReceivedRequestsActivity extends Activity {
 		if (me != null) {
 			String id = me.getObjectId();
 			requests = requestHandler.getRequestsForMe(id);
-		}
-		else{
+		} else {
 			requests.clear();
 		}
 	}
+
 	@Override
 	public void onBackPressed() {
 		onBack(null);
 	}
-	public void onBack(View view){
-		Intent intent = new Intent(getApplicationContext(),FriendsActivity.class);
+
+	public void onBack(View view) {
+		Intent intent = new Intent(getApplicationContext(), FriendsActivity.class);
 		startActivity(intent);
 		finish();
 	}
