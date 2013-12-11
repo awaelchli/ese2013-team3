@@ -4,7 +4,7 @@
 *.ear
 
 #android
-*.apk
+#*.apk
 
 # eclipse and setting files
 */eclipse
