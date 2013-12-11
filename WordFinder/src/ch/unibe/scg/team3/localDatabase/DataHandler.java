@@ -38,5 +38,8 @@ public class DataHandler {
 	public synchronized void closeDB() {
 		helper.close();
 	}
+	public synchronized void setDbLock(Boolean lock){
+		helper.setLocked(lock);
+	}
 
 }

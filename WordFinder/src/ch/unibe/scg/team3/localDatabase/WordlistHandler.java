@@ -252,15 +252,16 @@ public class WordlistHandler extends DataHandler {
 		} else {
 			table = letter + LONG_WORD_TABLE_SUFFIX;
 		}
+		helper.setLocked(true);
 		Cursor c = helper.rawQuery("SELECT Content FROM " + table + " WHERE Dictionary = '"
 				+ selectedWordlist + "' ORDER BY RANDOM() LIMIT 1", null);
-		if (c != null && c.getCount() != 0) {
-			c.moveToFirst();
+		if (c != null && c.moveToFirst()) {
 			word = c.getString(0);
 			c.close();
 		} else {
 			c.close();
 		}
+		helper.setLocked(false);
 		return word;
 	}
 
@@ -279,6 +280,7 @@ public class WordlistHandler extends DataHandler {
 		} else {
 			table = letter + LONG_WORD_TABLE_SUFFIX;
 		}
+		helper.setLocked(true);
 		Cursor c = helper.rawQuery("SELECT Content FROM " + table + " WHERE Dictionary = '"
 				+ selectedWordlist + "' AND Content LIKE '" + suffix + "%'", null);
 
@@ -286,6 +288,7 @@ public class WordlistHandler extends DataHandler {
 			list.add(c.getString(0));
 		}
 		c.close();
+		helper.setLocked(false);
 		return list;
 	}
 

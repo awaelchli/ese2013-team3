@@ -34,6 +34,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
 	private final Context context;
+	private boolean isImporting;
+	private boolean locked;
+	
+
 	private static MySQLiteHelper instance;
 
 	private MySQLiteHelper(Context context) {
@@ -63,8 +67,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			db.execSQL("PRAGMA foreign_keys=ON;");
 		}
 	}
+	public void setLocked(boolean locked) {
+		while(isImporting){}
+		this.locked = locked;
+	}
 
 	public synchronized void importDatabase() throws IOException {
+		
 		InputStream input = context.getResources().openRawResource(R.raw.localdatabase);
 		String outFileName = DB_FILEPATH + DATABASE_NAME;
 		OutputStream output = new FileOutputStream(outFileName);
@@ -109,20 +118,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		getWritableDatabase().execSQL(sql);
 	}
 
-	public synchronized void copyDB() throws IOException {
+	public void copyDB() throws IOException {
+		while(locked){}
+		isImporting = true;
 		importDatabase();
+		isImporting = false;
 	}
 
 	public synchronized Cursor rawQuery(String sql, String[] selectionArgs) {
-		Cursor cursor = null;
-		while (cursor == null) {
-			try {
-				cursor = getWritableDatabase().rawQuery(sql, selectionArgs);
-			} catch (SQLiteDatabaseCorruptException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return cursor;
+		//while(isImporting){}
+		return getWritableDatabase().rawQuery(sql, selectionArgs);
 	}
 
 	public synchronized Cursor query(String sql, String[] columns, String selection,
